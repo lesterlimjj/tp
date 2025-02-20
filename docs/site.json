@@ -1,7 +1,7 @@
 {
   "baseUrl": "",
-  "titlePrefix": "",
-  "titleSuffix": "MatchEstate",
+  "titlePrefix": "MatchEstate",
+  "titleSuffix": " ",
   "faviconPath": "images/SeEduLogo.png",
   "style": {
     "codeTheme": "light"
