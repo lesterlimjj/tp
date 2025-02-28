@@ -39,5 +39,4 @@ public class RemarkCommandParserTest {
         // no index
         assertParseFailure(parser, RemarkCommand.COMMAND_WORD + " " + nonEmptyRemark, expectedMessage);
     }
-    
 }
