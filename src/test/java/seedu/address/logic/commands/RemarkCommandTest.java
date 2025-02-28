@@ -56,4 +56,5 @@ public class RemarkCommandTest {
         // different remark -> returns false
         assertFalse(standardCommand.equals(new RemarkCommand(INDEX_FIRST_PERSON, VALID_REMARK_BOB)));
     }
+
 }
