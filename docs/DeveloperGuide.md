@@ -831,8 +831,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Listing**: Entry of a property that is currently on the market. Contains property address information. Used interchangeably with Property.
 * **Property**: The physical real estate itself. Used interchangeably with Listing.
-* **Property Preference**: The preference of people based on price range and tags .
-* **Tag Registry**: A Singleton used to store Tags to be put on properties.
+* **Property Preference**: The preference of people based on price range and tags.
+* **Tag Registry**: A Singleton used to store Tags to be put on properties and property preferences.
 
 --------------------------------------------------------------------------------------------------------------------
 
