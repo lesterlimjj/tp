@@ -272,7 +272,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target User Profile: Tim (Independent Real Estate Agent in Singapore)**
+### Target User Profile:
 
 **Overview**  
 Tim is a **busy and independent** real estate agent who manages multiple buyers and sellers simultaneously. He frequently communicates with clients via messaging applications and records their preferences from chat logs. During **client meetups, open houses, and property tours**, he takes notes on common likes and dislikes.
