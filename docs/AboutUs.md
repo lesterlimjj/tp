@@ -55,7 +55,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/toxoptimism.png" width="200px">
 
 [[github](https://github.com/ToxOptimism)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/zhaoyi.md)]
 
 * Role: Team Lead, Developer
 * Responsibilities: Documentation, Code Quality
