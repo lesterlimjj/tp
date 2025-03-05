@@ -280,7 +280,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value Proposition**  
+### Value Proposition:
 
 Real estate agents often struggle to manage buyers and sellers through messaging apps.  
 **MatchEstate** provides a **streamlined solution** to:  
