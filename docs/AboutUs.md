@@ -1,6 +1,6 @@
 ---
-  layout: default.md
-  title: "About Us"
+layout: default.md
+title: "About Us"
 ---
 
 # About Us
@@ -11,6 +11,17 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 
 ## Project team
 
+### Yap Zhao Yi
+
+<img src="images/toxoptimism.png" width="200px">
+
+[[github](https://github.com/ToxOptimism)]
+[[portfolio](team/zhaoyi.md)]
+
+* Role: Team Lead, Developer
+* Responsibilities: Documentation, Code Quality
+* In-charge of: Model Component
+
 ### Chan Xiao Yong
 
 <img src="images/caxewhy.png" width="200px">
@@ -18,18 +29,20 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 [[github](https://github.com/caxewhy)]
 [[portfolio](team/caxewhy.md)]
 
-* Role: Deliverables and deadlines, Integration, Scheduling and Tracking, Git expert
-* In-charge of: Storage component
+* Role: Developer
+* Responsibilities: Deliverables and Deadlines, Integration, Scheduling and Tracking, Git Expert
+* In-charge of: Storage Component
 
-### Jane Doe
+### Lester Lim Jia Jun
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/lesterlimjj.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/lesterlimjj)]
+[[portfolio](team/lester.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer
+* Responsibilities: Documentation, Git Expert, Intellij Expert
+* In-charge of: Logic Component
 
 ### Low Jian Cheng
 
@@ -37,25 +50,16 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 
 [[github](http://github.com/jiancheng37)] [[portfolio](team/jiancheng.md)]
 
-* Role: Testing
-* In-charge of: Testing
+* Role: Developer
+* Responsibilities: Test Cases
 
-### Jean Doe
+### Lee Lemuel John Alejo Censon
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ryuse.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/ryuse)]
+[[portfolio](team/ryuse.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: UI
+* Responsibilities: Integration
+* In-charge of: UI Component
