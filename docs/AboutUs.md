@@ -22,15 +22,16 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 * Responsibilities: Deliverables and deadlines, Integration, Scheduling and Tracking, Git expert
 * In-charge of: Storage component
 
-### Jane Doe
+### Lester Lim Jia Jun
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/lesterlimjj.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/lesterlimjj)]
+[[portfolio](team/lester.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer
+* Responsibilities: Documentation, Git Expert, Intellij Expert
+* In-charge of: Logic Component
 
 ### Low Jian Cheng
 
