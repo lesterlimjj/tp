@@ -18,7 +18,8 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 [[github](https://github.com/caxewhy)]
 [[portfolio](team/caxewhy.md)]
 
-* Role: Deliverables and deadlines, Integration, Scheduling and Tracking, Git expert
+* Role: Developer
+* Responsibilities: Deliverables and deadlines, Integration, Scheduling and Tracking, Git expert
 * In-charge of: Storage component
 
 ### Jane Doe
@@ -37,8 +38,8 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 
 [[github](http://github.com/jiancheng37)] [[portfolio](team/jiancheng.md)]
 
-* Role: Testing
-* In-charge of: Testing
+* Role: Developer
+* Responsibilities: Test Cases
 
 ### Jean Doe
 
@@ -50,12 +51,13 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Zhao Yi
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/toxoptimism.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/ToxOptimism)]
+[[portfolio](team/zhaoyi.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Team Lead, Developer
+* Responsibilities: Documentation, Code Quality
+* In-charge of: Model component

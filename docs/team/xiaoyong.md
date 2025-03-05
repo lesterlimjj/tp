@@ -1,6 +1,6 @@
 ---
-  layout: default.md
-  title: "Chan Xiao Yong's Project Portfolio Page"
+layout: default.md
+title: "Chan Xiao Yong's Project Portfolio Page"
 ---
 
 ### Project: MatchEstate

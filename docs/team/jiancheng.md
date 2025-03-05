@@ -1,6 +1,6 @@
 ---
-  layout: default.md
-  title: "Low Jian Cheng's Project Portfolio Page"
+layout: default.md
+title: "Low Jian Cheng's Project Portfolio Page"
 ---
 
 ### Project: MatchEstate
