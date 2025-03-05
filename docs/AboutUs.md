@@ -1,6 +1,6 @@
 ---
   layout: default.md
-    title: "About Us"
+  title: "About Us"
 ---
 
 # About Us
@@ -26,26 +26,26 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/caxewhy)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Low Jian Cheng
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jiancheng37.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/caxewhy)]
+[[github](http://github.com/jiancheng37)] [[portfolio](team/jiancheng.md)]
 
-* Role: Developer
-* Responsibilities: Data
+* Role: Testing
+* In-charge of: Testing
 
 ### Jean Doe
 
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/caxewhy)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
@@ -55,7 +55,7 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/caxewhy)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Developer
 * Responsibilities: UI
