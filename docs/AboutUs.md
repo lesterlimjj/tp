@@ -55,7 +55,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/ryuse.png" width="200px">
 
 [[github](http://github.com/ryuse)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/ryuse.md)]
 
 * Role: Developer
 * Responsibilities: Integration, UI
