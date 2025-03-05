@@ -1,6 +1,6 @@
 ---
 layout: default.md
-title: "Lemuel's Project Portfolio Page"
+title: "Lee Lemuel John Alejo Censon's Project Portfolio Page"
 ---
 
 ### Project: MatchEstate
