@@ -26,7 +26,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/lesterlimjj.png" width="200px">
 
 [[github](http://github.com/lesterlimjj)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/lester.md)]
 
 * Role: Documentation, Git Expert, Intellij Expert
 * In-charge of: Logic Component
