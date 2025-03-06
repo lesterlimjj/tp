@@ -280,7 +280,16 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+### Value Proposition:
+
+Real estate agents often struggle to manage buyers and sellers through messaging apps.  
+**MatchEstate** provides a **streamlined solution** to:  
+- **Track buyers and sellers easily**, including their **preferences and offerings**.  
+- **Enable fast and accurate matching** between buyers and sellers.  
+- **Designed for CLI users**, ensuring efficiency for those who prefer typing over clicking.  
+
+With **MatchEstate**, real estate agents can save time, stay organized, and close deals faster.  
+
 
 
 ### User stories
@@ -820,8 +829,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to support at least 500 buyers and 500 sellers without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. The user interface should be intuitive enough that non-tech savvy users can use it.
+5. Should complete all user commands within 2 seconds.
+6. Should automatically save data to prevent data loss.
 
 *{More to be added}*
 
@@ -829,6 +841,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Listing**: Entry of a property that is currently on the market. Contains property address information. Used interchangeably with Property.
+* **Property**: The physical real estate itself. Used interchangeably with Listing.
+* **Property Preference**: The preference of people based on price range and tags.
+* **Tag Registry**: A Singleton used to store Tags to be put on properties and property preferences.
 
 --------------------------------------------------------------------------------------------------------------------
 
