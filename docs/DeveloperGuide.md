@@ -413,11 +413,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
-    * 2a1. MatchEstate displays a message for empty list.
+    * 1a1. MatchEstate displays a message for an empty list.
 
-      Use case ends.
+      Use case resumes at 3.
 
 #### Use case: UC03 - Delete a person by index
 
@@ -427,7 +427,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  User requests to delete a specific person by index
 3.  MatchEstate deletes the person’s property preferences
 4.  MatchEstate updates the usage number of tags used by the person’s property preferences
-5.  MatchEstate deletes ownership of property for all of the person’s property
+5.  MatchEstate deletes ownership of property for all of the person’s properties
 6.  MatchEstate deletes the person
 7.  MatchEstate displays a success message.
 
@@ -441,18 +441,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. Person has no property preferences.
+* 2a. Person has no property preferences.
 
   Use case resumes at 5.
 
-* 4a. None of the person's property preferences have tags.
+* 3a. None of the person's property preferences have tags.
 
   Use case resumes at 5.
 
-* 5a. Person has no properties.
+* 4a. Person has no properties.
 
   Use case resumes at 6.
-
 #### Use case: UC04 - Add property to person
 
 **MSS**
@@ -532,7 +531,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3c. Tag to be made already  exists.
+* 3c. Tag to be made already exists.
 
     * 3c1. MatchEstate shows an error message.
 
@@ -543,9 +542,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3d1. MatchEstate shows an error message.
 
   Use case ends.
-* 4a. No new tags to be created.
+
+* 3e. No new tags to be created.
 
   Use case resumes at 5
+
+* 3f. No existing and new tags specified.
+
+  Use case resumes at 6
 
 #### Use case: UC07 - Add tag to property preference
 
@@ -587,7 +591,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 4a. No new tags to be created.
+* 3e. No new tags to be created.
+
+  Use case resumes at 5
+
+* 3f. No existing and new tags specified.
 
   Use case resumes at 6
 
@@ -628,7 +636,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to <u>list persons (UC02)</u>
+1.  User requests to <u>list persons(UC02)</u>
 2.  User requests to delete a property preference from a specific person by index
 3.  MatchEstate deletes the person’s property preferences
 4.  MatchEstate updates the usage number of tags used by the person’s property preferences
@@ -650,7 +658,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 4a. None of the person's property preferences have tags.
+* 3a. None of the person's property preferences have tags.
 
   Use case resumes at 5.
 
@@ -695,9 +703,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 5a. No new tags to be created.
+* 4a. No new tags to be created.
 
   Use case resumes at 6.
+
+* 4b. No existing and new tags specified.
+
+  Use case resumes at 8
 
 #### Use case: UC11 - List property
 
@@ -711,17 +723,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
-    * 2a1. MatchEstate displays a message for an empty list.
+    * 1a1. MatchEstate displays a message for an empty list.
 
-      Use case ends.
+      Use case resumes at 3.
 
 #### Use case: UC12 - Add tag to property
 
 **MSS**
 
-1.  User requests to <u>list property (UC11)</u>
+1.  User requests to <u>list property(UC11)</u>
 2.  User requests to <u>list tags (UC16)</u>
 3.  User requests to add a tag to property
 4.  MatchEstate creates new tags
@@ -751,9 +763,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 4a. No new tags to be created.
+* 3d. No new tags to be created.
 
   Use case resumes at 5
+
+* 3e. No existing and new tags specified.
+
+    * 3e1. MatchEstate shows an error message.
+
+  Use case ends.
 
 #### Use case: UC13 - Delete tag from property
 
@@ -803,11 +821,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 4a. The property does not have tags.
+* 3a. The property does not have tags.
 
   Use case resumes at 5.
 
-* 5a. The property is not assigned to any person
+* 3b. The property is not assigned to any person
 
   Use case resumes at 6.
 
@@ -831,6 +849,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
+
 #### Use case: UC16 - List tag
 
 **MSS**
@@ -843,11 +862,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
-    * 2a1. MatchEstate displays a message for an empty list.
+    * 1a1. MatchEstate displays a message for an empty list.
 
-      Use case ends.
+      Use case resumes at 3.
+
 
 #### Use case: UC17 - Delete tag
 
