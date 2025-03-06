@@ -274,32 +274,29 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Target User Profile:
 
-**Overview**  
-Tim is a **busy and independent** real estate agent who manages multiple buyers and sellers simultaneously. He frequently communicates with clients via messaging applications and records their preferences from chat logs. During **client meetups, open houses, and property tours**, he takes notes on common likes and dislikes.
+**Profile**  
+Tim is a busy, independent real estate agent working in Singapore, managing multiple buyers and sellers simultaneously.  
 
-**Pain Points**  
-- Struggles with **managing client details** across **messaging apps and spreadsheets**.
-- Finds it **cumbersome to manually filter and match** buyers' requests with available property listings.
-- Needs to **separate client contacts from personal contacts** for **PDPA compliance**.
-- Prefers **offline tools** due to:
-  - Security concerns (customer data leaks).
-  - Unstable internet connections.
-- Does not use **CRM or organizational tools** as they do not align with his independent work style.
+He often communicates with clients through messaging applications and understands their preferences and specifications from chat logs. During client meetups, open houses, and property tours, he may also take notes on common likes and dislikes among clients.  
+
+He records these details in an Excel sheet on his laptop, sometimes on the fly, and is highly experienced in fast typing.  
+
+Tim has noticed that many client requests can be matched with specific listings he has, but manually filtering and matching these requests with listings can be cumbersome.  
 
 **Work Patterns**  
-- **Primarily works alone**, but occasionally collaborates with other agents to exchange listing and client information.
-- Uses a **laptop and smartphone** for work.
-- Regularly **shares tools** he uses with other agents he is familiar with.
-- Works **on the go**, handling leads from **multiple sources**.
-- Commonly deals with clients whose **preferences overlap** with those of other clients.
 
-**Preferred Workflows & Tools**  
-- **Typing over clicking**: Experienced in fast typing, prefers **CLI tools** over GUI-based software for speed and efficiency.
-- **Prefers offline tools**:
-  - Ensures **data privacy** and **security**.
-  - Avoids reliance on **unstable internet connections**.
-- Records client details in **Excel spreadsheets**, sometimes updating them **on the fly**.
-- Needs a way to **quickly and accurately match buyers to sellers**.
+- Primarily works alone but may collaborate with other agents to gain information on additional listings, so he needs to send and receive listing and client information easily.  
+- Commonly works with clients, many of whom have preferences that overlap with those of other clients.  
+- Uses both a laptop and a smartphone for work.  
+- Prefers typing and, by extension, CLI tools for speed and efficiency, as he frequently needs to quickly note down client preferences.  
+- Regularly shares the tools he uses with other agents he is familiar with.  
+- Struggles to manage client details across messaging apps and spreadsheets.  
+- Needs to match buyers with sellers quickly and accurately.  
+- Works on the go, handling leads from different sources.  
+- Wants to keep client contacts separate from personal contacts for **PDPA** compliance.  
+- Prefers offline tools due to security concerns regarding potential customer data leaks.  
+- Also favors offline tools due to the possibility of an unstable internet connection.  
+- Does not use **CRM** or organizational tools, as they are beyond his job scope as an independent real estate agent.  
 
 **Value proposition**: manage contacts faster than a typical mouse/GUI driven app
 
