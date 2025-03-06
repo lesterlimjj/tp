@@ -281,14 +281,10 @@ _{Explain here how the data archiving feature will be implemented}_
 * is reasonably comfortable using CLI apps
 
 ### Value Proposition:
+Real estate agents often struggle to manage buyers and sellers through messaging apps. 
+MatchEstate allows tracking of buyers and sellers easily as well as their preferences and offerings respectively. 
+It enables fast matching of buyers and sellers. It is tailored for those who prefer CLIs.
 
-Real estate agents often struggle to manage buyers and sellers through messaging apps.  
-**MatchEstate** provides a **streamlined solution** to:  
-- **Track buyers and sellers easily**, including their **preferences and offerings**.  
-- **Enable fast and accurate matching** between buyers and sellers.  
-- **Designed for CLI users**, ensuring efficiency for those who prefer typing over clicking.  
-
-With **MatchEstate**, real estate agents can save time, stay organized, and close deals faster.  
 
 
 
