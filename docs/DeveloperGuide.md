@@ -272,13 +272,31 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+### Target User Profile:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+**Profile**  
+Tim is a busy, independent real estate agent working in Singapore, managing multiple buyers and sellers simultaneously.  
+
+He often communicates with clients through messaging applications and understands their preferences and specifications from chat logs. During client meetups, open houses, and property tours, he may also take notes on common likes and dislikes among clients.  
+
+He records these details in an Excel sheet on his laptop, sometimes on the fly, and is highly experienced in fast typing.  
+
+Tim has noticed that many client requests can be matched with specific listings he has, but manually filtering and matching these requests with listings can be cumbersome.  
+
+**Work Patterns**  
+
+- Primarily works alone but may collaborate with other agents to gain information on additional listings, so he needs to send and receive listing and client information easily.  
+- Commonly works with clients, many of whom have preferences that overlap with those of other clients.  
+- Uses both a laptop and a smartphone for work.  
+- Prefers typing and, by extension, CLI tools for speed and efficiency, as he frequently needs to quickly note down client preferences.  
+- Regularly shares the tools he uses with other agents he is familiar with.  
+- Struggles to manage client details across messaging apps and spreadsheets.  
+- Needs to match buyers with sellers quickly and accurately.  
+- Works on the go, handling leads from different sources.  
+- Wants to keep client contacts separate from personal contacts for **PDPA** compliance.  
+- Prefers offline tools due to security concerns regarding potential customer data leaks.  
+- Also favors offline tools due to the possibility of an unstable internet connection.  
+- Does not use **CRM** or organizational tools, as they are beyond his job scope as an independent real estate agent.  
 
 ### Value Proposition:
 Real estate agents often struggle to manage buyers and sellers through messaging apps. 
