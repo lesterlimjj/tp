@@ -12,7 +12,6 @@ public class Price {
             "Price must be a non-negative number with up to 2 decimal places and at least 1 digit is present. "
                     + "If no value is given, the lower bound price will be unbounded.";
 
-
     /*
      * First character must be a letter
      * The rest of the characters must be letters, apostrophes, spaces, periods, or hyphens
