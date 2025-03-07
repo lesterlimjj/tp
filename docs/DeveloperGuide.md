@@ -272,23 +272,37 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+### Target User Profile:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+**Profile**  
+Tim is a busy, independent real estate agent working in Singapore, managing multiple buyers and sellers simultaneously.  
+
+He often communicates with clients through messaging applications and understands their preferences and specifications from chat logs. During client meetups, open houses, and property tours, he may also take notes on common likes and dislikes among clients.  
+
+He records these details in an Excel sheet on his laptop, sometimes on the fly, and is highly experienced in fast typing.  
+
+Tim has noticed that many client requests can be matched with specific listings he has, but manually filtering and matching these requests with listings can be cumbersome.  
+
+**Work Patterns**  
+
+- Primarily works alone but may collaborate with other agents to gain information on additional listings, so he needs to send and receive listing and client information easily.  
+- Commonly works with clients, many of whom have preferences that overlap with those of other clients.  
+- Uses both a laptop and a smartphone for work.  
+- Prefers typing and, by extension, CLI tools for speed and efficiency, as he frequently needs to quickly note down client preferences.  
+- Regularly shares the tools he uses with other agents he is familiar with.  
+- Struggles to manage client details across messaging apps and spreadsheets.  
+- Needs to match buyers with sellers quickly and accurately.  
+- Works on the go, handling leads from different sources.  
+- Wants to keep client contacts separate from personal contacts for **PDPA** compliance.  
+- Prefers offline tools due to security concerns regarding potential customer data leaks.  
+- Also favors offline tools due to the possibility of an unstable internet connection.  
+- Does not use **CRM** or organizational tools, as they are beyond his job scope as an independent real estate agent.  
 
 ### Value Proposition:
+Real estate agents often struggle to manage buyers and sellers through messaging apps. 
+MatchEstate allows tracking of buyers and sellers easily as well as their preferences and offerings respectively. 
+It enables fast matching of buyers and sellers. It is tailored for those who prefer CLIs.
 
-Real estate agents often struggle to manage buyers and sellers through messaging apps.  
-**MatchEstate** provides a **streamlined solution** to:  
-- **Track buyers and sellers easily**, including their **preferences and offerings**.  
-- **Enable fast and accurate matching** between buyers and sellers.  
-- **Designed for CLI users**, ensuring efficiency for those who prefer typing over clicking.  
-
-With **MatchEstate**, real estate agents can save time, stay organized, and close deals faster.  
 
 
 
@@ -296,16 +310,67 @@ With **MatchEstate**, real estate agents can save time, stay organized, and clos
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority  | As a …​                                                        | I want to …​                                                                                      | So that I can…​                                                                               |
+|-----------|----------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| `* *`     | potential user                                                 | see a list of all available commands on startup                                                   | quickly learn how to use the app                                                              |
+| `* *`     | forgetful real estate agent                                    | view a help menu                                                                                  | reference how to use the system effectively                                                   |
+| `* *`     | potential user                                                 | have the application come preloaded with sample data                                              | easily try all the commands before adding my real clients                                     |
+| `* *`     | new user                                                       | clear the sample data                                                                             | populate the application with actual data                                                     |
+| `* *`     | real estate agent                                              | clear all data                                                                                    | reset the system when necessary                                                               |
+| `* * *`   | new user                                                       | add my previously accumulated buyer and seller profile information                                | populate the data in the app with my previously recorded data                                 |
+| `* * *`   | new user                                                       | remove the app's default tags that are created                                                    | eventually replace it with my own personalized tags                                           |
+| `* * *`   | real estate agent                                              | add buyer information                                                                             | manage my buyers easily                                                                       |
+| `* * *`   | real estate agent                                              | add seller information                                                                            | manage my sellers easily                                                                      |
+| `* * *`   | real estate agent                                              | view all clients                                                                                  | easily track the clients I have                                                               |
+| `* *`     | real estate agent                                              | edit a person's details                                                                           | update their information when needed                                                          |
+| `* * *`   | real estate agent                                              | delete a client                                                                                   | only track relevant clients                                                                   |
+| `* *`     | real estate agent                                              | find a client by name                                                                             | quickly retrieve the details of a specific client                                             |
+| `* * *`   | real estate agent                                              | add property information                                                                          | manage my listings easily                                                                     |
+| `* * *`   | real estate agent                                              | add a property to a person                                                                        | track how many properties they are selling                                                    |
+| `* * *`   | real estate agent                                              | add a property to a person                                                                        | track the property's current seller                                                           |
+| `* * *`   | real estate agent                                              | add the preferences of a person                                                                   | track what type of properties they are interested in purchasing                               |
+| `* * *`   | real estate agent                                              | add more than one property preference                                                             | simultaneously track multiple distinct properties a client is interested in purchasing        |
+| `* * *`   | real estate agent                                              | add tags to a property preference                                                                 | categorize a person’s buying interests more effectively                                       |
+| `* * *`   | real estate agent                                              | remove a tag from a property preference                                                           | adjust my information to match a person's interests as they change                            |
+| `* *`     | real estate agent                                              | overwrite tags in a property preference                                                           | completely update a person's buying criteria as necessary                                     |
+| `* * *`   | real estate agent                                              | delete a property preference from a person                                                        | remove no longer relevant buying interests from the systemy                                   |
+| `* * *`   | real estate agent                                              | add a property                                                                                    | track the information in the system                                                           |
+| `* * *`   | real estate agent                                              | view all listings                                                                                 | easily track the properties that are listed for sale                                          |
+| `* * *`   | real estate agent                                              | add tags to a property                                                                            | categorize the property by its key details                                                    |
+| `* * *`   | careless real estate agent                                     | remove a tag from a property                                                                      | correct the details if necessary                                                              |
+| `* *`     | careless real estate agent                                     | overwrite tags in a property                                                                      | completely update its categorization if necessary                                             |
+| `* * *`   | real estate agent                                              | delete a property                                                                                 | remove no longer relevant listings from the system                                            |
+| `* * *`   | real estate agent                                              | mark a property as unavailable                                                                    | ensure that listings that are on hold are no longer considered for matching                   |
+| `* * `    | real estate agent                                              | mark a property as available when the listing is no longer on hold                                | ensure that listings that are no longer on hold can be considered for matching.               |
+| `* *   `  | real estate agent                                              | match a person with properties based on the number of common tags and budget                      | quickly find listings that fit their preferences                                              |
+| `* *  `   | real estate agent                                              | match a property with potential buyers based on the number of common tags and their budget        | identify interested persons efficiently.                                                      |
+| `* * `    | real estate agent                                              | filter properties based on a person’s preferences                                                 | provide targeted property recommendations.                                                    |
+| `* * * `  | real estate agent                                              | add custom tags                                                                                   | customize the categorization of property preferences and properties according to my workflow. |
+| `* * *  ` | real estate agent                                              | add custom tags                                                                                   | capture niche preferences (such as pet-friendly).                                             |
+| `* * * `  | real estate agent                                              | list all tags                                                                                     | see the available categories in the system.                                                   |
+| `* * * `  | real estate agent                                              | delete a tag                                                                                      | remove outdated and unnecessary categorization from the system.                               |
+| `* * *  ` | careless real estate agent                                     | delete a tag                                                                                      | remove tags that I have mistakenly added.                                                     |
+| `* *   `  | real estate agent                                              | search for properties by tags                                                                     | quickly find relevant listings.                                                               |
+| `* *  `   | real estate agent                                              | search for persons by tags                                                                        | find buyers based on their property preferences                                               |
+| `*   `    | real estate agent                                              | attach notes to my clients                                                                        | keep track of specific client requirements beyond common tags                                 |
+| `* *   `  | real estate agent                                              | update my buyer’s information when new information is available                                   | ensure that my information remains accurate and up to date                                    |
+| `* *   `  | real estate agent                                              | update my seller’s information when new information is available                                  | ensure that my information remains accurate and up to date                                    |
+| `* *   `  | real estate agent                                              | update my listing’s information when new information is available                                 | ensure that my information remains accurate and up to date.                                   |
+| `*     `  | inexperienced user                                             | undo accidental deletions or edits                                                                | revert mistakes quickly                                                                       |
+| `* *   `  | real estate agent                                              | filter listings based on price range                                                              | focus on properties within the buyer’s budget.                                                |
+| `*     `  | real estate agent                                              | be able to list properties that clients have already toured                                       | avoid re-touring them on the same listing by accident.                                        |
+| `*     `  | real estate agent                                              | be able to add properties that the clients liked                                                  | keep track of the properties that they are interested in.                                     |
+| `*     `  | independent real estate agent                                  | be able to export a list of buyers                                                                | share them with other agents for collaboration.                                               |
+| `*     `  | frequent user                                                  | archive buyers and sellers who are inactive                                                       | reduce clutter when matching/searching.                                                       |
+| `*     `  | efficient user who may not have access to the app at all times | write bulk commands in a text file to add, edit or delete client details at the end of the day    | update information without having the application on hand.                                    |
+| `*     `  | real estate agent                                              | view the status of a deal (e.g., Inquiry, Viewing, Offer, Closed)                                 | understand the deal’s progression at a glance.                                                |
+| `*     `  | real estate agent                                              | be able to create backups and restore data via CLI commands                                       | do not risk losing client information in the event of data corruption.                        |
+| `*     `  | real estate agent                                              | be able to view a log of all commands executed                                                    | review my past commands.                                                                      |
+| `*     `  | power user                                                     | create custom command aliases (e.g., mb for match --batch)                                        | customize the commands to my workflow and work more efficiently.                              |
+| `*     `  | real estate agent                                              | store notes for each deal                                                                         | keep track of important discussions.                                                          |
+| `*     `  | real estate agent                                              | create a simple summary of all buyers and listings                                                | use it for basic data analytics purposes and understand my portfolio demographic.             |
+| `*     `  | real estate agent                                              | auto-generate templated messages for matched buyers and sellers and export them to WhatsApp/Email | ensure that the process of writing electronic direct mails is simplified.                     |
 
-*{More to be added}*
 
 ### Use cases
 
@@ -348,11 +413,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
-    * 2a1. MatchEstate displays a message for empty list.
+    * 1a1. MatchEstate displays a message for an empty list.
 
-      Use case ends.
+      Use case resumes at 3.
 
 #### Use case: UC03 - Delete a person by index
 
@@ -362,7 +427,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  User requests to delete a specific person by index
 3.  MatchEstate deletes the person’s property preferences
 4.  MatchEstate updates the usage number of tags used by the person’s property preferences
-5.  MatchEstate deletes ownership of property for all of the person’s property
+5.  MatchEstate deletes ownership of property for all of the person’s properties
 6.  MatchEstate deletes the person
 7.  MatchEstate displays a success message.
 
@@ -376,18 +441,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. Person has no property preferences.
+* 2a. Person has no property preferences.
 
   Use case resumes at 5.
 
-* 4a. None of the person's property preferences have tags.
+* 3a. None of the person's property preferences have tags.
 
   Use case resumes at 5.
 
-* 5a. Person has no properties.
+* 4a. Person has no properties.
 
   Use case resumes at 6.
-
 #### Use case: UC04 - Add property to person
 
 **MSS**
@@ -467,7 +531,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3c. Tag to be made already  exists.
+* 3c. Tag to be made already exists.
 
     * 3c1. MatchEstate shows an error message.
 
@@ -478,9 +542,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3d1. MatchEstate shows an error message.
 
   Use case ends.
-* 4a. No new tags to be created.
+
+* 3e. No new tags to be created.
 
   Use case resumes at 5
+
+* 3f. No existing and new tags specified.
+
+  Use case resumes at 6
 
 #### Use case: UC07 - Add tag to property preference
 
@@ -522,7 +591,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 4a. No new tags to be created.
+* 3e. No new tags to be created.
+
+  Use case resumes at 5
+
+* 3f. No existing and new tags specified.
 
   Use case resumes at 6
 
@@ -563,7 +636,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to <u>list persons (UC02)</u>
+1.  User requests to <u>list persons(UC02)</u>
 2.  User requests to delete a property preference from a specific person by index
 3.  MatchEstate deletes the person’s property preferences
 4.  MatchEstate updates the usage number of tags used by the person’s property preferences
@@ -585,7 +658,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 4a. None of the person's property preferences have tags.
+* 3a. None of the person's property preferences have tags.
 
   Use case resumes at 5.
 
@@ -630,9 +703,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 5a. No new tags to be created.
+* 4a. No new tags to be created.
 
   Use case resumes at 6.
+
+* 4b. No existing and new tags specified.
+
+  Use case resumes at 8
 
 #### Use case: UC11 - List property
 
@@ -646,17 +723,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
-    * 2a1. MatchEstate displays a message for an empty list.
+    * 1a1. MatchEstate displays a message for an empty list.
 
-      Use case ends.
+      Use case resumes at 3.
 
 #### Use case: UC12 - Add tag to property
 
 **MSS**
 
-1.  User requests to <u>list property (UC11)</u>
+1.  User requests to <u>list property(UC11)</u>
 2.  User requests to <u>list tags (UC16)</u>
 3.  User requests to add a tag to property
 4.  MatchEstate creates new tags
@@ -686,9 +763,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 4a. No new tags to be created.
+* 3d. No new tags to be created.
 
   Use case resumes at 5
+
+* 3e. No existing and new tags specified.
+
+    * 3e1. MatchEstate shows an error message.
+
+  Use case ends.
 
 #### Use case: UC13 - Delete tag from property
 
@@ -738,11 +821,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 4a. The property does not have tags.
+* 3a. The property does not have tags.
 
   Use case resumes at 5.
 
-* 5a. The property is not assigned to any person
+* 3b. The property is not assigned to any person
 
   Use case resumes at 6.
 
@@ -766,6 +849,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
+
 #### Use case: UC16 - List tag
 
 **MSS**
@@ -778,11 +862,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
-    * 2a1. MatchEstate displays a message for an empty list.
+    * 1a1. MatchEstate displays a message for an empty list.
 
-      Use case ends.
+      Use case resumes at 3.
+
 
 #### Use case: UC17 - Delete tag
 
