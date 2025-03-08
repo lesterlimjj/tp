@@ -50,7 +50,7 @@ public class TagRegistry implements Iterable<Tag> {
      * Checks if the hashmap contains an equivalent tag with the same tag name as the given argument.
      *
      * @param toCheck the tag to check if it exists in the hashmap as a key.
-     * @return true if the list contains an equivalent tag with the same tag name as the given argument.
+     * @return true if the hashmap contains an equivalent tag with the same tag name as the given argument.
      *         false otherwise.
      */
     public boolean contains(Tag toCheck) {
@@ -154,7 +154,7 @@ public class TagRegistry implements Iterable<Tag> {
     }
 
     /**
-     * Returns the backing list as an unmodifiable {@code ObservableMap}.
+     * Returns the backing map as an unmodifiable {@code ObservableMap}.
      *
      * @return the unmodifiable map.
      */
