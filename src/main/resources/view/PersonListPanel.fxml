@@ -3,6 +3,16 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
+
+  <Label styleClass="label-bright" text="Clients:"/>
+  <StackPane styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+    <padding>
+      <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
+    <ListView fx:id="personListView" VBox.vgrow="ALWAYS"/>
+  </StackPane>
 </VBox>
