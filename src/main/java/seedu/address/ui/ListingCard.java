@@ -43,7 +43,7 @@ public class ListingCard extends UiPart<Region> {
     private Label priceRange;
 
     /**
-     * Creates a {@code PropertyCode} with the given {@code Property} and index to display.
+     * Creates a {@code ListingCode} with the given {@code Listing} and index to display.
      */
     public ListingCard(Listing listing, int displayedIndex) {
         super(FXML);
