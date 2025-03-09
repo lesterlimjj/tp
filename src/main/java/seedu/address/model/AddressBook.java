@@ -6,8 +6,11 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.listing.Listing;
+import seedu.address.model.listing.UniqueListingList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.TagRegistry;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +19,8 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueListingList listings;
+    private final TagRegistry tagRegistry;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +31,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        listings = new UniqueListingList();
+        tagRegistry = TagRegistry.of();
     }
 
     public AddressBook() {}
@@ -48,6 +55,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    public void setListings(List<Listing> listings) {
+        this.listings.setListings(listings);
+    }
+
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -55,6 +67,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+    }
+
+    @Override
+    public ObservableList<Listing> getListingList() {
+        return listings.asUnmodifiableObservableList();
     }
 
     //// person-level operations
@@ -68,11 +85,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a listing with the same identity as {@code listing} exists in the address book.
+     *
+     * @param listing the listing to check for
+     * @return true if the listing exists, false otherwise
+     */
+    public boolean hasListing(Listing listing) {
+        requireNonNull(listing);
+        return listings.contains(listing);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Adds a listing to the address book.
+     * The listing must not already exist in the address book.
+     */
+    public void addListing(Listing listing) {
+        listings.add(listing);
     }
 
     /**
