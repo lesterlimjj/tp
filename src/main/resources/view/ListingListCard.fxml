@@ -36,6 +36,9 @@
                     <Label fx:id="priceRange" styleClass="cell_small_label" text="\$priceRange"/>
                 </VBox>
             </HBox>
+            <FlowPane fx:id="tags"/>
+
+            <StackPane fx:id="ownerListPanelPlaceholder" VBox.vgrow="NEVER" maxHeight="150"/>
         </VBox>
     </GridPane>
 </HBox>

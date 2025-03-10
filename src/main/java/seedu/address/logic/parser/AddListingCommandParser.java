@@ -10,6 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UNIT_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -24,9 +26,10 @@ import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 
 /**
- * Parses input arguments and creates a new AddListingCommand object
+ * Parses input arguments and creates a new {@code AddListingCommand} object.
  */
 public class AddListingCommandParser implements Parser<AddListingCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddPersonCommand
      * and returns an AddPersonCommand object for execution.
@@ -57,8 +60,8 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
         Price lowerBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_LOWER_BOUND_PRICE).orElse(null));
         Price upperBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_UPPER_BOUND_PRICE).orElse(null));
         PriceRange priceRange = createPriceRange(lowerBoundPrice, upperBoundPrice);
-        PropertyName propertyName = ParserUtil.parsePropertyName(argMultimap.getValue(PREFIX_PROPERTY_NAME)
-                .orElse(null));
+        PropertyName propertyName = ParserUtil.parsePropertyName(argMultimap
+                .getValue(PREFIX_PROPERTY_NAME).orElse(null));
         Listing listing = createListing(postalCode, unitNumber, houseNumber, priceRange, propertyName);
 
         Set<String> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
@@ -90,14 +93,15 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
     private static Listing createListing(PostalCode postalCode, UnitNumber unitNumber, HouseNumber houseNumber,
                                          PriceRange priceRange, PropertyName propertyName) {
         if (unitNumber == null && propertyName == null) {
-            return new Listing(postalCode, houseNumber, priceRange);
+            return new Listing(postalCode, houseNumber, priceRange, new HashSet<>(), new ArrayList<>());
         } else if (houseNumber == null && propertyName == null) {
-            return new Listing(postalCode, unitNumber, priceRange);
+            return new Listing(postalCode, unitNumber, priceRange, new HashSet<>(), new ArrayList<>());
         }
 
         if (unitNumber == null) {
-            return new Listing(postalCode, houseNumber, priceRange, propertyName);
+            return new Listing(postalCode, houseNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>());
         }
-        return new Listing(postalCode, unitNumber, priceRange, propertyName);
+        return new Listing(postalCode, unitNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>());
     }
+
 }
