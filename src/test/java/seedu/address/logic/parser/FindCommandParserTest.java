@@ -18,7 +18,8 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        String expectedMessage = "ERROR: Missing parameters. You must provide at least one keyword.";
+        assertParseFailure(parser, "     ", expectedMessage);
     }
 
     @Test

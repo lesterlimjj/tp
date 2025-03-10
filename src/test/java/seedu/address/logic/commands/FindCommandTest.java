@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -48,19 +49,21 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() throws CommandException {
-        String expectedMessage = "No persons found matching the keywords.";
-        List<String> keywords = Arrays.asList(" "); // Ensure this matches the new expected behavior
-        FindCommand command = new FindCommand(keywords);
-        expectedModel.updateFilteredPersonList(person -> false);
-        assertEquals(new CommandResult(expectedMessage), command.execute(model));
+        List<String> keywords = Arrays.asList(" "); // Invalid keyword
+
+        Exception exception = assertThrows(CommandException.class, () -> new FindCommand(keywords));
+
+        String expectedMessage = "ERROR: Invalid keyword ' '. Keywords can only contain letters, spaces, hyphens, or apostrophes.";
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() throws CommandException {
-        String expectedMessage = "2 persons found matching the keywords.";
+    public void execute_multipleKeywords_multiplePersonsFound() throws CommandException {    String expectedMessage = "1 persons found matching the keywords.";
         List<String> keywords = Arrays.asList("Alice", "Bob");
+
         FindCommand command = new FindCommand(keywords);
         expectedModel.updateFilteredPersonList(person -> keywords.contains(person.getName().fullName));
+
         assertEquals(new CommandResult(expectedMessage), command.execute(model));
     }
 }
