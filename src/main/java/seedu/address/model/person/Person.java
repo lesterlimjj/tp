@@ -2,9 +2,13 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.listing.Listing;
 
 /**
  * Represents a Person in the address book.
@@ -13,15 +17,31 @@ import seedu.address.commons.util.ToStringBuilder;
 public class Person {
 
     // Identity fields
-    private final Name name;
     private final Phone phone;
+
+    // Data fields
+    private final Name name;
     private final Email email;
+
+    // Associations
+    private final List<Listing> listings = new ArrayList<>();
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, List<Listing> listings) {
+        requireAllNonNull(name, phone, email, listings);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.listings.addAll(listings);
+    }
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email) {
-        requireAllNonNull(name, phone, email);
+        requireAllNonNull(name, phone, email, listings);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -37,6 +57,14 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    /**
+     * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<Listing> getListings() {
+        return Collections.unmodifiableList(listings);
     }
 
     /**
@@ -70,13 +98,14 @@ public class Person {
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email);
+                && email.equals(otherPerson.email)
+                && listings.equals(otherPerson.listings);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email);
+        return Objects.hash(name, phone, email, listings);
     }
 
     @Override
@@ -85,6 +114,7 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
+                .add("listings", listings)
                 .toString();
     }
 
