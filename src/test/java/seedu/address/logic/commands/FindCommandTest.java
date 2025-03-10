@@ -53,12 +53,14 @@ public class FindCommandTest {
 
         Exception exception = assertThrows(CommandException.class, () -> new FindCommand(keywords));
 
-        String expectedMessage = "ERROR: Invalid keyword ' '. Keywords can only contain letters, spaces, hyphens, or apostrophes.";
+        String expectedMessage =
+                "ERROR: Invalid keyword ' '. Keywords can only contain letters, spaces, hyphens, or apostrophes.";
         assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() throws CommandException {    String expectedMessage = "1 persons found matching the keywords.";
+    public void execute_multipleKeywords_multiplePersonsFound() throws CommandException {
+        String expectedMessage = "1 persons found matching the keywords.";
         List<String> keywords = Arrays.asList("Alice", "Bob");
 
         FindCommand command = new FindCommand(keywords);

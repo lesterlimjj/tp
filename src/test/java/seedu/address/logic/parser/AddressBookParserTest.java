@@ -69,7 +69,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("Alice", "Bob");
-        FindCommand command = (FindCommand) parser.parseCommand("find Alice Bob");
+        FindCommand command = (FindCommand) parser.parseCommand("findPerson Alice Bob");
 
         assertEquals(new FindCommand(keywords), command);
     }
