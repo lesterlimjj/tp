@@ -48,9 +48,9 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() throws CommandException {
-        String expectedMessage = "0 persons found matching the keywords.";
-        List<String> predicate = Arrays.asList(" ");
-        FindCommand command = new FindCommand(predicate);
+        String expectedMessage = "No persons found matching the keywords.";
+        List<String> keywords = Arrays.asList(" ");  // Ensure this matches the new expected behavior
+        FindCommand command = new FindCommand(keywords);
         expectedModel.updateFilteredPersonList(person -> false);
         assertEquals(new CommandResult(expectedMessage), command.execute(model));
     }
@@ -58,9 +58,9 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() throws CommandException {
         String expectedMessage = "2 persons found matching the keywords.";
-        List<String> predicate = Arrays.asList("Alice", "Bob");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(person -> predicate.contains(person.getName().fullName));
+        List<String> keywords = Arrays.asList("Alice", "Bob");
+        FindCommand command = new FindCommand(keywords);
+        expectedModel.updateFilteredPersonList(person -> keywords.contains(person.getName().fullName));
         assertEquals(new CommandResult(expectedMessage), command.execute(model));
     }
 }
