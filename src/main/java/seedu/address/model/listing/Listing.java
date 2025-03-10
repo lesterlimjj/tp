@@ -146,7 +146,9 @@ public class Listing {
         return priceRange;
     }
 
-    public PropertyName getPropertyName() {return propertyName; }
+    public PropertyName getPropertyName() {
+        return propertyName;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
