@@ -1,15 +1,20 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUSE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER_BOUND_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POSTAL_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UNIT_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -20,13 +25,16 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.PostalCode;
 import seedu.address.model.listing.PropertyName;
 import seedu.address.model.listing.UnitNumber;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
+import seedu.address.model.tag.Tag;
 
-/**
- * Parses input arguments and creates a new AddListingCommand object
- */
 public class AddListingCommandParser implements Parser<AddListingCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddPersonCommand
      * and returns an AddPersonCommand object for execution.
@@ -57,8 +65,7 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
         Price lowerBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_LOWER_BOUND_PRICE).orElse(null));
         Price upperBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_UPPER_BOUND_PRICE).orElse(null));
         PriceRange priceRange = createPriceRange(lowerBoundPrice, upperBoundPrice);
-        PropertyName propertyName = ParserUtil.parsePropertyName(argMultimap.getValue(PREFIX_PROPERTY_NAME)
-                .orElse(null));
+        PropertyName propertyName = ParserUtil.parsePropertyName(argMultimap.getValue(PREFIX_PROPERTY_NAME).orElse(null));
         Listing listing = createListing(postalCode, unitNumber, houseNumber, priceRange, propertyName);
 
         Set<String> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
@@ -90,14 +97,15 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
     private static Listing createListing(PostalCode postalCode, UnitNumber unitNumber, HouseNumber houseNumber,
                                          PriceRange priceRange, PropertyName propertyName) {
         if (unitNumber == null && propertyName == null) {
-            return new Listing(postalCode, houseNumber, priceRange);
+            return new Listing(postalCode, houseNumber, priceRange, new HashSet<>(), new ArrayList<>());
         } else if (houseNumber == null && propertyName == null) {
-            return new Listing(postalCode, unitNumber, priceRange);
+            return new Listing(postalCode, unitNumber, priceRange, new HashSet<>(), new ArrayList<>());
         }
 
         if (unitNumber == null) {
-            return new Listing(postalCode, houseNumber, priceRange, propertyName);
+            return new Listing(postalCode, houseNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>());
         }
-        return new Listing(postalCode, unitNumber, priceRange, propertyName);
+        return new Listing(postalCode, unitNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>());
     }
+
 }

@@ -1,11 +1,17 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.listing.Listing;
+import seedu.address.model.person.Person;
 
 
 /**
@@ -24,6 +30,7 @@ public class ListingCard extends UiPart<Region> {
      */
 
     public final Listing listing;
+
     @FXML
     private StackPane ownerListPanelPlaceholder;
 
@@ -42,8 +49,11 @@ public class ListingCard extends UiPart<Region> {
     @FXML
     private Label priceRange;
 
+    @FXML
+    private FlowPane tags;
+
     /**
-     * Creates a {@code ListingCode} with the given {@code Listing} and index to display.
+     * Creates a {@code PropertyCode} with the given {@code Property} and index to display.
      */
     public ListingCard(Listing listing, int displayedIndex) {
         super(FXML);
@@ -67,7 +77,16 @@ public class ListingCard extends UiPart<Region> {
         }
 
         priceRange.setText(listing.getPriceRange().toString());
+
+
+
+        listing.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        ObservableList<Person> ownerList = FXCollections.observableList(listing.getOwners());
+
+
     }
 }
-
 

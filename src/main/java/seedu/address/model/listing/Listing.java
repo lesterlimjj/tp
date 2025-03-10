@@ -2,10 +2,17 @@ package seedu.address.model.listing;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Person;
 import seedu.address.model.price.PriceRange;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Listing in the real estate system.
@@ -23,6 +30,10 @@ public class Listing {
     private final PriceRange priceRange;
     private final PropertyName propertyName;
 
+    // Associations
+    private final Set<Tag> tags = new HashSet<>();
+    private final List<Person> owners = new ArrayList<>();
+
     /**
      * Constructs an {@code Listing}.
      * Every field except for house number must be present and not null.
@@ -31,14 +42,19 @@ public class Listing {
      * @param postalCode A valid postal code.
      * @param unitNumber A valid unit number.
      * @param priceRange A valid price range.
+     * @param tags A valid set of tags.
+     * @param owners A valid list of owners.
      */
-    public Listing(PostalCode postalCode, UnitNumber unitNumber, PriceRange priceRange) {
-        requireAllNonNull(postalCode, unitNumber, priceRange);
+    public Listing(PostalCode postalCode, UnitNumber unitNumber, PriceRange priceRange,
+                   Set<Tag> tags, List<Person> owners) {
+        requireAllNonNull(postalCode, unitNumber, priceRange, tags, owners);
         this.postalCode = postalCode;
         this.unitNumber = unitNumber;
         this.houseNumber = null;
         this.priceRange = priceRange;
         this.propertyName = null;
+        this.tags.addAll(tags);
+        this.owners.addAll(owners);
     }
 
     /**
@@ -49,14 +65,19 @@ public class Listing {
      * @param postalCode A valid postal code.
      * @param houseNumber A valid house number.
      * @param priceRange A valid price range.
+     * @param tags A valid set of tags.
+     * @param owners A valid list of owners.
      */
-    public Listing(PostalCode postalCode, HouseNumber houseNumber, PriceRange priceRange) {
-        requireAllNonNull(postalCode, houseNumber, priceRange);
+    public Listing(PostalCode postalCode, HouseNumber houseNumber, PriceRange priceRange,
+                   Set<Tag> tags, List<Person> owners) {
+        requireAllNonNull(postalCode, houseNumber, priceRange, tags, owners);
         this.postalCode = postalCode;
         this.unitNumber = null;
         this.houseNumber = houseNumber;
         this.priceRange = priceRange;
         this.propertyName = null;
+        this.tags.addAll(tags);
+        this.owners.addAll(owners);
     }
 
     /**
@@ -68,14 +89,19 @@ public class Listing {
      * @param unitNumber A valid unit number.
      * @param priceRange A valid price range.
      * @param propertyName A valid property name.
+     * @param tags A valid set of tags.
+     * @param owners A valid list of owners.
      */
-    public Listing(PostalCode postalCode, UnitNumber unitNumber, PriceRange priceRange, PropertyName propertyName) {
-        requireAllNonNull(postalCode, unitNumber, priceRange, propertyName);
+    public Listing(PostalCode postalCode, UnitNumber unitNumber, PriceRange priceRange,
+                   PropertyName propertyName, Set<Tag> tags, List<Person> owners) {
+        requireAllNonNull(postalCode, unitNumber, priceRange, propertyName, tags, owners);
         this.postalCode = postalCode;
         this.unitNumber = unitNumber;
         this.houseNumber = null;
         this.priceRange = priceRange;
         this.propertyName = propertyName;
+        this.tags.addAll(tags);
+        this.owners.addAll(owners);
     }
 
     /**
@@ -87,14 +113,19 @@ public class Listing {
      * @param houseNumber A valid house number.
      * @param priceRange A valid price range.
      * @param propertyName A valid property name.
+     * @param tags A valid set of tags.
+     * @param owners A valid list of owners.
      */
-    public Listing(PostalCode postalCode, HouseNumber houseNumber, PriceRange priceRange, PropertyName propertyName) {
-        requireAllNonNull(postalCode, houseNumber, priceRange, propertyName);
+    public Listing(PostalCode postalCode, HouseNumber houseNumber, PriceRange priceRange,
+                   PropertyName propertyName, Set<Tag> tags, List<Person> owners) {
+        requireAllNonNull(postalCode, houseNumber, priceRange, propertyName, tags, owners);
         this.postalCode = postalCode;
         this.unitNumber = null;
         this.houseNumber = houseNumber;
         this.priceRange = priceRange;
         this.propertyName = propertyName;
+        this.tags.addAll(tags);
+        this.owners.addAll(owners);
     }
 
 
@@ -115,8 +146,22 @@ public class Listing {
         return priceRange;
     }
 
-    public PropertyName getPropertyName() {
-        return propertyName;
+    public PropertyName getPropertyName() {return propertyName; }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable owners list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<Person> getOwners() {
+        return Collections.unmodifiableList(owners);
     }
 
     /**
@@ -160,12 +205,14 @@ public class Listing {
                 && Objects.equals(unitNumber, otherListing.unitNumber)
                 && Objects.equals(houseNumber, otherListing.houseNumber)
                 && priceRange.equals(otherListing.priceRange)
-                && propertyName.equals(otherListing.propertyName);
+                && propertyName.equals(otherListing.propertyName)
+                && tags.equals(otherListing.tags)
+                && owners.equals(otherListing.owners);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(postalCode, unitNumber, houseNumber, priceRange, propertyName);
+        return Objects.hash(postalCode, unitNumber, houseNumber, priceRange, propertyName, tags, owners);
     }
 
     @Override
@@ -186,7 +233,9 @@ public class Listing {
         }
 
         stringBuilder.add("price range", priceRange)
-                .add("property name", propertyName);
+                .add("property name", propertyName)
+                .add("tags", tags)
+                .add("owners", owners);
 
         return stringBuilder.toString();
     }
