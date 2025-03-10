@@ -49,7 +49,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() throws CommandException {
         String expectedMessage = "No persons found matching the keywords.";
-        List<String> keywords = Arrays.asList(" ");  // Ensure this matches the new expected behavior
+        List<String> keywords = Arrays.asList(" "); // Ensure this matches the new expected behavior
         FindCommand command = new FindCommand(keywords);
         expectedModel.updateFilteredPersonList(person -> false);
         assertEquals(new CommandResult(expectedMessage), command.execute(model));
