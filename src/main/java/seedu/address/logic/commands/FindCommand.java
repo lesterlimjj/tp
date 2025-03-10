@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -21,12 +20,13 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "findPerson";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names match the given keyword(s). "
-            + "Keywords must contain only letters, spaces, hyphens, or apostrophes.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds all persons whose names match the given keyword(s). "
+            + "Keywords must contain only letters, spaces, hyphens, full stops, or apostrophes.\n"
             + "Parameters: " + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " Alex Yeoh";
 
-    private static final String VALID_NAME_REGEX = "^[A-Za-z][A-Za-z' -]{0,49}$";
+    private static final String VALID_NAME_REGEX = "^[A-Za-z][A-Za-z' .-]{0,49}$";
     private static final Pattern VALID_NAME_PATTERN = Pattern.compile(VALID_NAME_REGEX);
 
     private final List<String> keywords;
