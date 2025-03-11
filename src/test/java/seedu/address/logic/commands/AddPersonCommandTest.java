@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -90,6 +92,9 @@ public class AddPersonCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
+        private final Set<String> storedTags = new HashSet<>();
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -178,6 +183,29 @@ public class AddPersonCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTags(Set<String> tags) {
+            return false;
+        }
+
+        @Override
+        public boolean hasNewTags(Set<String> tags) {
+            return false;
+        }
+
+        @Override
+        public void addTags(Set<String> tags) {
+            storedTags.addAll(tags); // Allows tracking tags for testing
+        }
+
+        @Override
+        public void addListingToTags(Set<String> tags, Listing listing) {
+            // Store listing association with tags if needed
+            for (String tag : tags) {
+                System.out.println("Added listing to tag: " + tag);
+            }
         }
     }
 
