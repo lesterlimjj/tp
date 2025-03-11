@@ -22,10 +22,9 @@ public class Tag {
             + "contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus signs,"
             + " and ampersands. The tag cannot be blank and must not already exist.";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9' ._+&-]{2,50}$";
-
-    private static TagRegistry tagRegistry = TagRegistry.of();
     // Identity fields
     public final String tagName;
+    // Associations
     private final List<Listing> listings = new ArrayList<>();
 
     /**

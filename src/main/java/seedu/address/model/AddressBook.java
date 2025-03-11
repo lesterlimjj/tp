@@ -184,7 +184,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Checks if the given tags exist in the tag registry.
+     * Checks if all given tags exist in the tag registry.
      *
      * @param tags A set of tags to check.
      * @return True if all tags exist, false otherwise.
@@ -202,10 +202,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Checks if the given tags exist in the tag registry.
+     * Checks if at least one of the given tags exists in the tag registry.
      *
      * @param tags A set of tags to check.
-     * @return True if all tags exist, false otherwise.
+     * @return True if at least one tag exists, false otherwise.
      */
     public boolean hasNewTags(Set<String> tags) {
         requireNonNull(tags);

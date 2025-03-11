@@ -194,6 +194,7 @@ public class TagRegistry implements Iterable<Tag> {
         }
         return true;
     }
+
     /**
      * Adds the association of {@code newListing} into the tag with the name {@code targetTagName} in the
      * hashmap.
