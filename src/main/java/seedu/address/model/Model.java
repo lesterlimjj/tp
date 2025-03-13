@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -106,5 +107,13 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addListing(Listing listing);
+
+    boolean hasTags(Set<String> tags);
+
+    boolean hasNewTags(Set<String> tags);
+
+    void addTags(Set<String> tags);
+
+    void addListingToTags(Set<String> tags, Listing listing);
 
 }

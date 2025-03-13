@@ -3,9 +3,13 @@ package seedu.address.model.tag;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.listing.Listing;
 
 /**
  * Represents a Tag in the address book.
@@ -18,20 +22,22 @@ public class Tag {
             + "contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus signs,"
             + " and ampersands. The tag cannot be blank and must not already exist.";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9' ._+&-]{2,50}$";
-
     // Identity fields
     public final String tagName;
+    // Associations
+    private final List<Listing> listings = new ArrayList<>();
 
     /**
      * Constructs a {@code Tag}.
      *
      * @param tagName A valid tag name.
      */
-    public Tag(String tagName) {
-        requireAllNonNull(tagName);
+    public Tag(String tagName, List<Listing> listings) {
+        requireAllNonNull(tagName, listings);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
 
         this.tagName = tagName.toUpperCase();
+        this.listings.addAll(listings);
     }
 
     /**
@@ -43,6 +49,21 @@ public class Tag {
 
     public String getTagName() {
         return tagName;
+    }
+
+    /**
+     * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<Listing> getListings() {
+        return Collections.unmodifiableList(listings);
+    }
+
+    /**
+     * Returns the number of listings associated with the tag.
+     */
+    public int getNumListings() {
+        return listings.size();
     }
 
     /**
@@ -80,13 +101,14 @@ public class Tag {
         }
 
         Tag otherTag = (Tag) other;
-        return tagName.equals(otherTag.tagName);
+        return tagName.equals(otherTag.tagName)
+                && listings.equals(otherTag.listings);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tagName);
+        return Objects.hash(tagName, listings);
     }
 
     /**
@@ -95,6 +117,7 @@ public class Tag {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("tag name", tagName)
+                .add("listings", listings)
                 .toString();
     }
 
