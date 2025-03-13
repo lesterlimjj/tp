@@ -155,6 +155,13 @@ public class ModelManager implements Model {
         addressBook.addListingToTags(tags, listing);
     }
 
+    //=========== Filtered Tag List Accessors =============================================================
+
+    @Override
+    public ObservableMap<String, Tag> getFilteredTagList() {
+        return filteredTags;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -175,9 +182,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Listing> getFilteredListingList() {
         return filteredListings;
-    }
-    public ObservableMap<String, Tag> getFilteredTagList() {
-        return filteredTags;
     }
 
     @Override
