@@ -1,12 +1,15 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -14,6 +17,7 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Listing> PREDICATE_SHOW_ALL_LISTINGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -83,6 +87,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered Listing list */
     ObservableList<Listing> getFilteredListingList();
 
+    /** Returns an unmodifiable view of the filtered tag list*/
+    ObservableMap<String, Tag> getFilteredTagList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -105,5 +112,13 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addListing(Listing listing);
+
+    boolean hasTags(Set<String> tags);
+
+    boolean hasNewTags(Set<String> tags);
+
+    void addTags(Set<String> tags);
+
+    void addListingToTags(Set<String> tags, Listing listing);
 
 }
