@@ -58,6 +58,16 @@
         <StackPane VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
           <HBox>
             <StackPane HBox.hgrow="ALWAYS">
+                <VBox fx:id="tagList" minWidth="400" prefWidth="400" styleClass="pane-with-border"
+                      VBox.vgrow="ALWAYS">
+                  <padding>
+                    <Insets bottom="10" left="10" right="10" top="10"/>
+                  </padding>
+                  <StackPane fx:id="tagListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </StackPane>
+
+            <StackPane HBox.hgrow="ALWAYS">
               <VBox fx:id="personList" minWidth="400" prefWidth="400" styleClass="pane-with-border"
                     VBox.vgrow="ALWAYS">
                 <padding>
