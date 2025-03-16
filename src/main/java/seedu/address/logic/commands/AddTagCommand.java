@@ -75,7 +75,7 @@ public class AddTagCommand extends Command {
     private Set<Tag> getTags(Set<String> tags) {
         Set<Tag> tagList = new HashSet<>();
         for (String tag : tags) {
-            tagList.add(new Tag(tag, new ArrayList<>()));
+            tagList.add(new Tag(tag, new ArrayList<>(), new ArrayList<>()));
         }
         return tagList;
     }
