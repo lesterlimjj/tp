@@ -102,7 +102,7 @@ public class TagRegistryTest {
 
         Price lowPrice = new Price("500000");
         Price highPrice = new Price("800000");
-        PropertyPreference preference = new PropertyPreference(new PriceRange(lowPrice, highPrice));
+        PropertyPreference preference = new PropertyPreference(new PriceRange(lowPrice, highPrice), new HashSet<>());
 
         tagRegistry.addPropertyPreferenceToTag("HDB", preference);
         assertTrue(tagRegistry.get("HDB").getPropertyPreferences().contains(preference));

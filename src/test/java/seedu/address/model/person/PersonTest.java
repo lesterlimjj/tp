@@ -16,25 +16,19 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.listing.Listing;
-import seedu.address.model.price.Price;
-import seedu.address.model.price.PriceRange;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
 
     @Test
     public void constructor_validInputs_createsPersonSuccessfully() {
-        List<PropertyPreference> preferences = new ArrayList<>();
-        preferences.add(new PropertyPreference(new PriceRange(new Price("500000"), new Price("800000"))));
-
         List<Listing> listings = new ArrayList<>();
 
-        Person person = new Person(ALICE.getName(), ALICE.getPhone(), ALICE.getEmail(), preferences, listings);
+        Person person = new Person(ALICE.getName(), ALICE.getPhone(), ALICE.getEmail());
 
         assertEquals(ALICE.getName(), person.getName());
         assertEquals(ALICE.getPhone(), person.getPhone());
         assertEquals(ALICE.getEmail(), person.getEmail());
-        assertEquals(preferences, person.getPropertyPreferences());
         assertEquals(listings, person.getListings());
     }
 
@@ -89,7 +83,7 @@ public class PersonTest {
     @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", property preferences=[], listings=[]}";
+                + ", email=" + ALICE.getEmail() + ", listings=[]}";
         assertEquals(expected, ALICE.toString());
     }
 

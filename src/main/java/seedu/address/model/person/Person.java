@@ -24,7 +24,6 @@ public class Person {
     private final Email email;
 
     // Associations
-    private final List<PropertyPreference> propertyPreferences = new ArrayList<>();
     private final List<Listing> listings = new ArrayList<>();
 
     /**
@@ -34,17 +33,12 @@ public class Person {
      * @param name A valid name.
      * @param phone A valid phone number.
      * @param email A valid email.
-     * @param propertyPreferences A valid list of property preferences.
-     * @param listings A valid list of listings.
      */
-    public Person(Name name, Phone phone, Email email, List<PropertyPreference> propertyPreferences,
-                  List<Listing> listings) {
-        requireAllNonNull(name, phone, email, propertyPreferences, listings);
+    public Person(Name name, Phone phone, Email email) {
+        requireAllNonNull(name, phone, email, listings);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.propertyPreferences.addAll(propertyPreferences);
-        this.listings.addAll(listings);
     }
 
     public Name getName() {
@@ -57,14 +51,6 @@ public class Person {
 
     public Email getEmail() {
         return email;
-    }
-
-    /**
-     * Returns an immutable property preferences list which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public List<PropertyPreference> getPropertyPreferences() {
-        return Collections.unmodifiableList(propertyPreferences);
     }
 
     /**
@@ -113,14 +99,13 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
-                && propertyPreferences.equals(otherPerson.propertyPreferences)
                 && listings.equals(otherPerson.listings);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, propertyPreferences, listings);
+        return Objects.hash(name, phone, email, listings);
     }
 
     @Override
@@ -129,7 +114,6 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
-                .add("property preferences", propertyPreferences)
                 .add("listings", listings)
                 .toString();
     }
