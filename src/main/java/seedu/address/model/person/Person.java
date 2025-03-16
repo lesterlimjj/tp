@@ -47,21 +47,6 @@ public class Person {
         this.listings.addAll(listings);
     }
 
-    /**
-     * Constructs an {@code Person}.
-     * Every field  must be present and not null.
-     *
-     * @param name A valid name.
-     * @param phone A valid phone number.
-     * @param email A valid email.
-     */
-    public Person(Name name, Phone phone, Email email) {
-        requireAllNonNull(name, phone, email, propertyPreferences, listings);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-    }
-
     public Name getName() {
         return name;
     }

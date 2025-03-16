@@ -24,8 +24,6 @@ public class Tag {
             + "The tag cannot be blank and must not already exist.";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9' ._+&-]{2,50}$";
 
-    private static TagRegistry tagRegistry = TagRegistry.of();
-
     // Identity fields
     public final String tagName;
 

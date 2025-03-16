@@ -36,17 +36,6 @@ public class PropertyPreference {
         this.tags.addAll(tags);
     }
 
-    /**
-     * Constructs a {@code PropertyPreference}.
-     * Every field must be present and not null.
-     *
-     * @param priceRange A valid price range.
-     */
-    public PropertyPreference(PriceRange priceRange) {
-        requireAllNonNull(priceRange);
-        this.priceRange = priceRange;
-    }
-
     public PriceRange getPriceRange() {
         return priceRange;
     }
