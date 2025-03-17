@@ -1,8 +1,10 @@
 package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import seedu.address.model.listing.Listing;
+import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -50,7 +54,7 @@ public class TagRegistry implements Iterable<Tag> {
      * Checks if the hashmap contains an equivalent tag with the same tag name as the given argument.
      *
      * @param toCheck the tag to check if it exists in the hashmap as a key.
-     * @return true if the hashmap contains an equivalent tag with the same tag name as the given argument.
+     * @return true if the list contains an equivalent tag with the same tag name as the given argument.
      *         false otherwise.
      */
     public boolean contains(Tag toCheck) {
@@ -154,7 +158,7 @@ public class TagRegistry implements Iterable<Tag> {
     }
 
     /**
-     * Returns the backing map as an unmodifiable {@code ObservableMap}.
+     * Returns the backing list as an unmodifiable {@code ObservableMap}.
      *
      * @return the unmodifiable map.
      */
@@ -190,5 +194,65 @@ public class TagRegistry implements Iterable<Tag> {
             }
         }
         return true;
+    }
+
+    /**
+     * Adds the association of {@code newPropertyPreference} into the tag with the name {@code targetTagName} in the
+     * hashmap.
+     * {@code targetTagName} must exist in the hashmap.
+     *
+     * @param targetTagName the tag name of the tag.
+     * @param newPropertyPreference the property preference to add to the tag.
+     * @return the tag that has been modified.
+     * @throws TagNotFoundException if the tag name does not exist in the hashmap.
+     */
+    public Tag addPropertyPreferenceToTag(String targetTagName, PropertyPreference newPropertyPreference) {
+
+        requireAllNonNull(targetTagName, newPropertyPreference);
+        checkArgument(Tag.isValidTagName(targetTagName), Tag.MESSAGE_CONSTRAINTS);
+
+        String upperTagName = targetTagName.toUpperCase();
+        Tag tag = internalHashmap.get(upperTagName);
+        if (tag == null && !contains(tag)) {
+            throw new TagNotFoundException();
+        }
+
+        List<PropertyPreference> updatedPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
+        updatedPropertyPreferences.add(newPropertyPreference);
+
+        Tag editedTag = new Tag(tag.tagName, updatedPropertyPreferences, tag.getListings());
+        internalHashmap.put(upperTagName, editedTag);
+
+        return editedTag;
+    }
+
+    /**
+     * Adds the association of {@code newListing} into the tag with the name {@code targetTagName} in the
+     * hashmap.
+     * {@code targetTagName} must exist in the hashmap.
+     *
+     * @param targetTagName the tag name of the tag.
+     * @param newListing the listing to add to the tag.
+     * @return the tag that has been modified.1
+     * @throws TagNotFoundException if the tag name does not exist in the hashmap.
+     */
+    public Tag addListingToTag(String targetTagName, Listing newListing) {
+
+        requireAllNonNull(targetTagName, newListing);
+        checkArgument(Tag.isValidTagName(targetTagName), Tag.MESSAGE_CONSTRAINTS);
+
+        String upperTagName = targetTagName.toUpperCase();
+        Tag tag = internalHashmap.get(upperTagName);
+        if (tag == null && !contains(tag)) {
+            throw new TagNotFoundException();
+        }
+
+        List<Listing> updatedListings = new ArrayList<>(tag.getListings());
+        updatedListings.add(newListing);
+
+        Tag editedTag = new Tag(tag.tagName, tag.getPropertyPreferences(), updatedListings);
+        internalHashmap.put(upperTagName, editedTag);
+
+        return editedTag;
     }
 }
