@@ -82,6 +82,15 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces the given listing {@code target} with {@code editedListing}.
+     * Ensures that the {@code target} exists in the address book.
+     *
+     * @param target The original listing to be replaced.
+     * @param editedPerson The new listing replacing the target.
+     */
+    void setListing(Listing target, Listing editedPerson);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
