@@ -21,15 +21,18 @@ class JsonAdaptedPreference {
 
     private final JsonAdaptedPriceRange priceRange;
     private final List<JsonAdaptedTag> tags;
+    private final JsonAdaptedPerson person;
 
     /**
      * Constructs a {@code JsonAdaptedPreference} with the given details.
      */
     @JsonCreator
     public JsonAdaptedPreference(@JsonProperty("priceRange") JsonAdaptedPriceRange priceRange,
-                                 @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                                 @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                                 @JsonProperty("person") JsonAdaptedPerson person) {
         this.priceRange = priceRange;
         this.tags = (tags != null) ? tags : new ArrayList<>();
+        this.person = person;
     }
 
     /**
@@ -38,6 +41,7 @@ class JsonAdaptedPreference {
     public JsonAdaptedPreference(PropertyPreference source) {
         this.priceRange = new JsonAdaptedPriceRange(source.getPriceRange());
         this.tags = source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList());
+        this.person = new JsonAdaptedPerson(source.getPerson());
     }
 
     /**
@@ -52,7 +56,11 @@ class JsonAdaptedPreference {
             throw new IllegalValueException("PropertyPreference's tags cannot be null.");
         }
 
-        return new PropertyPreference(priceRange.toModelType(), getModelTags());
+        if (person == null) {
+            throw new IllegalValueException("PropertyPreference's person cannot be null.");
+        }
+
+        return new PropertyPreference(priceRange.toModelType(), getModelTags(), person.toModelType());
     }
 
     private Set<Tag> getModelTags() throws IllegalValueException {

@@ -82,15 +82,15 @@ public class AddPreferenceCommand extends Command {
         }
         model.addTags(newTagSet);
 
-        PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>());
-        PropertyPreference preferenceWithTags = createPreferenceWithTags(preference, tagSet, newTagSet, model);
-
         List<Person> lastShownList = model.getFilteredPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToAddPreference = lastShownList.get(index.getZeroBased());
+
+        PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>(), personToAddPreference);
+        PropertyPreference preferenceWithTags = createPreferenceWithTags(preference, tagSet, newTagSet, model);
         PropertyPreference preferenceWithPerson = createPreferenceWithPerson(preferenceWithTags, personToAddPreference);
         Person personWithPreferenceAdded = createPersonWithAddedPreference(personToAddPreference, preferenceWithPerson);
 
@@ -162,7 +162,7 @@ public class AddPreferenceCommand extends Command {
         }
 
         PriceRange priceRange = preference.getPriceRange();
-        PropertyPreference newPreference = new PropertyPreference(priceRange, tagList);
+        PropertyPreference newPreference = new PropertyPreference(priceRange, tagList, preference.getPerson());
         model.addPreferenceToTags(combinedTags, newPreference);
 
         return newPreference;
