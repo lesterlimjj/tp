@@ -18,6 +18,9 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_LISTING_DISPLAYED_INDEX = "The listing index provided is invalid";
+    public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid";
+
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_KEYWORD =
@@ -98,6 +101,32 @@ public class Messages {
         final StringBuilder builder = new StringBuilder();
         builder.append("; Tags: ");
         tags.forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the assign of listing to Person for display to the user.
+     */
+    public static String format(Person person, Listing listing) {
+        final StringBuilder builder = new StringBuilder();
+        if (listing.getUnitNumber() == null) {
+            builder.append("<")
+                    .append(listing.getPostalCode())
+                    .append("> <")
+                    .append(listing.getHouseNumber())
+                    .append(">")
+                    .append(" added to ")
+                    .append(person.getName());
+        } else {
+            builder.append("<")
+                    .append(listing.getPostalCode())
+                    .append("> <")
+                    .append(listing.getUnitNumber())
+                    .append(">")
+                    .append(" added to ")
+                    .append(person.getName());
+        }
+
         return builder.toString();
     }
 

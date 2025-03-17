@@ -77,7 +77,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param target The original listing to be replaced.
      * @param editedPerson The new listing replacing the target.
      */
-    public void setListings(Listing target, Listing editedPerson) {
+    public void setListing(Listing target, Listing editedPerson) {
         requireNonNull(editedPerson);
         listings.setListing(target, editedPerson);
     }
