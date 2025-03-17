@@ -41,53 +41,50 @@
           </padding>
         </StackPane>
 
-        <VBox VBox.vgrow="NEVER" styleClass="pane-with-border" minWidth="100" prefWidth="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-          <Label styleClass="label-bright" text="Response:"/>
-          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100"
-                     prefHeight="150">
-            <padding>
-              <Insets bottom="5" top="5"/>
-            </padding>
+        <HBox VBox.vgrow="ALWAYS">
+          <VBox minWidth="300" prefWidth="300">
+            <!-- Response Section Moved Above Tags -->
+            <VBox styleClass="pane-with-border">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10"/>
+              </padding>
+              <Label styleClass="label-bright" text="Response:"/>
+              <StackPane fx:id="resultDisplayPlaceholder" maxHeight="200" minHeight="200" prefHeight="100">
+                <padding>
+                  <Insets bottom="5" top="5"/>
+                </padding>
+              </StackPane>
+            </VBox>
+
+            <!-- Tags Section Below Response -->
+            <VBox fx:id="tagList" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10"/>
+              </padding>
+              <StackPane fx:id="tagListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+          </VBox>
+
+          <StackPane HBox.hgrow="ALWAYS">
+            <VBox fx:id="personList" minWidth="400" prefWidth="400" styleClass="pane-with-border"
+                  VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10"/>
+              </padding>
+              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
           </StackPane>
-        </VBox>
 
-
-        <StackPane VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
-          <HBox>
-            <StackPane HBox.hgrow="ALWAYS">
-                <VBox fx:id="tagList" minWidth="400" prefWidth="400" styleClass="pane-with-border"
-                      VBox.vgrow="ALWAYS">
-                  <padding>
-                    <Insets bottom="10" left="10" right="10" top="10"/>
-                  </padding>
-                  <StackPane fx:id="tagListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                </VBox>
-            </StackPane>
-
-            <StackPane HBox.hgrow="ALWAYS">
-              <VBox fx:id="personList" minWidth="400" prefWidth="400" styleClass="pane-with-border"
-                    VBox.vgrow="ALWAYS">
-                <padding>
-                  <Insets bottom="10" left="10" right="10" top="10"/>
-                </padding>
-                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-              </VBox>
-            </StackPane>
-
-            <StackPane HBox.hgrow="ALWAYS">
-              <VBox fx:id="listingList" minWidth="400.0" prefWidth="400.0" styleClass="pane-with-border"
-                    VBox.vgrow="ALWAYS">
-                <padding>
-                  <Insets bottom="10" left="10" right="10" top="10"/>
-                </padding>
-                <StackPane fx:id="listingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-              </VBox>
-            </StackPane>
-          </HBox>
-        </StackPane>
+          <StackPane HBox.hgrow="ALWAYS">
+            <VBox fx:id="listingList" minWidth="400.0" prefWidth="400.0" styleClass="pane-with-border"
+                  VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10"/>
+              </padding>
+              <StackPane fx:id="listingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+          </StackPane>
+        </HBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
       </VBox>

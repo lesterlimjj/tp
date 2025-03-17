@@ -131,9 +131,7 @@ public class Tag {
         }
 
         Tag otherTag = (Tag) other;
-        return tagName.equals(otherTag.tagName)
-                && propertyPreferences.equals(otherTag.propertyPreferences)
-                && listings.equals(otherTag.listings);
+        return tagName.equals(otherTag.tagName);
     }
 
     @Override

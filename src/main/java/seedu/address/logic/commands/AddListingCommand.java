@@ -129,9 +129,10 @@ public class AddListingCommand extends Command {
             Tag tag = tagRegistry.get(tagName);
             List<Listing> listings = new ArrayList<>(tag.getListings());
             listings.add(toAdd);
+
             Tag editedTag = new Tag(tagName, tag.getPropertyPreferences(), listings);
             tagRegistry.setTag(tag, editedTag);
-            tags.add(tag);
+            tags.add(editedTag);
         }
 
         UnitNumber unitNumber = toAdd.getUnitNumber();

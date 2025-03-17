@@ -208,8 +208,7 @@ public class Listing {
                 && Objects.equals(houseNumber, otherListing.houseNumber)
                 && priceRange.equals(otherListing.priceRange)
                 && propertyName.equals(otherListing.propertyName)
-                && tags.equals(otherListing.tags)
-                && owners.equals(otherListing.owners);
+                && tags.equals(otherListing.tags);
     }
 
     @Override
