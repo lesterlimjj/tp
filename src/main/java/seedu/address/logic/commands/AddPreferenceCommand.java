@@ -16,7 +16,11 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.listing.HouseNumber;
 import seedu.address.model.listing.Listing;
+import seedu.address.model.listing.PostalCode;
+import seedu.address.model.listing.PropertyName;
+import seedu.address.model.listing.UnitNumber;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -150,9 +154,15 @@ public class AddPreferenceCommand extends Command {
         Set<String> combinedTags = new HashSet<>(tagSet);
         combinedTags.addAll(newTagSet);
         Set<Tag> tagList = new HashSet<>();
+        TagRegistry tagRegistry = TagRegistry.of();
 
         for (String tag : combinedTags) {
-            tagList.add(new Tag(tag, new ArrayList<>(), new ArrayList<>()));
+            List<PropertyPreference> tagPropertyPreferences = new ArrayList<>();
+            tagPropertyPreferences.add(preference);
+            Tag tagToAdd = new Tag(tag, tagPropertyPreferences, new ArrayList<>());
+            tagRegistry.setTag(tagToAdd, tagToAdd);
+
+            tagList.add(tagToAdd);
         }
 
         PriceRange priceRange = preference.getPriceRange();
@@ -170,16 +180,6 @@ public class AddPreferenceCommand extends Command {
      */
     private PropertyPreference createPreferenceWithPerson(PropertyPreference preference, Person person) {
         Set<Tag> tagList = new HashSet<>(preference.getTags());
-        TagRegistry tagRegistry = TagRegistry.of();
-
-        for (Tag tag: tagList) {
-            List<PropertyPreference> tagPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
-            tagPropertyPreferences.add(preference);
-
-            Tag editedTag = new Tag(tag.getTagName(), tagPropertyPreferences, tag.getListings());
-            tagRegistry.setTag(tag, editedTag);
-        }
-
         PriceRange priceRange = preference.getPriceRange();
         PropertyPreference newPreference = new PropertyPreference(priceRange, tagList, person);
 
