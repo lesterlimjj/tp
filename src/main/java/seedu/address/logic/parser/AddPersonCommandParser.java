@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPersonCommand;
@@ -38,8 +39,7 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
 
-        Person person = new Person(name, phone, email);
-
+        Person person = new Person(name, phone, email, new ArrayList<>(), new ArrayList<>());
         return new AddPersonCommand(person);
     }
 

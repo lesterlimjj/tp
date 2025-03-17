@@ -23,8 +23,9 @@ public class PersonTest {
     @Test
     public void constructor_validInputs_createsPersonSuccessfully() {
         List<Listing> listings = new ArrayList<>();
+        List<PropertyPreference> preferences = new ArrayList<>();
 
-        Person person = new Person(ALICE.getName(), ALICE.getPhone(), ALICE.getEmail());
+        Person person = new Person(ALICE.getName(), ALICE.getPhone(), ALICE.getEmail(), preferences, listings);
 
         assertEquals(ALICE.getName(), person.getName());
         assertEquals(ALICE.getPhone(), person.getPhone());
@@ -83,7 +84,7 @@ public class PersonTest {
     @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", listings=[]}";
+                + ", email=" + ALICE.getEmail() + ", property preferences=[], listings=[]}";
         assertEquals(expected, ALICE.toString());
     }
 
