@@ -56,6 +56,10 @@ public class PropertyPreference {
         return priceRange;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
