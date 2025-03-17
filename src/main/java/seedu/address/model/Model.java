@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
@@ -90,7 +89,7 @@ public interface Model {
     ObservableList<Listing> getFilteredListingList();
 
     /** Returns an unmodifiable view of the filtered tag list*/
-    ObservableMap<String, Tag> getFilteredTagList();
+    ObservableList<Tag> getFilteredTagList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

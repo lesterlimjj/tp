@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
@@ -28,7 +30,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Listing> filteredListings;
-    private final ObservableMap<String, Tag> filteredTags;
+    private final FilteredList<Tag> filteredTags;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,7 +44,23 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredListings = new FilteredList<>(this.addressBook.getListingList());
-        filteredTags = this.addressBook.getTagList();
+
+        // Convert ObservableMap values to ObservableList
+        ObservableMap<String, Tag> tagMap = this.addressBook.getTagList();
+        ObservableList<Tag> tagObservableList = FXCollections.observableArrayList(tagMap.values());
+
+        // Add a listener to the ObservableMap to update the ObservableList dynamically
+        tagMap.addListener((MapChangeListener<String, Tag>) change -> {
+            if (change.wasAdded()) {
+                tagObservableList.add(change.getValueAdded());
+            }
+            if (change.wasRemoved()) {
+                tagObservableList.remove(change.getValueRemoved());
+            }
+        });
+
+        // Create a FilteredList from the ObservableList
+        filteredTags = new FilteredList<>(tagObservableList);
     }
 
     public ModelManager() {
@@ -148,6 +166,7 @@ public class ModelManager implements Model {
     public void addTags(Set<String> tags) {
         requireNonNull(tags);
         addressBook.addTags(tags);
+        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
     }
 
     @Override
@@ -185,7 +204,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableMap<String, Tag> getFilteredTagList() {
+    public ObservableList<Tag> getFilteredTagList() {
         return filteredTags;
     }
 
@@ -198,7 +217,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTagList(Predicate<Tag> predicate) {
         requireNonNull(predicate);
-        new FilteredList<>((ObservableList<Tag>) filteredTags.values()).setPredicate(predicate);
+        filteredTags.setPredicate(predicate);
     }
 
     @Override

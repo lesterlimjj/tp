@@ -3,7 +3,6 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,7 +39,7 @@ public interface Logic {
     ObservableList<Listing> getFilteredListingList();
 
     /** Returns an unmodifiable view of the filtered list of tags */
-    ObservableMap<String, Tag> getFilteredTagList();
+    ObservableList<Tag> getFilteredTagList();
 
     /**
      * Returns the user prefs' address book file path.
