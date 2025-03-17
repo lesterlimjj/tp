@@ -24,7 +24,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Adds a {@code PropertyPreference} with the specified tags and new tags.
