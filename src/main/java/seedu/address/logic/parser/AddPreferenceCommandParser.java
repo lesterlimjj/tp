@@ -6,14 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 
@@ -53,9 +51,8 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
         PriceRange priceRange = createPriceRange(lowerBoundPrice, upperBoundPrice);
         Set<String> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<String> newTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NEW_TAG));
-        PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>());
 
-        return new AddPreferenceCommand(index, preference, tagList, newTagList);
+        return new AddPreferenceCommand(index, priceRange, tagList, newTagList);
     }
 
     /**

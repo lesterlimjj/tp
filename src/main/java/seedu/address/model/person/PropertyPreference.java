@@ -22,6 +22,7 @@ public class PropertyPreference {
 
     // Associations
     private final Set<Tag> tags = new HashSet<>();
+    private final Person person;
 
     /**
      * Constructs a {@code PropertyPreference}.
@@ -34,6 +35,21 @@ public class PropertyPreference {
         requireAllNonNull(priceRange, tags);
         this.priceRange = priceRange;
         this.tags.addAll(tags);
+        this.person = null;
+    }
+
+    /**
+     * Constructs a {@code PropertyPreference}.
+     * Every field must be present and not null.
+     *
+     * @param priceRange A valid price range.
+     * @param tags A valid set of tags.
+     */
+    public PropertyPreference(PriceRange priceRange, Set<Tag> tags, Person person) {
+        requireAllNonNull(priceRange, tags, person);
+        this.priceRange = priceRange;
+        this.tags.addAll(tags);
+        this.person = person;
     }
 
     public PriceRange getPriceRange() {
