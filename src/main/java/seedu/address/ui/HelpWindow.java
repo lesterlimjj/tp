@@ -18,6 +18,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListListingCommand;
 import seedu.address.logic.commands.ListPersonCommand;
@@ -136,16 +137,15 @@ public class HelpWindow extends UiPart<Stage> {
     private String[][] getHelpMessages() {
         // Add the command summary to the GridPane
         String[][] helpTexts = {
-                {AddListingCommand.COMMAND_WORD, AddListingCommand.MESSAGE_USAGE},
                 {AddPersonCommand.COMMAND_WORD, AddPersonCommand.MESSAGE_USAGE},
-                {AddPreferenceCommand.COMMAND_WORD, AddPreferenceCommand.MESSAGE_USAGE},
+                {AddListingCommand.COMMAND_WORD, AddListingCommand.MESSAGE_USAGE},
                 {AddTagCommand.COMMAND_WORD, AddTagCommand.MESSAGE_USAGE},
-                {ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_USAGE},
-                {DeleteCommand.COMMAND_WORD, DeleteCommand.MESSAGE_USAGE},
-                {EditPersonCommand.COMMAND_WORD, EditPersonCommand.MESSAGE_USAGE},
-                {ListListingCommand.COMMAND_WORD, ListListingCommand.MESSAGE_USAGE},
+                {AddPreferenceCommand.COMMAND_WORD, AddPreferenceCommand.MESSAGE_USAGE},
                 {ListPersonCommand.COMMAND_WORD, ListPersonCommand.MESSAGE_USAGE},
+                {ListListingCommand.COMMAND_WORD, ListListingCommand.MESSAGE_USAGE},
                 {ListTagCommand.COMMAND_WORD, ListTagCommand.MESSAGE_USAGE},
+                {FindCommand.COMMAND_WORD, FindCommand.MESSAGE_USAGE},
+                {EditPersonCommand.COMMAND_WORD, EditPersonCommand.MESSAGE_USAGE},
                 {HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE},
                 {ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_USAGE},
 
