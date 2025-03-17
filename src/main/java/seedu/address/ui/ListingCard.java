@@ -30,6 +30,7 @@ public class ListingCard extends UiPart<Region> {
      */
 
     public final Listing listing;
+    private OwnerListPanel ownerListPanel;
 
     @FXML
     private StackPane ownerListPanelPlaceholder;
@@ -85,6 +86,11 @@ public class ListingCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         ObservableList<Person> ownerList = FXCollections.observableList(listing.getOwners());
+
+        if (ownerList.size() > 0) {
+            ownerListPanel = new OwnerListPanel(ownerList);
+            ownerListPanelPlaceholder.getChildren().add(ownerListPanel.getRoot());
+        }
 
 
     }
