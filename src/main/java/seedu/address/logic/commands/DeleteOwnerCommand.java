@@ -57,12 +57,12 @@ public class DeleteOwnerCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_OWNER_DISPLAYED_INDEX);
         }
 
-        //Update listing list and owner list
-
         Person ownerToDelete = targetOwnerList.get(targetOwnerIndex.getZeroBased());
-        removeListingOwnership(ownerToDelete, targetListing, model);
 
+        //Update listing list and owner list
+        removeOwnerfromListing(ownerToDelete, targetListing, model);
         removeListingsFromPerson(ownerToDelete, targetListing, model);
+
         return new CommandResult(String.format(MESSAGE_DELETE_OWNER_SUCCESS, Messages.format(ownerToDelete)));
     }
 
@@ -90,7 +90,7 @@ public class DeleteOwnerCommand extends Command {
                 .toString();
     }
 
-    private void removeListingOwnership(Person owner, Listing listingToDelete, Model model) {
+    private void removeOwnerfromListing(Person owner, Listing listingToDelete, Model model) {
         List<Person> owners = new ArrayList<>(listingToDelete.getOwners());
         owners.remove(owner);
 
