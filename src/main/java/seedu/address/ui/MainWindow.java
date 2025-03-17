@@ -182,6 +182,10 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public ListingListPanel getListingListPanel() {
+        return listingListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
