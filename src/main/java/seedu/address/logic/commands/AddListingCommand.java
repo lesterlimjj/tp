@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_UNIT_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -128,7 +127,7 @@ public class AddListingCommand extends Command {
 
         for (String tagName: tagNames) {
             Tag tag = tagRegistry.get(tagName);
-            List<Listing> listings  = new ArrayList<>(tag.getListings());
+            List<Listing> listings = new ArrayList<>(tag.getListings());
             listings.add(toAdd);
             Tag editedTag = new Tag(tagName, tag.getPropertyPreferences(), listings);
             tagRegistry.setTag(tag, editedTag);
