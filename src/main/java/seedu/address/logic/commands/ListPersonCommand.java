@@ -12,6 +12,9 @@ public class ListPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "listPerson";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all Persons\n"
+            + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
 
