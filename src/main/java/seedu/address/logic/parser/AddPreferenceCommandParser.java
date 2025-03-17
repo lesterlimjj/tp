@@ -11,9 +11,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddListingCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
-import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.Price;
