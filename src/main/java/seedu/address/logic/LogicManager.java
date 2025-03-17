@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -80,7 +79,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableMap<String, Tag> getFilteredTagList() {
+    public ObservableList<Tag> getFilteredTagList() {
         return model.getFilteredTagList();
     }
 
