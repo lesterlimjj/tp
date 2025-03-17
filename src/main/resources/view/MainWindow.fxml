@@ -63,7 +63,6 @@
                   </padding>
                   <StackPane fx:id="tagListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                 </VBox>
-                
               </VBox>
             </StackPane>
 
