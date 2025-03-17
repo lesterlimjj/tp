@@ -2,21 +2,33 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.listing.HouseNumber;
+import seedu.address.model.listing.Listing;
+import seedu.address.model.listing.PostalCode;
+import seedu.address.model.listing.PropertyName;
+import seedu.address.model.listing.UnitNumber;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.price.PriceRange;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagRegistry;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deletePerson";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
@@ -41,6 +53,8 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        removeListingOwnership(personToDelete, model);
+        removeTagsFromPropertyPreference(personToDelete);
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
@@ -65,5 +79,42 @@ public class DeleteCommand extends Command {
         return new ToStringBuilder(this)
                 .add("targetIndex", targetIndex)
                 .toString();
+    }
+
+    private void removeListingOwnership(Person personToDelete, Model model) {
+        List<Listing> listings = new ArrayList<>(personToDelete.getListings());
+        for (Listing listing : listings) {
+            List<Person> owners = new ArrayList<>(listing.getOwners());
+            owners.remove(personToDelete);
+
+            UnitNumber unitNumber = listing.getUnitNumber();
+            HouseNumber houseNumber = listing.getHouseNumber();
+            PostalCode postalCode = listing.getPostalCode();
+            PriceRange priceRange = listing.getPriceRange();
+            PropertyName propertyName = listing.getPropertyName();
+
+            Listing editedListing = Listing.of(postalCode, unitNumber, houseNumber, priceRange,
+                    propertyName, listing.getTags(), owners);
+
+            model.setListing(listing, editedListing);
+        }
+    }
+
+    private void removeTagsFromPropertyPreference(Person personToDelete) {
+
+        TagRegistry tagRegistry = TagRegistry.of();
+
+        List<PropertyPreference> propertyPreferences = new ArrayList<>(personToDelete.getPropertyPreferences());
+        for (PropertyPreference propertyPreference : propertyPreferences) {
+            Set<Tag> tags = new HashSet<>(propertyPreference.getTags());
+
+            for (Tag tag: tags) {
+                List<PropertyPreference> tagPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
+                tagPropertyPreferences.remove(propertyPreference);
+
+                Tag editedTag = new Tag(tag.getTagName(), tagPropertyPreferences, tag.getListings());
+                tagRegistry.setTag(tag, editedTag);
+            }
+        }
     }
 }
