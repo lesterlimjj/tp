@@ -101,4 +101,30 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the assign of listing to Person for display to the user.
+     */
+    public static String format(Person person, Listing listing) {
+        final StringBuilder builder = new StringBuilder();
+        if (listing.getUnitNumber() == null) {
+            builder.append("<")
+                    .append(listing.getPostalCode())
+                    .append("> <")
+                    .append(listing.getHouseNumber())
+                    .append(">")
+                    .append(" added to ")
+                    .append(person.getName());
+        } else {
+            builder.append("<")
+                    .append(listing.getPostalCode())
+                    .append("> <")
+                    .append(listing.getUnitNumber())
+                    .append(">")
+                    .append(" added to ")
+                    .append(person.getName());
+        }
+
+        return builder.toString();
+    }
+
 }
