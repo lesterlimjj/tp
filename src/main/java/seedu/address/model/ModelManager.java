@@ -196,6 +196,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredTagList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        new FilteredList<>((ObservableList<Tag>) filteredTags.values()).setPredicate(predicate);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

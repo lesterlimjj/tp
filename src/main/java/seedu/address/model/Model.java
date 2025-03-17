@@ -19,6 +19,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Listing> PREDICATE_SHOW_ALL_LISTINGS = unused -> true;
+    Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -103,7 +104,11 @@ public interface Model {
      */
     void updateFilteredListingList(Predicate<Listing> predicate);
 
-
+    /**
+     * Updates the filter of the filtered tag list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTagList(Predicate<Tag> predicate);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
