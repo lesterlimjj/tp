@@ -11,7 +11,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.listing.Listing;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the real estate system.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
@@ -27,7 +27,12 @@ public class Person {
     private final List<Listing> listings = new ArrayList<>();
 
     /**
-     * Every field must be present and not null.
+     * Constructs an {@code Person}.
+     * Every field  must be present and not null.
+     *
+     * @param name A valid name.
+     * @param phone A valid phone number.
+     * @param email A valid email.
      */
     public Person(Name name, Phone phone, Email email) {
         requireAllNonNull(name, phone, email, listings);
@@ -57,8 +62,11 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name.
+     * Checks if two persons have the same unique identifiers.
      * This defines a weaker notion of equality between two persons.
+     *
+     * @param otherPerson Person to be compared with.
+     * @return true if both persons have the same phone number. false otherwise.
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {
@@ -66,12 +74,15 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getPhone().equals(getPhone());
+                && otherPerson.phone.equals(this.phone);
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Checks if two persons have the same identity and data fields and associations.
      * This defines a stronger notion of equality between two persons.
+     *
+     * @param other Object to be compared with.
+     * @return true if both persons have the same identity and data fields and associations. false otherwise.
      */
     @Override
     public boolean equals(Object other) {
