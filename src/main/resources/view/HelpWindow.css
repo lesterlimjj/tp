@@ -17,3 +17,26 @@
 #helpMessageContainer {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
+
+#commandGrid {
+    -fx-background-color: #383838;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+}
+
+/* Command Labels */
+.text-table-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 2px;
+}
+
+.label.text-table-row {
+    -fx-text-fill: white;
+    -fx-padding: 5px;
+}
+.text-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
