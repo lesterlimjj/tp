@@ -178,6 +178,11 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public void setListing(Listing target, Listing editedListing) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasListing(Listing listing) {
             throw new AssertionError("This method should not be called.");
         }
