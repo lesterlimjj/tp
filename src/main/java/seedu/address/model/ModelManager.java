@@ -151,6 +151,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setListing(Listing listing, Listing editedListing) {
+        requireNonNull(listing);
+        addressBook.setListing(listing, editedListing);
+    }
+
+    @Override
     public boolean hasTags(Set<String> tags) {
         requireNonNull(tags);
         return addressBook.hasTags(tags);

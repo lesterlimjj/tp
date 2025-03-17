@@ -12,6 +12,9 @@ public class ListTagCommand extends Command {
 
     public static final String COMMAND_WORD = "listTag";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all Tags\n"
+            + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Listed all tags";
 
 

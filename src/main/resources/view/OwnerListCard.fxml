@@ -7,38 +7,28 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0" spacing="5">
+        <VBox alignment="CENTER_LEFT" minHeight="50" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15"/>
             </padding>
-            <HBox spacing="0.5" alignment="TOP_LEFT">
+            <HBox spacing="0.5" alignment="CENTER_LEFT">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-                <VBox>
-                    <padding>
-                        <Insets bottom="5"/>
-                    </padding>
-                    <Label fx:id="postalCode" styleClass="cell_big_label" text="\$postalCode"/>
-                    <Label fx:id="unitNumber" styleClass="cell_big_label" text="\$unitNumber"/>
-                    <Label fx:id="houseNumber" styleClass="cell_big_label" text="\$houseNumber"/>
-                    <Label fx:id="name" styleClass="cell_small_label" text="\$name"/>
-                    <Label fx:id="priceRange" styleClass="cell_small_label" text="\$priceRange"/>
-                </VBox>
+                <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
             </HBox>
-            <FlowPane fx:id="tags"/>
-
-            <StackPane fx:id="ownerListPanelPlaceholder" VBox.vgrow="NEVER" maxHeight="180"/>
+            <Label fx:id="email" styleClass="cell_small_label" text="\$email"/>
+            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
         </VBox>
     </GridPane>
 </HBox>

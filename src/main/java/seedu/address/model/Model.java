@@ -115,6 +115,14 @@ public interface Model {
     boolean hasListing(Listing listing);
 
     /**
+     * Replaces the given listing {@code target} with {@code editedListing}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedListing} must not be the same as another existing listing in the
+     * address book.
+     */
+    void setListing(Listing target, Listing editedListing);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
