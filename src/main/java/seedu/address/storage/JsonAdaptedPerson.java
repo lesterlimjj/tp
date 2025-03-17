@@ -74,7 +74,7 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        return new Person(modelName, modelPhone, modelEmail);
+        return new Person(modelName, modelPhone, modelEmail, new ArrayList<>(), new ArrayList<>());
     }
 
 }
