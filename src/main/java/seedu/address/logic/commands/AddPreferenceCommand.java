@@ -24,7 +24,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Adds a {@code PropertyPreference} with the specified tags and new tags.
@@ -122,7 +121,7 @@ public class AddPreferenceCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createPersonWithAddedPreference(Person person, PropertyPreference preference) {
+    private Person createPersonWithAddedPreference(Person person, PropertyPreference preference) {
         assert person != null;
 
         Name name = person.getName();
@@ -141,12 +140,11 @@ public class AddPreferenceCommand extends Command {
      * and associates them with a new {@code PropertyPreference}. The preference is then added to the model's
      * tag registry.
      */
-    public PropertyPreference createPreferenceWithTags(PropertyPreference preference, Set<String> tagSet,
+    private PropertyPreference createPreferenceWithTags(PropertyPreference preference, Set<String> tagSet,
                                                        Set<String> newTagSet, Model model) {
         Set<String> combinedTags = new HashSet<>(tagSet);
         combinedTags.addAll(newTagSet);
         Set<Tag> tagList = new HashSet<>();
-        TagRegistry tagRegistry = TagRegistry.of();
 
         for (String tag : combinedTags) {
             tagList.add(new Tag(tag, new ArrayList<>(), new ArrayList<>()));

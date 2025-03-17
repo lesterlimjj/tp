@@ -178,7 +178,7 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void setListing(Listing listing, Listing editedListing) {
+        public void setListing(Listing target, Listing editedListing) {
             throw new AssertionError("This method should not be called.");
         }
 
