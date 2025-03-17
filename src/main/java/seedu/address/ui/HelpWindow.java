@@ -7,22 +7,38 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddListingCommand;
+import seedu.address.logic.commands.AddPersonCommand;
+import seedu.address.logic.commands.AddPreferenceCommand;
+import seedu.address.logic.commands.AddTagCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditPersonCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListListingCommand;
+import seedu.address.logic.commands.ListPersonCommand;
+import seedu.address.logic.commands.ListTagCommand;
 
 /**
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String USERGUIDE_URL = "https://ay2425s2-cs2103-f08-3.github.io/tp/UserGuide.html";
+    public static final String HELP_MESSAGE = "For more help, visit: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
     private Button copyButton;
+
+    @FXML
+    private GridPane commandGrid;
 
     @FXML
     private Label helpMessage;
@@ -35,6 +51,22 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
+
+        String[][] helpTexts = getHelpMessages();
+
+        // Add the help text to the GridPane
+        for (int i = 0; i < helpTexts.length; i++) {
+
+            Label commandText = new Label(helpTexts[i][0]);
+            Label descriptionText = new Label(helpTexts[i][1]);
+
+            commandText.getStyleClass().add("text-table-row");
+            descriptionText.getStyleClass().add("text-table-row");
+
+            commandGrid.addRow(i + 1,
+                    commandText,
+                    descriptionText);
+        }
     }
 
     /**
@@ -49,7 +81,8 @@ public class HelpWindow extends UiPart<Stage> {
      * @throws IllegalStateException
      *     <ul>
      *         <li>
-     *             if this method is called on a thread other than the JavaFX Application Thread.
+     *             if this method is called on a thread other than the JavaFX Application
+     *             Thread.
      *         </li>
      *         <li>
      *             if this method is called during animation or layout processing.
@@ -98,5 +131,26 @@ public class HelpWindow extends UiPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
+    }
+
+    private String[][] getHelpMessages() {
+        // Add the command summary to the GridPane
+        String[][] helpTexts = {
+                {AddListingCommand.COMMAND_WORD, AddListingCommand.MESSAGE_USAGE},
+                {AddPersonCommand.COMMAND_WORD, AddPersonCommand.MESSAGE_USAGE},
+                {AddPreferenceCommand.COMMAND_WORD, AddPreferenceCommand.MESSAGE_USAGE},
+                {AddTagCommand.COMMAND_WORD, AddTagCommand.MESSAGE_USAGE},
+                {ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_USAGE},
+                {DeleteCommand.COMMAND_WORD, DeleteCommand.MESSAGE_USAGE},
+                {EditPersonCommand.COMMAND_WORD, EditPersonCommand.MESSAGE_USAGE},
+                {ListListingCommand.COMMAND_WORD, ListListingCommand.MESSAGE_USAGE},
+                {ListPersonCommand.COMMAND_WORD, ListPersonCommand.MESSAGE_USAGE},
+                {ListTagCommand.COMMAND_WORD, ListTagCommand.MESSAGE_USAGE},
+                {HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE},
+                {ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_USAGE},
+
+        };
+
+        return helpTexts;
     }
 }
