@@ -140,14 +140,8 @@ public class AddListingCommand extends Command {
         PostalCode postalCode = toAdd.getPostalCode();
         PriceRange priceRange = toAdd.getPriceRange();
         PropertyName propertyName = toAdd.getPropertyName();
-        Listing newListing;
 
-        if (unitNumber == null) {
-            newListing = new Listing(postalCode, houseNumber, priceRange, propertyName, tags, toAdd.getOwners());
-        } else {
-            newListing = new Listing(postalCode, unitNumber, priceRange, propertyName, tags, toAdd.getOwners());
-        }
-
-        return newListing;
+        return Listing.of(postalCode, unitNumber, houseNumber, priceRange,
+                propertyName, tags, toAdd.getOwners());
     }
 }

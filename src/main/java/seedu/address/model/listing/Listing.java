@@ -36,8 +36,8 @@ public class Listing {
 
     /**
      * Constructs an {@code Listing}.
-     * Every field except for house number must be present and not null.
-     * House number must be null.
+     * Every field except for unit number must be present and not null.
+     * Unit number must be null.
      *
      * @param postalCode A valid postal code.
      * @param unitNumber A valid unit number.
@@ -106,8 +106,8 @@ public class Listing {
 
     /**
      * Constructs an {@code Listing}.
-     * Every field except for house number must be present and not null.
-     * House number must be null.
+     * Every field except for unit number must be present and not null.
+     * Unit number must be null.
      *
      * @param postalCode A valid postal code.
      * @param houseNumber A valid house number.
@@ -128,6 +128,34 @@ public class Listing {
         this.owners.addAll(owners);
     }
 
+    /**
+     * Selects the appropriate constructor given the parameters.
+     * Every field except for property name and either house number or unit number must be present and not null.
+     *
+     * @param postalCode A valid postal code.
+     * @param unitNumber A valid unit number.
+     * @param houseNumber A valid house number.
+     * @param priceRange A valid price range.
+     * @param propertyName A valid property name.
+     * @param tags A valid set of tags.
+     * @param owners A valid list of owners.
+     * @return A Listing object.
+     */
+    public static Listing of(PostalCode postalCode, UnitNumber unitNumber, HouseNumber houseNumber,
+                             PriceRange priceRange, PropertyName propertyName, Set<Tag> tags, List<Person> owners) {
+
+        if (unitNumber == null && propertyName == null) {
+            return new Listing(postalCode, houseNumber, priceRange, tags, owners);
+        } else if (houseNumber == null && propertyName == null) {
+            return new Listing(postalCode, unitNumber, priceRange, tags, owners);
+        } else if (unitNumber == null) {
+            return new Listing(postalCode, houseNumber, priceRange, propertyName, tags, owners);
+        } else if (houseNumber == null) {
+            return new Listing(postalCode, unitNumber, priceRange, propertyName, tags, owners);
+        }
+
+        return null;
+    }
 
 
     public PostalCode getPostalCode() {
