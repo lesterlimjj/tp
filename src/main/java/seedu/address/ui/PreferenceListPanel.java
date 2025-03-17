@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -11,7 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.PropertyPreference;
-import seedu.address.model.tag.Tag;
 
 /**
  * Panel containing the list of preferences.

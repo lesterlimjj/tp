@@ -1,17 +1,13 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.person.PropertyPreference;
-import seedu.address.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -49,7 +45,7 @@ public class PreferenceListCard extends UiPart<Region> {
         super(FXML);
         this.propertyPreference = propertyPreference;
         id.setText(displayedIndex + ". ");
-        priceRange.setText("  --------------  " +propertyPreference.getPriceRange().toString());
+        priceRange.setText("  --------------  " + propertyPreference.getPriceRange().toString());
 
         propertyPreference.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

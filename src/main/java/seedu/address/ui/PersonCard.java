@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 
@@ -55,7 +55,8 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
 
-        ObservableList<PropertyPreference> preferencesList = FXCollections.observableList(person.getPropertyPreferences());
+        ObservableList<PropertyPreference> preferencesList =
+            FXCollections.observableList(person.getPropertyPreferences());
         if (preferencesList.size() > 0) {
             preferenceListPanel = new PreferenceListPanel(preferencesList);
             preferenceListPanelPlaceholder.getChildren().add(preferenceListPanel.getRoot());

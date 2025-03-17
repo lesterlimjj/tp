@@ -1,15 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUSE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER_BOUND_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POSTAL_CODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 
@@ -23,22 +16,20 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.listing.HouseNumber;
 import seedu.address.model.listing.Listing;
-import seedu.address.model.listing.PostalCode;
-import seedu.address.model.listing.PropertyName;
-import seedu.address.model.listing.UnitNumber;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.PropertyPreference;
-import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
-public class AddPreferenceCommand extends Command{
+/**
+ * Adds a {@code PropertyPreference} with the specified tags and new tags.
+ */
+public class AddPreferenceCommand extends Command {
     public static final String COMMAND_WORD = "addPreference";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new property preference with "
@@ -101,7 +92,8 @@ public class AddPreferenceCommand extends Command{
         Person personWithPreferenceAdded = createPersonWithAddedPreference(personToAddPreference, preferenceWithTags);
 
         model.setPerson(personToAddPreference, personWithPreferenceAdded);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personWithPreferenceAdded,preferenceWithTags)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+            Messages.format(personWithPreferenceAdded, preferenceWithTags)));
     }
 
     @Override
@@ -134,7 +126,7 @@ public class AddPreferenceCommand extends Command{
         assert person != null;
 
         Name name = person.getName();
-        Phone phone= person.getPhone();
+        Phone phone = person.getPhone();
         Email email = person.getEmail();
         List<PropertyPreference> propertyPreferences = new ArrayList<>(person.getPropertyPreferences());
         propertyPreferences.add(preference);
@@ -143,6 +135,12 @@ public class AddPreferenceCommand extends Command{
         return new Person(name, phone, email, propertyPreferences, listings);
     }
 
+    /**
+     * Creates a new {@code PropertyPreference} with the specified tags and new tags.
+     * The method combines the existing and new tags, creates {@code Tag} objects from the combined tags,
+     * and associates them with a new {@code PropertyPreference}. The preference is then added to the model's
+     * tag registry.
+     */
     public PropertyPreference createPreferenceWithTags(PropertyPreference preference, Set<String> tagSet,
                                                        Set<String> newTagSet, Model model) {
         Set<String> combinedTags = new HashSet<>(tagSet);
