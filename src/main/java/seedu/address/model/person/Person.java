@@ -112,15 +112,13 @@ public class Person {
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && propertyPreferences.equals(otherPerson.propertyPreferences)
-                && listings.equals(otherPerson.listings);
+                && email.equals(otherPerson.email);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, propertyPreferences, listings);
+        return Objects.hash(name, phone, email);
     }
 
     @Override
