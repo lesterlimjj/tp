@@ -52,21 +52,22 @@ public class AddPreferenceCommand extends Command {
     public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.";
 
     private final Index index;
-    private final PropertyPreference toAdd;
+    private final PriceRange priceRange;
     private final Set<String> tagSet;
     private final Set<String> newTagSet;
 
     /**
      * Creates an AddPersonCommand to add the specified {@code Person}
      */
-    public AddPreferenceCommand(Index index, PropertyPreference propertyPreference, Set<String> tags,
+    public AddPreferenceCommand(Index index, PriceRange priceRange, Set<String> tags,
                                 Set<String> newTags) {
-        requireNonNull(propertyPreference);
+        requireNonNull(priceRange);
         this.index = index;
-        toAdd = propertyPreference;
+        this.priceRange = priceRange;
         tagSet = tags;
         newTagSet = newTags;
     }
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -81,7 +82,8 @@ public class AddPreferenceCommand extends Command {
         }
         model.addTags(newTagSet);
 
-        PropertyPreference preferenceWithTags = createPreferenceWithTags(toAdd, tagSet, newTagSet, model);
+        PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>());
+        PropertyPreference preferenceWithTags = createPreferenceWithTags(preference, tagSet, newTagSet, model);
 
         List<Person> lastShownList = model.getFilteredPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -89,7 +91,9 @@ public class AddPreferenceCommand extends Command {
         }
 
         Person personToAddPreference = lastShownList.get(index.getZeroBased());
-        Person personWithPreferenceAdded = createPersonWithAddedPreference(personToAddPreference, preferenceWithTags);
+        PropertyPreference preferenceWithPerson = createPreferenceWithPerson(preferenceWithTags, personToAddPreference);
+        Person personWithPreferenceAdded = createPersonWithAddedPreference(personToAddPreference, preferenceWithPerson);
+
 
         model.setPerson(personToAddPreference, personWithPreferenceAdded);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
@@ -108,13 +112,13 @@ public class AddPreferenceCommand extends Command {
         }
 
         AddPreferenceCommand otherAddPreferenceCommand = (AddPreferenceCommand) other;
-        return toAdd.equals(otherAddPreferenceCommand.toAdd);
+        return priceRange.equals(otherAddPreferenceCommand.priceRange);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("toAdd", toAdd)
+                .add("priceRange", priceRange)
                 .toString();
     }
 
@@ -122,7 +126,7 @@ public class AddPreferenceCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createPersonWithAddedPreference(Person person, PropertyPreference preference) {
+    private Person createPersonWithAddedPreference(Person person, PropertyPreference preference) {
         assert person != null;
 
         Name name = person.getName();
@@ -141,7 +145,7 @@ public class AddPreferenceCommand extends Command {
      * and associates them with a new {@code PropertyPreference}. The preference is then added to the model's
      * tag registry.
      */
-    public PropertyPreference createPreferenceWithTags(PropertyPreference preference, Set<String> tagSet,
+    private PropertyPreference createPreferenceWithTags(PropertyPreference preference, Set<String> tagSet,
                                                        Set<String> newTagSet, Model model) {
         Set<String> combinedTags = new HashSet<>(tagSet);
         combinedTags.addAll(newTagSet);
@@ -149,12 +153,31 @@ public class AddPreferenceCommand extends Command {
         TagRegistry tagRegistry = TagRegistry.of();
 
         for (String tag : combinedTags) {
-            tagList.add(new Tag(tag, new ArrayList<>(), new ArrayList<>()));
+            List<PropertyPreference> tagPropertyPreferences = new ArrayList<>();
+            tagPropertyPreferences.add(preference);
+            Tag tagToAdd = new Tag(tag, tagPropertyPreferences, new ArrayList<>());
+            tagRegistry.setTag(tagToAdd, tagToAdd);
+
+            tagList.add(tagToAdd);
         }
 
         PriceRange priceRange = preference.getPriceRange();
         PropertyPreference newPreference = new PropertyPreference(priceRange, tagList);
         model.addPreferenceToTags(combinedTags, newPreference);
+
+        return newPreference;
+    }
+
+    /**
+     * Creates a new {@code PropertyPreference} with the specified tags and new tags.
+     * The method combines the existing and new tags, creates {@code Tag} objects from the combined tags,
+     * and associates them with a new {@code PropertyPreference}. The preference is then added to the model's
+     * tag registry.
+     */
+    private PropertyPreference createPreferenceWithPerson(PropertyPreference preference, Person person) {
+        Set<Tag> tagList = new HashSet<>(preference.getTags());
+        PriceRange priceRange = preference.getPriceRange();
+        PropertyPreference newPreference = new PropertyPreference(priceRange, tagList, person);
 
         return newPreference;
     }
