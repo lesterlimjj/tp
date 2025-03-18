@@ -12,6 +12,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
@@ -64,7 +65,7 @@ class JsonSerializableAddressBook {
         addListings(addressBook, tempPersonList);
         updatePersonsAndListings(addressBook, tempPersonList);
 
-        addTags();
+        addTags(addressBook);
 
         return addressBook;
     }
@@ -177,13 +178,29 @@ class JsonSerializableAddressBook {
     /**
      * Adds tags from the JSON-adapted tags to the TagRegistry.
      */
-    private void addTags() throws IllegalValueException {
+    private void addTags(AddressBook addressBook) throws IllegalValueException {
         for (JsonAdaptedTag jsonAdaptedTag : tags) {
             Tag tag = jsonAdaptedTag.toModelType();
             if (!TagRegistry.of().contains(tag)) {
                 TagRegistry.of().add(tag);
             }
         }
+
+
+        for (Person person: addressBook.getPersonList()) {
+            for (PropertyPreference propertyPreference: person.getPropertyPreferences()) {
+                for (Tag tag: propertyPreference.getTags()) {
+                    TagRegistry.of().addPropertyPreferenceToTag(tag.getTagName(), propertyPreference);
+                }
+            }
+        }
+
+        for (Listing listing: addressBook.getListingList()) {
+            for (Tag tag: listing.getTags()) {
+                TagRegistry.of().addListingToTag(tag.getTagName(), listing);
+            }
+        }
+
     }
 
 }

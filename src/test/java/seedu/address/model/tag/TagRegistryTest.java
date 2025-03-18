@@ -17,7 +17,10 @@ import seedu.address.model.listing.HouseNumber;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.PostalCode;
 import seedu.address.model.listing.PropertyName;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
@@ -102,7 +105,10 @@ public class TagRegistryTest {
 
         Price lowPrice = new Price("500000");
         Price highPrice = new Price("800000");
-        PropertyPreference preference = new PropertyPreference(new PriceRange(lowPrice, highPrice), new HashSet<>());
+        Person person = new Person(new Name("John Doe"), new Phone("98765432"), new Email("johndoe@example.com"),
+                new ArrayList<>(), new ArrayList<>());
+        PropertyPreference preference = new PropertyPreference(new PriceRange(lowPrice, highPrice), new HashSet<>(),
+                person);
 
         tagRegistry.addPropertyPreferenceToTag("HDB", preference);
         assertTrue(tagRegistry.get("HDB").getPropertyPreferences().contains(preference));
