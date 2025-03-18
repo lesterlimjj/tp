@@ -66,14 +66,13 @@ public class PropertyPreference {
         }
 
         PropertyPreference otherPropertyPreference = (PropertyPreference) other;
-        return this.priceRange.equals(otherPropertyPreference.priceRange)
-                && person.equals(otherPropertyPreference.person);
+        return this.priceRange.equals(otherPropertyPreference.priceRange);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(priceRange, person);
+        return Objects.hash(priceRange);
     }
 
     @Override
