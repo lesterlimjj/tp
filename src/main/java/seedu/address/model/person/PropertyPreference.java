@@ -42,16 +42,16 @@ public class PropertyPreference {
         return priceRange;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
-    }
-
-    public Person getPerson() {
-        return person;
     }
 
     @Override
