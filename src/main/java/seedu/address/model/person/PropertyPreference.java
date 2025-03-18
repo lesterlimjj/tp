@@ -64,6 +64,10 @@ public class PropertyPreference {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
