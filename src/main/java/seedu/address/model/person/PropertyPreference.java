@@ -31,20 +31,6 @@ public class PropertyPreference {
      * @param priceRange A valid price range.
      * @param tags A valid set of tags.
      */
-    public PropertyPreference(PriceRange priceRange, Set<Tag> tags) {
-        requireAllNonNull(priceRange, tags);
-        this.priceRange = priceRange;
-        this.tags.addAll(tags);
-        this.person = null;
-    }
-
-    /**
-     * Constructs a {@code PropertyPreference}.
-     * Every field must be present and not null.
-     *
-     * @param priceRange A valid price range.
-     * @param tags A valid set of tags.
-     */
     public PropertyPreference(PriceRange priceRange, Set<Tag> tags, Person person) {
         requireAllNonNull(priceRange, tags, person);
         this.priceRange = priceRange;
@@ -62,6 +48,10 @@ public class PropertyPreference {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Person getPerson() {
+        return person;
     }
 
     @Override

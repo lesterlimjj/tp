@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
@@ -43,7 +44,7 @@ class JsonAdaptedPreference {
     /**
      * Converts this Jackson-friendly adapted preference object into the model's {@code PriceRange} object.
      */
-    public PropertyPreference toModelType() throws IllegalValueException {
+    public PropertyPreference toModelType(Person person) throws IllegalValueException {
         if (priceRange == null) {
             throw new IllegalValueException("PropertyPreference's priceRange cannot be null.");
         }
@@ -52,7 +53,11 @@ class JsonAdaptedPreference {
             throw new IllegalValueException("PropertyPreference's tags cannot be null.");
         }
 
-        return new PropertyPreference(priceRange.toModelType(), getModelTags());
+        if (person == null) {
+            throw new IllegalValueException("PropertyPreference's person cannot be null.");
+        }
+
+        return new PropertyPreference(priceRange.toModelType(), getModelTags(), person);
     }
 
     private Set<Tag> getModelTags() throws IllegalValueException {
