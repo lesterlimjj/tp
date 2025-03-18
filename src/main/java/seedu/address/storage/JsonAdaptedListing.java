@@ -70,9 +70,7 @@ class JsonAdaptedListing {
 
         this.priceRange = new JsonAdaptedPriceRange(source.getPriceRange());
 
-        propertyName = source.getPropertyName().propertyName;
-
-
+        propertyName = source.getPropertyName() != null ? source.getPropertyName().propertyName : null;
         tags = source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList());

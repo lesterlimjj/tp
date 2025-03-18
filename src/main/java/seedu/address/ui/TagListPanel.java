@@ -36,7 +36,7 @@ public class TagListPanel extends UiPart<Region> {
     private void updateTags(ObservableList<Tag> tagList) {
         tags.getChildren().clear(); // Clear existing tags
         for (Tag tag : tagList) {
-            Label tagLabel = new Label(tag.tagName);
+            Label tagLabel = new Label(tag.tagName + " (" + tag.getNumUsage() + ")");
             tags.getChildren().add(tagLabel); // Add each tag as a Label
         }
     }
