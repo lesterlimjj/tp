@@ -108,8 +108,7 @@ public class Tag {
             return true;
         }
 
-        return otherTag != null
-                && tagName.equals(otherTag.tagName);
+        return otherTag != null && tagName.equals(otherTag.tagName);
     }
 
     /**
@@ -137,7 +136,7 @@ public class Tag {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tagName, propertyPreferences, listings);
+        return Objects.hash(tagName);
     }
 
     /**
