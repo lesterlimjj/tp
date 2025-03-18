@@ -16,6 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagRegistry;
 
 /**
  * Deletes tag(s) from a property (listing).
@@ -77,9 +78,10 @@ public class DeletePropertyTagCommand extends Command {
 
         updatedTags.removeAll(removedTags);
 
-        // Removal association logic
+        // Removal association logic — using TagRegistry
+        TagRegistry tagRegistry = TagRegistry.of();
         for (Tag tag : removedTags) {
-            removeListingAssociationFromTag(model, tag, listingToEdit);
+            removeListingAssociationFromTagRegistry(tagRegistry, tag, listingToEdit);
         }
 
         Listing editedListing = Listing.of(
@@ -94,26 +96,28 @@ public class DeletePropertyTagCommand extends Command {
 
         model.setListing(listingToEdit, editedListing);
 
-        // Preserve input case in output
         return new CommandResult(String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
                 listingToEdit.getPostalCode(), tagsToDelete));
     }
 
     /**
-     * Removes the association of a listing from a tag directly via the model's tag list.
+     * Removes the listing association from a tag by using the TagRegistry.
+     *
+     * @param tagRegistry    The TagRegistry instance.
+     * @param targetTag      The tag whose association is being removed.
+     * @param listingToRemove The listing to disassociate.
      */
-    private void removeListingAssociationFromTag(Model model, Tag targetTag, Listing listingToRemove) {
-        List<Tag> tagList = new ArrayList<>(model.getTagList());
-        for (Tag tag : tagList) {
+    private void removeListingAssociationFromTagRegistry(TagRegistry tagRegistry, Tag targetTag, Listing
+            listingToRemove) {
+        for (Tag tag : tagRegistry) {
             if (tag.getTagName().equalsIgnoreCase(targetTag.getTagName())) {
                 List<Listing> updatedListings = new ArrayList<>(tag.getListings());
                 updatedListings.remove(listingToRemove);
                 Tag editedTag = new Tag(tag.getTagName(), tag.getPropertyPreferences(), updatedListings);
-                model.setTag(tag, editedTag);
+                tagRegistry.setTag(tag, editedTag);
                 return;
             }
         }
-        // If tag not found in model's tag list, no action (or optionally throw CommandException)
     }
 
     @Override
