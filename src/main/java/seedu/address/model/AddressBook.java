@@ -277,6 +277,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.equals(otherAddressBook.persons);
     }
 
+    public void setTag(Tag target, Tag editedTag) {
+        tagRegistry.setTag(target, editedTag);
+    }
+
     @Override
     public int hashCode() {
         return persons.hashCode();

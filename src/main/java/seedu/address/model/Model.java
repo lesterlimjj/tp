@@ -137,4 +137,8 @@ public interface Model {
     void addListingToTags(Set<String> tags, Listing listing);
 
     void addPreferenceToTags(Set<String> tags, PropertyPreference preference);
+
+    ObservableList<Tag> getTagList();
+
+    void setTag(Tag target, Tag editedTag);
 }

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,16 +69,31 @@ public class DeletePropertyTagCommandTest {
         Index validIndex = Index.fromZeroBased(0); // Define the index manually
         Set<String> tagsToRemove = new HashSet<>();
         tagsToRemove.add("Luxury");
+        tagsToRemove.add("Pool");
 
         DeletePropertyTagCommand deleteCommand = new DeletePropertyTagCommand(validIndex, tagsToRemove);
 
         CommandResult result = deleteCommand.execute(model);
 
+        // Sort tags to make output deterministic
+        List<String> sortedTags = tagsToRemove.stream().sorted().collect(Collectors.toList());
         String expectedMessage = String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
-                sampleListing.getPostalCode(), tagsToRemove);
+                sampleListing.getPostalCode(), sortedTags);
 
-        assertEquals(expectedMessage, result.getFeedbackToUser());
+        // Check that output contains both tags and correct postal code
+        for (String tag : tagsToRemove) {
+            assert(result.getFeedbackToUser().contains(tag));
+        }
+        assert(result.getFeedbackToUser().contains(sampleListing.getPostalCode().toString()));
+
+        // Optional: if order doesn't matter, do contains-based check
+        assertEquals(
+                result.getFeedbackToUser(),
+                String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
+                        sampleListing.getPostalCode(), tagsToRemove)
+        );
     }
+
 
     @Test
     public void execute_invalidPropertyIndex_failure() {

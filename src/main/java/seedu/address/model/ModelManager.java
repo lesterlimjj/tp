@@ -227,6 +227,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Tag> getTagList() {
+        return filteredTags;
+    }
+
+    @Override
+    public void setTag(Tag target, Tag editedTag) {
+        addressBook.setTag(target, editedTag);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

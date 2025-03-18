@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -16,7 +18,7 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes a tag from a property (listing).
+ * Deletes tag(s) from a property (listing).
  */
 public class DeletePropertyTagCommand extends Command {
 
@@ -55,25 +57,30 @@ public class DeletePropertyTagCommand extends Command {
         }
 
         Listing listingToEdit = lastShownList.get(propertyIndex.getZeroBased());
+        Set<Tag> listingTags = listingToEdit.getTags();
 
-        Set<Tag> updatedTags = new HashSet<>(listingToEdit.getTags());
-        Set<Tag> removedTags = new HashSet<>();
-        Set<String> removedTagNames = new HashSet<>(); // Preserve original case for output
+        // Check if all specified tags exist in the listing
+        Set<String> notFoundTags = tagsToDelete.stream()
+                .filter(inputTag -> listingTags.stream()
+                        .noneMatch(listingTag -> listingTag.getTagName().equalsIgnoreCase(inputTag)))
+                .collect(Collectors.toSet());
 
-        for (Tag tag : listingToEdit.getTags()) {
-            for (String tagToDelete : tagsToDelete) {
-                if (tagToDelete.equalsIgnoreCase(tag.getTagName())) {
-                    removedTags.add(tag);
-                    removedTagNames.add(tagToDelete); // Store original case
-                }
-            }
+        if (!notFoundTags.isEmpty()) {
+            throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND, notFoundTags));
         }
 
-        if (removedTags.isEmpty()) {
-            throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND, tagsToDelete));
-        }
+        Set<Tag> updatedTags = new HashSet<>(listingTags);
+        Set<Tag> removedTags = listingTags.stream()
+                .filter(tag -> tagsToDelete.stream()
+                        .anyMatch(inputTag -> inputTag.equalsIgnoreCase(tag.getTagName())))
+                .collect(Collectors.toSet());
 
         updatedTags.removeAll(removedTags);
+
+        // Removal association logic
+        for (Tag tag : removedTags) {
+            removeListingAssociationFromTag(model, tag, listingToEdit);
+        }
 
         Listing editedListing = Listing.of(
                 listingToEdit.getPostalCode(),
@@ -87,11 +94,27 @@ public class DeletePropertyTagCommand extends Command {
 
         model.setListing(listingToEdit, editedListing);
 
-        // Use the original case versions of the tag names
+        // Preserve input case in output
         return new CommandResult(String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
-                listingToEdit.getPostalCode(), removedTagNames));
+                listingToEdit.getPostalCode(), tagsToDelete));
     }
 
+    /**
+     * Removes the association of a listing from a tag directly via the model's tag list.
+     */
+    private void removeListingAssociationFromTag(Model model, Tag targetTag, Listing listingToRemove) {
+        List<Tag> tagList = new ArrayList<>(model.getTagList());
+        for (Tag tag : tagList) {
+            if (tag.getTagName().equalsIgnoreCase(targetTag.getTagName())) {
+                List<Listing> updatedListings = new ArrayList<>(tag.getListings());
+                updatedListings.remove(listingToRemove);
+                Tag editedTag = new Tag(tag.getTagName(), tag.getPropertyPreferences(), updatedListings);
+                model.setTag(tag, editedTag);
+                return;
+            }
+        }
+        // If tag not found in model's tag list, no action (or optionally throw CommandException)
+    }
 
     @Override
     public boolean equals(Object other) {
