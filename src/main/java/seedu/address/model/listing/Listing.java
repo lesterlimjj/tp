@@ -235,13 +235,13 @@ public class Listing {
                 && Objects.equals(unitNumber, otherListing.unitNumber)
                 && Objects.equals(houseNumber, otherListing.houseNumber)
                 && priceRange.equals(otherListing.priceRange)
-                && propertyName.equals(otherListing.propertyName)
-                && tags.equals(otherListing.tags);
+                && propertyName.equals(otherListing.propertyName);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(postalCode, unitNumber, houseNumber, priceRange, propertyName, tags, owners);
+        return Objects.hash(postalCode, unitNumber, houseNumber, priceRange, propertyName);
     }
 
     @Override
