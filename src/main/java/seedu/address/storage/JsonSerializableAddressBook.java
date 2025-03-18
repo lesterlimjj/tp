@@ -187,16 +187,16 @@ class JsonSerializableAddressBook {
         }
 
 
-        for (Person person: addressBook.getPersonList()){
-            for (PropertyPreference propertyPreference: person.getPropertyPreferences()){
-                for (Tag tag: propertyPreference.getTags()){
+        for (Person person: addressBook.getPersonList()) {
+            for (PropertyPreference propertyPreference: person.getPropertyPreferences()) {
+                for (Tag tag: propertyPreference.getTags()) {
                     TagRegistry.of().addPropertyPreferenceToTag(tag.getTagName(), propertyPreference);
                 }
             }
         }
 
-        for (Listing listing: addressBook.getListingList()){
-            for (Tag tag: listing.getTags()){
+        for (Listing listing: addressBook.getListingList()) {
+            for (Tag tag: listing.getTags()) {
                 TagRegistry.of().addListingToTag(tag.getTagName(), listing);
             }
         }
