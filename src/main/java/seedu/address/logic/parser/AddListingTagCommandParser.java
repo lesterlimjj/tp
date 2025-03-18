@@ -1,22 +1,17 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER_BOUND_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddListingTagCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.price.Price;
-import seedu.address.model.price.PriceRange;
 
-/*
+/**
  * Parses input arguments and adds tags to a listing
  */
 public class AddListingTagCommandParser implements Parser<AddListingTagCommand> {

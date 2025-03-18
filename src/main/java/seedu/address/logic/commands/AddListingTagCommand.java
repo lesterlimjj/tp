@@ -19,15 +19,14 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.PostalCode;
 import seedu.address.model.listing.PropertyName;
 import seedu.address.model.listing.UnitNumber;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
+/**
+ * Adds tags to a listing in the addressbook
+ */
 public class AddListingTagCommand extends Command {
     public static final String COMMAND_WORD = "addListingTag";
 
