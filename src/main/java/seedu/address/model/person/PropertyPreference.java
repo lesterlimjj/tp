@@ -31,20 +31,6 @@ public class PropertyPreference {
      * @param priceRange A valid price range.
      * @param tags A valid set of tags.
      */
-    public PropertyPreference(PriceRange priceRange, Set<Tag> tags) {
-        requireAllNonNull(priceRange, tags);
-        this.priceRange = priceRange;
-        this.tags.addAll(tags);
-        this.person = null;
-    }
-
-    /**
-     * Constructs a {@code PropertyPreference}.
-     * Every field must be present and not null.
-     *
-     * @param priceRange A valid price range.
-     * @param tags A valid set of tags.
-     */
     public PropertyPreference(PriceRange priceRange, Set<Tag> tags, Person person) {
         requireAllNonNull(priceRange, tags, person);
         this.priceRange = priceRange;
@@ -54,6 +40,10 @@ public class PropertyPreference {
 
     public PriceRange getPriceRange() {
         return priceRange;
+    }
+
+    public Person getPerson() {
+        return person;
     }
 
     /**
@@ -76,14 +66,13 @@ public class PropertyPreference {
         }
 
         PropertyPreference otherPropertyPreference = (PropertyPreference) other;
-        return this.priceRange.equals(otherPropertyPreference.priceRange)
-                && tags.equals(otherPropertyPreference.tags);
+        return this.priceRange.equals(otherPropertyPreference.priceRange);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(priceRange, tags);
+        return Objects.hash(priceRange);
     }
 
     @Override
@@ -91,6 +80,7 @@ public class PropertyPreference {
         return new ToStringBuilder(this)
                 .add("price range", priceRange)
                 .add("tags", tags)
+                .add("person", person)
                 .toString();
     }
 }

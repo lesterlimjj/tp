@@ -82,22 +82,20 @@ public class AddPreferenceCommand extends Command {
         }
         model.addTags(newTagSet);
 
-        PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>());
-        PropertyPreference preferenceWithTags = createPreferenceWithTags(preference, tagSet, newTagSet, model);
-
         List<Person> lastShownList = model.getFilteredPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToAddPreference = lastShownList.get(index.getZeroBased());
-        PropertyPreference preferenceWithPerson = createPreferenceWithPerson(preferenceWithTags, personToAddPreference);
-        Person personWithPreferenceAdded = createPersonWithAddedPreference(personToAddPreference, preferenceWithPerson);
 
+        PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>(), personToAddPreference);
+        PropertyPreference preferenceWithTags = createPreferenceWithTags(preference, tagSet, newTagSet, model);
+        Person personWithPreferenceAdded = createPersonWithAddedPreference(personToAddPreference, preferenceWithTags);
 
         model.setPerson(personToAddPreference, personWithPreferenceAdded);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-            Messages.format(personWithPreferenceAdded, preferenceWithTags)));
+                Messages.format(personWithPreferenceAdded, preferenceWithTags)));
     }
 
     @Override
@@ -146,39 +144,27 @@ public class AddPreferenceCommand extends Command {
      * tag registry.
      */
     private PropertyPreference createPreferenceWithTags(PropertyPreference preference, Set<String> tagSet,
-                                                       Set<String> newTagSet, Model model) {
-        Set<String> combinedTags = new HashSet<>(tagSet);
-        combinedTags.addAll(newTagSet);
-        Set<Tag> tagList = new HashSet<>();
+                                                        Set<String> newTagSet, Model model) {
         TagRegistry tagRegistry = TagRegistry.of();
+        Set<String> tagNames = new HashSet<>(newTagSet);
+        tagNames.addAll(tagSet);
+        Set<Tag> tags = new HashSet<>();
 
-        for (String tag : combinedTags) {
-            List<PropertyPreference> tagPropertyPreferences = new ArrayList<>();
+        for (String tagName : tagNames) {
+            Tag tag = tagRegistry.get(tagName);
+            List<PropertyPreference> tagPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
             tagPropertyPreferences.add(preference);
-            Tag tagToAdd = new Tag(tag, tagPropertyPreferences, new ArrayList<>());
-            tagRegistry.setTag(tagToAdd, tagToAdd);
+            List<Listing> listings = new ArrayList<>(tag.getListings());
+            Tag tagToAdd = new Tag(tagName, tagPropertyPreferences, listings);
+            tagRegistry.setTag(tag, tagToAdd);
 
-            tagList.add(tagToAdd);
+            tags.add(tagToAdd);
         }
 
         PriceRange priceRange = preference.getPriceRange();
-        PropertyPreference newPreference = new PropertyPreference(priceRange, tagList);
-        model.addPreferenceToTags(combinedTags, newPreference);
+        PropertyPreference newPreference = new PropertyPreference(priceRange, tags, preference.getPerson());
 
         return newPreference;
     }
 
-    /**
-     * Creates a new {@code PropertyPreference} with the specified tags and new tags.
-     * The method combines the existing and new tags, creates {@code Tag} objects from the combined tags,
-     * and associates them with a new {@code PropertyPreference}. The preference is then added to the model's
-     * tag registry.
-     */
-    private PropertyPreference createPreferenceWithPerson(PropertyPreference preference, Person person) {
-        Set<Tag> tagList = new HashSet<>(preference.getTags());
-        PriceRange priceRange = preference.getPriceRange();
-        PropertyPreference newPreference = new PropertyPreference(priceRange, tagList, person);
-
-        return newPreference;
-    }
 }
