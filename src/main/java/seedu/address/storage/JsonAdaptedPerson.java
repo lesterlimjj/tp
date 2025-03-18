@@ -86,9 +86,11 @@ class JsonAdaptedPerson {
             throw new IllegalValueException("Person's preferences cannot be null.");
         }
 
+        Person temp = new Person(modelName, modelPhone, modelEmail, new ArrayList<>(), new ArrayList<>());
+
         final List<PropertyPreference> modelPreferences = new ArrayList<>();
         for (JsonAdaptedPreference pref : preferences) {
-            modelPreferences.add(pref.toModelType());
+            modelPreferences.add(pref.toModelType(temp));
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelPreferences, new ArrayList<>());

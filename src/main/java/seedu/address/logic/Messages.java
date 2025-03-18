@@ -22,6 +22,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid";
     public static final String MESSAGE_DELETE_PROPERTY_TAG_SUCCESS = "Tag(s) in property %s deleted: %s";
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag(s) not found in property: %s";
+    public static final String MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX = "The property preference index provided "
+            + "is invalid";
 
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
