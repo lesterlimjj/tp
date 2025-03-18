@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
@@ -26,10 +27,6 @@ public class DeletePropertyTagCommand extends Command {
             + "Parameters: PROPERTY_INDEX (must be a positive integer) "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "pet-friendly " + PREFIX_TAG + "pool";
-
-    public static final String MESSAGE_DELETE_PROPERTY_TAG_SUCCESS = "Tag(s) in property %s deleted: %s";
-    public static final String MESSAGE_TAG_NOT_FOUND = "Tag(s) not found in property: %s";
-    public static final String MESSAGE_INVALID_PROPERTY_INDEX = "Invalid property index: %d";
 
     private final Index propertyIndex;
     private final Set<String> tagsToDelete;
@@ -54,7 +51,7 @@ public class DeletePropertyTagCommand extends Command {
         List<Listing> lastShownList = model.getFilteredListingList();
 
         if (propertyIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(MESSAGE_INVALID_PROPERTY_INDEX, propertyIndex.getOneBased()));
+            throw new CommandException(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX);
         }
 
         Listing listingToEdit = lastShownList.get(propertyIndex.getZeroBased());
@@ -73,7 +70,7 @@ public class DeletePropertyTagCommand extends Command {
         }
 
         if (removedTags.isEmpty()) {
-            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagsToDelete));
+            throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND, tagsToDelete));
         }
 
         updatedTags.removeAll(removedTags);
@@ -91,7 +88,7 @@ public class DeletePropertyTagCommand extends Command {
         model.setListing(listingToEdit, editedListing);
 
         // Use the original case versions of the tag names
-        return new CommandResult(String.format(MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
+        return new CommandResult(String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
                 listingToEdit.getPostalCode(), removedTagNames));
     }
 

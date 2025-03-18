@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -51,7 +52,7 @@ public class DeletePropertyTagCommandTest {
         // Manually create a Listing with a VALID unit number
         sampleListing = Listing.of(
                 new PostalCode("123456"),
-                new UnitNumber("10-123"), // ✅ FIXED: Valid Unit Number
+                new UnitNumber("10-123"),
                 null, // No house number
                 new PriceRange(new Price("100000"), new Price("200000")),
                 null, // No property name
@@ -72,7 +73,7 @@ public class DeletePropertyTagCommandTest {
 
         CommandResult result = deleteCommand.execute(model);
 
-        String expectedMessage = String.format(DeletePropertyTagCommand.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
+        String expectedMessage = String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
                 sampleListing.getPostalCode(), tagsToRemove);
 
         assertEquals(expectedMessage, result.getFeedbackToUser());
