@@ -95,13 +95,11 @@ public class AddPreferenceCommand extends Command {
 
         PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>(), personToAddPreference);
         PropertyPreference preferenceWithTags = createPreferenceWithTags(preference, tagSet, newTagSet, model);
-        PropertyPreference preferenceWithPerson = createPreferenceWithPerson(preferenceWithTags, personToAddPreference);
-        Person personWithPreferenceAdded = createPersonWithAddedPreference(personToAddPreference, preferenceWithPerson);
-
+        Person personWithPreferenceAdded = createPersonWithAddedPreference(personToAddPreference, preferenceWithTags);
 
         model.setPerson(personToAddPreference, personWithPreferenceAdded);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-            Messages.format(personWithPreferenceAdded, preferenceWithTags)));
+                Messages.format(personWithPreferenceAdded, preferenceWithTags)));
     }
 
     @Override
@@ -150,7 +148,7 @@ public class AddPreferenceCommand extends Command {
      * tag registry.
      */
     private PropertyPreference createPreferenceWithTags(PropertyPreference preference, Set<String> tagSet,
-                                                       Set<String> newTagSet, Model model) {
+                                                        Set<String> newTagSet, Model model) {
         TagRegistry tagRegistry = TagRegistry.of();
         Set<String> tagNames = new HashSet<>(newTagSet);
         tagNames.addAll(tagSet);
@@ -158,33 +156,19 @@ public class AddPreferenceCommand extends Command {
 
         for (String tagName : tagNames) {
             Tag tag = tagRegistry.get(tagName);
-            List<PropertyPreference> tagPropertyPreferences = new ArrayList<>();
+            List<PropertyPreference> tagPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
             tagPropertyPreferences.add(preference);
             List<Listing> listings = new ArrayList<>(tag.getListings());
             Tag tagToAdd = new Tag(tagName, tagPropertyPreferences, listings);
-            tagRegistry.setTag(tagToAdd, tagToAdd);
+            tagRegistry.setTag(tag, tagToAdd);
 
             tags.add(tagToAdd);
         }
 
         PriceRange priceRange = preference.getPriceRange();
         PropertyPreference newPreference = new PropertyPreference(priceRange, tags, preference.getPerson());
-        model.addPreferenceToTags(tagNames, newPreference);
 
         return newPreference;
     }
 
-    /**
-     * Creates a new {@code PropertyPreference} with the specified tags and new tags.
-     * The method combines the existing and new tags, creates {@code Tag} objects from the combined tags,
-     * and associates them with a new {@code PropertyPreference}. The preference is then added to the model's
-     * tag registry.
-     */
-    private PropertyPreference createPreferenceWithPerson(PropertyPreference preference, Person person) {
-        Set<Tag> tags = new HashSet<>(preference.getTags());
-        PriceRange priceRange = preference.getPriceRange();
-        PropertyPreference newPreference = new PropertyPreference(priceRange, tags, person);
-
-        return newPreference;
-    }
 }
