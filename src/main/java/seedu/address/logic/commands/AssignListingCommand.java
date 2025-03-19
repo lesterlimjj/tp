@@ -23,6 +23,7 @@ public class AssignListingCommand extends Command {
             + "LISTING_INDEX (must be a positive integer)";
 
     public static final String MESSAGE_SUCCESS = "Listing %1$s";
+    public static final String MESSAGE_OWNER_ALREADY_IN_LISTING = "This person is already an owner of this listing";
 
     private final Index personIndex;
     private final Index listingIndex;
@@ -50,6 +51,10 @@ public class AssignListingCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX);
         }
         Listing listing = lastShownListingList.get(listingIndex.getZeroBased());
+
+        if (listing.getOwners().contains(personToAddListing)) {
+            throw new CommandException(MESSAGE_OWNER_ALREADY_IN_LISTING);
+        }
 
         listing.addOwner(personToAddListing);
         personToAddListing.addListing(listing);
