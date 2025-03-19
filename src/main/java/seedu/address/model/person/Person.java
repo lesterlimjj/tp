@@ -144,7 +144,6 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("property preferences", propertyPreferences)
-                .add("listings", listings)
                 .toString();
     }
 

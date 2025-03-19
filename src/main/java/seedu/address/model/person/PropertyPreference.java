@@ -89,7 +89,6 @@ public class PropertyPreference {
         return new ToStringBuilder(this)
                 .add("price range", priceRange)
                 .add("tags", tags)
-                .add("person", person)
                 .toString();
     }
 }
