@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddListingCommand;
+import seedu.address.logic.commands.AddListingTagCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.commands.AddTagCommand;
@@ -17,6 +18,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.commands.DeletePreferenceCommand;
+import seedu.address.logic.commands.DeletePropertyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -84,6 +86,9 @@ public class AddressBookParser {
         case DeletePreferenceCommand.COMMAND_WORD:
             return new DeletePreferenceCommandParser().parse(arguments);
 
+        case AddListingTagCommand.COMMAND_WORD:
+            return new AddListingTagCommandParser().parse(arguments);
+
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
@@ -104,6 +109,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case DeletePropertyTagCommand.COMMAND_WORD:
+            return new DeletePropertyTagCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
