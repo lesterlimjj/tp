@@ -46,15 +46,17 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
+        List<Person> lastShownList = model.getFilteredPersonList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
         removeListingOwnership(personToDelete, model);
         removeTagsFromPropertyPreference(personToDelete);
+
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
@@ -84,19 +86,8 @@ public class DeleteCommand extends Command {
     private void removeListingOwnership(Person personToDelete, Model model) {
         List<Listing> listings = new ArrayList<>(personToDelete.getListings());
         for (Listing listing : listings) {
-            List<Person> owners = new ArrayList<>(listing.getOwners());
-            owners.remove(personToDelete);
-
-            UnitNumber unitNumber = listing.getUnitNumber();
-            HouseNumber houseNumber = listing.getHouseNumber();
-            PostalCode postalCode = listing.getPostalCode();
-            PriceRange priceRange = listing.getPriceRange();
-            PropertyName propertyName = listing.getPropertyName();
-
-            Listing editedListing = Listing.of(postalCode, unitNumber, houseNumber, priceRange,
-                    propertyName, listing.getTags(), owners);
-
-            model.setListing(listing, editedListing);
+            listing.removeOwner(personToDelete);
+            model.setListing(listing, listing);
         }
     }
 
@@ -109,11 +100,8 @@ public class DeleteCommand extends Command {
             Set<Tag> tags = new HashSet<>(propertyPreference.getTags());
 
             for (Tag tag: tags) {
-                List<PropertyPreference> tagPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
-                tagPropertyPreferences.remove(propertyPreference);
-
-                Tag editedTag = new Tag(tag.getTagName(), tagPropertyPreferences, tag.getListings());
-                tagRegistry.setTag(tag, editedTag);
+                tag.removePropertyPreference(propertyPreference);
+                tagRegistry.setTag(tag, tag);
             }
         }
     }
