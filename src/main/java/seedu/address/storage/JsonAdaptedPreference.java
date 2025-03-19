@@ -3,7 +3,6 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -57,18 +56,19 @@ class JsonAdaptedPreference {
             throw new IllegalValueException("PropertyPreference's person cannot be null.");
         }
 
-        return new PropertyPreference(priceRange.toModelType(), getModelTags(), person);
+        PropertyPreference modelPreference = new PropertyPreference(priceRange.toModelType(), new HashSet<>(), person);
+
+        for (JsonAdaptedTag jsonAdaptedTag : tags) {
+            TagRegistry tagRegistry = TagRegistry.of();
+            Tag tag = jsonAdaptedTag.toModelType();
+
+            modelPreference.addTag(tag);
+            tag.addPropertyPreference(modelPreference);
+
+            tagRegistry.setTag(tag, tag);
+        }
+
+        return modelPreference;
     }
 
-    private Set<Tag> getModelTags() throws IllegalValueException {
-        Set<Tag> tagSet = new HashSet<>();
-        for (JsonAdaptedTag jsonAdaptedTag : tags) {
-            Tag tag = jsonAdaptedTag.toModelType();
-            if (!TagRegistry.of().contains(tag)) {
-                TagRegistry.of().add(tag);
-            }
-            tagSet.add(tag);
-        }
-        return tagSet;
-    }
 }

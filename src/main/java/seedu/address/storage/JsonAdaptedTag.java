@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagRegistry;
 
 /**
  * Jackson-friendly version of {@link Tag}.
@@ -44,7 +45,14 @@ class JsonAdaptedTag {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(tagName, new ArrayList<>(), new ArrayList<>());
+        TagRegistry tagRegistry = TagRegistry.of();
+        Tag tag = new Tag(tagName, new ArrayList<>(), new ArrayList<>());
+
+        if (!tagRegistry.contains(tag)) {
+            tagRegistry.add(tag);
+        }
+
+        return tagRegistry.get(tagName);
     }
 
 
