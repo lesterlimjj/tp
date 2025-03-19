@@ -14,6 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents a Person's property preference in the real estate system.
  * Guarantees: details are present and not null, field values are validated, immutable.
+ * Person association is immutable due to composition. Tags association are mutable.
  */
 public class PropertyPreference {
 
@@ -52,6 +53,14 @@ public class PropertyPreference {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public void addTag(Tag toAdd) {
+        this.tags.add(toAdd);
+    }
+
+    public void removeTag(Tag toDelete) {
+        this.tags.remove(toDelete);
     }
 
     @Override
