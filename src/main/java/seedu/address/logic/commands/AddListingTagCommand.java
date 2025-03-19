@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,13 +13,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.listing.HouseNumber;
 import seedu.address.model.listing.Listing;
-import seedu.address.model.listing.PostalCode;
-import seedu.address.model.listing.PropertyName;
-import seedu.address.model.listing.UnitNumber;
-import seedu.address.model.person.PropertyPreference;
-import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
@@ -65,6 +58,11 @@ public class AddListingTagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        List<Listing> lastShownList = model.getFilteredListingList();
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX);
+        }
+
         if (!model.hasTags(tagSet)) {
             throw new CommandException(MESSAGE_INVALID_TAGS);
         }
@@ -74,23 +72,16 @@ public class AddListingTagCommand extends Command {
         }
         model.addTags(newTagSet);
 
-        List<Listing> lastShownList = model.getFilteredListingList();
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX);
-        }
-
         Listing listingToAddTags = lastShownList.get(index.getZeroBased());
-
-        if (tagExistInListing(listingToAddTags, tagSet, newTagSet)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TAGS_IN_LISTING);
-        }
-
         TagRegistry tagRegistry = TagRegistry.of();
         Set<String> tagNames = new HashSet<>(tagSet);
         tagNames.addAll(newTagSet);
 
         for (String tagName : tagNames) {
             Tag tag = tagRegistry.get(tagName);
+            if (listingToAddTags.getTags().contains(tag)) {
+                throw new CommandException(MESSAGE_DUPLICATE_TAGS_IN_LISTING);
+            }
             tag.addListing(listingToAddTags);
             tagRegistry.setTag(tag, tag);
 
@@ -122,21 +113,6 @@ public class AddListingTagCommand extends Command {
         return new ToStringBuilder(this)
                 .add("Index", index)
                 .toString();
-    }
-
-    private boolean tagExistInListing(Listing listing, Set<String> tagSet, Set<String> newTagSet) {
-        TagRegistry tagRegistry = TagRegistry.of();
-        Set<String> tagNames = new HashSet<>(newTagSet);
-        tagNames.addAll(tagSet);
-        Set<Tag> tags = new HashSet<>(listing.getTags());
-
-        for (String tagName : tagNames) {
-            Tag tag = tagRegistry.get(tagName);
-            if (tags.contains(tag)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }
