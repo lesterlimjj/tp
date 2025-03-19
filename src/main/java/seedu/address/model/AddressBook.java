@@ -110,14 +110,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addListing(Listing listing) {
         listings.add(listing);
-
-        // Register tags in TagRegistry and associate listing
-        for (Tag tag : listing.getTags()) {
-            if (!tagRegistry.contains(tag)) {
-                tagRegistry.add(tag);
-            }
-            tagRegistry.addListingToTag(tag.getTagName(), listing);
-        }
     }
 
     /**

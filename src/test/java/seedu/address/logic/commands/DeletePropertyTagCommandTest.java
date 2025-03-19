@@ -28,13 +28,13 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagRegistry;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Unit tests for DeletePropertyTagCommand.
  */
 public class DeletePropertyTagCommandTest {
-
     private Model model;
     private Listing sampleListing;
     @BeforeEach
@@ -53,6 +53,12 @@ public class DeletePropertyTagCommandTest {
         // Create tags (do NOT manually add to registry)
         Tag luxuryTag = new Tag("Luxury", List.of(), List.of());
         Tag poolTag = new Tag("Pool", List.of(), List.of());
+        if (!TagRegistry.of().contains(luxuryTag)) {
+            TagRegistry.of().add(luxuryTag);
+        }
+        if (!TagRegistry.of().contains(poolTag)) {
+            TagRegistry.of().add(poolTag);
+        }
 
         // Create listing with tags
         sampleListing = Listing.of(
@@ -79,6 +85,8 @@ public class DeletePropertyTagCommandTest {
         DeletePropertyTagCommand deleteCommand = new DeletePropertyTagCommand(validIndex, tagsToRemove);
 
         CommandResult result = deleteCommand.execute(model);
+
+        Tag luxuryTag = new Tag("Luxury", List.of(), List.of());
 
         // Sort tags to make output deterministic
         List<String> sortedTags = tagsToRemove.stream().sorted().collect(Collectors.toList());
