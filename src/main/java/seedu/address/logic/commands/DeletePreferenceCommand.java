@@ -112,7 +112,8 @@ public class DeletePreferenceCommand extends Command {
 
         Set<Tag> tags = new HashSet<>(preferenceToDelete.getTags());
 
-        for (Tag tag: tags) {
+        for (Tag tagReference: tags) {
+            Tag tag = tagRegistry.get(tagReference.getTagName());
             List<PropertyPreference> tagPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
             tagPropertyPreferences.remove(preferenceToDelete);
 
