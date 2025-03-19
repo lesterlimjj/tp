@@ -3,11 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -58,17 +56,6 @@ public class DeletePropertyTagCommand extends Command {
         }
 
         Listing listingToEdit = lastShownList.get(propertyIndex.getZeroBased());
-        Set<Tag> listingTags = listingToEdit.getTags();
-
-        // Check if all specified tags exist in the listing
-        Set<String> notFoundTags = tagsToDelete.stream()
-                .filter(inputTag -> listingTags.stream()
-                        .noneMatch(listingTag -> listingTag.getTagName().equalsIgnoreCase(inputTag)))
-                .collect(Collectors.toSet());
-
-        if (!notFoundTags.isEmpty()) {
-            throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND, notFoundTags));
-        }
 
         TagRegistry tagRegistry = TagRegistry.of();
         Set<Tag> deletedTags = new HashSet<>();
@@ -76,36 +63,21 @@ public class DeletePropertyTagCommand extends Command {
         // Modify listing and tag registry in place
         for (String tagName : tagsToDelete) {
             Tag tagToDelete = tagRegistry.get(tagName);
-            listingToEdit.removeTag(tagToDelete);
-            removeListingAssociationFromTagRegistry(tagRegistry, tagToDelete, listingToEdit);
+            if (!listingToEdit.getTags().contains(tagToDelete)) {
+                throw new CommandException(Messages.MESSAGE_TAG_NOT_FOUND);
+            }
             deletedTags.add(tagToDelete);
         }
 
-        // Commit changes to model
-        model.setListing(listingToEdit, listingToEdit);
-
+        for (Tag tag : deletedTags) {
+            listingToEdit.removeTag(tag);
+            model.setListing(listingToEdit, listingToEdit);
+            tag.removeListing(listingToEdit);
+            tagRegistry.setTag(tag, tag);
+            deletedTags.add(tag);
+        }
         return new CommandResult(String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
                 listingToEdit.getPostalCode(), Messages.format(deletedTags)));
-    }
-
-    /**
-     * Removes the listing association from a tag by using the TagRegistry.
-     *
-     * @param tagRegistry    The TagRegistry instance.
-     * @param targetTag      The tag whose association is being removed.
-     * @param listingToRemove The listing to disassociate.
-     */
-    private void removeListingAssociationFromTagRegistry(TagRegistry tagRegistry, Tag targetTag, Listing
-            listingToRemove) {
-        for (Tag tag : tagRegistry) {
-            if (tag.getTagName().equalsIgnoreCase(targetTag.getTagName())) {
-                List<Listing> updatedListings = new ArrayList<>(tag.getListings());
-                updatedListings.remove(listingToRemove);
-                Tag editedTag = new Tag(tag.getTagName(), tag.getPropertyPreferences(), updatedListings);
-                tagRegistry.setTag(tag, editedTag);
-                return;
-            }
-        }
     }
 
     @Override
