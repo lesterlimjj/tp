@@ -85,12 +85,21 @@ public class AddListingTagCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TAGS_IN_LISTING);
         }
 
-        Listing listingWithTags = createListingWithTags(listingToAddTags, tagSet, newTagSet, model);
-        Set<String> combinedTags = new HashSet<>(tagSet);
-        combinedTags.addAll(newTagSet);
-        model.setListing(listingToAddTags, listingWithTags);
+        TagRegistry tagRegistry = TagRegistry.of();
+        Set<String> tagNames = new HashSet<>(tagSet);
+        tagNames.addAll(newTagSet);
+
+        for (String tagName : tagNames) {
+            Tag tag = tagRegistry.get(tagName);
+            tag.addListing(listingToAddTags);
+            tagRegistry.setTag(tag, tag);
+
+            listingToAddTags.addTag(tag);
+        }
+
+        model.setListing(listingToAddTags, listingToAddTags);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                Messages.format(listingWithTags.getTags(), listingWithTags)));
+                Messages.format(listingToAddTags.getTags(), listingToAddTags)));
     }
 
     @Override
@@ -130,37 +139,4 @@ public class AddListingTagCommand extends Command {
         return false;
     }
 
-    /**
-     * Creates a new {@code PropertyPreference} with the specified tags and new tags.
-     * The method combines the existing and new tags, creates {@code Tag} objects from the combined tags,
-     * and associates them with a new {@code PropertyPreference}. The preference is then added to the model's
-     * tag registry.
-     */
-    private Listing createListingWithTags(Listing listing, Set<String> tagSet,
-                                                        Set<String> newTagSet, Model model) {
-        TagRegistry tagRegistry = TagRegistry.of();
-        Set<String> tagNames = new HashSet<>(newTagSet);
-        tagNames.addAll(tagSet);
-        Set<Tag> tags = new HashSet<>(listing.getTags());
-
-        for (String tagName : tagNames) {
-            Tag tag = tagRegistry.get(tagName);
-            List<Listing> tagListings = new ArrayList<>(tag.getListings());
-            tagListings.add(listing);
-            List<PropertyPreference> preferences = new ArrayList<>(tag.getPropertyPreferences());
-            Tag tagToAdd = new Tag(tagName, preferences, tagListings);
-            tagRegistry.setTag(tag, tagToAdd);
-
-            tags.add(tagToAdd);
-        }
-
-        UnitNumber unitNumber = listing.getUnitNumber();
-        HouseNumber houseNumber = listing.getHouseNumber();
-        PostalCode postalCode = listing.getPostalCode();
-        PriceRange priceRange = listing.getPriceRange();
-        PropertyName propertyName = listing.getPropertyName();
-
-        return Listing.of(postalCode, unitNumber, houseNumber, priceRange,
-                propertyName, tags, listing.getOwners());
-    }
 }
