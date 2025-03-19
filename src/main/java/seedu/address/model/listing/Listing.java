@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents a Listing in the real estate system.
  * Guarantees: either unit number or house number is present and not null but not both,
- * rest of details are present and not null, field values are validated, immutable.
+ * rest of details are present and not null, field values are validated, immutable. Associations are mutable.
  */
 public class Listing {
 
@@ -186,12 +186,28 @@ public class Listing {
         return Collections.unmodifiableSet(tags);
     }
 
+    public void addTag(Tag toAdd) {
+        this.tags.add(toAdd);
+    }
+
+    public void removeTag(Tag toDelete) {
+        this.tags.remove(toDelete);
+    }
+
     /**
      * Returns an immutable owners list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public List<Person> getOwners() {
         return Collections.unmodifiableList(owners);
+    }
+
+    public void addOwner(Person toAdd) {
+        this.owners.add(toAdd);
+    }
+
+    public void removeOwner(Person toDelete) {
+        this.owners.remove(toDelete);
     }
 
     /**
@@ -236,7 +252,6 @@ public class Listing {
                 && Objects.equals(houseNumber, otherListing.houseNumber)
                 && priceRange.equals(otherListing.priceRange)
                 && propertyName.equals(otherListing.propertyName);
-
     }
 
     @Override
