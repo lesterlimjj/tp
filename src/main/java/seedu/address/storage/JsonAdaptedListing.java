@@ -156,6 +156,10 @@ class JsonAdaptedListing {
             }
         }
 
+        for (Person owner: listing.getOwners()) {
+            owner.addListing(listing);
+        }
+
         return listing;
     }
 
