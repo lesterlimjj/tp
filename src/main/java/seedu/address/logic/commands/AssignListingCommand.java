@@ -39,6 +39,7 @@ public class AssignListingCommand extends Command {
 
     private final Index personIndex;
     private final Index listingIndex;
+
     /**
      * Creates an AddPersonCommand to add the specified {@code Person}
      */
@@ -63,13 +64,13 @@ public class AssignListingCommand extends Command {
         }
         Listing listing = lastShownListingList.get(listingIndex.getZeroBased());
 
-        Listing listingWithPersonAdded = createListingWithPerson(personToAddListing, listing);
-        Person personWithListingAdded = createPersonWithAddedListing(personToAddListing, listingWithPersonAdded);
+        listing.addOwner(personToAddListing);
+        personToAddListing.addListing(listing);
 
-        model.setPerson(personToAddListing, personWithListingAdded);
-        model.setListing(listing, listingWithPersonAdded);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personWithListingAdded,
-                listingWithPersonAdded)));
+        model.setPerson(personToAddListing, personToAddListing);
+        model.setListing(listing, listing);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToAddListing,
+                listing)));
     }
 
     @Override
@@ -93,34 +94,4 @@ public class AssignListingCommand extends Command {
         return new ToStringBuilder(this)
                 .toString();
     }
-
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private Person createPersonWithAddedListing(Person person, Listing listing) {
-        Name name = person.getName();
-        Phone phone = person.getPhone();
-        Email email = person.getEmail();
-        List<PropertyPreference> propertyPreferences = new ArrayList<>(person.getPropertyPreferences());
-        List<Listing> listings = new ArrayList<>(person.getListings());
-        listings.add(listing);
-
-        return new Person(name, phone, email, propertyPreferences, listings);
-    }
-
-    private Listing createListingWithPerson(Person person, Listing listing) {
-        UnitNumber unitNumber = listing.getUnitNumber();
-        HouseNumber houseNumber = listing.getHouseNumber();
-        PostalCode postalCode = listing.getPostalCode();
-        PriceRange priceRange = listing.getPriceRange();
-        PropertyName propertyName = listing.getPropertyName();
-
-        Set<Tag> tags = new HashSet<>(listing.getTags());
-        List<Person> persons = new ArrayList<>(listing.getOwners());
-        persons.add(person);
-
-        return Listing.of(postalCode, unitNumber, houseNumber, priceRange, propertyName, tags, persons);
-    }
-
 }
