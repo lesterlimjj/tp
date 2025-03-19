@@ -62,7 +62,7 @@ public class PropertyPreference {
     public void removeTag(Tag toDelete) {
         this.tags.remove(toDelete);
     }
-    
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
