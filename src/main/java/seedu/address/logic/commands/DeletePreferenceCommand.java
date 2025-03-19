@@ -54,19 +54,18 @@ public class DeletePreferenceCommand extends Command {
         if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
         Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
+
         List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences();
         if (targetPreferenceIndex.getZeroBased() >= targetPreferenceList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX);
         }
-
         PropertyPreference preferenceToDelete = targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
 
-        //Update person list and tag list
-        removePreferenceFromPerson(preferenceToDelete, targetPerson, model);
+        targetPerson.removePropertyPreference(preferenceToDelete);
         removeTagsFromPropertyPreference(preferenceToDelete);
 
+        model.setPerson(targetPerson, targetPerson);
         return new CommandResult(String.format(MESSAGE_DELETE_PREFERENCE_SUCCESS,
                 Messages.format(targetPerson, preferenceToDelete)));
     }
@@ -95,29 +94,15 @@ public class DeletePreferenceCommand extends Command {
                 .toString();
     }
 
-    private void removePreferenceFromPerson(PropertyPreference preferenceToDelete, Person targetPerson, Model model) {
-
-        List<PropertyPreference> preferences = new ArrayList<>(targetPerson.getPropertyPreferences());
-        preferences.remove(preferenceToDelete);
-
-        Person updatedPerson = new Person(targetPerson.getName(), targetPerson.getPhone(), targetPerson.getEmail(),
-                preferences, targetPerson.getListings());
-
-        model.setPerson(targetPerson, updatedPerson);
-    }
-
-    private void removeTagsFromPropertyPreference(PropertyPreference preferenceToDelete) {
+    private void removeTagsFromPropertyPreference(PropertyPreference propertyPreference) {
 
         TagRegistry tagRegistry = TagRegistry.of();
 
-        Set<Tag> tags = new HashSet<>(preferenceToDelete.getTags());
+        Set<Tag> tags = new HashSet<>(propertyPreference.getTags());
 
         for (Tag tag: tags) {
-            List<PropertyPreference> tagPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
-            tagPropertyPreferences.remove(preferenceToDelete);
-
-            Tag editedTag = new Tag(tag.getTagName(), tagPropertyPreferences, tag.getListings());
-            tagRegistry.setTag(tag, editedTag);
+            tag.removePropertyPreference(propertyPreference);
+            tagRegistry.setTag(tag, tag);
         }
     }
 }
