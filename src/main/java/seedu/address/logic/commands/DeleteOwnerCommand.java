@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -45,23 +44,24 @@ public class DeleteOwnerCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Listing> lastShownList = model.getFilteredListingList();
 
+        List<Listing> lastShownList = model.getFilteredListingList();
         if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX);
         }
-
         Listing targetListing = lastShownList.get(targetListingIndex.getZeroBased());
+
         List<Person> targetOwnerList = targetListing.getOwners();
         if (targetOwnerIndex.getZeroBased() >= targetOwnerList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_OWNER_DISPLAYED_INDEX);
         }
-
         Person ownerToDelete = targetOwnerList.get(targetOwnerIndex.getZeroBased());
 
-        //Update listing list and owner list
-        removeOwnerfromListing(ownerToDelete, targetListing, model);
-        removeListingsFromPerson(ownerToDelete, targetListing, model);
+        targetListing.removeOwner(ownerToDelete);
+        ownerToDelete.removeListing(targetListing);
+
+        model.setPerson(ownerToDelete, ownerToDelete);
+        model.setListing(targetListing, targetListing);
 
         return new CommandResult(String.format(MESSAGE_DELETE_OWNER_SUCCESS, Messages.format(ownerToDelete)));
     }
@@ -88,26 +88,5 @@ public class DeleteOwnerCommand extends Command {
                 .add("targetListingIndex", targetListingIndex)
                 .add("targetOwnerIndex", targetOwnerIndex)
                 .toString();
-    }
-
-    private void removeOwnerfromListing(Person owner, Listing listingToDelete, Model model) {
-        List<Person> owners = new ArrayList<>(listingToDelete.getOwners());
-        owners.remove(owner);
-
-        Listing updatedListing = Listing.of(listingToDelete.getPostalCode(), listingToDelete.getUnitNumber(),
-                listingToDelete.getHouseNumber(), listingToDelete.getPriceRange(), listingToDelete.getPropertyName(),
-                listingToDelete.getTags(), owners);
-
-        model.setListing(listingToDelete, updatedListing);
-    }
-
-    private void removeListingsFromPerson(Person owner, Listing listingToDelete, Model model) {
-        List<Listing> listings = new ArrayList<>(owner.getListings());
-        listings.remove(listingToDelete);
-
-        Person updatedPerson = new Person(owner.getName(), owner.getPhone(), owner.getEmail(),
-                owner.getPropertyPreferences(), listings);
-
-        model.setPerson(owner, updatedPerson);
     }
 }
