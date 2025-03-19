@@ -14,8 +14,8 @@ import seedu.address.model.person.PropertyPreference;
 
 /**
  * Represents a Tag in the address book.
- * Guarantees: immutable; tag is valid as declared in {@link #isValidTagName(String)}; all details are present and not
- * null.
+ * Guarantees: tag name is immutable; tag is valid as declared in {@link #isValidTagName(String)};
+ * all details are present and not null. Associations are mutable.
  */
 public class Tag {
 
@@ -67,12 +67,28 @@ public class Tag {
         return Collections.unmodifiableList(propertyPreferences);
     }
 
+    public void addPropertyPreference(PropertyPreference toAdd) {
+        this.propertyPreferences.add(toAdd);
+    }
+
+    public void removePropertyPreference(PropertyPreference toDelete) {
+        this.propertyPreferences.remove(toDelete);
+    }
+
     /**
      * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public List<Listing> getListings() {
         return Collections.unmodifiableList(listings);
+    }
+
+    public void addListing(Listing toAdd) {
+        this.listings.add(toAdd);
+    }
+
+    public void removeListing(Listing toDelete) {
+        this.listings.remove(toDelete);
     }
 
     /**
@@ -108,8 +124,7 @@ public class Tag {
             return true;
         }
 
-        return otherTag != null
-                && tagName.equals(otherTag.tagName);
+        return otherTag != null && tagName.equals(otherTag.tagName);
     }
 
     /**
@@ -137,7 +152,7 @@ public class Tag {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tagName, propertyPreferences, listings);
+        return Objects.hash(tagName);
     }
 
     /**
@@ -146,8 +161,6 @@ public class Tag {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("tag name", tagName)
-                .add("property preferences", propertyPreferences)
-                .add("listings", listings)
                 .toString();
     }
 
