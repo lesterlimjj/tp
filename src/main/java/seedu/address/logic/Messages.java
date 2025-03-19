@@ -132,4 +132,30 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the assign of listing to Person for display to the user.
+     */
+    public static String format(Set<Tag> tags, Listing listingWithTags) {
+        final StringBuilder builder = new StringBuilder();
+        if (listingWithTags.getUnitNumber() == null) {
+            builder.append("<")
+                    .append(listingWithTags.getPostalCode())
+                    .append("> <")
+                    .append(listingWithTags.getHouseNumber())
+                    .append(">");
+            builder.append(": Tags: ");
+            tags.forEach(builder::append);
+        } else {
+            builder.append("<")
+                    .append(listingWithTags.getPostalCode())
+                    .append("> <")
+                    .append(listingWithTags.getUnitNumber())
+                    .append(">");
+            builder.append(": Tags: ");
+            tags.forEach(builder::append);
+        }
+
+        return builder.toString();
+    }
+
 }
