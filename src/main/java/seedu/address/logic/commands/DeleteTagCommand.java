@@ -12,14 +12,8 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.listing.HouseNumber;
 import seedu.address.model.listing.Listing;
-import seedu.address.model.listing.PostalCode;
-import seedu.address.model.listing.PropertyName;
-import seedu.address.model.listing.UnitNumber;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
-import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
@@ -97,7 +91,6 @@ public class DeleteTagCommand extends Command {
             listing.removeTag(toDelete);
             model.setListing(listing, listing);
         }
-        
     }
 
     private void removeTagsFromPropertyPreference(Tag toDelete, Model model) {
