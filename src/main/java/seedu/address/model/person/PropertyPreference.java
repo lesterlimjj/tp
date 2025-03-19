@@ -64,21 +64,6 @@ public class PropertyPreference {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof PropertyPreference)) {
-            return false;
-        }
-
-        PropertyPreference otherPropertyPreference = (PropertyPreference) other;
-        return this.priceRange.equals(otherPropertyPreference.priceRange);
-    }
-
-    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(priceRange);
