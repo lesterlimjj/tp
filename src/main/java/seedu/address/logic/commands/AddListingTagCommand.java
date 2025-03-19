@@ -75,6 +75,7 @@ public class AddListingTagCommand extends Command {
         Listing listingToAddTags = lastShownList.get(index.getZeroBased());
         TagRegistry tagRegistry = TagRegistry.of();
         Set<String> tagNames = new HashSet<>(tagSet);
+        Set<Tag> tags = new HashSet<>();
         tagNames.addAll(newTagSet);
 
         for (String tagName : tagNames) {
@@ -82,9 +83,12 @@ public class AddListingTagCommand extends Command {
             if (listingToAddTags.getTags().contains(tag)) {
                 throw new CommandException(MESSAGE_DUPLICATE_TAGS_IN_LISTING);
             }
+            tags.add(tag);
+        }
+
+        for (Tag tag : tags) {
             tag.addListing(listingToAddTags);
             tagRegistry.setTag(tag, tag);
-
             listingToAddTags.addTag(tag);
         }
 
