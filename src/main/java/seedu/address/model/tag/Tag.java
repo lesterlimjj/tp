@@ -72,7 +72,7 @@ public class Tag {
     }
 
     public void removePropertyPreference(PropertyPreference toDelete) {
-        this.propertyPreferences.add(toDelete);
+        this.propertyPreferences.remove(toDelete);
     }
 
     /**
