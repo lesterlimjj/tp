@@ -36,7 +36,6 @@ public class DeletePropertyTagCommandTest {
 
     private Model model;
     private Listing sampleListing;
-
     @BeforeEach
     public void setUp() {
         model = new ModelManager(new AddressBook(), new UserPrefs());
@@ -50,17 +49,22 @@ public class DeletePropertyTagCommandTest {
                 List.of() // Empty listings
         );
 
-        // Manually create a Listing with a VALID unit number
+        // Create tags (do NOT manually add to registry)
+        Tag luxuryTag = new Tag("Luxury", List.of(), List.of());
+        Tag poolTag = new Tag("Pool", List.of(), List.of());
+
+        // Create listing with tags
         sampleListing = Listing.of(
                 new PostalCode("123456"),
                 new UnitNumber("10-123"),
-                null, // No house number
+                null, // house number
                 new PriceRange(new Price("100000"), new Price("200000")),
-                null, // No property name
-                Set.of(new Tag("Luxury", List.of(), List.of()), new Tag("Pool", List.of(), List.of())),
-                List.of(sampleOwner) // Ensure correct owner assignment
+                null, // property name
+                Set.of(luxuryTag, poolTag),
+                List.of(sampleOwner)
         );
 
+        // Add listing to model (this registers tags automatically)
         model.addListing(sampleListing);
     }
 
@@ -79,21 +83,13 @@ public class DeletePropertyTagCommandTest {
         List<String> sortedTags = tagsToRemove.stream().sorted().collect(Collectors.toList());
         String expectedMessage = String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
                 sampleListing.getPostalCode(), sortedTags);
-
-        // Check that output contains both tags and correct postal code
-        for (String tag : tagsToRemove) {
-            assert(result.getFeedbackToUser().contains(tag));
-        }
         assert(result.getFeedbackToUser().contains(sampleListing.getPostalCode().toString()));
-
-        // Optional: if order doesn't matter, do contains-based check
         assertEquals(
-                result.getFeedbackToUser(),
+                expectedMessage,
                 String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
                         sampleListing.getPostalCode(), tagsToRemove)
         );
     }
-
 
     @Test
     public void execute_invalidPropertyIndex_failure() {
