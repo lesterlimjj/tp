@@ -62,7 +62,7 @@ public class DeletePreferenceCommand extends Command {
         PropertyPreference preferenceToDelete = targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
 
         targetPerson.removePropertyPreference(preferenceToDelete);
-        removeTagsFromPropertyPreference(preferenceToDelete);
+        removePropertyPreferenceFromTags(preferenceToDelete);
 
         model.setPerson(targetPerson, targetPerson);
         return new CommandResult(String.format(MESSAGE_DELETE_PREFERENCE_SUCCESS,
@@ -93,7 +93,7 @@ public class DeletePreferenceCommand extends Command {
                 .toString();
     }
 
-    private void removeTagsFromPropertyPreference(PropertyPreference propertyPreference) {
+    private void removePropertyPreferenceFromTags(PropertyPreference propertyPreference) {
 
         TagRegistry tagRegistry = TagRegistry.of();
 

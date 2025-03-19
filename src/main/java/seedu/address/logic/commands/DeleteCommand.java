@@ -50,7 +50,7 @@ public class DeleteCommand extends Command {
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         removeListingOwnership(personToDelete, model);
-        removeTagsFromPropertyPreference(personToDelete);
+        removePersonPropertyPreferenceFromTags(personToDelete);
 
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
@@ -86,7 +86,7 @@ public class DeleteCommand extends Command {
         }
     }
 
-    private void removeTagsFromPropertyPreference(Person personToDelete) {
+    private void removePersonPropertyPreferenceFromTags(Person personToDelete) {
 
         TagRegistry tagRegistry = TagRegistry.of();
 
