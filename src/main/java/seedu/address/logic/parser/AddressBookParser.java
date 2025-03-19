@@ -9,17 +9,18 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddListingCommand;
+import seedu.address.logic.commands.AddListingTagCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AssignListingCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.commands.DeletePreferenceCommand;
 import seedu.address.logic.commands.DeletePropertyTagCommand;
 import seedu.address.logic.commands.EditPersonCommand;
+import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -74,20 +75,20 @@ public class AddressBookParser {
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);
 
-        case EditPersonCommand.COMMAND_WORD:
-            return new EditPersonCommandParser().parse(arguments);
-
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case DeleteOwnerCommand.COMMAND_WORD:
             return new DeleteOwnerCommandParser().parse(arguments);
 
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
+
         case DeletePreferenceCommand.COMMAND_WORD:
             return new DeletePreferenceCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case AddListingTagCommand.COMMAND_WORD:
+            return new AddListingTagCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

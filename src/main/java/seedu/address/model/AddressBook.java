@@ -171,6 +171,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTag(Tag tag) {
+        tagRegistry.remove(tag);
+    }
+
+    /**
      * Adds multiple tags to the tag registry.
      *
      * @param tags A set of tags to add.
