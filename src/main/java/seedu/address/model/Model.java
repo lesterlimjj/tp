@@ -144,4 +144,8 @@ public interface Model {
      */
     void deleteTag(Tag tagToDelete);
 
+
+    ObservableList<Tag> getTagList();
+
+    void setTag(Tag target, Tag editedTag);
 }
