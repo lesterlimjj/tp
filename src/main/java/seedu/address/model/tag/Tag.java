@@ -161,8 +161,6 @@ public class Tag {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("tag name", tagName)
-                .add("property preferences", propertyPreferences)
-                .add("listings", listings)
                 .toString();
     }
 

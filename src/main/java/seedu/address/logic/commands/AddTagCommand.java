@@ -46,7 +46,10 @@ public class AddTagCommand extends Command {
         }
 
         model.addTags(toAdd);
-        Set<Tag> tagList = getTags(toAdd);
+        Set<Tag> tagList = new HashSet<>();
+        for (String tag : toAdd) {
+            tagList.add(new Tag(tag, new ArrayList<>(), new ArrayList<>()));
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(tagList)));
     }
 
@@ -70,13 +73,5 @@ public class AddTagCommand extends Command {
         return new ToStringBuilder(this)
                 .add("toAdd", toAdd)
                 .toString();
-    }
-
-    private Set<Tag> getTags(Set<String> tags) {
-        Set<Tag> tagList = new HashSet<>();
-        for (String tag : tags) {
-            tagList.add(new Tag(tag, new ArrayList<>(), new ArrayList<>()));
-        }
-        return tagList;
     }
 }
