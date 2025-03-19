@@ -59,7 +59,6 @@ public class DeleteTagCommand extends Command {
         Set<Tag> deletedTags = new HashSet<>();
         for (String tagName : toDelete) {
             Tag tagToDelete = tagRegistry.get(tagName);
-            System.out.println(tagToDelete);
             removeTagsFromPropertyPreference(tagToDelete, model);
             removeTagsFromListings(tagToDelete, model);
             model.deleteTag(tagToDelete);
@@ -95,41 +94,19 @@ public class DeleteTagCommand extends Command {
 
         List<Listing> listings = new ArrayList<>(toDelete.getListings());
         for (Listing listing : listings) {
-            Set<Tag> tags = new HashSet<>(listing.getTags());
-            tags.remove(toDelete);
-
-            UnitNumber unitNumber = listing.getUnitNumber();
-            HouseNumber houseNumber = listing.getHouseNumber();
-            PostalCode postalCode = listing.getPostalCode();
-            PriceRange priceRange = listing.getPriceRange();
-            PropertyName propertyName = listing.getPropertyName();
-
-            Listing editedListing = Listing.of(postalCode, unitNumber, houseNumber, priceRange,
-                    propertyName, tags, listing.getOwners());
-
-            model.setListing(listing, editedListing);
+            listing.removeTag(toDelete);
+            model.setListing(listing, listing);
         }
+        
     }
 
     private void removeTagsFromPropertyPreference(Tag toDelete, Model model) {
 
         List<PropertyPreference> propertyPreferences = new ArrayList<>(toDelete.getPropertyPreferences());
         for (PropertyPreference propertyPreference : propertyPreferences) {
-            Set<Tag> tags = new HashSet<>(propertyPreference.getTags());
-            tags.remove(toDelete);
-            PropertyPreference editedPropertyPreference = new PropertyPreference(propertyPreference.getPriceRange(),
-                    tags);
-
-            Person preferenceOwner = propertyPreference.getPerson();
-
-            List<PropertyPreference> ownerPropertyPreferences =
-                    new ArrayList<>(preferenceOwner.getPropertyPreferences());
-            ownerPropertyPreferences.remove(propertyPreference);
-            ownerPropertyPreferences.add(editedPropertyPreference);
-            Person updatedPerson = new Person(preferenceOwner.getName(),
-                    preferenceOwner.getPhone(), preferenceOwner.getEmail(),
-                    ownerPropertyPreferences, preferenceOwner.getListings());
-            model.setPerson(preferenceOwner, updatedPerson);
+            propertyPreference.removeTag(toDelete);
+            model.setPerson(propertyPreference.getPerson(), propertyPreference.getPerson());
         }
+
     }
 }
