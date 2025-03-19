@@ -70,34 +70,22 @@ public class DeletePropertyTagCommand extends Command {
             throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND, notFoundTags));
         }
 
-        Set<Tag> updatedTags = new HashSet<>(listingTags);
-        Set<Tag> removedTags = listingTags.stream()
-                .filter(tag -> tagsToDelete.stream()
-                        .anyMatch(inputTag -> inputTag.equalsIgnoreCase(tag.getTagName())))
-                .collect(Collectors.toSet());
-
-        updatedTags.removeAll(removedTags);
-
-        // Removal association logic — using TagRegistry
         TagRegistry tagRegistry = TagRegistry.of();
-        for (Tag tag : removedTags) {
-            removeListingAssociationFromTagRegistry(tagRegistry, tag, listingToEdit);
+        Set<Tag> deletedTags = new HashSet<>();
+
+        // Modify listing and tag registry in place
+        for (String tagName : tagsToDelete) {
+            Tag tagToDelete = tagRegistry.get(tagName);
+            listingToEdit.removeTag(tagToDelete);
+            removeListingAssociationFromTagRegistry(tagRegistry, tagToDelete, listingToEdit);
+            deletedTags.add(tagToDelete);
         }
 
-        Listing editedListing = Listing.of(
-                listingToEdit.getPostalCode(),
-                listingToEdit.getUnitNumber(),
-                listingToEdit.getHouseNumber(),
-                listingToEdit.getPriceRange(),
-                listingToEdit.getPropertyName(),
-                updatedTags,
-                listingToEdit.getOwners()
-        );
-
-        model.setListing(listingToEdit, editedListing);
+        // Commit changes to model
+        model.setListing(listingToEdit, listingToEdit);
 
         return new CommandResult(String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
-                listingToEdit.getPostalCode(), tagsToDelete));
+                listingToEdit.getPostalCode(), Messages.format(deletedTags)));
     }
 
     /**
