@@ -19,7 +19,6 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.commands.DeletePreferenceCommand;
 import seedu.address.logic.commands.DeletePropertyTagCommand;
-import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
