@@ -3,7 +3,6 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -97,79 +96,53 @@ class JsonAdaptedListing {
         }
         final PostalCode modelPostalCode = new PostalCode(postalCode);
 
-        Listing listing;
-        if (unitNumber != null) {
-            if (!UnitNumber.isValidUnitNumber(unitNumber)) {
-                throw new IllegalValueException(UnitNumber.MESSAGE_CONSTRAINTS);
-            }
 
-            final UnitNumber modelUnitNumber = new UnitNumber(unitNumber);
-
-            if (propertyName != null) {
-                listing = new Listing(modelPostalCode,
-                        modelUnitNumber,
-                        priceRange.toModelType(),
-                        new PropertyName(propertyName),
-                        getModelTags(),
-                        getModelOwners(personList));
-            } else {
-                listing = new Listing(modelPostalCode,
-                        modelUnitNumber,
-                        priceRange.toModelType(),
-                        getModelTags(),
-                        getModelOwners(personList));
-            }
-
-
-        } else if (houseNumber != null) {
-            if (!HouseNumber.isValidHouseNumber(houseNumber)) {
-                throw new IllegalValueException(HouseNumber.MESSAGE_CONSTRAINTS);
-            }
-
-            final HouseNumber modelHouseNumber = new HouseNumber(houseNumber);
-
-            if (propertyName != null) {
-                listing = new Listing(modelPostalCode,
-                        modelHouseNumber,
-                        priceRange.toModelType(),
-                        new PropertyName(propertyName),
-                        getModelTags(),
-                        getModelOwners(personList));
-            } else {
-                listing = new Listing(modelPostalCode,
-                        modelHouseNumber,
-                        priceRange.toModelType(),
-                        getModelTags(),
-                        getModelOwners(personList));
-            }
-
-
-        } else {
+        if (unitNumber == null && houseNumber == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "Postal Code or Unit Number"));
         }
 
+        HouseNumber modelHouseNumber = null;
+        UnitNumber modelUnitNumber = null;
+        PropertyName modelPropertyName = null;
 
-        for (JsonAdaptedTag tag : tags) {
-            if (!TagRegistry.of().contains(tag.toModelType())) {
-                TagRegistry.of().add(tag.toModelType());
-            }
+        if (unitNumber != null) {
+            modelUnitNumber = new UnitNumber(unitNumber);
         }
 
-        return listing;
-    }
+        if (houseNumber != null) {
+            modelHouseNumber = new HouseNumber(houseNumber);
+        }
 
-    private Set<Tag> getModelTags() throws IllegalValueException {
-        Set<Tag> tagSet = new HashSet<>();
+        if (propertyName != null) {
+            modelPropertyName = new PropertyName(propertyName);
+        }
+
+        Listing modelListing = Listing.of(modelPostalCode,
+                modelUnitNumber,
+                modelHouseNumber,
+                priceRange.toModelType(),
+                modelPropertyName,
+                new HashSet<>(),
+                getModelOwners(personList));
+
         for (JsonAdaptedTag jsonAdaptedTag : tags) {
+            TagRegistry tagRegistry = TagRegistry.of();
             Tag tag = jsonAdaptedTag.toModelType();
-            if (!TagRegistry.of().contains(tag)) {
-                TagRegistry.of().add(tag);
-            }
-            tagSet.add(tag);
+
+            modelListing.addTag(tag);
+            tag.addListing(modelListing);
+
+            tagRegistry.setTag(tag, tag);
         }
-        return tagSet;
+
+        for (Person owner: modelListing.getOwners()) {
+            owner.addListing(modelListing);
+        }
+
+        return modelListing;
     }
+
 
     private List<Person> getModelOwners(ArrayList<Person> personList) {
         List<Person> owners = new ArrayList<>();

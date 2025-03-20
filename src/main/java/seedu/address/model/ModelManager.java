@@ -126,6 +126,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteTag(Tag target) {
+        addressBook.removeTag(target);
+    }
+
+    @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -224,6 +229,16 @@ public class ModelManager implements Model {
     public void updateFilteredTagList(Predicate<Tag> predicate) {
         requireNonNull(predicate);
         filteredTags.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return filteredTags;
+    }
+
+    @Override
+    public void setTag(Tag target, Tag editedTag) {
+        addressBook.setTag(target, editedTag);
     }
 
     @Override

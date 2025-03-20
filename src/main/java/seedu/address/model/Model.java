@@ -117,7 +117,7 @@ public interface Model {
     /**
      * Replaces the given listing {@code target} with {@code editedListing}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedListing} must not be the same as another existing listing in the
+     * The listing identity of {@code editedListing} must not be the same as another existing listing in the
      * address book.
      */
     void setListing(Listing target, Listing editedListing);
@@ -137,4 +137,15 @@ public interface Model {
     void addListingToTags(Set<String> tags, Listing listing);
 
     void addPreferenceToTags(Set<String> tags, PropertyPreference preference);
+
+    /**
+     * Deletes the given tag.
+     * The tag must exist in the address book.
+     */
+    void deleteTag(Tag tagToDelete);
+
+
+    ObservableList<Tag> getTagList();
+
+    void setTag(Tag target, Tag editedTag);
 }

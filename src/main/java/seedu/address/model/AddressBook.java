@@ -101,10 +101,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return listings.asUnmodifiableObservableList();
     }
 
-
     /**
      * Adds a listing to the address book.
      * Ensures that the listing does not already exist in the address book.
+     * Also registers all listing tags into the TagRegistry and associates the listing with them.
      *
      * @param listing The listing to add.
      */
@@ -171,6 +171,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTag(Tag tag) {
+        tagRegistry.remove(tag);
+    }
+
+    /**
      * Adds multiple tags to the tag registry.
      *
      * @param tags A set of tags to add.
@@ -179,7 +187,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(tags);
         TagRegistry tagRegistry = TagRegistry.of();
         for (String tagName : tags) {
-            tagRegistry.add(new Tag(tagName, new ArrayList<>(), new ArrayList<>()));
+            Tag tag = new Tag(tagName, new ArrayList<>(), new ArrayList<>());
+            if (!tagRegistry.contains(tag)) {
+                tagRegistry.add(tag);
+            }
         }
     }
 
@@ -275,6 +286,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         AddressBook otherAddressBook = (AddressBook) other;
         return persons.equals(otherAddressBook.persons);
+    }
+
+    public void setTag(Tag target, Tag editedTag) {
+        tagRegistry.setTag(target, editedTag);
     }
 
     @Override
