@@ -12,7 +12,6 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.UniqueListingList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
@@ -101,10 +100,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return listings.asUnmodifiableObservableList();
     }
 
-
     /**
      * Adds a listing to the address book.
      * Ensures that the listing does not already exist in the address book.
+     * Also registers all listing tags into the TagRegistry and associates the listing with them.
      *
      * @param listing The listing to add.
      */
@@ -171,6 +170,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    void removeListing(Listing key) {
+        listings.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTag(Tag tag) {
+        tagRegistry.remove(tag);
+    }
+
+    /**
      * Adds multiple tags to the tag registry.
      *
      * @param tags A set of tags to add.
@@ -179,7 +194,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(tags);
         TagRegistry tagRegistry = TagRegistry.of();
         for (String tagName : tags) {
-            tagRegistry.add(new Tag(tagName, new ArrayList<>(), new ArrayList<>()));
+            Tag tag = new Tag(tagName, new ArrayList<>(), new ArrayList<>());
+            if (!tagRegistry.contains(tag)) {
+                tagRegistry.add(tag);
+            }
         }
     }
 
@@ -219,34 +237,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return false;
     }
 
-    /**
-     * Adds a listing to the specified tags.
-     *
-     * @param tags The set of tags to associate with the listing.
-     * @param listing The listing to add to the tags.
-     */
-    public void addListingToTags(Set<String> tags, Listing listing) {
-        requireNonNull(tags);
-        TagRegistry tagRegistry = TagRegistry.of();
-        for (String tag : tags) {
-            tagRegistry.addListingToTag(tag, listing);
-        }
-    }
-
-    /**
-     * Associates a set of tags with a property preference.
-     *
-     * @param tags The tags to associate.
-     * @param preference The property preference to associate with.
-     */
-    public void addPreferenceToTags(Set<String> tags, PropertyPreference preference) {
-        requireNonNull(tags);
-        TagRegistry tagRegistry = TagRegistry.of();
-        for (String tag : tags) {
-            tagRegistry.addPropertyPreferenceToTag(tag, preference);
-        }
-    }
-
     //// util methods
 
     @Override
@@ -275,6 +265,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         AddressBook otherAddressBook = (AddressBook) other;
         return persons.equals(otherAddressBook.persons);
+    }
+
+    public void setTag(Tag target, Tag editedTag) {
+        tagRegistry.setTag(target, editedTag);
     }
 
     @Override

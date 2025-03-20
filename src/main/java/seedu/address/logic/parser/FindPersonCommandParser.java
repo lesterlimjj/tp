@@ -4,24 +4,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new FindCommand object.
+ * Parses input arguments and creates a new {@code FindPersonCommandParser} object.
  */
-public class FindCommandParser implements Parser<FindCommand> {
+public class FindPersonCommandParser implements Parser<FindPersonCommand> {
 
     /**
-     * Parses the given {@code String} of arguments and returns a FindCommand object.
+     * Parses the given {@code String} of arguments and returns a FindPersonCommand object.
      *
      * @param args User input arguments.
-     * @return FindCommand instance with extracted keywords.
+     * @return FindPersonCommand instance with extracted keywords.
      * @throws ParseException if no keywords are provided.
      */
     @Override
-    public FindCommand parse(String args) throws ParseException {
+    public FindPersonCommand parse(String args) throws ParseException {
         if (args.trim().isEmpty()) {
             throw new ParseException("ERROR: Missing parameters. You must provide at least one keyword.");
         }
@@ -30,7 +30,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 .collect(Collectors.toList());
 
         try {
-            return new FindCommand(keywords);
+            return new FindPersonCommand(keywords);
         } catch (CommandException e) {
             throw new ParseException(e.getMessage());
         }

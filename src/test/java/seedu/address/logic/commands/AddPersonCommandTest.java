@@ -26,7 +26,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
@@ -118,6 +117,11 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public void setTag(Tag target, Tag editedTag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredTagList(Predicate<Tag> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -173,6 +177,16 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public void deleteListing(Listing target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTag(Tag target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -215,19 +229,6 @@ public class AddPersonCommandTest {
         @Override
         public void addTags(Set<String> tags) {
             storedTags.addAll(tags); // Allows tracking tags for testing
-        }
-
-        @Override
-        public void addListingToTags(Set<String> tags, Listing listing) {
-            // Store listing association with tags if needed
-            for (String tag : tags) {
-                System.out.println("Added listing to tag: " + tag);
-            }
-        }
-
-        @Override
-        public void addPreferenceToTags(Set<String> tags, PropertyPreference preference) {
-            throw new AssertionError("This method should not be called.");
         }
     }
 

@@ -17,7 +17,10 @@ import seedu.address.model.listing.HouseNumber;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.PostalCode;
 import seedu.address.model.listing.PropertyName;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
@@ -35,6 +38,13 @@ public class TagRegistryTest {
         tagRegistry = TagRegistry.of(); // Singleton instance
         tag1 = new Tag("HDB", new ArrayList<>(), new ArrayList<>());
         tag2 = new Tag("CONDO", new ArrayList<>(), new ArrayList<>());
+
+        if (!tagRegistry.contains(tag1)) {
+            tagRegistry.add(tag1);
+        }
+        if (!tagRegistry.contains(tag2)) {
+            tagRegistry.add(tag2);
+        }
 
         // Reset TagRegistry for consistent test results
         tagRegistry.setTags(new ArrayList<>());
@@ -102,9 +112,12 @@ public class TagRegistryTest {
 
         Price lowPrice = new Price("500000");
         Price highPrice = new Price("800000");
-        PropertyPreference preference = new PropertyPreference(new PriceRange(lowPrice, highPrice), new HashSet<>());
+        Person person = new Person(new Name("John Doe"), new Phone("98765432"), new Email("johndoe@example.com"),
+                new ArrayList<>(), new ArrayList<>());
+        PropertyPreference preference = new PropertyPreference(new PriceRange(lowPrice, highPrice), new HashSet<>(),
+                person);
 
-        tagRegistry.addPropertyPreferenceToTag("HDB", preference);
+        tag1.addPropertyPreference(preference);
         assertTrue(tagRegistry.get("HDB").getPropertyPreferences().contains(preference));
     }
 
@@ -122,7 +135,7 @@ public class TagRegistryTest {
 
         Listing listing = new Listing(postalCode, houseNumber, priceRange, propertyName, tags, interestedPersons);
 
-        tagRegistry.addListingToTag("HDB", listing);
+        tag1.addListing(listing);
         assertTrue(tagRegistry.get("HDB").getListings().contains(listing));
     }
 }

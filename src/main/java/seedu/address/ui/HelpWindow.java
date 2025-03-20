@@ -11,12 +11,22 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddListingCommand;
+import seedu.address.logic.commands.AddListingTagCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
+import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
-import seedu.address.logic.commands.EditPersonCommand;
+import seedu.address.logic.commands.AssignListingCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteListingCommand;
+import seedu.address.logic.commands.DeleteOwnerCommand;
+import seedu.address.logic.commands.DeletePersonCommand;
+import seedu.address.logic.commands.DeletePreferenceCommand;
+import seedu.address.logic.commands.DeletePreferenceTagCommand;
+import seedu.address.logic.commands.DeletePropertyTagCommand;
+import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListListingCommand;
 import seedu.address.logic.commands.ListPersonCommand;
@@ -59,6 +69,8 @@ public class HelpWindow extends UiPart<Stage> {
             Label commandText = new Label(helpTexts[i][0]);
             Label descriptionText = new Label(helpTexts[i][1]);
 
+            descriptionText.setWrapText(true);
+            descriptionText.setMaxWidth(800);
             commandText.getStyleClass().add("text-table-row");
             descriptionText.getStyleClass().add("text-table-row");
 
@@ -139,11 +151,26 @@ public class HelpWindow extends UiPart<Stage> {
                 {AddListingCommand.COMMAND_WORD, AddListingCommand.MESSAGE_USAGE},
                 {AddTagCommand.COMMAND_WORD, AddTagCommand.MESSAGE_USAGE},
                 {AddPreferenceCommand.COMMAND_WORD, AddPreferenceCommand.MESSAGE_USAGE},
+                {AddListingTagCommand.COMMAND_WORD, AddListingTagCommand.MESSAGE_USAGE},
+                {AddPreferenceTagCommand.COMMAND_WORD, AddPreferenceTagCommand.MESSAGE_USAGE},
+                {AssignListingCommand.COMMAND_WORD, AssignListingCommand.MESSAGE_USAGE},
+
                 {ListPersonCommand.COMMAND_WORD, ListPersonCommand.MESSAGE_USAGE},
                 {ListListingCommand.COMMAND_WORD, ListListingCommand.MESSAGE_USAGE},
                 {ListTagCommand.COMMAND_WORD, ListTagCommand.MESSAGE_USAGE},
-                {FindCommand.COMMAND_WORD, FindCommand.MESSAGE_USAGE},
-                {EditPersonCommand.COMMAND_WORD, EditPersonCommand.MESSAGE_USAGE},
+
+                {FindPersonCommand.COMMAND_WORD, FindPersonCommand.MESSAGE_USAGE},
+
+                {DeletePersonCommand.COMMAND_WORD, DeletePersonCommand.MESSAGE_USAGE},
+                {DeleteListingCommand.COMMAND_WORD, DeleteListingCommand.MESSAGE_USAGE},
+                {DeleteTagCommand.COMMAND_WORD, DeleteTagCommand.MESSAGE_USAGE},
+                {DeletePreferenceCommand.COMMAND_WORD, DeletePreferenceCommand.MESSAGE_USAGE},
+                {DeletePropertyTagCommand.COMMAND_WORD, DeletePropertyTagCommand.MESSAGE_USAGE},
+                {DeletePreferenceTagCommand.COMMAND_WORD, DeletePreferenceTagCommand.MESSAGE_USAGE},
+                {DeleteOwnerCommand.COMMAND_WORD, DeleteOwnerCommand.MESSAGE_USAGE},
+
+                {ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_USAGE},
+
                 {HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE},
                 {ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_USAGE},
         };

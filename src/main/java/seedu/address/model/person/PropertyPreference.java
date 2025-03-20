@@ -14,6 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents a Person's property preference in the real estate system.
  * Guarantees: details are present and not null, field values are validated, immutable.
+ * Person association is immutable due to composition. Tags association are mutable.
  */
 public class PropertyPreference {
 
@@ -22,6 +23,7 @@ public class PropertyPreference {
 
     // Associations
     private final Set<Tag> tags = new HashSet<>();
+    private final Person person;
 
     /**
      * Constructs a {@code PropertyPreference}.
@@ -30,14 +32,19 @@ public class PropertyPreference {
      * @param priceRange A valid price range.
      * @param tags A valid set of tags.
      */
-    public PropertyPreference(PriceRange priceRange, Set<Tag> tags) {
-        requireAllNonNull(priceRange, tags);
+    public PropertyPreference(PriceRange priceRange, Set<Tag> tags, Person person) {
+        requireAllNonNull(priceRange, tags, person);
         this.priceRange = priceRange;
         this.tags.addAll(tags);
+        this.person = person;
     }
 
     public PriceRange getPriceRange() {
         return priceRange;
+    }
+
+    public Person getPerson() {
+        return person;
     }
 
     /**
@@ -48,26 +55,18 @@ public class PropertyPreference {
         return Collections.unmodifiableSet(tags);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
+    public void addTag(Tag toAdd) {
+        this.tags.add(toAdd);
+    }
 
-        // instanceof handles nulls
-        if (!(other instanceof PropertyPreference)) {
-            return false;
-        }
-
-        PropertyPreference otherPropertyPreference = (PropertyPreference) other;
-        return this.priceRange.equals(otherPropertyPreference.priceRange)
-                && tags.equals(otherPropertyPreference.tags);
+    public void removeTag(Tag toDelete) {
+        this.tags.remove(toDelete);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(priceRange, tags);
+        return Objects.hash(priceRange);
     }
 
     @Override

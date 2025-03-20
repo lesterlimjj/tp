@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_ADD_LISTING_PREAMBLE_FOUND;
+import static seedu.address.logic.Messages.MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED;
+import static seedu.address.logic.Messages.MESSAGE_POSTAL_CODE_REQUIRED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUSE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER_BOUND_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
@@ -13,7 +15,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddListingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -31,8 +32,10 @@ import seedu.address.model.price.PriceRange;
 public class AddListingCommandParser implements Parser<AddListingCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddPersonCommand
-     * and returns an AddPersonCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddListingCommand
+     * and returns an AddListingCommand object for execution.
+     *
+     * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddListingCommand parse(String args) throws ParseException {
@@ -41,24 +44,18 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
                         PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE, PREFIX_PROPERTY_NAME, PREFIX_TAG,
                         PREFIX_NEW_TAG);
 
-        boolean hasUnitNumber = argMultimap.getValue(PREFIX_UNIT_NUMBER).isPresent();
-        boolean hasHouseNumber = argMultimap.getValue(PREFIX_HOUSE_NUMBER).isPresent();
-        boolean hasExclusiveHouseOrUnitNumber = hasUnitNumber ^ hasHouseNumber;
-        boolean hasPostalCode = argMultimap.getValue(PREFIX_POSTAL_CODE).isPresent();
-
-
-        if (!hasPostalCode || !hasExclusiveHouseOrUnitNumber
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddListingCommand.MESSAGE_USAGE));
-        }
+        checkCommandFormat(argMultimap);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_POSTAL_CODE, PREFIX_UNIT_NUMBER, PREFIX_HOUSE_NUMBER,
                 PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE, PREFIX_PROPERTY_NAME);
         PostalCode postalCode = ParserUtil.parsePostalCode(argMultimap.getValue(PREFIX_POSTAL_CODE).get());
         UnitNumber unitNumber = ParserUtil.parseUnitNumber(argMultimap.getValue(PREFIX_UNIT_NUMBER).orElse(null));
-        HouseNumber houseNumber = ParserUtil.parseHouseNumber(argMultimap.getValue(PREFIX_HOUSE_NUMBER).orElse(null));
-        Price lowerBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_LOWER_BOUND_PRICE).orElse(null));
-        Price upperBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_UPPER_BOUND_PRICE).orElse(null));
+        HouseNumber houseNumber = ParserUtil.parseHouseNumber(argMultimap.getValue(PREFIX_HOUSE_NUMBER)
+                .orElse(null));
+        Price lowerBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_LOWER_BOUND_PRICE)
+                .orElse(null));
+        Price upperBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_UPPER_BOUND_PRICE)
+                .orElse(null));
         PriceRange priceRange = createPriceRange(lowerBoundPrice, upperBoundPrice);
         PropertyName propertyName = ParserUtil.parsePropertyName(argMultimap
                 .getValue(PREFIX_PROPERTY_NAME).orElse(null));
@@ -68,14 +65,6 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
         Set<String> newTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NEW_TAG));
 
         return new AddListingCommand(listing, tagList, newTagList);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     private static PriceRange createPriceRange(Price lowerBoundPrice, Price upperBoundPrice) {
@@ -102,6 +91,27 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
             return new Listing(postalCode, houseNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>());
         }
         return new Listing(postalCode, unitNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>());
+    }
+
+    private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
+        boolean hasUnitNumber = argMultimap.getValue(PREFIX_UNIT_NUMBER).isPresent();
+        boolean hasHouseNumber = argMultimap.getValue(PREFIX_HOUSE_NUMBER).isPresent();
+        boolean hasExclusiveHouseOrUnitNumber = hasUnitNumber ^ hasHouseNumber;
+        boolean hasPostalCode = argMultimap.getValue(PREFIX_POSTAL_CODE).isPresent();
+
+        if (!hasExclusiveHouseOrUnitNumber) {
+            throw new ParseException(String.format(MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED,
+                    AddListingCommand.MESSAGE_USAGE));
+        }
+
+        if (!hasPostalCode) {
+            throw new ParseException(String.format(MESSAGE_POSTAL_CODE_REQUIRED, AddListingCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_ADD_LISTING_PREAMBLE_FOUND,
+                    AddListingCommand.MESSAGE_USAGE));
+        }
     }
 
 }

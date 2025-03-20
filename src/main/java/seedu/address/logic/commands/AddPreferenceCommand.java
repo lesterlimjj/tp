@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,17 +15,15 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.listing.Listing;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagRegistry;
 
 /**
- * Adds a {@code PropertyPreference} with the specified tags and new tags.
+ * Adds a {@code PropertyPreference} to a {@code Person} identified using it's displayed index in
+ * the address book.
  */
 public class AddPreferenceCommand extends Command {
     public static final String COMMAND_WORD = "addPreference";
@@ -34,8 +31,8 @@ public class AddPreferenceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new property preference with "
             + "specified tags to a person."
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_LOWER_BOUND_PRICE + "NAME "
-            + PREFIX_UPPER_BOUND_PRICE + "PHONE "
+            + PREFIX_LOWER_BOUND_PRICE + "LOWER BOUND PRICE "
+            + PREFIX_UPPER_BOUND_PRICE + "UPPER BOUND PRICE "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
             + "Example: " + COMMAND_WORD + " 2 "
@@ -51,25 +48,36 @@ public class AddPreferenceCommand extends Command {
     public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.";
 
     private final Index index;
-    private final PropertyPreference toAdd;
+    private final PriceRange priceRange;
     private final Set<String> tagSet;
     private final Set<String> newTagSet;
 
     /**
-     * Creates an AddPersonCommand to add the specified {@code Person}
+     * Creates an {@code AddPreferenceCommand} to add the specified {@code Preference} to {@code Person}.
+     *
+     * @param index Index of the person in the filtered person list to add preference to
+     * @param priceRange Price range of the preference
+     * @param tags  The set of existing tags to be added to the preference
+     * @param newTags The set of tags to be added to the preference and to the tag registry
      */
-    public AddPreferenceCommand(Index index, PropertyPreference propertyPreference, Set<String> tags,
+    public AddPreferenceCommand(Index index, PriceRange priceRange, Set<String> tags,
                                 Set<String> newTags) {
-        requireNonNull(propertyPreference);
+        requireNonNull(priceRange);
         this.index = index;
-        toAdd = propertyPreference;
+        this.priceRange = priceRange;
         tagSet = tags;
         newTagSet = newTags;
     }
 
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        List<Person> lastShownList = model.getFilteredPersonList();
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
 
         if (!model.hasTags(tagSet)) {
             throw new CommandException(MESSAGE_INVALID_TAGS);
@@ -78,21 +86,28 @@ public class AddPreferenceCommand extends Command {
         if (model.hasNewTags(newTagSet)) {
             throw new CommandException(MESSAGE_DUPLICATE_TAGS);
         }
-        model.addTags(newTagSet);
-
-        PropertyPreference preferenceWithTags = createPreferenceWithTags(toAdd, tagSet, newTagSet, model);
-
-        List<Person> lastShownList = model.getFilteredPersonList();
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
 
         Person personToAddPreference = lastShownList.get(index.getZeroBased());
-        Person personWithPreferenceAdded = createPersonWithAddedPreference(personToAddPreference, preferenceWithTags);
+        PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>(), personToAddPreference);
 
-        model.setPerson(personToAddPreference, personWithPreferenceAdded);
+        model.addTags(newTagSet);
+
+        Set<String> tagNames = new HashSet<>(tagSet);
+        tagNames.addAll(newTagSet);
+
+        TagRegistry tagRegistry = TagRegistry.of();
+        for (String tagName: tagNames) {
+            Tag tag = tagRegistry.get(tagName);
+            tag.addPropertyPreference(preference);
+            tagRegistry.setTag(tag, tag);
+            preference.addTag(tagRegistry.get(tagName));
+        }
+
+        personToAddPreference.addPropertyPreference(preference);
+
+        model.setPerson(personToAddPreference, personToAddPreference);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-            Messages.format(personWithPreferenceAdded, preferenceWithTags)));
+                Messages.format(personToAddPreference, preference)));
     }
 
     @Override
@@ -107,53 +122,14 @@ public class AddPreferenceCommand extends Command {
         }
 
         AddPreferenceCommand otherAddPreferenceCommand = (AddPreferenceCommand) other;
-        return toAdd.equals(otherAddPreferenceCommand.toAdd);
+        return priceRange.equals(otherAddPreferenceCommand.priceRange);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("toAdd", toAdd)
+                .add("priceRange", priceRange)
                 .toString();
     }
 
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private Person createPersonWithAddedPreference(Person person, PropertyPreference preference) {
-        assert person != null;
-
-        Name name = person.getName();
-        Phone phone = person.getPhone();
-        Email email = person.getEmail();
-        List<PropertyPreference> propertyPreferences = new ArrayList<>(person.getPropertyPreferences());
-        propertyPreferences.add(preference);
-        List<Listing> listings = new ArrayList<>(person.getListings());
-
-        return new Person(name, phone, email, propertyPreferences, listings);
-    }
-
-    /**
-     * Creates a new {@code PropertyPreference} with the specified tags and new tags.
-     * The method combines the existing and new tags, creates {@code Tag} objects from the combined tags,
-     * and associates them with a new {@code PropertyPreference}. The preference is then added to the model's
-     * tag registry.
-     */
-    private PropertyPreference createPreferenceWithTags(PropertyPreference preference, Set<String> tagSet,
-                                                       Set<String> newTagSet, Model model) {
-        Set<String> combinedTags = new HashSet<>(tagSet);
-        combinedTags.addAll(newTagSet);
-        Set<Tag> tagList = new HashSet<>();
-
-        for (String tag : combinedTags) {
-            tagList.add(new Tag(tag, new ArrayList<>(), new ArrayList<>()));
-        }
-
-        PriceRange priceRange = preference.getPriceRange();
-        PropertyPreference newPreference = new PropertyPreference(priceRange, tagList);
-        model.addPreferenceToTags(combinedTags, newPreference);
-
-        return newPreference;
-    }
 }

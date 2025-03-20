@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -117,7 +116,7 @@ public interface Model {
     /**
      * Replaces the given listing {@code target} with {@code editedListing}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedListing} must not be the same as another existing listing in the
+     * The listing identity of {@code editedListing} must not be the same as another existing listing in the
      * address book.
      */
     void setListing(Listing target, Listing editedListing);
@@ -128,13 +127,23 @@ public interface Model {
      */
     void addListing(Listing listing);
 
+    /**
+     * Deletes the given listing.
+     * The listing must exist in the address book.
+     */
+    void deleteListing(Listing target);
+
     boolean hasTags(Set<String> tags);
 
     boolean hasNewTags(Set<String> tags);
 
     void addTags(Set<String> tags);
 
-    void addListingToTags(Set<String> tags, Listing listing);
+    /**
+     * Deletes the given tag.
+     * The tag must exist in the address book.
+     */
+    void deleteTag(Tag tagToDelete);
 
-    void addPreferenceToTags(Set<String> tags, PropertyPreference preference);
+    void setTag(Tag target, Tag editedTag);
 }

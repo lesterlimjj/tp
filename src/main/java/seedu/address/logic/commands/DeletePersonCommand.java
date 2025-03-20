@@ -12,21 +12,16 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.listing.HouseNumber;
 import seedu.address.model.listing.Listing;
-import seedu.address.model.listing.PostalCode;
-import seedu.address.model.listing.PropertyName;
-import seedu.address.model.listing.UnitNumber;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
-import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a {@code Person} identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeletePersonCommand extends Command {
 
     public static final String COMMAND_WORD = "deletePerson";
 
@@ -39,22 +34,29 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    /**
+     * Creates a {@code DeletePersonCommand} to delete the specified {@code Person}.
+     *
+     * @param targetIndex of the listing in the filtered listing list to delete
+     */
+    public DeletePersonCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
+        List<Person> lastShownList = model.getFilteredPersonList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
         removeListingOwnership(personToDelete, model);
-        removeTagsFromPropertyPreference(personToDelete);
+        removePersonPropertyPreferenceFromTags(personToDelete);
+
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
@@ -66,12 +68,12 @@ public class DeleteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof DeletePersonCommand)) {
             return false;
         }
 
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        DeletePersonCommand otherDeletePersonCommand = (DeletePersonCommand) other;
+        return targetIndex.equals(otherDeletePersonCommand.targetIndex);
     }
 
     @Override
@@ -84,23 +86,12 @@ public class DeleteCommand extends Command {
     private void removeListingOwnership(Person personToDelete, Model model) {
         List<Listing> listings = new ArrayList<>(personToDelete.getListings());
         for (Listing listing : listings) {
-            List<Person> owners = new ArrayList<>(listing.getOwners());
-            owners.remove(personToDelete);
-
-            UnitNumber unitNumber = listing.getUnitNumber();
-            HouseNumber houseNumber = listing.getHouseNumber();
-            PostalCode postalCode = listing.getPostalCode();
-            PriceRange priceRange = listing.getPriceRange();
-            PropertyName propertyName = listing.getPropertyName();
-
-            Listing editedListing = Listing.of(postalCode, unitNumber, houseNumber, priceRange,
-                    propertyName, listing.getTags(), owners);
-
-            model.setListing(listing, editedListing);
+            listing.removeOwner(personToDelete);
+            model.setListing(listing, listing);
         }
     }
 
-    private void removeTagsFromPropertyPreference(Person personToDelete) {
+    private void removePersonPropertyPreferenceFromTags(Person personToDelete) {
 
         TagRegistry tagRegistry = TagRegistry.of();
 
@@ -109,11 +100,8 @@ public class DeleteCommand extends Command {
             Set<Tag> tags = new HashSet<>(propertyPreference.getTags());
 
             for (Tag tag: tags) {
-                List<PropertyPreference> tagPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
-                tagPropertyPreferences.remove(propertyPreference);
-
-                Tag editedTag = new Tag(tag.getTagName(), tagPropertyPreferences, tag.getListings());
-                tagRegistry.setTag(tag, editedTag);
+                tag.removePropertyPreference(propertyPreference);
+                tagRegistry.setTag(tag, tag);
             }
         }
     }

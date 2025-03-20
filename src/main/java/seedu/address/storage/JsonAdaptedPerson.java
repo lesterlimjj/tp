@@ -12,7 +12,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.PropertyPreference;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -86,11 +85,12 @@ class JsonAdaptedPerson {
             throw new IllegalValueException("Person's preferences cannot be null.");
         }
 
-        final List<PropertyPreference> modelPreferences = new ArrayList<>();
+        Person modelPerson = new Person(modelName, modelPhone, modelEmail, new ArrayList<>(), new ArrayList<>());
+
         for (JsonAdaptedPreference pref : preferences) {
-            modelPreferences.add(pref.toModelType());
+            modelPerson.addPropertyPreference(pref.toModelType(modelPerson));
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelPreferences, new ArrayList<>());
+        return modelPerson;
     }
 }

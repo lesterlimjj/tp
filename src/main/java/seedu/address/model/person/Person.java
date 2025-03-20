@@ -12,7 +12,7 @@ import seedu.address.model.listing.Listing;
 
 /**
  * Represents a Person in the real estate system.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, field values are validated, immutable. Associations are mutable.
  */
 public class Person {
 
@@ -67,12 +67,28 @@ public class Person {
         return Collections.unmodifiableList(propertyPreferences);
     }
 
+    public void addPropertyPreference(PropertyPreference toAdd) {
+        this.propertyPreferences.add(toAdd);
+    }
+
+    public void removePropertyPreference(PropertyPreference toDelete) {
+        this.propertyPreferences.remove(toDelete);
+    }
+
     /**
      * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public List<Listing> getListings() {
         return Collections.unmodifiableList(listings);
+    }
+
+    public void addListing(Listing toAdd) {
+        this.listings.add(toAdd);
+    }
+
+    public void removeListing(Listing toDelete) {
+        this.listings.remove(toDelete);
     }
 
     /**
@@ -112,15 +128,13 @@ public class Person {
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && propertyPreferences.equals(otherPerson.propertyPreferences)
-                && listings.equals(otherPerson.listings);
+                && email.equals(otherPerson.email);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, propertyPreferences, listings);
+        return Objects.hash(name, phone, email);
     }
 
     @Override
@@ -130,7 +144,6 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("property preferences", propertyPreferences)
-                .add("listings", listings)
                 .toString();
     }
 

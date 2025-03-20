@@ -41,15 +41,18 @@
           </padding>
         </StackPane>
 
+
         <HBox VBox.vgrow="ALWAYS">
-          <VBox minWidth="300" prefWidth="300">
+          <VBox minWidth="350" maxWidth="350">
             <!-- Response Section Moved Above Tags -->
-            <VBox styleClass="pane-with-border">
+            <VBox styleClass="stack-pane">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10"/>
               </padding>
-              <Label styleClass="label-bright" text="Response:"/>
-              <StackPane fx:id="resultDisplayPlaceholder" maxHeight="200" minHeight="200" prefHeight="100">
+
+              <StackPane fx:id="resultDisplayPlaceholder"
+                         maxHeight="200"
+                         minHeight="200">
                 <padding>
                   <Insets bottom="5" top="5"/>
                 </padding>
@@ -57,7 +60,7 @@
             </VBox>
 
             <!-- Tags Section Below Response -->
-            <VBox fx:id="tagList" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <VBox fx:id="tagList" styleClass="stack-pane" VBox.vgrow="ALWAYS">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10"/>
               </padding>
@@ -66,7 +69,7 @@
           </VBox>
 
           <StackPane HBox.hgrow="ALWAYS">
-            <VBox fx:id="personList" minWidth="400" prefWidth="400" styleClass="pane-with-border"
+            <VBox fx:id="personList" minWidth="400" prefWidth="400" styleClass="stack-pane"
                   VBox.vgrow="ALWAYS">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10"/>
@@ -76,7 +79,7 @@
           </StackPane>
 
           <StackPane HBox.hgrow="ALWAYS">
-            <VBox fx:id="listingList" minWidth="400.0" prefWidth="400.0" styleClass="pane-with-border"
+            <VBox fx:id="listingList" minWidth="400.0" prefWidth="400.0" styleClass="stack-pane"
                   VBox.vgrow="ALWAYS">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10"/>

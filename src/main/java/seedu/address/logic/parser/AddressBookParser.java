@@ -9,16 +9,23 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddListingCommand;
+import seedu.address.logic.commands.AddListingTagCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
+import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AssignListingCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditPersonCommand;
+import seedu.address.logic.commands.DeleteListingCommand;
+import seedu.address.logic.commands.DeleteOwnerCommand;
+import seedu.address.logic.commands.DeletePersonCommand;
+import seedu.address.logic.commands.DeletePreferenceCommand;
+import seedu.address.logic.commands.DeletePreferenceTagCommand;
+import seedu.address.logic.commands.DeletePropertyTagCommand;
+import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListListingCommand;
 import seedu.address.logic.commands.ListPersonCommand;
@@ -71,17 +78,32 @@ public class AddressBookParser {
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);
 
-        case EditPersonCommand.COMMAND_WORD:
-            return new EditPersonCommandParser().parse(arguments);
+        case DeletePersonCommand.COMMAND_WORD:
+            return new DeletePersonCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeleteListingCommand.COMMAND_WORD:
+            return new DeleteListingCommandParser().parse(arguments);
+
+        case DeleteOwnerCommand.COMMAND_WORD:
+            return new DeleteOwnerCommandParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
+
+        case DeletePreferenceCommand.COMMAND_WORD:
+            return new DeletePreferenceCommandParser().parse(arguments);
+
+        case AddListingTagCommand.COMMAND_WORD:
+            return new AddListingTagCommandParser().parse(arguments);
+
+        case AddPreferenceTagCommand.COMMAND_WORD:
+            return new AddPreferenceTagCommandParser().parse(arguments);
+
+        case FindPersonCommand.COMMAND_WORD:
+            return new FindPersonCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
 
         case ListPersonCommand.COMMAND_WORD:
             return new ListPersonCommand();
@@ -100,6 +122,12 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case DeletePropertyTagCommand.COMMAND_WORD:
+            return new DeletePropertyTagCommandParser().parse(arguments);
+
+        case DeletePreferenceTagCommand.COMMAND_WORD:
+            return new DeletePreferenceTagCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

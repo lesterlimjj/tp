@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_ADD_PERSON_PREAMBLE_FOUND;
+import static seedu.address.logic.Messages.MESSAGE_EMAIL_REQUIRED;
+import static seedu.address.logic.Messages.MESSAGE_NAME_REQUIRED;
+import static seedu.address.logic.Messages.MESSAGE_PHONE_REQUIRED;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
@@ -116,23 +119,21 @@ public class AddPersonCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE);
-
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
-                expectedMessage);
+                String.format(MESSAGE_NAME_REQUIRED, AddPersonCommand.MESSAGE_USAGE));
 
         // missing phone prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB,
-                expectedMessage);
+                String.format(MESSAGE_PHONE_REQUIRED, AddPersonCommand.MESSAGE_USAGE));
 
         // missing email prefix
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB,
-                expectedMessage);
+                String.format(MESSAGE_EMAIL_REQUIRED, AddPersonCommand.MESSAGE_USAGE));
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB,
-                expectedMessage);
+                String.format(MESSAGE_NAME_REQUIRED, AddPersonCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -155,6 +156,6 @@ public class AddPersonCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_ADD_PERSON_PREAMBLE_FOUND, AddPersonCommand.MESSAGE_USAGE));
     }
 }
