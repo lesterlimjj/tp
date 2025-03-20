@@ -20,7 +20,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Adds {@code Tag} to a {@code PropertyPreference} identified using it's displayed index in the address book.
+ * Adds {@code Tag} to a {@code PropertyPreference} identified using it's displayed index
+ * from {@code Person} identified using it's displayed index in the address book.
  */
 public class AddPreferenceTagCommand extends Command {
 
