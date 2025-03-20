@@ -11,6 +11,7 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ScrollPane?>
 <fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
   <icons>
@@ -22,6 +23,7 @@
         <URL value="@HelpWindow.css"/>
       </stylesheets>
       <VBox>
+
         <HBox alignment="CENTER" fx:id="helpMessageContainer">
           <children>
             <Label fx:id="helpMessage" text="Label">
@@ -42,16 +44,20 @@
             <Insets bottom="10.0" left="5.0" right="10.0" top="5.0"/>
           </padding>
         </HBox>
-        <GridPane fx:id="commandGrid" gridLinesVisible="true" hgap="0" vgap="0">
-          <padding>
-            <Insets top="10" right="0" bottom="10" left="0"/>
-          </padding>
 
-          <children>
-            <Label text="Command" styleClass="text-table-label"/>
-            <Label text="Description" styleClass="text-table-label" GridPane.columnIndex="1"/>
-          </children>
-        </GridPane>
+        <ScrollPane fitToWidth="true"  hbarPolicy="AS_NEEDED" maxHeight="600">
+          <GridPane fx:id="commandGrid" gridLinesVisible="true" hgap="0" vgap="0">
+            <padding>
+              <Insets top="10" right="0" bottom="10" left="0"/>
+            </padding>
+
+            <children>
+              <Label text="Command" styleClass="text-table-label"/>
+              <Label text="Description" styleClass="text-table-label" GridPane.columnIndex="1"/>
+            </children>
+          </GridPane>
+        </ScrollPane>
+
       </VBox>
 
     </Scene>
