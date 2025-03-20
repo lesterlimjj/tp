@@ -27,7 +27,7 @@ You can reach us at the email `chanxiaoyong[at]u.nus.edu`
 <img src="images/caxewhy.png" width="200px">
 
 [[github](https://github.com/caxewhy)]
-[[portfolio](team/xiaoyong.md)]
+[[portfolio](team/caxewhy.md)]
 
 * Role: Developer
 * Responsibilities: Deliverables and Deadlines, Integration, Scheduling and Tracking, Git Expert
