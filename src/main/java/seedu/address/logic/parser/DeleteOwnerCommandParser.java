@@ -20,8 +20,11 @@ public class DeleteOwnerCommandParser implements Parser<DeleteOwnerCommand> {
      */
     public DeleteOwnerCommand parse(String args) throws ParseException {
         try {
-            List<Index> index = ParserUtil.parseMultipleIndices(args);
-            return new DeleteOwnerCommand(index.get(0), index.get(1));
+            List<Index> multipleIndices = ParserUtil.parseMultipleIndices(args);
+            if (multipleIndices.size() != 2) {
+                throw new ParseException("Expected 2 indices");
+            }
+            return new DeleteOwnerCommand(multipleIndices.get(0), multipleIndices.get(1));
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteOwnerCommand.MESSAGE_USAGE), pe);
