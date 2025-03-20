@@ -48,12 +48,12 @@ public class AssignListingCommandParser implements Parser<AssignListingCommand> 
 
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
-                    AddPreferenceTagCommand.MESSAGE_USAGE));
+                    AssignListingCommand.MESSAGE_USAGE));
         }
 
         if (preamble.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
-                    AddPreferenceTagCommand.MESSAGE_USAGE));
+                    AssignListingCommand.MESSAGE_USAGE));
         }
 
     }
