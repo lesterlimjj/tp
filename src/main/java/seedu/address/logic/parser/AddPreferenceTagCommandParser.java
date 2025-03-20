@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_TAG_OR_NEW_TAG_REQUIRED;
@@ -47,7 +48,7 @@ public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCom
             personIndex = multipleIndices.get(0);
             preferenceIndex = multipleIndices.get(1);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
                     AddPreferenceTagCommand.MESSAGE_USAGE),
                     pe);
         }

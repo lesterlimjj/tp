@@ -21,6 +21,7 @@ public class Messages {
     public static final String MESSAGE_ADD_PERSON_PREAMBLE_FOUND = "Add person should not have preamble. \n%1$s";
     public static final String MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED =
             "Either house number or unit number must be provided, but not both.\n%1$s";
+    public static final String MESSAGE_EXPECTED_TWO_INDICES = "This command expects 2 indices to be provided";
     public static final String MESSAGE_NAME_REQUIRED = "Name must be provided.\n%1$s";
     public static final String MESSAGE_PHONE_REQUIRED = "Phone must be provided.\n%1$s";
     public static final String MESSAGE_EMAIL_REQUIRED = "Email must be provided.\n%1$s";
