@@ -19,6 +19,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_ADD_LISTING_PREAMBLE_FOUND = "Add listing should not have preamble. \n%1$s";
     public static final String MESSAGE_ADD_PERSON_PREAMBLE_FOUND = "Add person should not have preamble. \n%1$s";
+    public static final String MESSAGE_DELETE_TAG_PREAMBLE_FOUND = "Delete tag should not have preamble. \n%1$s";
     public static final String MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED =
             "Either house number or unit number must be provided, but not both.\n%1$s";
     public static final String MESSAGE_EXPECTED_TWO_INDICES = "This command expects 2 indices to be provided";
@@ -29,6 +30,8 @@ public class Messages {
     public static final String MESSAGE_PREFERENCE_TAG_REQUIRED_FOR_DELETE = "At least one preference Tag must be "
             + "provided for deletion.\n%1$s";
     public static final String MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE = "At least one property Tag must be "
+            + "provided for deletion.\n%1$s";
+    public static final String MESSAGE_TAG_REQUIRED_FOR_DELETE = "At least one Tag must be "
             + "provided for deletion.\n%1$s";
     public static final String MESSAGE_POSTAL_CODE_REQUIRED = "Postal code must be provided.\n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
