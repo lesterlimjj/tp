@@ -52,7 +52,12 @@ public class AddPreferenceCommand extends Command {
     private final Set<String> newTagSet;
 
     /**
-     * Creates an AddPersonCommand to add the specified {@code Person}
+     * Creates an {@code AddPreferenceCommand} to add the specified {@code Preference} to {@code Person}.
+     *
+     * @param index Index of the person in the filtered person list to add preference to
+     * @param priceRange Price range of the preference
+     * @param tags  The set of existing tags to be added to the preference
+     * @param newTags The set of tags to be added to the preference and to the tag registry
      */
     public AddPreferenceCommand(Index index, PriceRange priceRange, Set<String> tags,
                                 Set<String> newTags) {

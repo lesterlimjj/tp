@@ -33,7 +33,7 @@ public class FindPersonCommand extends Command {
     private final Predicate<Person> predicate;
 
     /**
-     * Constructs a FindCommand with the given keywords.
+     * Constructs a @{code FindPersonCommand} to find {@code Person} with the given keywords.
      *
      * @param keywords List of keywords to match against names.
      * @throws CommandException if the keywords are empty or invalid.

@@ -9,15 +9,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new FindCommand object.
+ * Parses input arguments and creates a new FindPersonCommand object.
  */
 public class FindPersonCommandParser implements Parser<FindPersonCommand> {
 
     /**
-     * Parses the given {@code String} of arguments and returns a FindCommand object.
+     * Parses the given {@code String} of arguments and returns a FindPersonCommand object.
      *
      * @param args User input arguments.
-     * @return FindCommand instance with extracted keywords.
+     * @return FindPersonCommand instance with extracted keywords.
      * @throws ParseException if no keywords are provided.
      */
     @Override

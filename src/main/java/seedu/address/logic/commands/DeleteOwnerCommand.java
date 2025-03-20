@@ -31,7 +31,7 @@ public class DeleteOwnerCommand extends Command {
     private final Index targetOwnerIndex;
 
     /**
-     * Creates a DeleteOwnerCommand to delete the specified {@code Person} from the specified {@code Listing}.
+     * Creates a {@code DeleteOwnerCommand} to delete the specified {@code Person} from the specified {@code Listing}.
      *
      * @param targetListingIndex Index of the listing in the filtered listing list to delete the owner from.
      * @param targetOwnerIndex Index of the owner in the listing to delete.

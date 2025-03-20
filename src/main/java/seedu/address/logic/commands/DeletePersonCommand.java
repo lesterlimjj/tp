@@ -34,6 +34,11 @@ public class DeletePersonCommand extends Command {
 
     private final Index targetIndex;
 
+    /**
+     * Creates a {@code DeletePersonCommand} to delete the specified {@code Person}.
+     *
+     * @param targetIndex of the listing in the filtered listing list to delete
+     */
     public DeletePersonCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }

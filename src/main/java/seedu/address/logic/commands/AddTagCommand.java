@@ -30,7 +30,9 @@ public class AddTagCommand extends Command {
     private final Set<String> toAdd;
 
     /**
-     * Creates an AddPersonCommand to add the specified {@code Person}
+     * Creates an {@code AddTagCommand} to add the specified set of {@code Tags}.
+     *
+     * @param tags Set of tags to be added to the tag registry
      */
     public AddTagCommand(Set<String> tags) {
         requireNonNull(tags);

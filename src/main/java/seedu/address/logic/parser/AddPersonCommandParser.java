@@ -21,8 +21,10 @@ import seedu.address.model.person.Phone;
 public class AddPersonCommandParser implements Parser<AddPersonCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddPersonCommand
+     * and returns an AddPersonCommand object for execution.
+     *
+     * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddPersonCommand parse(String args) throws ParseException {

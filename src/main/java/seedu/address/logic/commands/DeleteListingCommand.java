@@ -33,6 +33,11 @@ public class DeleteListingCommand extends Command {
 
     private final Index targetIndex;
 
+    /**
+     * Creates a {@code DeleteListingCommand} to delete the specified {@code Listing}.
+     *
+     * @param targetIndex of the listing in the filtered listing list to delete
+     */
     public DeleteListingCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }

@@ -58,7 +58,11 @@ public class AddListingCommand extends Command {
     private final Set<String> newTagSet;
 
     /**
-     * Creates an AddListingCommand to add the specified {@code Listing}
+     * Creates an {@code AddListingCommand} to add the specified {@code Listing}.
+     *
+     * @param listing Listing to be added.
+     * @param tagSet Set of tags to be added to the listing.
+     * @param newTagSet Set of new tags to be added to the tag registry.
      */
     public AddListingCommand(Listing listing, Set<String> tagSet, Set<String> newTagSet) {
         requireNonNull(listing);

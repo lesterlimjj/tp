@@ -33,7 +33,7 @@ public class DeletePropertyTagCommand extends Command {
     private final Set<String> tagsToDelete;
 
     /**
-     * Constructs a {@code DeletePropertyTagCommand}.
+     * Creates a {@code DeletePreferenceTagCommand} to delete a set of {@code Tag} from the specified {@code Listing}.
      *
      * @param propertyIndex The index of the property from which tags will be removed.
      * @param tagsToDelete  The set of tag names to be deleted.

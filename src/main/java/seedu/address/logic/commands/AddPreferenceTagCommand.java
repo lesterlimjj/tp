@@ -50,7 +50,7 @@ public class AddPreferenceTagCommand extends Command {
     private final Set<String> newTagSet;
 
     /**
-     * Constructs a {@code DeletePropertyTagCommand}.
+     * Creates an @{code AddPreferenceTagCommand} to add specified {@code Tag} to {@code Preference}.
      *
      * @param personIndex The index of the person from which the preference is located in.
      * @param preferenceIndex The index of the preference from which tags will be removed.

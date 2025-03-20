@@ -15,7 +15,9 @@ public class DeletePreferenceCommandParser implements Parser<DeletePreferenceCom
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeletePreferenceCommand
-     * and returns a DeleteOwnerCommand object for execution.
+     * and returns a DeletePreferenceCommand object for execution.
+     *
+     * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePreferenceCommand parse(String args) throws ParseException {

@@ -35,7 +35,7 @@ public class DeletePreferenceCommand extends Command {
     private final Index targetPreferenceIndex;
 
     /**
-     * Creates a DeletePreferenceCommand to delete the specified {@code Preference} from the specified {@code Person}.
+     * Creates a {@code DeletePreferenceCommand} to delete the specified {@code Preference} from the specified {@code Person}.
      *
      * @param targetPersonIndex Index of the person in the filtered person list to delete the preference from.
      * @param targetPreferenceIndex Index of the preference in the person to delete.

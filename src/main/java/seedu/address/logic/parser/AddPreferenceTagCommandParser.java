@@ -18,8 +18,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeletePreferenceTagCommand
-     * and returns an DeletePreferenceTagCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddPreferenceTagCommand
+     * and returns an AddPreferenceTagCommand object for execution.
+     *
+     * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddPreferenceTagCommand parse(String args) throws ParseException {

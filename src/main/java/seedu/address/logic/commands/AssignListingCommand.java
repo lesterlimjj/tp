@@ -29,7 +29,10 @@ public class AssignListingCommand extends Command {
     private final Index listingIndex;
 
     /**
-     * Creates an AddPersonCommand to add the specified {@code Person}
+     * Creates an {@code AssignListingCommand} to add the specified {@code Listing} to {@code Person}.
+     *
+     * @param personIndex Index of the person in the filtered person list to add listing to
+     * @param propertyIndex Index of the listing in the filtered listing list to add
      */
     public AssignListingCommand(Index personIndex, Index propertyIndex) {
         this.personIndex = personIndex;
