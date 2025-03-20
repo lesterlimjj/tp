@@ -135,8 +135,11 @@ public class Messages {
      */
     public static String format(Set<Tag> tags) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("; Tags: ");
-        tags.forEach(builder::append);
+        builder.append("; Tags: [")
+                .append(tags.stream()
+                        .map(Tag::getTagName)
+                        .collect(Collectors.joining(", ")))
+                .append("]");
         return builder.toString();
     }
 
@@ -167,7 +170,7 @@ public class Messages {
     }
 
     /**
-     * Formats the assign of listing to Person for display to the user.
+     * Formats the message of adding tags to listing.
      */
     public static String format(Set<Tag> tags, Listing listingWithTags) {
         final StringBuilder builder = new StringBuilder();
@@ -176,17 +179,23 @@ public class Messages {
                     .append(listingWithTags.getPostalCode())
                     .append("> <")
                     .append(listingWithTags.getHouseNumber())
-                    .append(">");
-            builder.append(": Tags: ");
-            tags.forEach(builder::append);
+                    .append(">")
+                    .append("; Tags: [")
+                    .append(tags.stream()
+                            .map(Tag::getTagName)
+                            .collect(Collectors.joining(", ")))
+                    .append("]");
         } else {
             builder.append("<")
                     .append(listingWithTags.getPostalCode())
                     .append("> <")
                     .append(listingWithTags.getUnitNumber())
-                    .append(">");
-            builder.append(": Tags: ");
-            tags.forEach(builder::append);
+                    .append(">")
+                    .append("; Tags: [")
+                    .append(tags.stream()
+                            .map(Tag::getTagName)
+                            .collect(Collectors.joining(", ")))
+                    .append("]");
         }
 
         return builder.toString();
