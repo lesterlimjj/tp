@@ -24,7 +24,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing {@code Person} identified using it's displayed index in the address book.
  */
 public class EditPersonCommand extends Command {
 
@@ -51,8 +51,10 @@ public class EditPersonCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * Creates an {@code EditPersonCommand} to edit the specified {@code Person}.
+     *
+     * @param index Index of the person in the filtered person list to edit
+     * @param editPersonDescriptor Details to edit the person with
      */
     public EditPersonCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);

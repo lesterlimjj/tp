@@ -20,7 +20,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Deletes tag(s) from a preference.
+ * Deletes {@code Tag}(s) from a {@code PropertyPreference} identified using it's displayed index
+ * from {@code Person} identified using it's displayed index in the address book.
  */
 public class DeletePreferenceTagCommand extends Command {
 
@@ -40,7 +41,8 @@ public class DeletePreferenceTagCommand extends Command {
     private final Set<String> tagsToDelete;
 
     /**
-     * Constructs a {@code DeletePropertyTagCommand}.
+     * Creates a {@code DeletePreferenceTagCommand} to delete a set of {@code Tag}
+     * from the specified {@code Preference}.
      *
      * @param personIndex The index of the person from which the preference is located in.
      * @param preferenceIndex The index of the preference from which tags will be removed.

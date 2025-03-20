@@ -12,13 +12,15 @@ import seedu.address.logic.commands.DeletePreferenceTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a DeletePreferenceTagCommand object.
+ * Parses input arguments and creates a new {@code DeletePreferenceTagCommandParser} object.
  */
 public class DeletePreferenceTagCommandParser implements Parser<DeletePreferenceTagCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeletePreferenceTagCommand
      * and returns an DeletePreferenceTagCommand object for execution.
+     *
+     * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePreferenceTagCommand parse(String args) throws ParseException {

@@ -11,11 +11,17 @@ import seedu.address.logic.commands.DeletePropertyTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeletePropertyTagCommand object.
+ * Parses input arguments and creates a new {@code DeletePropertyTagCommandParser} object.
  */
 public class DeletePropertyTagCommandParser implements Parser<DeletePropertyTagCommand> {
 
-    @Override
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeletePropertyTagCommand
+     * and returns a DeletePropertyTagCommand object for execution.
+     *
+     * @param args arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public DeletePropertyTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
