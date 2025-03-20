@@ -39,6 +39,13 @@ public class TagRegistryTest {
         tag1 = new Tag("HDB", new ArrayList<>(), new ArrayList<>());
         tag2 = new Tag("CONDO", new ArrayList<>(), new ArrayList<>());
 
+        if (!tagRegistry.contains(tag1)) {
+            tagRegistry.add(tag1);
+        }
+        if (!tagRegistry.contains(tag2)) {
+            tagRegistry.add(tag2);
+        }
+
         // Reset TagRegistry for consistent test results
         tagRegistry.setTags(new ArrayList<>());
     }
@@ -110,7 +117,7 @@ public class TagRegistryTest {
         PropertyPreference preference = new PropertyPreference(new PriceRange(lowPrice, highPrice), new HashSet<>(),
                 person);
 
-        tagRegistry.addPropertyPreferenceToTag("HDB", preference);
+        tag1.addPropertyPreference(preference);
         assertTrue(tagRegistry.get("HDB").getPropertyPreferences().contains(preference));
     }
 
@@ -128,7 +135,7 @@ public class TagRegistryTest {
 
         Listing listing = new Listing(postalCode, houseNumber, priceRange, propertyName, tags, interestedPersons);
 
-        tagRegistry.addListingToTag("HDB", listing);
+        tag1.addListing(listing);
         assertTrue(tagRegistry.get("HDB").getListings().contains(listing));
     }
 }
