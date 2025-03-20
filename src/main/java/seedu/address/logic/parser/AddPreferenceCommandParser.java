@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER_BOUND_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -33,7 +33,7 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
                     AddPreferenceCommand.MESSAGE_USAGE), pe);
         }
 
@@ -66,4 +66,5 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
             return new PriceRange(lowerBoundPrice, upperBoundPrice);
         }
     }
+
 }
