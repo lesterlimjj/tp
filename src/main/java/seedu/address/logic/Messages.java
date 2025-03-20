@@ -17,6 +17,11 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_LISTING_PREAMBLE_FOUND = "Add listing should not have preamble. \n%1$s";
+    public static final String MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED =
+            "Either house number or unit number must be provided, but not both.\n%1$s";
+    public static final String MESSAGE_TAG_OR_NEW_TAG_REQUIRED = "Provide at least a new tag or existing tag. \n%1$s";
+    public static final String MESSAGE_POSTAL_CODE_REQUIRED = "Postal code must be provided.\n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_LISTING_DISPLAYED_INDEX = "The listing index provided is invalid";
     public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid";
@@ -64,25 +69,26 @@ public class Messages {
      */
     public static String format(Listing listing) {
         final StringBuilder builder = new StringBuilder();
+        builder.append("; Postal Code: ").append(listing.getPostalCode());
+
         if (listing.getUnitNumber() == null) {
-            builder.append("; Postal Code: ")
-                    .append(listing.getPostalCode())
-                    .append("; House Number: ")
-                    .append(listing.getHouseNumber())
-                    .append("; Price Range: ")
-                    .append(listing.getPriceRange())
-                    .append("; Property Name: ")
-                    .append(listing.getPropertyName());
+            builder.append("; House Number: ").append(listing.getHouseNumber());
         } else {
-            builder.append("; Postal Code: ")
-                    .append(listing.getPostalCode())
-                    .append("; Unit Number: ")
-                    .append(listing.getUnitNumber())
-                    .append("; Price Range: ")
-                    .append(listing.getPriceRange())
-                    .append("; Property Name: ")
-                    .append(listing.getPropertyName());
+            builder.append("; Unit Number: ").append(listing.getUnitNumber());
         }
+
+        builder.append("; Price Range: ").append(listing.getPriceRange());
+
+        if (listing.getPropertyName() != null) {
+            builder.append("; Property Name: ").append(listing.getPropertyName());
+        }
+
+        builder.append("; Tags: [")
+                .append(listing.getTags().stream()
+                        .map(Tag::getTagName)
+                        .collect(Collectors.joining(", ")))
+                .append("]");
+
         return builder.toString();
     }
 
@@ -94,8 +100,11 @@ public class Messages {
         builder.append(person.getName() + ":")
                 .append(" Price Range: ")
                 .append(preference.getPriceRange())
-                .append("; Tags: ");
-        preference.getTags().forEach(builder::append);
+                .append("; Tags: [")
+                .append(preference.getTags().stream()
+                        .map(Tag::getTagName)
+                        .collect(Collectors.joining(", ")))
+                .append("]");
         return builder.toString();
     }
 
