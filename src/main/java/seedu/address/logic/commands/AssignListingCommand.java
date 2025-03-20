@@ -13,7 +13,8 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 
 /**
- * Assigns a listing to a person.
+ * Assigns a {@code Listing} identified using it's displayed index in the address book
+ * to a {@code Person} identified using it's displayed index in the address book.
  */
 public class AssignListingCommand extends Command {
     public static final String COMMAND_WORD = "assignListing";
@@ -30,7 +31,10 @@ public class AssignListingCommand extends Command {
     private final Index listingIndex;
 
     /**
-     * Creates an AddPersonCommand to add the specified {@code Person}
+     * Creates an {@code AssignListingCommand} to add the specified {@code Listing} to {@code Person}.
+     *
+     * @param personIndex Index of the person in the filtered person list to add listing to
+     * @param propertyIndex Index of the listing in the filtered listing list to add
      */
     public AssignListingCommand(Index personIndex, Index propertyIndex) {
         this.personIndex = personIndex;

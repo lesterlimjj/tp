@@ -20,7 +20,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Adds tags to a preference in the addressbook
+ * Adds {@code Tag} to a {@code PropertyPreference} identified using it's displayed index
+ * from {@code Person} identified using it's displayed index in the address book.
  */
 public class AddPreferenceTagCommand extends Command {
 
@@ -50,7 +51,7 @@ public class AddPreferenceTagCommand extends Command {
     private final Set<String> newTagSet;
 
     /**
-     * Constructs a {@code DeletePropertyTagCommand}.
+     * Creates an @{code AddPreferenceTagCommand} to add specified {@code Tag} to {@code Preference}.
      *
      * @param personIndex The index of the person from which the preference is located in.
      * @param preferenceIndex The index of the preference from which tags will be removed.

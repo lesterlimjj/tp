@@ -10,13 +10,15 @@ import seedu.address.logic.commands.DeletePreferenceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeletePreferenceCommand object
+ * Parses input arguments and creates a new {@code DeletePreferenceCommandParser} object.
  */
 public class DeletePreferenceCommandParser implements Parser<DeletePreferenceCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeletePreferenceCommand
-     * and returns a DeleteOwnerCommand object for execution.
+     * and returns a DeletePreferenceCommand object for execution.
+     *
+     * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePreferenceCommand parse(String args) throws ParseException {

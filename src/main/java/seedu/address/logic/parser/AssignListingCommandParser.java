@@ -11,13 +11,15 @@ import seedu.address.logic.commands.AssignListingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments to assign a listing to a person.
+ * Parses input arguments and creates a new {@code AssignListingCommandParser} object.
  */
 public class AssignListingCommandParser implements Parser<AssignListingCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddPersonCommand
-     * and returns an AddPersonCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AssignListingCommand
+     * and returns an AssignListingCommand object for execution.
+     *
+     * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AssignListingCommand parse(String args) throws ParseException {

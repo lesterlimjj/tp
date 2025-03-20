@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Adds tags to a listing in the addressbook
+ * Adds {@code Tag} to a {@code Listing} identified using it's displayed index in the addressbook.
  */
 public class AddListingTagCommand extends Command {
     public static final String COMMAND_WORD = "addListingTag";
@@ -44,7 +44,11 @@ public class AddListingTagCommand extends Command {
     private final Set<String> newTagSet;
 
     /**
-     * Creates an AddPersonCommand to add the specified {@code Person}
+     * Creates an {@code AddListingTagCommand} to add the specified {@code Tag} to {@code Listing}.
+     *
+     * @param index The index of the listing in the filtered listing list to add tags to
+     * @param tags  The set of existing tags to be added to the listing
+     * @param newTags The set of tags to be added to the listing and to the tag registry
      */
     public AddListingTagCommand(Index index, Set<String> tags,
                                 Set<String> newTags) {
