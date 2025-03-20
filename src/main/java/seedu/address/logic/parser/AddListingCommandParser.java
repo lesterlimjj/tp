@@ -49,9 +49,12 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
                 PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE, PREFIX_PROPERTY_NAME);
         PostalCode postalCode = ParserUtil.parsePostalCode(argMultimap.getValue(PREFIX_POSTAL_CODE).get());
         UnitNumber unitNumber = ParserUtil.parseUnitNumber(argMultimap.getValue(PREFIX_UNIT_NUMBER).orElse(null));
-        HouseNumber houseNumber = ParserUtil.parseHouseNumber(argMultimap.getValue(PREFIX_HOUSE_NUMBER).orElse(null));
-        Price lowerBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_LOWER_BOUND_PRICE).orElse(null));
-        Price upperBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_UPPER_BOUND_PRICE).orElse(null));
+        HouseNumber houseNumber = ParserUtil.parseHouseNumber(argMultimap.getValue(PREFIX_HOUSE_NUMBER)
+                .orElse(null));
+        Price lowerBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_LOWER_BOUND_PRICE)
+                .orElse(null));
+        Price upperBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_UPPER_BOUND_PRICE)
+                .orElse(null));
         PriceRange priceRange = createPriceRange(lowerBoundPrice, upperBoundPrice);
         PropertyName propertyName = ParserUtil.parsePropertyName(argMultimap
                 .getValue(PREFIX_PROPERTY_NAME).orElse(null));
@@ -113,7 +116,8 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
         }
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_ADD_LISTING_PREAMBLE_FOUND, AddListingCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_ADD_LISTING_PREAMBLE_FOUND,
+                    AddListingCommand.MESSAGE_USAGE));
         }
     }
 

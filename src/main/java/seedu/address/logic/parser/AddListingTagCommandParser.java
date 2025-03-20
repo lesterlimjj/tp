@@ -45,7 +45,8 @@ public class AddListingTagCommandParser implements Parser<AddListingTagCommand> 
         boolean hasCombinedTags = hasTags || hasNewTags;
 
         if (!hasCombinedTags) {
-            throw new ParseException(String.format(MESSAGE_TAG_OR_NEW_TAG_REQUIRED, AddListingTagCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_TAG_OR_NEW_TAG_REQUIRED,
+                    AddListingTagCommand.MESSAGE_USAGE));
         }
 
     }
