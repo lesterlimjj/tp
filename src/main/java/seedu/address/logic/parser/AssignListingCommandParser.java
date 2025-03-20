@@ -24,8 +24,13 @@ public class AssignListingCommandParser implements Parser<AssignListingCommand> 
         Index personIndex;
         Index listingIndex;
 
+
+
         try {
             List<Index> multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
+            if (multipleIndices.size() != 2) {
+                throw new ParseException("Expected 2 indices");
+            }
             personIndex = multipleIndices.get(0);
             listingIndex = multipleIndices.get(1);
         } catch (ParseException pe) {
