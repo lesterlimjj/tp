@@ -42,6 +42,12 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_clear() throws Exception {
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    }
+
+    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
@@ -50,9 +56,9 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("Alice", "Bob");
-        FindCommand command = (FindCommand) parser.parseCommand("findPerson Alice Bob");
+        FindPersonCommand command = (FindPersonCommand) parser.parseCommand("findPerson Alice Bob");
 
-        assertEquals(new FindCommand(keywords), command);
+        assertEquals(new FindPersonCommand(keywords), command);
     }
 
     @Test
