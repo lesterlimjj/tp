@@ -128,6 +128,12 @@ public interface Model {
      */
     void addListing(Listing listing);
 
+    /**
+     * Deletes the given listing.
+     * The listing must exist in the address book.
+     */
+    void deleteListing(Listing target);
+
     boolean hasTags(Set<String> tags);
 
     boolean hasNewTags(Set<String> tags);

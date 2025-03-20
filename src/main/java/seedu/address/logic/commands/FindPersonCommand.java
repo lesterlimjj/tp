@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
  * Represents a command to find and list persons in the address book whose names match the given keyword(s).
  * Keyword matching is case insensitive and must adhere to a valid name format.
  */
-public class FindCommand extends Command {
+public class FindPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "findPerson";
 
@@ -38,7 +38,7 @@ public class FindCommand extends Command {
      * @param keywords List of keywords to match against names.
      * @throws CommandException if the keywords are empty or invalid.
      */
-    public FindCommand(List<String> keywords) throws CommandException {
+    public FindPersonCommand(List<String> keywords) throws CommandException {
         requireNonNull(keywords);
         if (keywords.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_MISSING_KEYWORD);
@@ -86,12 +86,12 @@ public class FindCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof FindCommand)) {
+        if (!(other instanceof FindPersonCommand)) {
             return false;
         }
 
-        FindCommand otherFindCommand = (FindCommand) other;
-        return keywords.equals(otherFindCommand.keywords);
+        FindPersonCommand otherFindPersonCommand = (FindPersonCommand) other;
+        return keywords.equals(otherFindPersonCommand.keywords);
     }
 
     /**

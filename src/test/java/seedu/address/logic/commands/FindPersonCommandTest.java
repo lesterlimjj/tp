@@ -18,7 +18,7 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class FindCommandTest {
+public class FindPersonCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -27,14 +27,14 @@ public class FindCommandTest {
         List<String> firstPredicate = Arrays.asList("Alice");
         List<String> secondPredicate = Arrays.asList("Bob");
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindPersonCommand findFirstCommand = new FindPersonCommand(firstPredicate);
+        FindPersonCommand findSecondCommand = new FindPersonCommand(secondPredicate);
 
         // same object -> returns true
         assertEquals(findFirstCommand, findFirstCommand);
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindPersonCommand findFirstCommandCopy = new FindPersonCommand(firstPredicate);
         assertEquals(findFirstCommand, findFirstCommandCopy);
 
         // different types -> returns false
@@ -51,7 +51,7 @@ public class FindCommandTest {
     public void execute_zeroKeywords_noPersonFound() throws CommandException {
         List<String> keywords = Arrays.asList(" "); // Invalid keyword
 
-        Exception exception = assertThrows(CommandException.class, () -> new FindCommand(keywords));
+        Exception exception = assertThrows(CommandException.class, () -> new FindPersonCommand(keywords));
 
         String expectedMessage =
                 "ERROR: Invalid keyword ' '. Keywords can only contain letters, spaces, hyphens, or apostrophes.";
@@ -63,7 +63,7 @@ public class FindCommandTest {
         String expectedMessage = "1 persons found matching the keywords.";
         List<String> keywords = Arrays.asList("Alice", "Bob");
 
-        FindCommand command = new FindCommand(keywords);
+        FindPersonCommand command = new FindPersonCommand(keywords);
         expectedModel.updateFilteredPersonList(person -> keywords.contains(person.getName().fullName));
 
         assertEquals(new CommandResult(expectedMessage), command.execute(model));
