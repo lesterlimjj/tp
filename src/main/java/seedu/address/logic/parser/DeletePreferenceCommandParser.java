@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX;
 
 import java.util.List;
 
@@ -19,12 +20,24 @@ public class DeletePreferenceCommandParser implements Parser<DeletePreferenceCom
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePreferenceCommand parse(String args) throws ParseException {
+        List<Index> multipleIndices;
         try {
-            List<Index> index = ParserUtil.parseMultipleIndices(args);
-            return new DeletePreferenceCommand(index.get(0), index.get(1));
+            multipleIndices = ParserUtil.parseMultipleIndices(args);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX,
+                    DeletePreferenceCommand.MESSAGE_USAGE),
+                    pe);
+        }
+
+        try {
+            if (multipleIndices.size() != 2) {
+                throw new ParseException("Expected 2 indices");
+            }
+            return new DeletePreferenceCommand(multipleIndices.get(0), multipleIndices.get(1));
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePreferenceCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_EXPECTED_TWO_INDICES, DeletePreferenceCommand.MESSAGE_USAGE),
+                    pe);
         }
     }
 

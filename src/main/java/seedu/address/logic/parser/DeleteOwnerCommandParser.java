@@ -6,7 +6,6 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_OWNER_OR_LISTING_DISP
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AssignListingCommand;
 import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
