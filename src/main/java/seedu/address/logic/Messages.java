@@ -26,6 +26,8 @@ public class Messages {
     public static final String MESSAGE_PHONE_REQUIRED = "Phone must be provided.\n%1$s";
     public static final String MESSAGE_EMAIL_REQUIRED = "Email must be provided.\n%1$s";
     public static final String MESSAGE_TAG_OR_NEW_TAG_REQUIRED = "Provide at least a new tag or existing tag. \n%1$s";
+    public static final String MESSAGE_PREFERENCE_TAG_REQUIRED_FOR_DELETE = "At least one preference Tag must be "
+            + "provided for deletion.\n%1$s";
     public static final String MESSAGE_POSTAL_CODE_REQUIRED = "Postal code must be provided.\n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX = "The person or preference index "
