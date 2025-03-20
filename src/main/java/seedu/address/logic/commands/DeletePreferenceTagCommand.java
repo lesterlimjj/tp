@@ -40,7 +40,8 @@ public class DeletePreferenceTagCommand extends Command {
     private final Set<String> tagsToDelete;
 
     /**
-     * Creates a {@code DeletePreferenceTagCommand} to delete a set of {@code Tag} from the specified {@code Preference}.
+     * Creates a {@code DeletePreferenceTagCommand} to delete a set of {@code Tag}
+     * from the specified {@code Preference}.
      *
      * @param personIndex The index of the person from which the preference is located in.
      * @param preferenceIndex The index of the preference from which tags will be removed.
