@@ -24,7 +24,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing {@code Person} identified using it's displayed index in the address book.
  */
 public class EditPersonCommand extends Command {
 

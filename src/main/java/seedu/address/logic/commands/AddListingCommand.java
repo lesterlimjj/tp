@@ -22,7 +22,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Adds a listing to the address book.
+ * Adds a {@code Listing} to the address book.
  */
 public class AddListingCommand extends Command {
     public static final String COMMAND_WORD = "addListing";

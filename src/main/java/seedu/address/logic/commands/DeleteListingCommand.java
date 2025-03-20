@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Deletes a listing identified using it's displayed index from the address book.
+ * Deletes a {@code Listing} identified using it's displayed index in the address book.
  */
 public class DeleteListingCommand extends Command {
 

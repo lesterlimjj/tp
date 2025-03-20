@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Deletes tags using a specified tag name.
+ * Deletes {@code Tag}(s0 using a specified tag name(s).
  */
 public class DeleteTagCommand extends Command {
 

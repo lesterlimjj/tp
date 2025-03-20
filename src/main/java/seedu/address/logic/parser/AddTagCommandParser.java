@@ -10,7 +10,7 @@ import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddTagCommand object
+ * Parses input arguments and creates a new {@code AddTagCommandParser} object.
  */
 public class AddTagCommandParser implements Parser<AddTagCommand> {
     /**

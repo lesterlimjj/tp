@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Adds tags to a listing in the addressbook
+ * Adds {@code Tag} to a {@code Listing} identified using it's displayed index in the addressbook.
  */
 public class AddListingTagCommand extends Command {
     public static final String COMMAND_WORD = "addListingTag";

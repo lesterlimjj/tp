@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Deletes tag(s) from a property (listing).
+ * Deletes {@code Tag}(s) from a {@code Listing} identified using it's displayed index in the address book.
  */
 public class DeletePropertyTagCommand extends Command {
 

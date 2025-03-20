@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a {@code Person} identified using it's displayed index from the address book.
  */
 public class DeletePersonCommand extends Command {
 

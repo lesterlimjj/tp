@@ -9,7 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new FindPersonCommand object.
+ * Parses input arguments and creates a new {@code FindPersonCommandParser} object.
  */
 public class FindPersonCommandParser implements Parser<FindPersonCommand> {
 

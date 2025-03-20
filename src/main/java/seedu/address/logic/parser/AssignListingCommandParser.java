@@ -9,7 +9,7 @@ import seedu.address.logic.commands.AssignListingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments to assign a listing to a person.
+ * Parses input arguments and creates a new {@code AssignListingCommandParser} object.
  */
 public class AssignListingCommandParser implements Parser<AssignListingCommand> {
 

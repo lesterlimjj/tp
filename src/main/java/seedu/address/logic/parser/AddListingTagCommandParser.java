@@ -12,7 +12,7 @@ import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and adds tags to a listing
+ * Parses input arguments and creates a new {@code AddListingTagCommandParser} object.
  */
 public class AddListingTagCommandParser implements Parser<AddListingTagCommand> {
     /**

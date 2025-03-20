@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds a tag to the address book.
+ * Adds a {@code Tag} to the address book.
  */
 public class AddTagCommand extends Command {
     public static final String COMMAND_WORD = "addTag";

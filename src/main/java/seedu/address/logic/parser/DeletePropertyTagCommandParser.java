@@ -11,7 +11,7 @@ import seedu.address.logic.commands.DeletePropertyTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeletePropertyTagCommand object.
+ * Parses input arguments and creates a new {@code DeletePropertyTagCommandParser} object.
  */
 public class DeletePropertyTagCommandParser implements Parser<DeletePropertyTagCommand> {
 

@@ -16,7 +16,7 @@ import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 
 /**
- * Adds a person's preference to the address book.
+ * Parses input arguments and creates a new {@code AddPreferenceCommandParser} object.
  */
 public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> {
     /**
