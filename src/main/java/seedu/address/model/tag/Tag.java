@@ -19,10 +19,10 @@ import seedu.address.model.person.PropertyPreference;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags must be between 2 and 50 characters long and can only "
+    public static final String MESSAGE_CONSTRAINTS = "Tags must be between 2 and 30 characters long and can only "
             + "contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. "
             + "The tag cannot be blank and must not already exist.";
-    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9' ._+&-]{2,50}$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9' ._+&-]{2,30}$";
 
     // Identity fields
     public final String tagName;

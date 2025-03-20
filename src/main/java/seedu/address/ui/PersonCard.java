@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -33,6 +34,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private FlowPane personTags;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -55,9 +58,19 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
 
+        if (person.getListings().size() > 0) {
+            Label sellerTag = new Label("SELLER");
+            sellerTag.getStyleClass().add("seller-tag");
+            personTags.getChildren().add(sellerTag);
+        }
+
         ObservableList<PropertyPreference> preferencesList =
             FXCollections.observableList(person.getPropertyPreferences());
         if (preferencesList.size() > 0) {
+            Label buyerTag = new Label("BUYER");
+            buyerTag.getStyleClass().add("buyer-tag");
+            personTags.getChildren().add(buyerTag);
+
             preferenceListPanel = new PreferenceListPanel(preferencesList);
             preferenceListPanelPlaceholder.getChildren().add(preferenceListPanel.getRoot());
         }
