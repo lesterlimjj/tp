@@ -126,6 +126,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteListing(Listing target) {
+        addressBook.removeListing(target);
+    }
+
+    @Override
     public void deleteTag(Tag target) {
         addressBook.removeTag(target);
     }
