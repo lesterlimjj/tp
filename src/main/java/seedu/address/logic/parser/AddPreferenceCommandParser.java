@@ -37,14 +37,6 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
                     AddPreferenceCommand.MESSAGE_USAGE), pe);
         }
 
-        boolean hasTags = !(argMultimap.getAllValues(PREFIX_TAG).isEmpty());
-        boolean hasNewTags = !(argMultimap.getAllValues(PREFIX_NEW_TAG).isEmpty());
-        boolean hasCombinedTags = hasTags || hasNewTags;
-
-        if (!hasCombinedTags) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPreferenceCommand.MESSAGE_USAGE));
-        }
-
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE);
         Price lowerBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_LOWER_BOUND_PRICE).orElse(null));
         Price upperBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_UPPER_BOUND_PRICE).orElse(null));
