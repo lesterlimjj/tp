@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
+import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.commands.AssignListingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -24,7 +26,7 @@ public class AssignListingCommandParser implements Parser<AssignListingCommand> 
         Index personIndex;
         Index listingIndex;
 
-
+        checkCommandFormat(argMultimap, args);
 
         try {
             List<Index> multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
@@ -34,10 +36,25 @@ public class AssignListingCommandParser implements Parser<AssignListingCommand> 
             personIndex = multipleIndices.get(0);
             listingIndex = multipleIndices.get(1);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignListingCommand.MESSAGE_USAGE),
-                    pe);
+            throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
+                    AssignListingCommand.MESSAGE_USAGE), pe);
         }
 
         return new AssignListingCommand(personIndex, listingIndex);
+    }
+
+    private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
+        String preamble = argMultimap.getPreamble();
+
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
+                    AddPreferenceTagCommand.MESSAGE_USAGE));
+        }
+
+        if (preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
+                    AddPreferenceTagCommand.MESSAGE_USAGE));
+        }
+
     }
 }

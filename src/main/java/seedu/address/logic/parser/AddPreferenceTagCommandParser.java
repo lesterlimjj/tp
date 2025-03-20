@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_TAG_OR_NEW_TAG_REQUIRED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddListingTagCommand;
 import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -65,17 +64,17 @@ public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCom
         boolean hasNewTags = !(argMultimap.getAllValues(PREFIX_NEW_TAG).isEmpty());
         boolean hasCombinedTags = hasTags || hasNewTags;
 
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
+                    AddPreferenceTagCommand.MESSAGE_USAGE));
+        }
+
         if (!hasCombinedTags) {
             throw new ParseException(String.format(MESSAGE_TAG_OR_NEW_TAG_REQUIRED, AddPreferenceTagCommand.MESSAGE_USAGE));
         }
 
-        if (args.trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddPreferenceTagCommand.MESSAGE_USAGE));
-        }
-
         if (preamble.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
                     AddPreferenceTagCommand.MESSAGE_USAGE));
         }
 

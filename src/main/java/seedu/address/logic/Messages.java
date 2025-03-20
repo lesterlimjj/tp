@@ -28,7 +28,8 @@ public class Messages {
     public static final String MESSAGE_TAG_OR_NEW_TAG_REQUIRED = "Provide at least a new tag or existing tag. \n%1$s";
     public static final String MESSAGE_POSTAL_CODE_REQUIRED = "Postal code must be provided.\n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
-    public static final String MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX = "The person or preference index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX = "The person or preference index "
+            + "provided is invalid";
     public static final String MESSAGE_INVALID_LISTING_DISPLAYED_INDEX = "The listing index provided is invalid";
     public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid";
     public static final String MESSAGE_DELETE_PROPERTY_TAG_SUCCESS = "Tag(s) in property %s deleted: %s";
@@ -39,6 +40,7 @@ public class Messages {
     public static final String MESSAGE_ADD_TAG_PREAMBLE_FOUND = "Add tag should not have preamble. \n%1$s";
     public static final String MESSAGE_TAG_OR_NEW_TAG_PREFIX_EMPTY_VALUE = "At least one given tag or new tag prefix "
             + "is empty";
+    public static final String MESSAGE_ARGUMENTS_EMPTY = "Arguments should not be empty";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_KEYWORD =
