@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeletePreferenceTagCommand;
-import seedu.address.logic.commands.DeletePropertyTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -61,7 +60,8 @@ public class DeletePreferenceTagCommandParser implements Parser<DeletePreference
             return new DeletePreferenceTagCommand(personIndex, preferenceIndex, tags);
 
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePreferenceTagCommand.MESSAGE_USAGE),
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeletePreferenceTagCommand.MESSAGE_USAGE),
                     pe);
         }
 
