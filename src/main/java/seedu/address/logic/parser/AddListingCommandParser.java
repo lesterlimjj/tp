@@ -1,8 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_ADD_LISTING_PREAMBLE_FOUND;
 import static seedu.address.logic.Messages.MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_LISTING_PREAMBLE_FOUND;
 import static seedu.address.logic.Messages.MESSAGE_POSTAL_CODE_REQUIRED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUSE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER_BOUND_PRICE;
@@ -114,7 +113,7 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
         }
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_LISTING_PREAMBLE_FOUND, AddListingCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_ADD_LISTING_PREAMBLE_FOUND, AddListingCommand.MESSAGE_USAGE));
         }
     }
 

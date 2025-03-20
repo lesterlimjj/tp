@@ -17,9 +17,13 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_LISTING_PREAMBLE_FOUND = "Add listing should not have preamble. \n%1$s";
+    public static final String MESSAGE_ADD_LISTING_PREAMBLE_FOUND = "Add listing should not have preamble. \n%1$s";
+    public static final String MESSAGE_ADD_PERSON_PREAMBLE_FOUND = "Add person should not have preamble. \n%1$s";
     public static final String MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED =
             "Either house number or unit number must be provided, but not both.\n%1$s";
+    public static final String MESSAGE_NAME_REQUIRED = "Name must be provided.\n%1$s";
+    public static final String MESSAGE_PHONE_REQUIRED = "Phone must be provided.\n%1$s";
+    public static final String MESSAGE_EMAIL_REQUIRED = "Email must be provided.\n%1$s";
     public static final String MESSAGE_TAG_OR_NEW_TAG_REQUIRED = "Provide at least a new tag or existing tag. \n%1$s";
     public static final String MESSAGE_POSTAL_CODE_REQUIRED = "Postal code must be provided.\n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
