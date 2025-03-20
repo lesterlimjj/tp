@@ -12,7 +12,6 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.UniqueListingList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;

@@ -26,7 +26,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
