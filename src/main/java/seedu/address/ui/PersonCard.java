@@ -58,7 +58,7 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
 
-        if (person.getListings().size() > 0){
+        if (person.getListings().size() > 0) {
             Label sellerTag = new Label("SELLER");
             sellerTag.getStyleClass().add("seller-tag");
             personTags.getChildren().add(sellerTag);
