@@ -15,7 +15,7 @@ import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListListingCommand;
 import seedu.address.logic.commands.ListPersonCommand;
@@ -141,7 +141,7 @@ public class HelpWindow extends UiPart<Stage> {
                 {ListPersonCommand.COMMAND_WORD, ListPersonCommand.MESSAGE_USAGE},
                 {ListListingCommand.COMMAND_WORD, ListListingCommand.MESSAGE_USAGE},
                 {ListTagCommand.COMMAND_WORD, ListTagCommand.MESSAGE_USAGE},
-                {FindCommand.COMMAND_WORD, FindCommand.MESSAGE_USAGE},
+                {FindPersonCommand.COMMAND_WORD, FindPersonCommand.MESSAGE_USAGE},
                 {HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE},
                 {ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_USAGE},
         };

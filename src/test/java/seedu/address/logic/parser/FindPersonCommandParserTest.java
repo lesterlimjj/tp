@@ -8,12 +8,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-public class FindCommandParserTest {
+public class FindPersonCommandParserTest {
 
-    private FindCommandParser parser = new FindCommandParser();
+    private FindPersonCommandParser parser = new FindPersonCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
@@ -25,10 +25,10 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() throws CommandException {
         // no leading and trailing whitespaces
         List<String> expectedKeywords = Arrays.asList("Alice", "Bob");
-        FindCommand expectedFindCommand = new FindCommand(expectedKeywords);
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+        FindPersonCommand expectedFindPersonCommand = new FindPersonCommand(expectedKeywords);
+        assertParseSuccess(parser, "Alice Bob", expectedFindPersonCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindPersonCommand);
     }
 }
