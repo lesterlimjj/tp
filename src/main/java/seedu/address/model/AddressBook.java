@@ -238,34 +238,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return false;
     }
 
-    /**
-     * Adds a listing to the specified tags.
-     *
-     * @param tags The set of tags to associate with the listing.
-     * @param listing The listing to add to the tags.
-     */
-    public void addListingToTags(Set<String> tags, Listing listing) {
-        requireNonNull(tags);
-        TagRegistry tagRegistry = TagRegistry.of();
-        for (String tag : tags) {
-            tagRegistry.addListingToTag(tag, listing);
-        }
-    }
-
-    /**
-     * Associates a set of tags with a property preference.
-     *
-     * @param tags The tags to associate.
-     * @param preference The property preference to associate with.
-     */
-    public void addPreferenceToTags(Set<String> tags, PropertyPreference preference) {
-        requireNonNull(tags);
-        TagRegistry tagRegistry = TagRegistry.of();
-        for (String tag : tags) {
-            tagRegistry.addPropertyPreferenceToTag(tag, preference);
-        }
-    }
-
     //// util methods
 
     @Override

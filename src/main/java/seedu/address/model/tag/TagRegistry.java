@@ -112,7 +112,7 @@ public class TagRegistry implements Iterable<Tag> {
             throw new TagNotFoundException();
         }
 
-        if (!target.isSameTag(editedTag) && contains(editedTag)) {
+        if (!target.equals(editedTag) && contains(editedTag)) {
             throw new DuplicateTagException();
         }
 
@@ -194,65 +194,5 @@ public class TagRegistry implements Iterable<Tag> {
             }
         }
         return true;
-    }
-
-    /**
-     * Adds the association of {@code newPropertyPreference} into the tag with the name {@code targetTagName} in the
-     * hashmap.
-     * {@code targetTagName} must exist in the hashmap.
-     *
-     * @param targetTagName the tag name of the tag.
-     * @param newPropertyPreference the property preference to add to the tag.
-     * @return the tag that has been modified.
-     * @throws TagNotFoundException if the tag name does not exist in the hashmap.
-     */
-    public Tag addPropertyPreferenceToTag(String targetTagName, PropertyPreference newPropertyPreference) {
-
-        requireAllNonNull(targetTagName, newPropertyPreference);
-        checkArgument(Tag.isValidTagName(targetTagName), Tag.MESSAGE_CONSTRAINTS);
-
-        String upperTagName = targetTagName.toUpperCase();
-        Tag tag = internalHashmap.get(upperTagName);
-        if (tag == null && !contains(tag)) {
-            throw new TagNotFoundException();
-        }
-
-        List<PropertyPreference> updatedPropertyPreferences = new ArrayList<>(tag.getPropertyPreferences());
-        updatedPropertyPreferences.add(newPropertyPreference);
-
-        Tag editedTag = new Tag(tag.tagName, updatedPropertyPreferences, tag.getListings());
-        internalHashmap.put(upperTagName, editedTag);
-
-        return editedTag;
-    }
-
-    /**
-     * Adds the association of {@code newListing} into the tag with the name {@code targetTagName} in the
-     * hashmap.
-     * {@code targetTagName} must exist in the hashmap.
-     *
-     * @param targetTagName the tag name of the tag.
-     * @param newListing the listing to add to the tag.
-     * @return the tag that has been modified.1
-     * @throws TagNotFoundException if the tag name does not exist in the hashmap.
-     */
-    public Tag addListingToTag(String targetTagName, Listing newListing) {
-
-        requireAllNonNull(targetTagName, newListing);
-        checkArgument(Tag.isValidTagName(targetTagName), Tag.MESSAGE_CONSTRAINTS);
-
-        String upperTagName = targetTagName.toUpperCase();
-        Tag tag = internalHashmap.get(upperTagName);
-        if (tag == null && !contains(tag)) {
-            throw new TagNotFoundException();
-        }
-
-        List<Listing> updatedListings = new ArrayList<>(tag.getListings());
-        updatedListings.add(newListing);
-
-        Tag editedTag = new Tag(tag.tagName, tag.getPropertyPreferences(), updatedListings);
-        internalHashmap.put(upperTagName, editedTag);
-
-        return editedTag;
     }
 }
