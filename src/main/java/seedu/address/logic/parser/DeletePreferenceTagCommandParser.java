@@ -42,6 +42,9 @@ public class DeletePreferenceTagCommandParser implements Parser<DeletePreference
 
         try {
             List<Index> multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
+            if (multipleIndices.size() != 2) {
+                throw new ParseException("Expected 2 indices");
+            }
             personIndex = multipleIndices.get(0);
             preferenceIndex = multipleIndices.get(1);
 
