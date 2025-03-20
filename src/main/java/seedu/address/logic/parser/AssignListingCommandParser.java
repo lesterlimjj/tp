@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_OR_LISTING_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX;
 
 import java.util.List;
 
@@ -27,9 +29,16 @@ public class AssignListingCommandParser implements Parser<AssignListingCommand> 
         Index listingIndex;
 
         checkCommandFormat(argMultimap, args);
+        List<Index> multipleIndices;
+        try {
+            multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_OR_LISTING_DISPLAYED_INDEX,
+                    AssignListingCommand.MESSAGE_USAGE),
+                    pe);
+        }
 
         try {
-            List<Index> multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
             if (multipleIndices.size() != 2) {
                 throw new ParseException("Expected 2 indices");
             }
