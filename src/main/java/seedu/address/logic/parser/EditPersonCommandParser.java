@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -12,13 +12,15 @@ import seedu.address.logic.commands.EditPersonCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EditPersonCommand object
+ * Parses input arguments and creates a new {@code EditPersonCommandParser} object.
  */
 public class EditPersonCommandParser implements Parser<EditPersonCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditPersonCommand
      * and returns an EditPersonCommand object for execution.
+     *
+     * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditPersonCommand parse(String args) throws ParseException {
@@ -31,7 +33,7 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
                     EditPersonCommand.MESSAGE_USAGE), pe);
         }
 
@@ -50,7 +52,8 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditPersonCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(String.format(EditPersonCommand.MESSAGE_NOT_EDITED,
+                    EditPersonCommand.MESSAGE_USAGE));
         }
 
         return new EditPersonCommand(index, editPersonDescriptor);

@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -140,18 +139,11 @@ public interface Model {
 
     void addTags(Set<String> tags);
 
-    void addListingToTags(Set<String> tags, Listing listing);
-
-    void addPreferenceToTags(Set<String> tags, PropertyPreference preference);
-
     /**
      * Deletes the given tag.
      * The tag must exist in the address book.
      */
     void deleteTag(Tag tagToDelete);
-
-
-    ObservableList<Tag> getTagList();
 
     void setTag(Tag target, Tag editedTag);
 }

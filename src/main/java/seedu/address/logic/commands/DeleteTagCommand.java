@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Deletes tags using a specified tag name.
+ * Deletes {@code Tag}(s) using a specified tag name(s).
  */
 public class DeleteTagCommand extends Command {
 
@@ -37,6 +37,11 @@ public class DeleteTagCommand extends Command {
 
     private final Set<String> toDelete;
 
+    /**
+     * Creates a {@code DeleteTagCommand} to delete set of {@code Tag}.
+     *
+     * @param tagSet Set of tags to delete.
+     */
     public DeleteTagCommand(Set<String> tagSet) {
         this.toDelete = tagSet;
     }

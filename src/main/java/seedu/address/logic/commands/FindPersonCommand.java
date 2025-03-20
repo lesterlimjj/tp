@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Represents a command to find and list persons in the address book whose names match the given keyword(s).
+ * Represents a command to find and list {@code Person} in the address book whose names match the given keyword(s).
  * Keyword matching is case insensitive and must adhere to a valid name format.
  */
 public class FindPersonCommand extends Command {
@@ -33,7 +33,7 @@ public class FindPersonCommand extends Command {
     private final Predicate<Person> predicate;
 
     /**
-     * Constructs a FindCommand with the given keywords.
+     * Constructs a @{code FindPersonCommand} to find {@code Person} with the given keywords.
      *
      * @param keywords List of keywords to match against names.
      * @throws CommandException if the keywords are empty or invalid.

@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
+import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
+import static seedu.address.logic.Messages.MESSAGE_PREFERENCE_TAG_REQUIRED_FOR_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
@@ -12,13 +14,15 @@ import seedu.address.logic.commands.DeletePreferenceTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a DeletePreferenceTagCommand object.
+ * Parses input arguments and creates a new {@code DeletePreferenceTagCommandParser} object.
  */
 public class DeletePreferenceTagCommandParser implements Parser<DeletePreferenceTagCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeletePreferenceTagCommand
      * and returns an DeletePreferenceTagCommand object for execution.
+     *
+     * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePreferenceTagCommand parse(String args) throws ParseException {
@@ -26,24 +30,13 @@ public class DeletePreferenceTagCommandParser implements Parser<DeletePreference
         Index personIndex;
         Index preferenceIndex;
 
-        // Ensure arguments are not empty
-        if (args.trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeletePreferenceTagCommand.MESSAGE_USAGE));
-        }
-
-        String preamble = argMultimap.getPreamble();
-
-        // Ensure an index is provided
-        if (preamble.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeletePreferenceTagCommand.MESSAGE_USAGE));
-        }
+        checkCommandFormat(argMultimap, args);
 
         try {
             List<Index> multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
             if (multipleIndices.size() != 2) {
-                throw new ParseException("Expected 2 indices");
+                throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
+                        DeletePreferenceTagCommand.MESSAGE_USAGE));
             }
             personIndex = multipleIndices.get(0);
             preferenceIndex = multipleIndices.get(1);
@@ -56,16 +49,29 @@ public class DeletePreferenceTagCommandParser implements Parser<DeletePreference
 
             // Validate at least one tag is provided
             if (tags.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                throw new ParseException(String.format(MESSAGE_PREFERENCE_TAG_REQUIRED_FOR_DELETE,
                         DeletePreferenceTagCommand.MESSAGE_USAGE));
             }
 
             return new DeletePreferenceTagCommand(personIndex, preferenceIndex, tags);
 
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeletePreferenceTagCommand.MESSAGE_USAGE),
-                    pe);
+            throw new ParseException(pe.getMessage());
+        }
+
+    }
+
+    private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
+        String preamble = argMultimap.getPreamble();
+
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
+                    DeletePreferenceTagCommand.MESSAGE_USAGE));
+        }
+
+        if (preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
+                    DeletePreferenceTagCommand.MESSAGE_USAGE));
         }
 
     }
