@@ -21,7 +21,7 @@ import seedu.address.model.tag.TagRegistry;
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeletePersonCommand extends Command {
 
     public static final String COMMAND_WORD = "deletePerson";
 
@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeletePersonCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -63,12 +63,12 @@ public class DeleteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof DeletePersonCommand)) {
             return false;
         }
 
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        DeletePersonCommand otherDeletePersonCommand = (DeletePersonCommand) other;
+        return targetIndex.equals(otherDeletePersonCommand.targetIndex);
     }
 
     @Override
