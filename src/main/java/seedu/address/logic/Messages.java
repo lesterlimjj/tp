@@ -27,6 +27,7 @@ public class Messages {
     public static final String MESSAGE_TAG_OR_NEW_TAG_REQUIRED = "Provide at least a new tag or existing tag. \n%1$s";
     public static final String MESSAGE_POSTAL_CODE_REQUIRED = "Postal code must be provided.\n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX = "The person or preference index provided is invalid";
     public static final String MESSAGE_INVALID_LISTING_DISPLAYED_INDEX = "The listing index provided is invalid";
     public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid";
     public static final String MESSAGE_DELETE_PROPERTY_TAG_SUCCESS = "Tag(s) in property %s deleted: %s";
