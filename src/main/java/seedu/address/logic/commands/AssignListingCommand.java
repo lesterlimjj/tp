@@ -21,7 +21,8 @@ public class AssignListingCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a listing (to sell) to a person "
             + "Parameters: PERSON_INDEX (must be a positive integer) "
-            + "LISTING_INDEX (must be a positive integer)";
+            + "LISTING_INDEX (must be a positive integer)"
+            + "Example: " + COMMAND_WORD + " 2 1";
 
     public static final String MESSAGE_SUCCESS = "Listing %1$s";
     public static final String MESSAGE_OWNER_ALREADY_IN_LISTING = "This person is already an owner of this listing";

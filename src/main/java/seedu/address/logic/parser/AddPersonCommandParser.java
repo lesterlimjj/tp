@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_ADD_PERSON_PREAMBLE_FOUND;
+import static seedu.address.logic.Messages.MESSAGE_EMAIL_REQUIRED;
+import static seedu.address.logic.Messages.MESSAGE_NAME_REQUIRED;
+import static seedu.address.logic.Messages.MESSAGE_PHONE_REQUIRED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -31,10 +34,7 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
-        }
+        checkCommandFormat(argMultimap);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -51,6 +51,30 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
+        boolean hasName = argMultimap.getValue(PREFIX_NAME).isPresent();
+        boolean hasPhone = argMultimap.getValue(PREFIX_PHONE).isPresent();
+        boolean hasEmail = argMultimap.getValue(PREFIX_EMAIL).isPresent();
+
+        if (!hasName) {
+            throw new ParseException(String.format(MESSAGE_NAME_REQUIRED,
+                    AddPersonCommand.MESSAGE_USAGE));
+        }
+
+        if (!hasPhone) {
+            throw new ParseException(String.format(MESSAGE_PHONE_REQUIRED, AddPersonCommand.MESSAGE_USAGE));
+        }
+
+        if (!hasEmail) {
+            throw new ParseException(String.format(MESSAGE_EMAIL_REQUIRED, AddPersonCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_ADD_PERSON_PREAMBLE_FOUND, AddPersonCommand.MESSAGE_USAGE));
+        }
+
     }
 
 }
