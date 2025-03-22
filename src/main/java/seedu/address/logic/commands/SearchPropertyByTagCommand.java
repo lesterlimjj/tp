@@ -5,14 +5,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.StreamSupport;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.predicates.ListingContainsAllTagsPredicate;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Searches for properties that contain all specified tags.
@@ -43,11 +41,8 @@ public class SearchPropertyByTagCommand extends Command {
         }
 
         // Validate each tag exists
-        TagRegistry tagRegistry = TagRegistry.of();
         for (String tagName : tagsToSearch) {
-            boolean tagExists = StreamSupport.stream(tagRegistry.spliterator(), false)
-                    .anyMatch(existingTag -> existingTag.getTagName().equalsIgnoreCase(tagName));
-            if (!tagExists) {
+            if (!model.hasTags(Set.of(tagName))) {
                 throw new CommandException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_NOT_FOUND, tagName));
             }
         }
