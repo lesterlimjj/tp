@@ -13,7 +13,7 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.predicates.ListingContainsAllTagsPredicate;
 
 /**
- * Searches for properties that contain all specified tags.
+ * Searches for {@code Listing}(s) whose tags contain all specified tags.
  */
 public class SearchPropertyByTagCommand extends Command {
     public static final String COMMAND_WORD = "searchProperty";
