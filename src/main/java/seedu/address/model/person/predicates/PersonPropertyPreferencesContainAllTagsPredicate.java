@@ -17,6 +17,9 @@ public class PersonPropertyPreferencesContainAllTagsPredicate implements Predica
 
     @Override
     public boolean test(Person person) {
+        if (tagsToMatch.isEmpty()) {
+            return false;
+        }
         return person.getPropertyPreferences().stream()
                 .anyMatch(pref -> tagsToMatch.stream()
                         .allMatch(tagToFind -> pref.getTags().stream()
