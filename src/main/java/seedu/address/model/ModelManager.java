@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -30,6 +31,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Listing> filteredListings;
     private final FilteredList<Tag> filteredTags;
+    private Set<String> currentPersonSearchTags = Set.of();
+    private Set<String> activeFilterTags = new HashSet<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -226,6 +229,17 @@ public class ModelManager implements Model {
     @Override
     public void setTag(Tag target, Tag editedTag) {
         addressBook.setTag(target, editedTag);
+    }
+
+    @Override
+    public void setActiveFilterTags(Set<String> tags) {
+        requireNonNull(tags);
+        activeFilterTags = tags;
+    }
+
+    @Override
+    public Set<String> getActiveFilterTags() {
+        return activeFilterTags;
     }
 
     @Override

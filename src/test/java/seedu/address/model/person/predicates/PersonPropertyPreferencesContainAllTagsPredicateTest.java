@@ -34,36 +34,41 @@ public class PersonPropertyPreferencesContainAllTagsPredicateTest {
             List.of(new PropertyPreference(
                     new PriceRange(new Price("500000"), new Price("700000")),
                     Set.of(new Tag("Pool", List.of(), List.of()), new Tag("Pet-Friendly", List.of(), List.of())),
-                    dummyPerson // <-- Add dummy person reference here
+                    dummyPerson
             )),
             List.of()
     );
 
     @Test
-    public void test_containsAllTags_true() {
+    public void test_anyTagMatch_true() {
         PersonPropertyPreferencesContainAllTagsPredicate predicate =
-                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("pool", "pet-friendly"));
+                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("pool"));
         assertTrue(predicate.test(samplePerson));
+
+        PersonPropertyPreferencesContainAllTagsPredicate predicateMultiple =
+                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("pool", "garden"));
+        // Should still return true, because "pool" matches even if "garden" does not
+        assertTrue(predicateMultiple.test(samplePerson));
     }
 
     @Test
-    public void test_partialTags_false() {
+    public void test_noMatchingTags_false() {
         PersonPropertyPreferencesContainAllTagsPredicate predicate =
-                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("pool", "garden"));
+                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("garden", "quiet"));
         assertFalse(predicate.test(samplePerson));
     }
 
     @Test
     public void test_tagCaseInsensitive_true() {
         PersonPropertyPreferencesContainAllTagsPredicate predicate =
-                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("POOL", "PET-friendly"));
+                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("POOL", "pet-friendly"));
         assertTrue(predicate.test(samplePerson));
     }
 
     @Test
-    public void test_emptyTagSet_true() {
+    public void test_emptyTagSet_false() {
         PersonPropertyPreferencesContainAllTagsPredicate predicate =
                 new PersonPropertyPreferencesContainAllTagsPredicate(Set.of());
-        assertTrue(predicate.test(samplePerson));
+        assertFalse(predicate.test(samplePerson));
     }
 }

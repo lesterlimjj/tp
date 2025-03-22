@@ -43,7 +43,7 @@ public class SearchPersonByTagCommand extends Command {
             throw new CommandException(Messages.MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS);
         }
 
-        // Validate each tag exists in model
+        // Check tags exist
         for (String tagName : tagsToSearch) {
             if (!model.hasTags(Set.of(tagName))) {
                 throw new CommandException(String.format(Messages.MESSAGE_SEARCH_PERSON_TAG_NOT_FOUND, tagName));
@@ -52,6 +52,7 @@ public class SearchPersonByTagCommand extends Command {
 
         PersonPropertyPreferencesContainAllTagsPredicate predicate =
                 new PersonPropertyPreferencesContainAllTagsPredicate(tagsToSearch);
+        model.setActiveFilterTags(tagsToSearch);
         model.updateFilteredPersonList(predicate);
 
         List<Person> filteredPersons = model.getFilteredPersonList();
