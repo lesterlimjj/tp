@@ -89,6 +89,17 @@ public class Messages {
     }
 
     /**
+     * Formats the {@code tags} without any prefix, only displaying the tag names in brackets.
+     */
+    public static String formatTagsOnly(Set<Tag> tags) {
+        return "["
+                + tags.stream()
+                      .map(Tag::getTagName)
+                      .collect(Collectors.joining(", "))
+                + "]";
+    }
+
+    /**
      * Formats the {@code person} for display to the user.
      */
     public static String format(Person person) {
@@ -143,17 +154,6 @@ public class Messages {
                         .collect(Collectors.joining(", ")))
                 .append("]");
         return builder.toString();
-    }
-
-    /**
-     * Formats the {@code tags} without any prefix, only displaying the tag names in brackets.
-     */
-    public static String formatTagsOnly(Set<Tag> tags) {
-        return "["
-                + tags.stream()
-                      .map(Tag::getTagName)
-                      .collect(Collectors.joining(", "))
-                + "]";
     }
 
     /**
@@ -226,5 +226,5 @@ public class Messages {
 
         return builder.toString();
     }
-
 }
+

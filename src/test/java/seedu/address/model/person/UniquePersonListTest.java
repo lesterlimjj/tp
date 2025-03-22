@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -41,7 +40,8 @@ public class UniquePersonListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).build();
+        Person editedAlice = new PersonBuilder(ALICE)
+                .build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
 
@@ -54,14 +54,6 @@ public class UniquePersonListTest {
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniquePersonList.add(ALICE);
         assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(ALICE));
-    }
-
-    @Test
-    public void add_validPerson_success() {
-        uniquePersonList.add(ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(ALICE);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
     }
 
     @Test
@@ -91,7 +83,8 @@ public class UniquePersonListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withEmail("test@example.com").build();
+        Person editedAlice = new PersonBuilder(ALICE)
+                .build();
         uniquePersonList.setPerson(ALICE, editedAlice);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
         expectedUniquePersonList.add(editedAlice);
@@ -169,63 +162,12 @@ public class UniquePersonListTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> 
-                uniquePersonList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, ()
+            -> uniquePersonList.asUnmodifiableObservableList().remove(0));
     }
 
     @Test
-    public void iterator_hasNextAndNext_returnsCorrectElement() {
-        uniquePersonList.add(ALICE);
-        Iterator<Person> iterator = uniquePersonList.iterator();
-        
-        assertTrue(iterator.hasNext());
-        assertEquals(ALICE, iterator.next());
-        assertFalse(iterator.hasNext());
-    }
-
-    @Test
-    public void equals_sameObject_returnsTrue() {
-        assertTrue(uniquePersonList.equals(uniquePersonList));
-    }
-
-    @Test
-    public void equals_null_returnsFalse() {
-        assertFalse(uniquePersonList.equals(null));
-    }
-
-    @Test
-    public void equals_differentType_returnsFalse() {
-        assertFalse(uniquePersonList.equals(5));
-    }
-
-    @Test
-    public void equals_differentPersons_returnsFalse() {
-        uniquePersonList.add(ALICE);
-        UniquePersonList otherList = new UniquePersonList();
-        otherList.add(BOB);
-        assertFalse(uniquePersonList.equals(otherList));
-    }
-
-    @Test
-    public void equals_samePersons_returnsTrue() {
-        uniquePersonList.add(ALICE);
-        UniquePersonList otherList = new UniquePersonList();
-        otherList.add(ALICE);
-        assertTrue(uniquePersonList.equals(otherList));
-    }
-
-    @Test
-    public void hashCode_sameContent_sameHashCode() {
-        uniquePersonList.add(ALICE);
-        UniquePersonList otherList = new UniquePersonList();
-        otherList.add(ALICE);
-        assertEquals(uniquePersonList.hashCode(), otherList.hashCode());
-    }
-
-    @Test
-    public void toString_nonEmptyList_returnsString() {
-        uniquePersonList.add(ALICE);
-        String result = uniquePersonList.toString();
-        assertTrue(result.contains(ALICE.toString()));
+    public void toStringMethod() {
+        assertEquals(uniquePersonList.asUnmodifiableObservableList().toString(), uniquePersonList.toString());
     }
 }

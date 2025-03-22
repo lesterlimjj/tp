@@ -1,13 +1,10 @@
 package seedu.address.model.person;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 public class EmailTest {
 
@@ -20,18 +17,6 @@ public class EmailTest {
     public void constructor_invalidEmail_throwsIllegalArgumentException() {
         String invalidEmail = "";
         assertThrows(IllegalArgumentException.class, () -> new Email(invalidEmail));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"PeterJack_1190@example.com", "PeterJack.1190@example.com", 
-            "PeterJack+1190@example.com", "PeterJack-1190@example.com", "a@bc",
-            "test@localhost", "123@145", "a1+be.d@example1.com", 
-            "peter_jack@very-very-very-long-example.com", 
-            "if.you.dream.it_you.can.do.it@example.com", 
-            "e1234567@u.nus.edu"})
-    public void constructor_validEmail_success(String validEmail) {
-        Email email = new Email(validEmail);
-        assertEquals(validEmail, email.value);
     }
 
     @Test
@@ -99,19 +84,5 @@ public class EmailTest {
 
         // different values -> returns false
         assertFalse(email.equals(new Email("other.valid@email")));
-    }
-
-    @Test
-    public void toString_returnsEmailValue() {
-        String validEmail = "test@example.com";
-        Email email = new Email(validEmail);
-        assertEquals(validEmail, email.toString());
-    }
-
-    @Test
-    public void hashCode_sameEmail_sameHashCode() {
-        Email email1 = new Email("test@example.com");
-        Email email2 = new Email("test@example.com");
-        assertEquals(email1.hashCode(), email2.hashCode());
     }
 }

@@ -130,7 +130,7 @@ public class AddressBookParser {
 
         case DeletePreferenceTagCommand.COMMAND_WORD:
             return new DeletePreferenceTagCommandParser().parse(arguments);
-            
+
         case OverwritePreferenceTagCommand.COMMAND_WORD:
             return new OverwritePreferenceTagCommandParser().parse(arguments);
 
