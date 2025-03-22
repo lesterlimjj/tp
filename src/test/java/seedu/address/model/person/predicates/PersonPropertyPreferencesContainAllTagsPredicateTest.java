@@ -40,22 +40,19 @@ public class PersonPropertyPreferencesContainAllTagsPredicateTest {
     );
 
     @Test
-    public void test_anyTagMatch_true() {
+    public void test_containsAllTags_true() {
+        // Should return true as preference contains both pool and pet-friendly
         PersonPropertyPreferencesContainAllTagsPredicate predicate =
-                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("pool"));
+                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("pool", "pet-friendly"));
         assertTrue(predicate.test(samplePerson));
-
-        PersonPropertyPreferencesContainAllTagsPredicate predicateMultiple =
-                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("pool", "garden"));
-        // Should still return true, because "pool" matches even if "garden" does not
-        assertTrue(predicateMultiple.test(samplePerson));
     }
 
     @Test
-    public void test_noMatchingTags_false() {
-        PersonPropertyPreferencesContainAllTagsPredicate predicate =
-                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("garden", "quiet"));
-        assertFalse(predicate.test(samplePerson));
+    public void test_partialTagMatch_false() {
+        // Should return false since "garden" is not present
+        PersonPropertyPreferencesContainAllTagsPredicate predicateMultiple =
+                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("pool", "garden"));
+        assertFalse(predicateMultiple.test(samplePerson));
     }
 
     @Test
@@ -63,6 +60,13 @@ public class PersonPropertyPreferencesContainAllTagsPredicateTest {
         PersonPropertyPreferencesContainAllTagsPredicate predicate =
                 new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("POOL", "pet-friendly"));
         assertTrue(predicate.test(samplePerson));
+    }
+
+    @Test
+    public void test_noMatchingTags_false() {
+        PersonPropertyPreferencesContainAllTagsPredicate predicate =
+                new PersonPropertyPreferencesContainAllTagsPredicate(Set.of("garden", "quiet"));
+        assertFalse(predicate.test(samplePerson));
     }
 
     @Test

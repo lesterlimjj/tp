@@ -62,8 +62,9 @@ public class PersonCard extends UiPart<Region> {
         ObservableList<PropertyPreference> filteredPreferences = FXCollections.observableArrayList(
                 person.getPropertyPreferences().stream()
                         .filter(pref -> searchTags.isEmpty()
-                                || pref.getTags().stream()
-                                .anyMatch(tag -> searchTags.contains(tag.tagName.toLowerCase())))
+                                || searchTags.stream()
+                                .allMatch(tagName -> pref.getTags().stream()
+                                        .anyMatch(tag -> tag.tagName.equalsIgnoreCase(tagName))))
                         .collect(Collectors.toList())
         );
 
