@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -14,6 +15,13 @@ import seedu.address.testutil.PersonBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 
+    @Test
+    public void constructor_validKeywords_success() {
+        List<String> keywords = Arrays.asList("first", "second");
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
+        assertEquals(keywords, predicate.keywords);
+    }
+    
     @Test
     public void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
@@ -35,7 +43,7 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different keywords -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
@@ -56,6 +64,10 @@ public class NameContainsKeywordsPredicateTest {
         // Mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        
+        // Partial word match
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Ali"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice").build()));
     }
 
     @Test
@@ -72,6 +84,10 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").build()));
+                
+        // Substring not at word boundary
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("lice"));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
     }
 
     @Test
@@ -79,7 +95,14 @@ public class NameContainsKeywordsPredicateTest {
         List<String> keywords = List.of("keyword1", "keyword2");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
 
-        String expected = NameContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
-        assertEquals(expected, predicate.toString());
+        String expectedToString = NameContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
+        assertEquals(expectedToString, predicate.toString());
+        
+        // Ensure toString returns a non-null value
+        assertNotNull(predicate.toString());
+        
+        // Ensure toString contains the keywords
+        assertTrue(predicate.toString().contains("keyword1"));
+        assertTrue(predicate.toString().contains("keyword2"));
     }
 }

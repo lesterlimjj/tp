@@ -74,6 +74,21 @@ public class Messages {
     }
 
     /**
+     * Formats basic property address details (postal code + unit/house number) for display.
+     */
+    public static String formatPropertyDetails(Listing property) {
+        StringBuilder details = new StringBuilder();
+        details.append(" ").append(property.getPostalCode().toString());
+
+        if (property.getUnitNumber() != null) {
+            details.append(" ").append(property.getUnitNumber().toString());
+        } else if (property.getHouseNumber() != null) {
+            details.append(" ").append(property.getHouseNumber().toString());
+        }
+        return details.toString();
+    }
+
+    /**
      * Formats the {@code person} for display to the user.
      */
     public static String format(Person person) {
@@ -128,6 +143,17 @@ public class Messages {
                         .collect(Collectors.joining(", ")))
                 .append("]");
         return builder.toString();
+    }
+
+    /**
+     * Formats the {@code tags} without any prefix, only displaying the tag names in brackets.
+     */
+    public static String formatTagsOnly(Set<Tag> tags) {
+        return "["
+                + tags.stream()
+                      .map(Tag::getTagName)
+                      .collect(Collectors.joining(", "))
+                + "]";
     }
 
     /**

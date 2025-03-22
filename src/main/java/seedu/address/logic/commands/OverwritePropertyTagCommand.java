@@ -113,24 +113,9 @@ public class OverwritePropertyTagCommand extends Command {
         model.setListing(property, property);
 
         // Format property details for success message
-        String propertyDetails = formatPropertyDetails(property);
+        String propertyDetails = Messages.formatPropertyDetails(property);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, propertyDetails, Messages.format(newTags)));
-    }
-
-    /**
-     * Formats property details to display in success message
-     */
-    private String formatPropertyDetails(Listing property) {
-        StringBuilder details = new StringBuilder();
-        details.append(property.getPostalCode().toString());
-
-        if (property.getUnitNumber() != null) {
-            details.append(" ").append(property.getUnitNumber().toString());
-        } else if (property.getHouseNumber() != null) {
-            details.append(" ").append(property.getHouseNumber().toString());
-        }
-        return details.toString();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, propertyDetails, Messages.formatTagsOnly(newTags)));
     }
 
     @Override
