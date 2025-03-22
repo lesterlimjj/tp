@@ -31,8 +31,8 @@ import seedu.address.logic.commands.ListListingCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.ListTagCommand;
 import seedu.address.logic.commands.OverwritePreferenceTagCommand;
-import seedu.address.logic.commands.SearchPersonByTagCommand;
 import seedu.address.logic.commands.OverwritePropertyTagCommand;
+import seedu.address.logic.commands.SearchPersonByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
