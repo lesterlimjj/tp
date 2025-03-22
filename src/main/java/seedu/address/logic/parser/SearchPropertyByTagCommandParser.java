@@ -10,7 +10,7 @@ import seedu.address.logic.commands.SearchPropertyByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new SearchPropertyByTagCommand object.
+ * Parses input arguments and creates a new {@code SearchPropertyByTagCommand} object.
  */
 public class SearchPropertyByTagCommandParser implements Parser<SearchPropertyByTagCommand> {
 
