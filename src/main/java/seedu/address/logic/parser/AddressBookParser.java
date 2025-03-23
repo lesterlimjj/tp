@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddListingCommand;
 import seedu.address.logic.commands.AddListingTagCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
+import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AssignListingCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -29,6 +30,9 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListListingCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.ListTagCommand;
+import seedu.address.logic.commands.OverwritePreferenceTagCommand;
+import seedu.address.logic.commands.OverwritePropertyTagCommand;
+import seedu.address.logic.commands.SearchPropertyByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -78,7 +82,7 @@ public class AddressBookParser {
             return new AddTagCommandParser().parse(arguments);
 
         case DeletePersonCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeletePersonCommandParser().parse(arguments);
 
         case DeleteListingCommand.COMMAND_WORD:
             return new DeleteListingCommandParser().parse(arguments);
@@ -94,6 +98,9 @@ public class AddressBookParser {
 
         case AddListingTagCommand.COMMAND_WORD:
             return new AddListingTagCommandParser().parse(arguments);
+
+        case AddPreferenceTagCommand.COMMAND_WORD:
+            return new AddPreferenceTagCommandParser().parse(arguments);
 
         case FindPersonCommand.COMMAND_WORD:
             return new FindPersonCommandParser().parse(arguments);
@@ -124,6 +131,15 @@ public class AddressBookParser {
 
         case DeletePreferenceTagCommand.COMMAND_WORD:
             return new DeletePreferenceTagCommandParser().parse(arguments);
+
+        case OverwritePreferenceTagCommand.COMMAND_WORD:
+            return new OverwritePreferenceTagCommandParser().parse(arguments);
+
+        case OverwritePropertyTagCommand.COMMAND_WORD:
+            return new OverwritePropertyTagCommandParser().parse(arguments);
+
+        case SearchPropertyByTagCommand.COMMAND_WORD:
+            return new SearchPropertyByTagCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

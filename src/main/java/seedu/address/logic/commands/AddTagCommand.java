@@ -14,13 +14,15 @@ import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds a tag to the address book.
+ * Adds a {@code Tag} to the address book.
  */
 public class AddTagCommand extends Command {
     public static final String COMMAND_WORD = "addTag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new tag to the system."
             + "\nParameters: "
+            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_NEW_TAG + "family-friendly "
             + PREFIX_NEW_TAG + "spacious";
 
@@ -30,7 +32,9 @@ public class AddTagCommand extends Command {
     private final Set<String> toAdd;
 
     /**
-     * Creates an AddPersonCommand to add the specified {@code Person}
+     * Creates an {@code AddTagCommand} to add the specified set of {@code Tags}.
+     *
+     * @param tags Set of tags to be added to the tag registry
      */
     public AddTagCommand(Set<String> tags) {
         requireNonNull(tags);

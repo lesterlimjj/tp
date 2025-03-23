@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -35,13 +36,14 @@ public class DeletePropertyTagCommandParserTest {
         String userInput = PREFIX_TAG + "pet-friendly";
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePropertyTagCommand.MESSAGE_USAGE);
 
-        assertParseFailure(parser, userInput, expectedMessage);
+        assertParseFailure(parser, userInput, "Index is not a non-zero unsigned integer.");
     }
 
     @Test
     public void parse_missingTags_failure() {
         String userInput = "3"; // No tags provided
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePropertyTagCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE,
+                DeletePropertyTagCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, userInput, expectedMessage);
     }
@@ -51,6 +53,6 @@ public class DeletePropertyTagCommandParserTest {
         String userInput = "abc " + PREFIX_TAG + "pet-friendly";
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePropertyTagCommand.MESSAGE_USAGE);
 
-        assertParseFailure(parser, userInput, expectedMessage);
+        assertParseFailure(parser, userInput, "Index is not a non-zero unsigned integer.");
     }
 }

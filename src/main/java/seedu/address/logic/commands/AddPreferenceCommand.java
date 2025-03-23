@@ -22,7 +22,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Adds a {@code PropertyPreference} with the specified tags and new tags.
+ * Adds a {@code PropertyPreference} to a {@code Person} identified using it's displayed index in
+ * the address book.
  */
 public class AddPreferenceCommand extends Command {
     public static final String COMMAND_WORD = "addPreference";
@@ -30,8 +31,8 @@ public class AddPreferenceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new property preference with "
             + "specified tags to a person."
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_LOWER_BOUND_PRICE + "NAME "
-            + PREFIX_UPPER_BOUND_PRICE + "PHONE "
+            + PREFIX_LOWER_BOUND_PRICE + "LOWER BOUND PRICE "
+            + PREFIX_UPPER_BOUND_PRICE + "UPPER BOUND PRICE "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
             + "Example: " + COMMAND_WORD + " 2 "
@@ -52,7 +53,12 @@ public class AddPreferenceCommand extends Command {
     private final Set<String> newTagSet;
 
     /**
-     * Creates an AddPersonCommand to add the specified {@code Person}
+     * Creates an {@code AddPreferenceCommand} to add the specified {@code Preference} to {@code Person}.
+     *
+     * @param index Index of the person in the filtered person list to add preference to
+     * @param priceRange Price range of the preference
+     * @param tags  The set of existing tags to be added to the preference
+     * @param newTags The set of tags to be added to the preference and to the tag registry
      */
     public AddPreferenceCommand(Index index, PriceRange priceRange, Set<String> tags,
                                 Set<String> newTags) {

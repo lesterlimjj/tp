@@ -13,14 +13,16 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 
 /**
- * Assigns a listing to a person.
+ * Assigns a {@code Listing} identified using it's displayed index in the address book
+ * to a {@code Person} identified using it's displayed index in the address book.
  */
 public class AssignListingCommand extends Command {
     public static final String COMMAND_WORD = "assignListing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a listing (to sell) to a person "
             + "Parameters: PERSON_INDEX (must be a positive integer) "
-            + "LISTING_INDEX (must be a positive integer)";
+            + "LISTING_INDEX (must be a positive integer)"
+            + "Example: " + COMMAND_WORD + " 2 1";
 
     public static final String MESSAGE_SUCCESS = "Listing %1$s";
     public static final String MESSAGE_OWNER_ALREADY_IN_LISTING = "This person is already an owner of this listing";
@@ -29,7 +31,10 @@ public class AssignListingCommand extends Command {
     private final Index listingIndex;
 
     /**
-     * Creates an AddPersonCommand to add the specified {@code Person}
+     * Creates an {@code AssignListingCommand} to add the specified {@code Listing} to {@code Person}.
+     *
+     * @param personIndex Index of the person in the filtered person list to add listing to
+     * @param propertyIndex Index of the listing in the filtered listing list to add
      */
     public AssignListingCommand(Index personIndex, Index propertyIndex) {
         this.personIndex = personIndex;

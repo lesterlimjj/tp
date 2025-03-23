@@ -17,7 +17,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -185,18 +184,6 @@ public class ModelManager implements Model {
         updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
     }
 
-    @Override
-    public void addListingToTags(Set<String> tags, Listing listing) {
-        requireNonNull(tags);
-        addressBook.addListingToTags(tags, listing);
-    }
-
-    @Override
-    public void addPreferenceToTags(Set<String> tags, PropertyPreference preference) {
-        requireNonNull(tags);
-        addressBook.addPreferenceToTags(tags, preference);
-    }
-
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -234,11 +221,6 @@ public class ModelManager implements Model {
     public void updateFilteredTagList(Predicate<Tag> predicate) {
         requireNonNull(predicate);
         filteredTags.setPredicate(predicate);
-    }
-
-    @Override
-    public ObservableList<Tag> getTagList() {
-        return filteredTags;
     }
 
     @Override
