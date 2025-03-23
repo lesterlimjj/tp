@@ -98,7 +98,7 @@ public class AddListingCommand extends Command {
             tagRegistry.setTag(tag, tag);
             toAdd.addTag(tagRegistry.get(tagName));
         }
-
+        System.out.println(toAdd.getAvailability());
         model.addListing(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }

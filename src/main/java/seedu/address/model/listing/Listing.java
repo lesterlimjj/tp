@@ -34,6 +34,9 @@ public class Listing {
     private final Set<Tag> tags = new HashSet<>();
     private final List<Person> owners = new ArrayList<>();
 
+    // Status field
+    private final boolean isAvailable;
+
     /**
      * Constructs an {@code Listing}.
      * Every field except for unit number must be present and not null.
@@ -46,8 +49,8 @@ public class Listing {
      * @param owners A valid list of owners.
      */
     public Listing(PostalCode postalCode, UnitNumber unitNumber, PriceRange priceRange,
-                   Set<Tag> tags, List<Person> owners) {
-        requireAllNonNull(postalCode, unitNumber, priceRange, tags, owners);
+                   Set<Tag> tags, List<Person> owners, boolean isAvailable) {
+        requireAllNonNull(postalCode, unitNumber, priceRange, tags, owners, isAvailable);
         this.postalCode = postalCode;
         this.unitNumber = unitNumber;
         this.houseNumber = null;
@@ -55,6 +58,7 @@ public class Listing {
         this.propertyName = null;
         this.tags.addAll(tags);
         this.owners.addAll(owners);
+        this.isAvailable = isAvailable;
     }
 
     /**
@@ -69,8 +73,8 @@ public class Listing {
      * @param owners A valid list of owners.
      */
     public Listing(PostalCode postalCode, HouseNumber houseNumber, PriceRange priceRange,
-                   Set<Tag> tags, List<Person> owners) {
-        requireAllNonNull(postalCode, houseNumber, priceRange, tags, owners);
+                   Set<Tag> tags, List<Person> owners, boolean isAvailable) {
+        requireAllNonNull(postalCode, houseNumber, priceRange, tags, owners, isAvailable);
         this.postalCode = postalCode;
         this.unitNumber = null;
         this.houseNumber = houseNumber;
@@ -78,6 +82,7 @@ public class Listing {
         this.propertyName = null;
         this.tags.addAll(tags);
         this.owners.addAll(owners);
+        this.isAvailable = isAvailable;
     }
 
     /**
@@ -93,8 +98,8 @@ public class Listing {
      * @param owners A valid list of owners.
      */
     public Listing(PostalCode postalCode, UnitNumber unitNumber, PriceRange priceRange,
-                   PropertyName propertyName, Set<Tag> tags, List<Person> owners) {
-        requireAllNonNull(postalCode, unitNumber, priceRange, propertyName, tags, owners);
+                   PropertyName propertyName, Set<Tag> tags, List<Person> owners, boolean isAvailable) {
+        requireAllNonNull(postalCode, unitNumber, priceRange, propertyName, tags, owners, isAvailable);
         this.postalCode = postalCode;
         this.unitNumber = unitNumber;
         this.houseNumber = null;
@@ -102,6 +107,7 @@ public class Listing {
         this.propertyName = propertyName;
         this.tags.addAll(tags);
         this.owners.addAll(owners);
+        this.isAvailable = isAvailable;
     }
 
     /**
@@ -117,8 +123,8 @@ public class Listing {
      * @param owners A valid list of owners.
      */
     public Listing(PostalCode postalCode, HouseNumber houseNumber, PriceRange priceRange,
-                   PropertyName propertyName, Set<Tag> tags, List<Person> owners) {
-        requireAllNonNull(postalCode, houseNumber, priceRange, propertyName, tags, owners);
+                   PropertyName propertyName, Set<Tag> tags, List<Person> owners, boolean isAvailable) {
+        requireAllNonNull(postalCode, houseNumber, priceRange, propertyName, tags, owners, isAvailable);
         this.postalCode = postalCode;
         this.unitNumber = null;
         this.houseNumber = houseNumber;
@@ -126,6 +132,7 @@ public class Listing {
         this.propertyName = propertyName;
         this.tags.addAll(tags);
         this.owners.addAll(owners);
+        this.isAvailable = isAvailable;
     }
 
     /**
@@ -142,16 +149,17 @@ public class Listing {
      * @return A Listing object.
      */
     public static Listing of(PostalCode postalCode, UnitNumber unitNumber, HouseNumber houseNumber,
-                             PriceRange priceRange, PropertyName propertyName, Set<Tag> tags, List<Person> owners) {
+                             PriceRange priceRange, PropertyName propertyName, Set<Tag> tags, List<Person> owners,
+                             boolean isAvailable) {
 
         if (unitNumber == null && propertyName == null) {
-            return new Listing(postalCode, houseNumber, priceRange, tags, owners);
+            return new Listing(postalCode, houseNumber, priceRange, tags, owners, isAvailable);
         } else if (houseNumber == null && propertyName == null) {
-            return new Listing(postalCode, unitNumber, priceRange, tags, owners);
+            return new Listing(postalCode, unitNumber, priceRange, tags, owners, isAvailable);
         } else if (unitNumber == null) {
-            return new Listing(postalCode, houseNumber, priceRange, propertyName, tags, owners);
+            return new Listing(postalCode, houseNumber, priceRange, propertyName, tags, owners, isAvailable);
         } else if (houseNumber == null) {
-            return new Listing(postalCode, unitNumber, priceRange, propertyName, tags, owners);
+            return new Listing(postalCode, unitNumber, priceRange, propertyName, tags, owners, isAvailable);
         }
 
         return null;
@@ -176,6 +184,10 @@ public class Listing {
 
     public PropertyName getPropertyName() {
         return propertyName;
+    }
+
+    public boolean getAvailability() {
+        return isAvailable;
     }
 
     /**
