@@ -35,7 +35,7 @@ public class Listing {
     private final List<Person> owners = new ArrayList<>();
 
     // Status field
-    private final boolean isAvailable;
+    private boolean isAvailable;
 
     /**
      * Constructs an {@code Listing}.
@@ -188,6 +188,10 @@ public class Listing {
 
     public boolean getAvailability() {
         return isAvailable;
+    }
+
+    public void markUnavailable() {
+        this.isAvailable = false;
     }
 
     /**

@@ -233,5 +233,31 @@ public class Messages {
 
         return builder.toString();
     }
+
+    /**
+     * Formats the message of marking listing as available or unavailable
+     */
+    public static String format(boolean isAvailable, Listing listingWithTags) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("<")
+                .append(listingWithTags.getPostalCode())
+                .append("> <");
+
+        if (listingWithTags.getUnitNumber() == null) {
+            builder.append(listingWithTags.getHouseNumber())
+                    .append(">");
+        } else {
+            builder.append(listingWithTags.getUnitNumber())
+                    .append(">");
+        }
+
+        if (isAvailable) {
+            builder.append(" mark as available.");
+        } else {
+            builder.append(" mark as unavailable.");
+        }
+
+        return builder.toString();
+    }
 }
 
