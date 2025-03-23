@@ -11,22 +11,22 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddPreferenceTagCommand;
+import seedu.address.logic.commands.OverwritePreferenceTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code AddPreferenceTagCommandParser} object.
+ * Parses input arguments and creates a new {@code OverwritePreferenceTagCommand} object.
  */
-public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCommand> {
+public class OverwritePreferenceTagCommandParser implements Parser<OverwritePreferenceTagCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddPreferenceTagCommand
-     * and returns an AddPreferenceTagCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the OverwritePreferenceTagCommand
+     * and returns an OverwritePreferenceTagCommand object for execution.
      *
      * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddPreferenceTagCommand parse(String args) throws ParseException {
+    public OverwritePreferenceTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NEW_TAG);
         Index personIndex;
         Index preferenceIndex;
@@ -38,7 +38,7 @@ public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCom
             multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX,
-                    AddPreferenceTagCommand.MESSAGE_USAGE),
+                    OverwritePreferenceTagCommand.MESSAGE_USAGE),
                     pe);
         }
 
@@ -50,14 +50,14 @@ public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCom
             preferenceIndex = multipleIndices.get(1);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
-                    AddPreferenceTagCommand.MESSAGE_USAGE),
+                    OverwritePreferenceTagCommand.MESSAGE_USAGE),
                     pe);
         }
 
         Set<String> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<String> newTagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NEW_TAG));
 
-        return new AddPreferenceTagCommand(personIndex, preferenceIndex, tagSet, newTagSet);
+        return new OverwritePreferenceTagCommand(personIndex, preferenceIndex, tagSet, newTagSet);
     }
 
     private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
@@ -68,18 +68,17 @@ public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCom
 
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
-                    AddPreferenceTagCommand.MESSAGE_USAGE));
+                    OverwritePreferenceTagCommand.MESSAGE_USAGE));
         }
 
         if (!hasCombinedTags) {
             throw new ParseException(String.format(MESSAGE_TAG_OR_NEW_TAG_REQUIRED,
-                    AddPreferenceTagCommand.MESSAGE_USAGE));
+                    OverwritePreferenceTagCommand.MESSAGE_USAGE));
         }
 
         if (preamble.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
-                    AddPreferenceTagCommand.MESSAGE_USAGE));
+                    OverwritePreferenceTagCommand.MESSAGE_USAGE));
         }
-
     }
 }

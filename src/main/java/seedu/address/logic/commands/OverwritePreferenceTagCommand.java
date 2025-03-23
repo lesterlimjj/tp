@@ -20,30 +20,31 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Adds {@code Tag} to a {@code PropertyPreference} identified using it's displayed index
+ * Overwrites all {@code Tag}s in a {@code PropertyPreference} identified using it's displayed index
  * from {@code Person} identified using it's displayed index in the address book.
  */
-public class AddPreferenceTagCommand extends Command {
+public class OverwritePreferenceTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "addPreferenceTag";
+    public static final String COMMAND_WORD = "overwritePreferenceTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to a preference identified "
-            + "by the index number used in the displayed preference list of\n"
-            + " a specific person, identified by index number used in the displayed person list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Replaces all tags in an existing property preference "
+            + "identified by the index number used in the displayed preference list of\n"
+            + "a specific person, identified by index number used in the displayed person list.\n"
             + "Parameters: PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer) "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 2 "
-            + PREFIX_TAG + "quiet "
-            + PREFIX_TAG + "pet-friendly "
-            + PREFIX_NEW_TAG + "family-friendly "
-            + PREFIX_NEW_TAG + "spacious";
+            + "Example: " + COMMAND_WORD + " 3 2 " + PREFIX_TAG + "2-bedrooms\n"
+            + "Example: " + COMMAND_WORD + " 3 2 " + PREFIX_NEW_TAG + "2-toilets\n"
+            + "Example: " + COMMAND_WORD + " 3 1 " + PREFIX_NEW_TAG + "pet-friendly "
+            + PREFIX_NEW_TAG + "integrated cooling\n"
+            + "Example: " + COMMAND_WORD + " 3 3 " + PREFIX_TAG + "4-bedrooms " + PREFIX_TAG
+            + "2-toilets " + PREFIX_NEW_TAG + "seaside view " + PREFIX_NEW_TAG + "beach";
 
-    public static final String MESSAGE_SUCCESS = "Adds tags to preferences %1$s";
+    public static final String MESSAGE_SUCCESS = "Tag in preference overwritten with: %s";
     public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.";
     public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.";
-    public static final String MESSAGE_DUPLICATE_TAGS_IN_LISTING = "At least one of the "
-            + "tags given already exist in the preference.";
+    public static final String MESSAGE_NO_TAGS_SPECIFIED =
+        "At least one [t/TAG] or [nt/NEW_TAG] needs to be specified.";
 
     private final Index targetPersonIndex;
     private final Index targetPreferenceIndex;
@@ -51,15 +52,15 @@ public class AddPreferenceTagCommand extends Command {
     private final Set<String> newTagSet;
 
     /**
-     * Creates an @{code AddPreferenceTagCommand} to add specified {@code Tag} to {@code Preference}.
+     * Creates an @{code OverwritePreferenceTagCommand} to replace all {@code Tag}s in {@code Preference}.
      *
      * @param personIndex The index of the person from which the preference is located in.
-     * @param preferenceIndex The index of the preference from which tags will be removed.
-     * @param tagSet The set of existing tags to be added to the preference.
-     * @param newTagSet The set of new tags to be added to the preference.
+     * @param preferenceIndex The index of the preference in which tags will be overwritten.
+     * @param tagSet The set of existing tags to be used in the preference.
+     * @param newTagSet The set of new tags to be created and used in the preference.
      */
-    public AddPreferenceTagCommand(Index personIndex, Index preferenceIndex, Set<String> tagSet,
-                                   Set<String> newTagSet) {
+    public OverwritePreferenceTagCommand(Index personIndex, Index preferenceIndex, Set<String> tagSet,
+                                      Set<String> newTagSet) {
         requireAllNonNull(personIndex, preferenceIndex, tagSet, newTagSet);
 
         this.targetPersonIndex = personIndex;
@@ -93,22 +94,30 @@ public class AddPreferenceTagCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TAGS);
         }
 
+        // Create new tags
         model.addTags(newTagSet);
 
         TagRegistry tagRegistry = TagRegistry.of();
         Set<String> tagNames = new HashSet<>(tagSet);
-        Set<Tag> tags = new HashSet<>();
+        Set<Tag> newTags = new HashSet<>();
         tagNames.addAll(newTagSet);
 
+        // Prepare new tags to be added
         for (String tagName : tagNames) {
             Tag tag = tagRegistry.get(tagName);
-            if (preference.getTags().contains(tag)) {
-                throw new CommandException(MESSAGE_DUPLICATE_TAGS_IN_LISTING);
-            }
-            tags.add(tag);
+            newTags.add(tag);
         }
 
-        for (Tag tag : tags) {
+        // Remove all existing tags
+        Set<Tag> existingTags = new HashSet<>(preference.getTags());
+        for (Tag tag : existingTags) {
+            tag.removePropertyPreference(preference);
+            tagRegistry.setTag(tag, tag);
+            preference.removeTag(tag);
+        }
+
+        // Add new tags
+        for (Tag tag : newTags) {
             tag.addPropertyPreference(preference);
             tagRegistry.setTag(tag, tag);
             preference.addTag(tag);
@@ -116,18 +125,17 @@ public class AddPreferenceTagCommand extends Command {
 
         model.setPerson(targetPerson, targetPerson);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                Messages.format(targetPerson, preference), Messages.format(tags)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatTagsOnly(newTags)));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof AddPreferenceTagCommand
-                && targetPersonIndex.equals(((AddPreferenceTagCommand) other).targetPersonIndex)
-                && targetPreferenceIndex.equals(((AddPreferenceTagCommand) other).targetPreferenceIndex)
-                && tagSet.equals(((AddPreferenceTagCommand) other).tagSet))
-                && newTagSet.equals(((AddPreferenceTagCommand) other).newTagSet);
+                || (other instanceof OverwritePreferenceTagCommand
+                && targetPersonIndex.equals(((OverwritePreferenceTagCommand) other).targetPersonIndex)
+                && targetPreferenceIndex.equals(((OverwritePreferenceTagCommand) other).targetPreferenceIndex)
+                && tagSet.equals(((OverwritePreferenceTagCommand) other).tagSet))
+                && newTagSet.equals(((OverwritePreferenceTagCommand) other).newTagSet);
     }
 
     @Override

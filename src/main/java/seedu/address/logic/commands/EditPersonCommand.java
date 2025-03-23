@@ -1,11 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -24,7 +22,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing {@code Person} identified using it's displayed index in the address book.
  */
 public class EditPersonCommand extends Command {
 
@@ -37,8 +35,6 @@ public class EditPersonCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -51,8 +47,10 @@ public class EditPersonCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * Creates an {@code EditPersonCommand} to edit the specified {@code Person}.
+     *
+     * @param index Index of the person in the filtered person list to edit
+     * @param editPersonDescriptor Details to edit the person with
      */
     public EditPersonCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);

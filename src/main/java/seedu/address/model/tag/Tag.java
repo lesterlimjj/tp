@@ -113,21 +113,6 @@ public class Tag {
     }
 
     /**
-     * Checks if two tags have the same unique identifiers.
-     * This defines a weaker notion of equality between two tags.
-     *
-     * @param otherTag tag to be compared with.
-     * @return true if both tags have the same tag name. false otherwise.
-     */
-    public boolean isSameTag(Tag otherTag) {
-        if (otherTag == this) {
-            return true;
-        }
-
-        return otherTag != null && tagName.equals(otherTag.tagName);
-    }
-
-    /**
      ** Checks if two tag have the same identity and data fields and associations.
      * This defines a stronger notion of equality between two tags.
      *

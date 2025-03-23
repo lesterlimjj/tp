@@ -13,7 +13,8 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a {@code Person} identified using its displayed index from a
+ * {@code Listing} identified using its displayed index.
  */
 public class DeleteOwnerCommand extends Command {
 
@@ -31,7 +32,7 @@ public class DeleteOwnerCommand extends Command {
     private final Index targetOwnerIndex;
 
     /**
-     * Creates a DeleteOwnerCommand to delete the specified {@code Person} from the specified {@code Listing}.
+     * Creates a {@code DeleteOwnerCommand} to delete the specified {@code Person} from the specified {@code Listing}.
      *
      * @param targetListingIndex Index of the listing in the filtered listing list to delete the owner from.
      * @param targetOwnerIndex Index of the owner in the listing to delete.
