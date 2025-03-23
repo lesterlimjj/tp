@@ -26,7 +26,7 @@ public class MarkUnavailableCommandParser implements Parser<MarkUnavailableComma
             return new MarkUnavailableCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, DeleteListingCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MarkUnavailableCommand.MESSAGE_USAGE), pe);
         }
     }
 }

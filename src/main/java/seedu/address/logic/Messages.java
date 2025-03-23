@@ -22,7 +22,7 @@ public class Messages {
     public static final String MESSAGE_DELETE_TAG_PREAMBLE_FOUND = "Delete tag should not have preamble. \n%1$s";
     public static final String MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED =
             "Either house number or unit number must be provided, but not both.\n%1$s";
-    public static final String MESSAGE_EXPECTED_TWO_INDICES = "This command expects 2 indices to be provided";
+    public static final String MESSAGE_EXPECTED_TWO_INDICES = "This command expects 2 indices to be provided. \n%1$s";
     public static final String MESSAGE_NAME_REQUIRED = "Name must be provided.\n%1$s";
     public static final String MESSAGE_PHONE_REQUIRED = "Phone must be provided.\n%1$s";
     public static final String MESSAGE_EMAIL_REQUIRED = "Email must be provided.\n%1$s";
@@ -33,16 +33,16 @@ public class Messages {
             + "provided for deletion.\n%1$s";
     public static final String MESSAGE_TAG_REQUIRED_FOR_DELETE = "At least one Tag must be "
             + "provided for deletion.\n%1$s";
-    public static final String MESSAGE_POSTAL_CODE_REQUIRED = "Postal code must be provided.\n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_POSTAL_CODE_REQUIRED = "Postal code must be provided. \n%1$s";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid. \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX = "The person or preference index "
-            + "provided is invalid.";
+            + "provided is invalid. \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_OR_LISTING_DISPLAYED_INDEX = "The person or listing index "
-            + "provided is invalid.";
+            + "provided is invalid. \n%1$s";
     public static final String MESSAGE_INVALID_OWNER_OR_LISTING_DISPLAYED_INDEX = "The owner or listing index "
-            + "provided is invalid.";
-    public static final String MESSAGE_INVALID_LISTING_DISPLAYED_INDEX = "The listing index provided is invalid";
-    public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid";
+            + "provided is invalid. \n%1$s";
+    public static final String MESSAGE_INVALID_LISTING_DISPLAYED_INDEX = "The listing index provided is invalid. \n%1$s";
+    public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid. \n%1$s";
     public static final String MESSAGE_DELETE_PROPERTY_TAG_SUCCESS = "Tag(s) in property %s deleted: %s";
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag(s) not found in property: %s";
     public static final String MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE = "Tag(s) not found in property preference: %s";
