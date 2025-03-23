@@ -54,12 +54,19 @@ public class Messages {
     public static final String MESSAGE_INDEX_REQUIRED = "Please provide 1 index for this command";
     public static final String MESSAGE_ARGUMENTS_EMPTY = "Arguments should not be empty";
     public static final String MESSAGE_DUPLICATE_FIELDS =
-                "Multiple values specified for the following single-valued field(s): ";
+            "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_KEYWORD =
-                "ERROR: Invalid keyword '%s'. Keywords can only contain letters, spaces, hyphens, or apostrophes.";
+            "ERROR: Invalid keyword '%s'. Keywords can only contain letters, spaces, hyphens, or apostrophes.";
     public static final String MESSAGE_MISSING_KEYWORD =
-                "ERROR: Missing parameters. You must provide at least one keyword.";
+            "ERROR: Missing parameters. You must provide at least one keyword.";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%d persons found matching the keywords.";
+    public static final String MESSAGE_SEARCH_PROPERTY_TAGS_SUCCESS = "%d properties matching the tags!";
+    public static final String MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH = "No properties matching the tags.";
+    public static final String MESSAGE_SEARCH_PROPERTY_TAG_NOT_FOUND = "Tag '%s' does not exist.";
+    public static final String MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS =
+            "At least one [t/TAG] needs to be specified for search.";
+    public static final String MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY =
+            "Tag prefix specified but no tag value given. Please specify a tag after t/.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -71,6 +78,32 @@ public class Messages {
                 Stream.of(duplicatePrefixes).map(Prefix::toString).collect(Collectors.toSet());
 
         return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
+    }
+
+    /**
+     * Formats basic property address details (postal code + unit/house number) for display.
+     */
+    public static String formatPropertyDetails(Listing property) {
+        StringBuilder details = new StringBuilder();
+        details.append(" ").append(property.getPostalCode().toString());
+
+        if (property.getUnitNumber() != null) {
+            details.append(" ").append(property.getUnitNumber().toString());
+        } else if (property.getHouseNumber() != null) {
+            details.append(" ").append(property.getHouseNumber().toString());
+        }
+        return details.toString();
+    }
+
+    /**
+     * Formats the {@code tags} without any prefix, only displaying the tag names in brackets.
+     */
+    public static String formatTagsOnly(Set<Tag> tags) {
+        return "["
+                + tags.stream()
+                      .map(Tag::getTagName)
+                      .collect(Collectors.joining(", "))
+                + "]";
     }
 
     /**
@@ -200,5 +233,5 @@ public class Messages {
 
         return builder.toString();
     }
-
 }
+
