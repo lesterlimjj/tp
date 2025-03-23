@@ -31,8 +31,8 @@ public class MatchPersonCommand extends Command {
             + "Parameters: PERSON_INDEX  (must be a positive integer) PREFERENCE_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 2";
 
-    public static final String MESSAGE_MATCH_PERSON_SUCCESS = "Matched Listings for %1$s's Preference:\n"
-            + "  Price Range: %2$s, Tags: %3$s";
+    public static final String MESSAGE_MATCH_PERSON_SUCCESS = "Matched Listings for %1$s's Preference - "
+            + "Price Range: %2$s, Tags: %3$s";
 
     private final Index targetPersonIndex;
     private final Index targetPreferenceIndex;
