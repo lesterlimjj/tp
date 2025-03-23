@@ -41,7 +41,8 @@ public class Messages {
             + "provided is invalid. \n%1$s";
     public static final String MESSAGE_INVALID_OWNER_OR_LISTING_DISPLAYED_INDEX = "The owner or listing index "
             + "provided is invalid. \n%1$s";
-    public static final String MESSAGE_INVALID_LISTING_DISPLAYED_INDEX = "The listing index provided is invalid. \n%1$s";
+    public static final String MESSAGE_INVALID_LISTING_DISPLAYED_INDEX = "The listing index provided is invalid. "
+            + "\n%1$s";
     public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid. \n%1$s";
     public static final String MESSAGE_DELETE_PROPERTY_TAG_SUCCESS = "Tag(s) in property %s deleted: %s";
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag(s) not found in property: %s";
