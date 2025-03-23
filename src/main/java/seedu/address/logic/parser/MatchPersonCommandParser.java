@@ -16,7 +16,7 @@ public class MatchPersonCommandParser implements Parser<MatchPersonCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the MatchPersonCommandParser
-     * and returns a DeleteOwnerCommand object for execution.
+     * and returns a MatchPersonCommand object for execution.
      *
      * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
