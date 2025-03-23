@@ -194,6 +194,10 @@ public class Listing {
         this.isAvailable = false;
     }
 
+    public void markAvailable() {
+        this.isAvailable = true;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

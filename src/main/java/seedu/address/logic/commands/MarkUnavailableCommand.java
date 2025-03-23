@@ -25,7 +25,7 @@ public class MarkUnavailableCommand extends Command {
     /**
      * Creates a {@code MarkUnavailableCommand} to mark the specified {@code Listing} as unavailable.
      *
-     * @param targetIndex of the listing in the filtered listing list to mark unavilable.
+     * @param targetIndex of the listing in the filtered listing list to mark unavailable.
      */
     public MarkUnavailableCommand(Index targetIndex) {
         this.targetIndex = targetIndex;

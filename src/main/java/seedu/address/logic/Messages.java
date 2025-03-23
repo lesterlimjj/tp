@@ -253,9 +253,9 @@ public class Messages {
         }
 
         if (isAvailable) {
-            builder.append(" mark as available.");
+            builder.append(" marked as available.");
         } else {
-            builder.append(" mark as unavailable.");
+            builder.append(" marked as unavailable.");
         }
 
         return builder.toString();
