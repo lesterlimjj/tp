@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -16,6 +17,8 @@ import seedu.address.model.tag.Tag;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Comparator<Person> COMPARATOR_SHOW_ALL_PERSONS = Comparator.comparing(p -> p.getName().fullName);
+
     Predicate<Listing> PREDICATE_SHOW_ALL_LISTINGS = unused -> true;
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
 
@@ -84,6 +87,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the sorted filtered person list */
+    ObservableList<Person> getSortedFilteredPersonList();
+
     /** Returns an unmodifiable view of the filtered listing list*/
     ObservableList<Listing> getFilteredListingList();
 
@@ -95,6 +101,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the comparator of the sorted filtered person list to sort by the given {@code comparator}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateSortedFilteredPersonList(Comparator<Person> comparator);
 
     /**
      * Updates the filter of the filtered listing list to filter by the given {@code predicate}.
@@ -146,4 +158,5 @@ public interface Model {
     void deleteTag(Tag tagToDelete);
 
     void setTag(Tag target, Tag editedTag);
+
 }

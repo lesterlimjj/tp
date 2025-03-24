@@ -122,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
         tagListPanel = new TagListPanel(logic.getFilteredTagList());;
         tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getSortedFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         listingListPanel = new ListingListPanel(logic.getFilteredListingList());
