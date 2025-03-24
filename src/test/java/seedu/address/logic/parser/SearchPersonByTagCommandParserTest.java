@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
 
 public class SearchPersonByTagCommandParserTest {
 
@@ -36,5 +37,20 @@ public class SearchPersonByTagCommandParserTest {
     public void parse_tagsWithSpaces_trimmedAndParsed() throws Exception {
         SearchPersonByTagCommand command = parser.parse(" t/ gym t/ pool ");
         assertEquals(new SearchPersonByTagCommand(Set.of("gym", "pool")), command);
+    }
+
+    @Test
+    public void parse_missingPrefixOrEmpty_throwsParseException() {
+        ParseException thrown = assertThrows(ParseException.class, () -> parser.parse("random input"));
+        assertEquals(Messages.MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS, thrown.getMessage());
+
+        ParseException thrownEmpty = assertThrows(ParseException.class, () -> parser.parse(""));
+        assertEquals(SearchPersonByTagCommand.MESSAGE_USAGE, thrownEmpty.getMessage());
+    }
+
+    @Test
+    public void parse_invalidTagName_throwsParseException() {
+        ParseException thrown = assertThrows(ParseException.class, () -> parser.parse(" t/invalid#tag"));
+        assertEquals(Tag.MESSAGE_CONSTRAINTS, thrown.getMessage());
     }
 }
