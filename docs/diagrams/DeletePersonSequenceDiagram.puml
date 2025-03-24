@@ -65,9 +65,6 @@ loop for each property preference of p
     deactivate Tag
 end loop
 
-Tag --> DeleteCommand
-deactivate Tag
-
 DeleteCommand -> Person : deletePerson(1)
 activate Person
 
