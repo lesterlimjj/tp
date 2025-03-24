@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -9,7 +8,9 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.SearchPropertyByTagCommand;
+import seedu.address.model.tag.Tag;
 
 public class SearchPropertyByTagCommandParserTest {
 
@@ -24,22 +25,27 @@ public class SearchPropertyByTagCommandParserTest {
     }
 
     @Test
-    public void parse_missingPrefix_failure() {
+    public void parse_missingPrefixOrRandomInput_showsUsage() {
         String userInput = "random words without prefix";
-        assertParseFailure(parser, userInput,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchPropertyByTagCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, userInput, Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS);
     }
 
     @Test
-    public void parse_blankTag_failure() {
-        String userInput = " t/";
+    public void parse_blankTagPrefix_failure() {
+        String userInput = " t/ ";
         assertParseFailure(parser, userInput, MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY);
     }
 
     @Test
-    public void parse_emptyArgs_failure() {
+    public void parse_emptyArguments_showsUsage() {
         String userInput = " ";
-        assertParseFailure(parser, userInput,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchPropertyByTagCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, userInput, SearchPropertyByTagCommand.MESSAGE_USAGE);
+    }
+
+    @Test
+    public void parse_invalidTagName_throwsParseException() {
+        // This tag is invalid based on Tag.MESSAGE_CONSTRAINTS
+        String userInput = " t/!!!";
+        assertParseFailure(parser, userInput, Tag.MESSAGE_CONSTRAINTS);
     }
 }
