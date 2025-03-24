@@ -77,6 +77,9 @@ public class MatchPersonCommand extends Command {
     private void matchPreference(Model model, PropertyPreference preferenceToMatch) {
         HashMap<Listing, Integer> listingScores = new HashMap<>();
 
+        model.updateFilteredListingList(model.PREDICATE_SHOW_ALL_LISTINGS);
+        model.updateSortedFilteredListingList(model.COMPARATOR_SHOW_ALL_LISTINGS);
+
         for (Listing listing : model.getFilteredListingList()) {
             int score = 0;
 
