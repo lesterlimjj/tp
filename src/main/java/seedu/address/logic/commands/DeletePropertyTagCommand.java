@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Deletes {@code Tag}(s) from a {@code Listing} identified using its displayed index in the address book.
+ * Deletes {@code Tag}(s) from a {@code Listing} identified using it's displayed index in the address book.
  */
 public class DeletePropertyTagCommand extends Command {
 
@@ -55,40 +55,27 @@ public class DeletePropertyTagCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX);
         }
 
-        if (tagsToDelete.isEmpty() || tagsToDelete.stream().anyMatch(String::isBlank)) {
-            throw new CommandException(Messages.MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY);
-        }
-
         Listing listingToEdit = lastShownList.get(propertyIndex.getZeroBased());
+
         TagRegistry tagRegistry = TagRegistry.of();
         Set<Tag> deletedTags = new HashSet<>();
 
-        // Perform case-insensitive tag lookup directly from the listing’s tags
+        // Modify listing and tag registry in place
         for (String tagName : tagsToDelete) {
-            String normalizedTagName = tagName.trim().toLowerCase();
-
-            Tag tagToDelete = listingToEdit.getTags().stream()
-                    .filter(tag -> tag.getTagName().equalsIgnoreCase(normalizedTagName))
-                    .findFirst()
-                    .orElseThrow(() -> new CommandException(
-                            String.format(Messages.MESSAGE_TAG_NOT_FOUND, tagName)));
-
+            Tag tagToDelete = tagRegistry.get(tagName);
+            if (!listingToEdit.getTags().contains(tagToDelete)) {
+                throw new CommandException(Messages.MESSAGE_TAG_NOT_FOUND);
+            }
             deletedTags.add(tagToDelete);
         }
 
-        if (deletedTags.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE);
-        }
-
-        // Perform removals
         for (Tag tag : deletedTags) {
             listingToEdit.removeTag(tag);
+            model.setListing(listingToEdit, listingToEdit);
             tag.removeListing(listingToEdit);
             tagRegistry.setTag(tag, tag);
+            deletedTags.add(tag);
         }
-
-        model.setListing(listingToEdit, listingToEdit);
-
         return new CommandResult(String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
                 listingToEdit.getPostalCode(), Messages.format(deletedTags)));
     }
