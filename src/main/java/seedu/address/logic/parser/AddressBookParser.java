@@ -37,6 +37,7 @@ import seedu.address.logic.commands.MatchPersonCommand;
 import seedu.address.logic.commands.OverwritePreferenceTagCommand;
 import seedu.address.logic.commands.OverwritePropertyTagCommand;
 import seedu.address.logic.commands.SearchPropertyByTagCommand;
+import seedu.address.logic.commands.SearchSellerPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -111,6 +112,9 @@ public class AddressBookParser {
 
         case MatchPersonCommand.COMMAND_WORD:
             return new MatchPersonCommandParser().parse(arguments);
+
+        case SearchSellerPropertyCommand.COMMAND_WORD:
+            return new SearchSellerPropertyCommandParser().parse(arguments);
 
         case EditPersonCommand.COMMAND_WORD:
             return new EditPersonCommandParser().parse(arguments);
