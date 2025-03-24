@@ -60,7 +60,7 @@ public class SearchSellerPropertyCommand extends Command {
 
         searchSellerProperty(model, targetPerson);
 
-        return new CommandResult(String.format(MESSAGE_SEARCH_SELLER_PROPERTY_SUCCESS, targetPerson));
+        return new CommandResult(String.format(MESSAGE_SEARCH_SELLER_PROPERTY_SUCCESS, Messages.format(targetPerson)));
     }
 
     private void searchSellerProperty(Model model, Person targetPerson) {
