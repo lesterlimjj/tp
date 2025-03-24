@@ -125,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.getActiveFilterTags());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        listingListPanel = new ListingListPanel(logic.getFilteredListingList());
+        listingListPanel = new ListingListPanel(logic.getSortedFilteredListingList());
         listingListPanelPlaceholder.getChildren().add(listingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -150,6 +150,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Refreshes the {@code PersonListPanel} by recreating it with the latest filtered person list
+     * and active filter tags from the logic. This ensures that the UI displays only the preferences
+     * matching the current search tags.
+     */
     public void refreshPersonListPanel() {
         personListPanelPlaceholder.getChildren().clear();
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.getActiveFilterTags());

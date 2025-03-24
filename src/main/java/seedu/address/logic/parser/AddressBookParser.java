@@ -24,12 +24,16 @@ import seedu.address.logic.commands.DeletePreferenceCommand;
 import seedu.address.logic.commands.DeletePreferenceTagCommand;
 import seedu.address.logic.commands.DeletePropertyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
+import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListListingCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.ListTagCommand;
+import seedu.address.logic.commands.MarkAvailableCommand;
+import seedu.address.logic.commands.MarkUnavailableCommand;
+import seedu.address.logic.commands.MatchPersonCommand;
 import seedu.address.logic.commands.OverwritePreferenceTagCommand;
 import seedu.address.logic.commands.OverwritePropertyTagCommand;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
@@ -106,8 +110,20 @@ public class AddressBookParser {
         case FindPersonCommand.COMMAND_WORD:
             return new FindPersonCommandParser().parse(arguments);
 
+        case MatchPersonCommand.COMMAND_WORD:
+            return new MatchPersonCommandParser().parse(arguments);
+
+        case EditPersonCommand.COMMAND_WORD:
+            return new EditPersonCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case MarkUnavailableCommand.COMMAND_WORD:
+            return new MarkUnavailableCommandParser().parse(arguments);
+
+        case MarkAvailableCommand.COMMAND_WORD:
+            return new MarkAvailableCommandParser().parse(arguments);
 
         case ListPersonCommand.COMMAND_WORD:
             return new ListPersonCommand();
