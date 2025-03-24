@@ -11,13 +11,15 @@ participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "m:Model" as Model MODEL_COLOR
+participant "p:Person" as Person MODEL_COLOR
+participant "t:TagRegistry" as TagRegistry MODEL_COLOR
+participant "l:Listings" as Listings MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("deletePerson 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
+LogicManager -> AddressBookParser : parseCommand("deletePerson 1")
 activate AddressBookParser
 
 create DeleteCommandParser
@@ -46,14 +48,26 @@ destroy DeleteCommandParser
 AddressBookParser --> LogicManager : d
 deactivate AddressBookParser
 
-LogicManager -> DeleteCommand : execute(m)
+LogicManager -> DeleteCommand : execute(p)
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
-activate Model
+DeleteCommand -> Listings : removeOwnership(p)
+activate Listings
 
-Model --> DeleteCommand
-deactivate Model
+Listings --> DeleteCommand
+deactivate Listings
+
+DeleteCommand -> TagRegistry : removePreferencesFromTagRegistry(p)
+activate TagRegistry
+
+TagRegistry --> DeleteCommand
+deactivate TagRegistry
+
+DeleteCommand -> Person : deletePerson(1)
+activate Person
+
+Person --> DeleteCommand
+deactivate Person
 
 create CommandResult
 DeleteCommand -> CommandResult
