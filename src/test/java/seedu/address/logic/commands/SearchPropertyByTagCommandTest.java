@@ -61,7 +61,8 @@ public class SearchPropertyByTagCommandTest {
                         new Email("john@example.com"),
                         List.of(),
                         List.of()
-                ))
+                )),
+                true
         );
         model.addListing(listing);
     }
