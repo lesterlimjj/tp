@@ -20,6 +20,7 @@ public interface Model {
     Comparator<Person> COMPARATOR_SHOW_ALL_PERSONS = Comparator.comparing(p -> p.getName().fullName);
 
     Predicate<Listing> PREDICATE_SHOW_ALL_LISTINGS = unused -> true;
+    Comparator<Listing> COMPARATOR_SHOW_ALL_LISTINGS = Comparator.comparing(l -> l.getPostalCode().postalCode);
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
 
     /**
@@ -93,6 +94,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered listing list*/
     ObservableList<Listing> getFilteredListingList();
 
+    /** Returns an unmodifiable view of the sorted filtered listing list*/
+    ObservableList<Listing> getSortedFilteredListingList();
+
     /** Returns an unmodifiable view of the filtered tag list*/
     ObservableList<Tag> getFilteredTagList();
 
@@ -113,6 +117,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredListingList(Predicate<Listing> predicate);
+
+    /**
+     * Updates the comparator of the sorted filtered listing list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code comparator} is null.
+     */
+    void updateSortedFilteredListingList(Comparator<Listing> comparator);
 
     /**
      * Updates the filter of the filtered tag list to filter by the given {@code predicate}.
