@@ -12,8 +12,8 @@ end box
 
 box Model MODEL_COLOR_T1
 participant "p:Person" as Person MODEL_COLOR
-participant "t:TagRegistry" as TagRegistry MODEL_COLOR
-participant "l:Listings" as Listings MODEL_COLOR
+participant "t:Tag" as Tag MODEL_COLOR
+participant "l:Listing" as Listing MODEL_COLOR
 end box
 
 [-> LogicManager : execute("deletePerson 1")
@@ -51,17 +51,22 @@ deactivate AddressBookParser
 LogicManager -> DeleteCommand : execute(p)
 activate DeleteCommand
 
-DeleteCommand -> Listings : removeOwnership(p)
-activate Listings
+loop for each listing associated with p
+    DeleteCommand -> Listing : removeOwner(p)
+    activate Listing
+    Listing --> DeleteCommand
+    deactivate Listing
+end loop
 
-Listings --> DeleteCommand
-deactivate Listings
+loop for each property preference of p
+    DeleteCommand -> Tag : removePropertyPreference(preference)
+    activate Tag
+    Tag --> DeleteCommand
+    deactivate Tag
+end loop
 
-DeleteCommand -> TagRegistry : removePreferencesFromTagRegistry(p)
-activate TagRegistry
-
-TagRegistry --> DeleteCommand
-deactivate TagRegistry
+Tag --> DeleteCommand
+deactivate Tag
 
 DeleteCommand -> Person : deletePerson(1)
 activate Person
