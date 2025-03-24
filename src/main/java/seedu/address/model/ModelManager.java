@@ -162,6 +162,8 @@ public class ModelManager implements Model {
     public void addListing(Listing listing) {
         requireNonNull(listing);
         addressBook.addListing(listing);
+        updateFilteredListingList(PREDICATE_SHOW_ALL_LISTINGS);
+        updateSortedFilteredListingList(COMPARATOR_SHOW_ALL_LISTINGS);
     }
 
     @Override
