@@ -21,7 +21,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Deletes a {@code Listing} identified using it's displayed index in the address book.
+ * Matches a {@code Listing} identified using it's displayed index in the address book to
+ * {@code Person}s' @code PropertyPreference}.
  */
 public class MatchListingCommand extends Command {
 
@@ -38,7 +39,8 @@ public class MatchListingCommand extends Command {
     private final Index targetIndex;
 
     /**
-     * Creates a {@code MatchListingCommand} to match the specified {@code Listing}.
+     * Creates a {@code MatchListingCommand} to match the specified {@code Listing}
+     * to {@code Person}s' @code PropertyPreference}.
      *
      * @param targetIndex of the listing in the filtered listing list to delete
      */
