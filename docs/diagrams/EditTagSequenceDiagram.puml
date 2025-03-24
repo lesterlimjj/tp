@@ -84,6 +84,7 @@ deactivate CommandResult
 
 EditTagCommand --> LogicManager : r
 deactivate EditTagCommand
+destroy EditTagCommand
 
 [<--LogicManager
 deactivate LogicManager
