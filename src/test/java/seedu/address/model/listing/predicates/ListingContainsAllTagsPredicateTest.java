@@ -37,7 +37,8 @@ public class ListingContainsAllTagsPredicateTest {
                     new Email("john@example.com"),
                     List.of(),
                     List.of()
-            ))
+            )),
+            true
     );
 
     @Test
