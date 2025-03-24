@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -12,6 +11,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
+import seedu.address.model.listing.predicates.ListingContainsOwnerPredicate;
 import seedu.address.model.person.Person;
 
 /**
@@ -64,18 +64,7 @@ public class SearchOwnerPropertyCommand extends Command {
     }
 
     private void searchSellerProperty(Model model, Person targetPerson) {
-        ArrayList<Listing> ownedListings = new ArrayList<>();
-
-        model.updateFilteredListingList(model.PREDICATE_SHOW_ALL_LISTINGS);
-        model.updateSortedFilteredListingList(model.COMPARATOR_SHOW_ALL_LISTINGS);
-
-        for (Listing listing : model.getFilteredListingList()) {
-            if (listing.getOwners().contains(targetPerson)) {
-                ownedListings.add(listing);
-            }
-        }
-
-        Predicate<Listing> predicate = listing -> ownedListings.contains(listing);
+        Predicate<Listing> predicate = new ListingContainsOwnerPredicate(targetPerson);
         model.updateFilteredListingList(predicate);
     }
 
