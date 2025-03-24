@@ -55,4 +55,11 @@ public class DeletePropertyTagCommandParserTest {
 
         assertParseFailure(parser, userInput, "Index is not a non-zero unsigned integer.");
     }
+
+    @Test
+    public void parse_blankTag_failure() {
+        String userInput = "3 " + PREFIX_TAG + " "; // empty tag value
+        assertParseFailure(parser, userInput, String.format(MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE,
+                DeletePropertyTagCommand.MESSAGE_USAGE));
+    }
 }

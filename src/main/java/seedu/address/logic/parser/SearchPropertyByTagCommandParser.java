@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -18,15 +19,24 @@ public class SearchPropertyByTagCommandParser implements Parser<SearchPropertyBy
     public SearchPropertyByTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
+        // Check if tag prefix present but empty tag
+        if (argMultimap.getAllValues(PREFIX_TAG).stream().anyMatch(String::isBlank)) {
+            throw new ParseException(Messages.MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY);
+        }
+
+        // Check if no input or no prefixes provided
+        if (args.trim().isEmpty() || argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, SearchPropertyByTagCommand.MESSAGE_USAGE));
+        }
+
         Set<String> tags = argMultimap.getAllValues(PREFIX_TAG).stream()
+                .map(String::trim)
                 .map(String::toLowerCase)
                 .collect(Collectors.toSet());
 
         if (tags.isEmpty()) {
             throw new ParseException(Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS);
-        }
-        if (argMultimap.getAllValues(PREFIX_TAG).stream().anyMatch(String::isBlank)) {
-            throw new ParseException(Messages.MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY);
         }
 
         return new SearchPropertyByTagCommand(tags);
