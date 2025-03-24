@@ -16,7 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,7 +29,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private Model model;
 
     // Independent Ui parts residing in this Ui container
     private TagListPanel tagListPanel;
@@ -63,13 +61,12 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
-    public MainWindow(Stage primaryStage, Logic logic, Model model) {
+    public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.model = model;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -125,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
         tagListPanel = new TagListPanel(logic.getFilteredTagList());;
         tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), model);
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.getActiveFilterTags());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         listingListPanel = new ListingListPanel(logic.getFilteredListingList());
@@ -151,6 +148,12 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    public void refreshPersonListPanel() {
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.getActiveFilterTags());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
     /**
@@ -197,6 +200,8 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            refreshPersonListPanel();
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

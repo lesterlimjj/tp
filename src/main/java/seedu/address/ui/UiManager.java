@@ -30,9 +30,8 @@ public class UiManager implements Ui {
     /**
      * Creates a {@code UiManager} with the given {@code Logic} and {@code Model}.
      */
-    public UiManager(Logic logic, Model model) {
+    public UiManager(Logic logic) {
         this.logic = logic;
-        this.model = model;
     }
 
     @Override
@@ -43,7 +42,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic, model);
+            mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

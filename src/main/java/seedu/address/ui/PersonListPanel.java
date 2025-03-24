@@ -9,7 +9,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
@@ -18,17 +17,17 @@ import seedu.address.model.person.Person;
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private final Model model;
+    private final Set<String> activeFilterTags;
 
     @FXML
     private ListView<Person> personListView;
 
     /**
-     * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
+     * Creates a {@code PersonListPanel} with the given {@code ObservableList} and active filter tags.
      */
-    public PersonListPanel(ObservableList<Person> personList, Model model) {
+    public PersonListPanel(ObservableList<Person> personList, Set<String> activeFilterTags) {
         super(FXML);
-        this.model = model;
+        this.activeFilterTags = activeFilterTags;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
@@ -45,7 +44,6 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                Set<String> activeFilterTags = model.getActiveFilterTags();
                 setGraphic(new PersonCard(person, getIndex() + 1, activeFilterTags).getRoot());
             }
         }
