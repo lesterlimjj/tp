@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EditTagParser" as EditTagParser LOGIC_COLOR
+participant "e:EditTagCommand" as EditTagCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "tagRegistry:TagRegistry" as TagRegistry MODEL_COLOR
+participant "nt:Tag" as Tag MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editTag t/hdb nt/condo")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("editTag t/hdb nt/condo")
+activate AddressBookParser
+
+create EditTagParser
+AddressBookParser -> EditTagParser
+activate EditTagParser
+
+EditTagParser --> AddressBookParser
+deactivate EditTagParser
+
+AddressBookParser -> EditTagParser : parse("t/hdb nt/condo")
+activate EditTagParser
+
+create EditTagCommand
+EditTagParser -> EditTagCommand
+activate EditTagCommand
+
+EditTagCommand --> EditTagParser : e
+deactivate EditTagCommand
+
+EditTagParser --> AddressBookParser : e
+deactivate EditTagParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditTagParser -[hidden]-> AddressBookParser
+destroy EditTagParser
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EditTagCommand : execute(m)
+activate EditTagCommand
+
+EditTagCommand -> TagRegistry : of()
+activate TagRegistry
+
+TagRegistry --> EditTagCommand : tagRegistry
+deactivate TagRegistry
+
+EditTagCommand -> TagRegistry : tagRegistry.getTag("hdb")
+activate TagRegistry
+
+TagRegistry --> EditTagCommand : t
+deactivate TagRegistry
+
+create Tag
+EditTagCommand -> Tag: new Tag("condo", t.getListings(), t.getPropertyPreferences())
+activate Tag
+
+Tag --> EditTagCommand: nt
+deactivate Tag
+
+EditTagCommand -> TagRegistry: tagRegistry.setTag(t, nt)
+activate TagRegistry
+
+TagRegistry --> EditTagCommand
+deactivate TagRegistry
+
+create CommandResult
+EditTagCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditTagCommand
+deactivate CommandResult
+
+EditTagCommand --> LogicManager : r
+deactivate EditTagCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
