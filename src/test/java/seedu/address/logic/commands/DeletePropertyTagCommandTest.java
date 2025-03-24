@@ -67,7 +67,8 @@ public class DeletePropertyTagCommandTest {
                 new PriceRange(new Price("100000"), new Price("200000")),
                 null, // property name
                 Set.of(luxuryTag, poolTag),
-                List.of(sampleOwner)
+                List.of(sampleOwner),
+                true
         );
 
         // Add listing to model (this registers tags automatically)

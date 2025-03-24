@@ -49,7 +49,8 @@ public class ListingCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label priceRange;
-
+    @FXML
+    private Label isAvailable;
     @FXML
     private FlowPane tags;
 
@@ -79,7 +80,11 @@ public class ListingCard extends UiPart<Region> {
 
         priceRange.setText(listing.getPriceRange().toString());
 
-
+        if (listing.getAvailability()) {
+            isAvailable.setText("Available");
+        } else {
+            isAvailable.setText("Not Available");
+        }
 
         listing.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
