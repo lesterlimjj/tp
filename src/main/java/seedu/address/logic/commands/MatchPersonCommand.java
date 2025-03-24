@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagRegistry;
 
 /**
  * Find matches for @{code Person}'s {@code PropertyPreference} based on tags and attributes (i.e. within price range),
@@ -76,6 +78,7 @@ public class MatchPersonCommand extends Command {
 
     private void matchPreference(Model model, PropertyPreference preferenceToMatch) {
         HashMap<Listing, Integer> listingScores = new HashMap<>();
+        ArrayList<Tag> activeSearchTags = new ArrayList<>();
 
         model.updateFilteredListingList(model.PREDICATE_SHOW_ALL_LISTINGS);
         model.updateSortedFilteredListingList(model.COMPARATOR_SHOW_ALL_LISTINGS);
@@ -88,6 +91,7 @@ public class MatchPersonCommand extends Command {
             }
 
             for (Tag tag : preferenceToMatch.getTags()) {
+                activeSearchTags.add(tag);
                 if (listing.getTags().contains(tag)) {
                     score += 1;
                 }
@@ -108,6 +112,7 @@ public class MatchPersonCommand extends Command {
             return Integer.compare(score2, score1);
         };
 
+        TagRegistry.of().setActiveSearchTags(activeSearchTags);
         model.updateFilteredListingList(predicate);
         model.updateSortedFilteredListingList(comparator);
     }

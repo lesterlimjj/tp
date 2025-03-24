@@ -34,7 +34,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private FlowPane personTags;
+    private FlowPane tags;
     @FXML
     private Label name;
     @FXML
@@ -60,16 +60,16 @@ public class PersonCard extends UiPart<Region> {
 
         if (person.getListings().size() > 0) {
             Label sellerTag = new Label("SELLER");
-            sellerTag.getStyleClass().add("seller-tag");
-            personTags.getChildren().add(sellerTag);
+            sellerTag.getStyleClass().add("seller");
+            tags.getChildren().add(sellerTag);
         }
 
         ObservableList<PropertyPreference> preferencesList =
             FXCollections.observableList(person.getPropertyPreferences());
         if (preferencesList.size() > 0) {
             Label buyerTag = new Label("BUYER");
-            buyerTag.getStyleClass().add("buyer-tag");
-            personTags.getChildren().add(buyerTag);
+            buyerTag.getStyleClass().add("buyer");
+            tags.getChildren().add(buyerTag);
 
             preferenceListPanel = new PreferenceListPanel(preferencesList);
             preferenceListPanelPlaceholder.getChildren().add(preferenceListPanel.getRoot());

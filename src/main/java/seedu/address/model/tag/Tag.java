@@ -113,6 +113,12 @@ public class Tag {
     }
 
     /**
+     * Returns true if the tag is active in search.
+     */
+    public boolean isActive() {
+        return TagRegistry.of().getActiveSearchTags().containsKey(tagName);
+    }
+    /**
      ** Checks if two tag have the same identity and data fields and associations.
      * This defines a stronger notion of equality between two tags.
      *

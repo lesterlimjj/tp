@@ -88,7 +88,13 @@ public class ListingCard extends UiPart<Region> {
 
         listing.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label label = new Label(tag.tagName);
+                    if (tag.isActive()) {
+                        label.getStyleClass().add("active");
+                    }
+                    tags.getChildren().add(label);
+                });
 
         ObservableList<Person> ownerList = FXCollections.observableList(listing.getOwners());
 

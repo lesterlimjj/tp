@@ -32,6 +32,7 @@ public class TagRegistry implements Iterable<Tag> {
     private final ObservableMap<String, Tag> internalHashmap = FXCollections.observableHashMap();
     private final ObservableMap<String, Tag> internalUnmodifiableMap =
             FXCollections.unmodifiableObservableMap(internalHashmap);
+    private final ObservableMap<String, Tag> activeSearchTags = FXCollections.observableHashMap();
 
     // Private constructor to prevent instantiation
     private TagRegistry() {}
@@ -116,7 +117,6 @@ public class TagRegistry implements Iterable<Tag> {
         add(editedTag);
     }
 
-
     /**
      * Removes the tag with the specified tag name from the hashmap.
      * {@code tagName} must exist in the hashmap.
@@ -154,12 +154,36 @@ public class TagRegistry implements Iterable<Tag> {
     }
 
     /**
+     * Replaces the contents of active search tags hashmap with {@code tags}.
+     * {@code tags} must not contain duplicate tags.
+     *
+     * @param tags the replacement list.
+     */
+    public void setActiveSearchTags(List<Tag> tags) {
+        requireAllNonNull(tags);
+
+        activeSearchTags.clear();
+        for (Tag tag : tags) {
+            activeSearchTags.put(tag.getTagName(), tag);
+        }
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableMap}.
      *
      * @return the unmodifiable map.
      */
     public ObservableMap<String, Tag> asUnmodifiableObservableMap() {
         return internalUnmodifiableMap;
+    }
+
+    /**
+     * Returns the active search tags list as an unmodifiable {@code ObservableMap}.
+     *
+     * @return the unmodifiable map of ActiveSearchTags.
+     */
+    public ObservableMap<String, Tag> getActiveSearchTags() {
+        return FXCollections.unmodifiableObservableMap(activeSearchTags);
     }
 
     @Override
