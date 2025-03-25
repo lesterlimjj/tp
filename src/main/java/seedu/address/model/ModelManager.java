@@ -55,6 +55,7 @@ public class ModelManager implements Model {
 
         filteredListings = new FilteredList<>(this.addressBook.getListingList());
         sortedFilteredListings = new SortedList<>(this.filteredListings);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         updateSortedFilteredListingList(COMPARATOR_SHOW_ALL_LISTINGS);
 
         // Convert ObservableMap values to ObservableList
@@ -70,6 +71,8 @@ public class ModelManager implements Model {
                 tagObservableList.remove(change.getValueRemoved());
             }
         });
+
+
 
         // Create a FilteredList from the ObservableList
         filteredTags = new FilteredList<>(tagObservableList);
@@ -274,7 +277,7 @@ public class ModelManager implements Model {
     @Override
     public void updateSortedFilteredListingList(Comparator<Listing> comparator) {
         requireNonNull(comparator);
-        
+
         if (comparator.equals(sortedFilteredListings.getComparator())) {
             sortedFilteredListings.setComparator(COMPARATOR_SHOW_ALL_LISTINGS);
         }
