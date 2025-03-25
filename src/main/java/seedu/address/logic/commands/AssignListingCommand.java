@@ -51,7 +51,7 @@ public class AssignListingCommand extends Command {
         }
         Person personToAddListing = lastShownPersonList.get(personIndex.getZeroBased());
 
-        List<Listing> lastShownListingList = model.getFilteredListingList();
+        List<Listing> lastShownListingList = model.getSortedFilteredListingList();
         if (listingIndex.getZeroBased() >= lastShownListingList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX);
         }
