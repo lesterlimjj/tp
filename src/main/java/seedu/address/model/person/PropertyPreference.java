@@ -68,10 +68,10 @@ public class PropertyPreference {
     }
 
     /**
-     * Checks whether this {@code PropertyPreference} matches all of the given search tags.
+     * Checks whether this {@code PropertyPreference} matches all the given search tags.
      *
      * @param searchTags The set of tag names to match against.
-     * @return True if this preference contains all the specified search tags (case-insensitive), or if searchTags is empty.
+     * @return True if preference contains all the specified search tags (case-insensitive), or if searchTags is empty.
      */
     public boolean matchesSearchTags(Set<String> searchTags) {
         return searchTags.isEmpty()
