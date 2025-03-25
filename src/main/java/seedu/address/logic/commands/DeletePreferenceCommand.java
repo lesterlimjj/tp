@@ -50,19 +50,29 @@ public class DeletePreferenceCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getSortedFilteredPersonList();
 
         if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
 
-        List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences();
-        if (targetPreferenceIndex.getZeroBased() >= targetPreferenceList.size()) {
+        Set<String> activeFilterTags = model.getActiveFilterTags();
+
+        // Filter preferences according to active filter tags
+        List<PropertyPreference> filteredPreferences = targetPerson.getPropertyPreferences().stream()
+                .filter(pref -> activeFilterTags.isEmpty()
+                        || activeFilterTags.stream().allMatch(tagName ->
+                        pref.getTags().stream()
+                                .anyMatch(tag -> tag.getTagName().equalsIgnoreCase(tagName))))
+                .toList();
+
+        if (targetPreferenceIndex.getZeroBased() >= filteredPreferences.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX);
         }
-        PropertyPreference preferenceToDelete = targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
 
+        // Delete the preference from the full preference list using object reference
+        PropertyPreference preferenceToDelete = filteredPreferences.get(targetPreferenceIndex.getZeroBased());
         targetPerson.removePropertyPreference(preferenceToDelete);
         removePropertyPreferenceFromTags(preferenceToDelete);
 
