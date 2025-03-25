@@ -141,6 +141,10 @@
     -fx-text-fill: #010504;
 }
 
+.cell_small_label.active {
+    -fx-text-fill: -fx-active-tag-color !important;
+}
+
 .stack-pane {
      -fx-background-color: derive(-fx-base-color, 20%);
 }

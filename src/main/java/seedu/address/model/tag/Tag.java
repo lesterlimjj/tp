@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.PropertyPreference;
@@ -30,6 +32,9 @@ public class Tag {
     // Associations
     private final List<PropertyPreference> propertyPreferences = new ArrayList<>();
     private final List<Listing> listings = new ArrayList<>();
+
+    private static final ObservableMap<String, Tag> activeSearchTags = FXCollections.observableHashMap();
+
 
     /**
      * Constructs a {@code Tag}.
@@ -113,11 +118,36 @@ public class Tag {
     }
 
     /**
+     * Returns the active search tags list as an unmodifiable {@code ObservableMap}.
+     *
+     * @return the unmodifiable map of ActiveSearchTags.
+     */
+    static public ObservableMap<String, Tag> getActiveSearchTags() {
+        return FXCollections.unmodifiableObservableMap(activeSearchTags);
+    }
+
+    /**
+     * Replaces the contents of active search tags hashmap with {@code tags}.
+     * {@code tags} must not contain duplicate tags.
+     *
+     * @param tags the replacement list.
+     */
+    static public void setActiveSearchTags(List<Tag> tags) {
+        requireAllNonNull(tags);
+
+        activeSearchTags.clear();
+        for (Tag tag : tags) {
+            activeSearchTags.put(tag.getTagName(), tag);
+        }
+    }
+
+    /**
      * Returns true if the tag is active in search.
      */
     public boolean isActive() {
-        return TagRegistry.of().getActiveSearchTags().containsKey(tagName);
+        return activeSearchTags.containsKey(tagName);
     }
+
     /**
      ** Checks if two tag have the same identity and data fields and associations.
      * This defines a stronger notion of equality between two tags.

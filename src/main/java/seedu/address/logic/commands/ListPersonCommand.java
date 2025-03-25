@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.ArrayList;
 
 import seedu.address.model.Model;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
@@ -24,7 +25,7 @@ public class ListPersonCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        TagRegistry.of().setActiveSearchTags(new ArrayList<>());
+        Tag.setActiveSearchTags(new ArrayList<>());
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }

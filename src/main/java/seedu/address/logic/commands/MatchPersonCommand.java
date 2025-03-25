@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
@@ -79,6 +80,7 @@ public class MatchPersonCommand extends Command {
     private void matchPreference(Model model, PropertyPreference preferenceToMatch) {
         HashMap<Listing, Integer> listingScores = new HashMap<>();
         ArrayList<Tag> activeSearchTags = new ArrayList<>();
+        PriceRange.setFilteredAgainst(preferenceToMatch.getPriceRange());
 
         model.updateFilteredListingList(model.PREDICATE_SHOW_ALL_LISTINGS);
         model.updateSortedFilteredListingList(model.COMPARATOR_SHOW_ALL_LISTINGS);
@@ -112,7 +114,7 @@ public class MatchPersonCommand extends Command {
             return Integer.compare(score2, score1);
         };
 
-        TagRegistry.of().setActiveSearchTags(activeSearchTags);
+        Tag.setActiveSearchTags(activeSearchTags);
         model.updateFilteredListingList(predicate);
         model.updateSortedFilteredListingList(comparator);
     }

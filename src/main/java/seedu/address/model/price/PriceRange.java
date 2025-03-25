@@ -18,6 +18,8 @@ public class PriceRange {
     public final Price lowerBoundPrice;
     public final Price upperBoundPrice;
 
+    private static PriceRange filteredAgainst = null;
+
     /**
      * Constructs an unbounded {@code PriceRange}.
      */
@@ -101,6 +103,23 @@ public class PriceRange {
                 || this.isPriceWithinRange(otherPriceRange.upperBoundPrice);
 
         return isLowerBoundWithinRange || isUpperBoundWithinRange;
+    }
+
+    public static PriceRange getFilteredAgainst(){
+        return filteredAgainst;
+    }
+
+    public static void setFilteredAgainst(PriceRange newFilteredAgainst){
+        filteredAgainst = newFilteredAgainst;
+    }
+
+    public boolean isPriceMatched(){
+        if (filteredAgainst == null){
+            return false;
+        }
+
+        return this.doPriceRangeOverlap(filteredAgainst);
+
     }
 
     @Override
