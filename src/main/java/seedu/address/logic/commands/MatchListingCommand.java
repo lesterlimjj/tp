@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -92,6 +93,8 @@ public class MatchListingCommand extends Command {
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PERSONS);
         model.updateSortedFilteredPersonList(model.COMPARATOR_SHOW_ALL_PERSONS);
 
+        //The predicate is reset so it's ok to use model.getFilteredPersonList() instead of
+        //model.getSortedFilteredPersonList()
         for (Person person : model.getFilteredPersonList()) {
             int score = 0;
 
@@ -117,14 +120,14 @@ public class MatchListingCommand extends Command {
                 }
             }
 
-            if (score == 0) {
+            if (score == 0 || listingToMatch.getOwners().contains(person)) {
                 continue;
             }
 
             personScores.put(person, score);
         }
 
-        Predicate<Person> predicate = person -> personScores.containsKey(person);
+        Predicate<Person> predicate = personScores::containsKey;
 
         Comparator<Person> comparator = (person1, person2) -> {
             int score1 = personScores.getOrDefault(person1, 0);
@@ -132,6 +135,7 @@ public class MatchListingCommand extends Command {
             return Integer.compare(score2, score1);
         };
 
+        Tag.setActiveSearchTags(listingToMatch.getTags().stream().toList());
         model.updateFilteredPersonList(predicate);
         model.updateSortedFilteredPersonList(comparator);
     }

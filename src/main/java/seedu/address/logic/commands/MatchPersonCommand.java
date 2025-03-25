@@ -53,7 +53,7 @@ public class MatchPersonCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getSortedFilteredPersonList();
 
         if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -78,11 +78,10 @@ public class MatchPersonCommand extends Command {
 
     private void matchPreference(Model model, PropertyPreference preferenceToMatch) {
         HashMap<Listing, Integer> listingScores = new HashMap<>();
-        ArrayList<Tag> activeSearchTags = new ArrayList<>();
         PriceRange.setFilteredAgainst(preferenceToMatch.getPriceRange());
 
-        model.updateFilteredListingList(model.PREDICATE_SHOW_ALL_LISTINGS);
-        model.updateSortedFilteredListingList(model.COMPARATOR_SHOW_ALL_LISTINGS);
+        model.updateFilteredListingList(Model.PREDICATE_SHOW_ALL_LISTINGS);
+        model.updateSortedFilteredListingList(Model.COMPARATOR_SHOW_ALL_LISTINGS);
 
         for (Listing listing : model.getSortedFilteredListingList()) {
             int score = 0;
@@ -92,20 +91,21 @@ public class MatchPersonCommand extends Command {
             }
 
             for (Tag tag : preferenceToMatch.getTags()) {
-                activeSearchTags.add(tag);
                 if (listing.getTags().contains(tag)) {
                     score += 1;
                 }
             }
 
-            if (score == 0) {
+            if (score == 0
+                    || !listing.getAvailability()
+                    || listing.getOwners().contains(preferenceToMatch.getPerson())) {
                 continue;
             }
 
             listingScores.put(listing, score);
         }
 
-        Predicate<Listing> predicate = listing -> listingScores.containsKey(listing);
+        Predicate<Listing> predicate = listingScores::containsKey;
 
         Comparator<Listing> comparator = (listing1, listing2) -> {
             int score1 = listingScores.getOrDefault(listing1, 0);
@@ -113,7 +113,7 @@ public class MatchPersonCommand extends Command {
             return Integer.compare(score2, score1);
         };
 
-        Tag.setActiveSearchTags(activeSearchTags);
+        Tag.setActiveSearchTags(preferenceToMatch.getTags().stream().toList());
         model.updateFilteredListingList(predicate);
         model.updateSortedFilteredListingList(comparator);
     }
