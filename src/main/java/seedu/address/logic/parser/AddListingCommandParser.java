@@ -82,15 +82,17 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
     private static Listing createListing(PostalCode postalCode, UnitNumber unitNumber, HouseNumber houseNumber,
                                          PriceRange priceRange, PropertyName propertyName) {
         if (unitNumber == null && propertyName == null) {
-            return new Listing(postalCode, houseNumber, priceRange, new HashSet<>(), new ArrayList<>());
+            return new Listing(postalCode, houseNumber, priceRange, new HashSet<>(), new ArrayList<>(), true);
         } else if (houseNumber == null && propertyName == null) {
-            return new Listing(postalCode, unitNumber, priceRange, new HashSet<>(), new ArrayList<>());
+            return new Listing(postalCode, unitNumber, priceRange, new HashSet<>(), new ArrayList<>(), true);
         }
 
         if (unitNumber == null) {
-            return new Listing(postalCode, houseNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>());
+            return new Listing(postalCode, houseNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>(),
+                    true);
         }
-        return new Listing(postalCode, unitNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>());
+        return new Listing(postalCode, unitNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>(),
+                true);
     }
 
     private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {

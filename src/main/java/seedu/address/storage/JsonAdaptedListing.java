@@ -33,6 +33,7 @@ class JsonAdaptedListing {
     private final String propertyName;
     private final List<JsonAdaptedTag> tags;
     private final List<String> ownerKeys;
+    private final boolean isAvailable;
 
 
     /**
@@ -45,7 +46,8 @@ class JsonAdaptedListing {
                               @JsonProperty("priceRange") JsonAdaptedPriceRange priceRange,
                               @JsonProperty("propertyName") String propertyName,
                               @JsonProperty("tags") List<JsonAdaptedTag> tags,
-                              @JsonProperty("ownerKeys") List<String> ownerKeys) {
+                              @JsonProperty("ownerKeys") List<String> ownerKeys,
+                              @JsonProperty("isAvailable") boolean isAvailable) {
 
         this.postalCode = postalCode;
         this.unitNumber = unitNumber;
@@ -56,6 +58,7 @@ class JsonAdaptedListing {
         this.propertyName = propertyName;
         this.tags = tags;
         this.ownerKeys = ownerKeys;
+        this.isAvailable = isAvailable;
     }
 
 
@@ -77,6 +80,8 @@ class JsonAdaptedListing {
         ownerKeys = source.getOwners().stream()
                 .map(owner -> owner.getPhone().value)
                 .collect(Collectors.toList());
+
+        isAvailable = source.getAvailability();
 
     }
 
@@ -118,13 +123,16 @@ class JsonAdaptedListing {
             modelPropertyName = new PropertyName(propertyName);
         }
 
+        boolean modelIsAvailable = isAvailable;
+
         Listing modelListing = Listing.of(modelPostalCode,
                 modelUnitNumber,
                 modelHouseNumber,
                 priceRange.toModelType(),
                 modelPropertyName,
                 new HashSet<>(),
-                getModelOwners(personList));
+                getModelOwners(personList),
+                modelIsAvailable);
 
         for (JsonAdaptedTag jsonAdaptedTag : tags) {
             TagRegistry tagRegistry = TagRegistry.of();

@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents a Person's property preference in the real estate system.
  * Guarantees: details are present and not null, field values are validated, immutable.
- * Person association is immutable due to composition. Tags association are mutable.
+ * Associations are mutable.
  */
 public class PropertyPreference {
 
@@ -23,7 +23,7 @@ public class PropertyPreference {
 
     // Associations
     private final Set<Tag> tags = new HashSet<>();
-    private final Person person;
+    private Person person;
 
     /**
      * Constructs a {@code PropertyPreference}.
@@ -47,6 +47,10 @@ public class PropertyPreference {
         return person;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -61,6 +65,19 @@ public class PropertyPreference {
 
     public void removeTag(Tag toDelete) {
         this.tags.remove(toDelete);
+    }
+
+    /**
+     * Checks whether this {@code PropertyPreference} matches all the given search tags.
+     *
+     * @param searchTags The set of tag names to match against.
+     * @return True if preference contains all the specified search tags (case-insensitive), or if searchTags is empty.
+     */
+    public boolean matchesSearchTags(Set<String> searchTags) {
+        return searchTags.isEmpty()
+                || searchTags.stream()
+                .allMatch(tagName -> tags.stream()
+                        .anyMatch(tag -> tag.tagName.equalsIgnoreCase(tagName)));
     }
 
     @Override

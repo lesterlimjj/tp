@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -16,10 +16,12 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.PropertyPreference;
 
 /**
  * Edits the details of an existing {@code Person} identified using it's displayed index in the address book.
@@ -63,7 +65,7 @@ public class EditPersonCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getSortedFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -76,8 +78,9 @@ public class EditPersonCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        updatePersonInListings(personToEdit, editedPerson, model);
+        updatePersonInPreferences(editedPerson, model);
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
@@ -94,6 +97,22 @@ public class EditPersonCommand extends Command {
 
         return new Person(updatedName, updatedPhone, updatedEmail,
                 personToEdit.getPropertyPreferences(), personToEdit.getListings());
+    }
+
+    private void updatePersonInListings(Person personToEdit, Person editedPerson, Model model) {
+        List<Listing> listings = new ArrayList<>(personToEdit.getListings());
+        for (Listing listing : listings) {
+            listing.removeOwner(personToEdit);
+            listing.addOwner(editedPerson);
+            model.setListing(listing, listing);
+        }
+    }
+
+    private void updatePersonInPreferences(Person editedPerson, Model model) {
+        List<PropertyPreference> preferences = new ArrayList<>(editedPerson.getPropertyPreferences());
+        for (PropertyPreference preference : preferences) {
+            preference.setPerson(editedPerson);
+        }
     }
 
     @Override

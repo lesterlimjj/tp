@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_INDEX_REQUIRED;
 import static seedu.address.logic.Messages.MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -29,7 +28,8 @@ public class DeletePropertyTagCommandParser implements Parser<DeletePropertyTagC
 
         // Ensure arguments are not empty
         if (args.trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
+            throw new ParseException(String.format(
+                    seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     DeletePropertyTagCommand.MESSAGE_USAGE));
         }
 
@@ -51,8 +51,8 @@ public class DeletePropertyTagCommandParser implements Parser<DeletePropertyTagC
                     .map(String::trim)
                     .collect(Collectors.toSet());
 
-            // Validate at least one tag is provided
-            if (tags.isEmpty()) {
+            // Validate at least one tag is provided and no tag is blank
+            if (tags.isEmpty() || tags.stream().anyMatch(String::isBlank)) {
                 throw new ParseException(String.format(MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE,
                         DeletePropertyTagCommand.MESSAGE_USAGE));
             }
