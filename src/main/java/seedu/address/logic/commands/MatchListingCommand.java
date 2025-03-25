@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
@@ -18,7 +16,6 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Matches a {@code Listing} identified using it's displayed index in the address book to
@@ -136,15 +133,4 @@ public class MatchListingCommand extends Command {
         model.updateSortedFilteredPersonList(comparator);
     }
 
-
-    private void removeListingFromTags(Listing toDelete) {
-
-        TagRegistry tagRegistry = TagRegistry.of();
-        Set<Tag> tags = new HashSet<>(toDelete.getTags());
-
-        for (Tag tag: tags) {
-            tag.removeListing(toDelete);
-            tagRegistry.setTag(tag, tag);
-        }
-    }
 }

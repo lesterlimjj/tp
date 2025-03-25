@@ -58,7 +58,7 @@ public class PersonCard extends UiPart<Region> {
         // Filter preferences if search tags are present
         ObservableList<PropertyPreference> filteredPreferences = FXCollections.observableArrayList(
                 person.getPropertyPreferences().stream()
-                        .filter(PropertyPreference::isActive)
+                        .filter(PropertyPreference::isFiltered)
                         .collect(Collectors.toList())
         );
 

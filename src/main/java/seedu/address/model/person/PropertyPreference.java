@@ -1,11 +1,14 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.price.PriceRange;
@@ -17,6 +20,7 @@ import seedu.address.model.tag.Tag;
  * Associations are mutable.
  */
 public class PropertyPreference {
+    private static Predicate<PropertyPreference> filterPredicate = PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES;
 
     // Data fields
     private final PriceRange priceRange;
@@ -25,12 +29,13 @@ public class PropertyPreference {
     private final Set<Tag> tags = new HashSet<>();
     private Person person;
 
+
     /**
      * Constructs a {@code PropertyPreference}.
      * Every field must be present and not null.
      *
      * @param priceRange A valid price range.
-     * @param tags A valid set of tags.
+     * @param tags       A valid set of tags.
      */
     public PropertyPreference(PriceRange priceRange, Set<Tag> tags, Person person) {
         requireAllNonNull(priceRange, tags, person);
@@ -67,18 +72,21 @@ public class PropertyPreference {
         this.tags.remove(toDelete);
     }
 
+    public static Predicate<PropertyPreference> getFilterPredicate() {
+        return filterPredicate;
+    }
+
+    public static void setFilterPredicate(Predicate<PropertyPreference> predicate) {
+        requireNonNull(predicate);
+
+        PropertyPreference.filterPredicate = predicate;
+    }
+
     /**
-     * Checks whether this {@code PropertyPreference} is to be shown in the UI.
-     *
-     * @return True if preference contains all the specified search tags (case-insensitive), or if searchTags is empty.
+     * Checks if this @{code PropertyPreference} fits the filterPredicate criteria.
      */
-    public boolean isActive() {
-
-        boolean tagMatches = tags.stream().anyMatch(tag -> Tag
-                .getActiveSearchTags()
-                .containsKey(tag.tagName));
-
-        return tagMatches || Tag.getActiveSearchTags().isEmpty();
+    public boolean isFiltered() {
+        return filterPredicate.test(this);
     }
 
     @Override

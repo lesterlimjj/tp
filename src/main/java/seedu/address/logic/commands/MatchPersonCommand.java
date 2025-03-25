@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.person.predicates.PropertyPreferencesContainAnyActiveSearchTagsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -58,7 +59,9 @@ public class MatchPersonCommand extends Command {
         }
         Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
 
-        List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences();
+        List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences()
+                .stream().filter(PropertyPreference::isFiltered).toList();
+
         if (targetPreferenceIndex.getZeroBased() >= targetPreferenceList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX);
         }
@@ -108,6 +111,7 @@ public class MatchPersonCommand extends Command {
             return Integer.compare(score2, score1);
         };
 
+        PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAnyActiveSearchTagsPredicate());
         model.updateFilteredListingList(predicate);
         model.updateSortedFilteredListingList(comparator);
     }

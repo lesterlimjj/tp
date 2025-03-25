@@ -165,6 +165,8 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+        updateFilteredPersonList((Predicate<Person>) filteredPersons.getPredicate());
+        updateSortedFilteredPersonList((Comparator<Person>) sortedFilteredPersons.getComparator());
     }
 
     @Override
@@ -298,8 +300,10 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredTagList(Predicate<Tag> predicate) {
-        requireNonNull(predicate);
-
+        if (predicate == null) {
+            filteredTags.setPredicate(PREDICATE_SHOW_ALL_TAGS);
+            return;
+        }
         if (predicate.equals(filteredTags.getPredicate())) {
             filteredTags.setPredicate(PREDICATE_SHOW_ALL_TAGS);
         }

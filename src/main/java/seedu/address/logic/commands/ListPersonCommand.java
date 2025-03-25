@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.ArrayList;
 
 import seedu.address.model.Model;
+import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,6 +27,7 @@ public class ListPersonCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         Tag.setActiveSearchTags(new ArrayList<>());
+        PropertyPreference.setFilterPredicate(model.PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateSortedFilteredPersonList(COMPARATOR_SHOW_ALL_PERSONS); // Trigger re-render
         return new CommandResult(MESSAGE_SUCCESS);

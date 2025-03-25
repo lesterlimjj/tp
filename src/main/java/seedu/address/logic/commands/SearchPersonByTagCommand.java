@@ -11,7 +11,9 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.person.predicates.PersonPropertyPreferencesContainAllTagsPredicate;
+import seedu.address.model.person.predicates.PropertyPreferencesContainAllActiveSearchTagsPredicate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
@@ -63,6 +65,7 @@ public class SearchPersonByTagCommand extends Command {
         }
 
         Tag.setActiveSearchTags(activeTags);
+        PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAllActiveSearchTagsPredicate());
         model.updateFilteredPersonList(predicate);
 
         List<Person> filteredPersons = model.getSortedFilteredPersonList();
