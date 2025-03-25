@@ -135,11 +135,15 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+        updateFilteredPersonList((Predicate<Person>) filteredPersons.getPredicate());
+        updateSortedFilteredPersonList((Comparator<Person>) sortedFilteredPersons.getComparator());
     }
 
     @Override
     public void deleteListing(Listing target) {
         addressBook.removeListing(target);
+        updateFilteredListingList((Predicate<Listing>) filteredListings.getPredicate());
+        updateSortedFilteredListingList((Comparator<Listing>) sortedFilteredListings.getComparator());
     }
 
     @Override
@@ -150,8 +154,8 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateSortedFilteredPersonList(COMPARATOR_SHOW_ALL_PERSONS);
+        updateFilteredPersonList((Predicate<Person>) filteredPersons.getPredicate());
+        updateSortedFilteredPersonList((Comparator<Person>) sortedFilteredPersons.getComparator());
     }
 
     @Override
@@ -179,7 +183,8 @@ public class ModelManager implements Model {
     public void setListing(Listing listing, Listing editedListing) {
         requireNonNull(listing);
         addressBook.setListing(listing, editedListing);
-        updateFilteredListingList(PREDICATE_SHOW_ALL_LISTINGS);
+        updateFilteredListingList((Predicate<Listing>) filteredListings.getPredicate());
+        updateSortedFilteredListingList((Comparator<Listing>) sortedFilteredListings.getComparator());
     }
 
     @Override
@@ -218,18 +223,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateSortedFilteredPersonList(Comparator<Person> comparator) {
-        requireNonNull(comparator);
-        sortedFilteredPersons.setComparator(comparator);
-    }
-
-    @Override
     public ObservableList<Listing> getFilteredListingList() {
         return filteredListings;
     }
@@ -244,27 +237,58 @@ public class ModelManager implements Model {
         return filteredTags;
     }
 
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+
+        if (predicate.equals(filteredPersons.getPredicate())) {
+            filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
+        }
+
+        filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateSortedFilteredPersonList(Comparator<Person> comparator) {
+        requireNonNull(comparator);
+
+        if (comparator.equals(sortedFilteredPersons.getComparator())) {
+            sortedFilteredPersons.setComparator(COMPARATOR_SHOW_ALL_PERSONS);
+        }
+
+        sortedFilteredPersons.setComparator(comparator);
+    }
+
     @Override
     public void updateFilteredListingList(Predicate<Listing> predicate) {
         requireNonNull(predicate);
+
         if (predicate.equals(filteredListings.getPredicate())) {
             filteredListings.setPredicate(PREDICATE_SHOW_ALL_LISTINGS);
         }
+
         filteredListings.setPredicate(predicate);
     }
 
     @Override
     public void updateSortedFilteredListingList(Comparator<Listing> comparator) {
         requireNonNull(comparator);
+        
         if (comparator.equals(sortedFilteredListings.getComparator())) {
             sortedFilteredListings.setComparator(COMPARATOR_SHOW_ALL_LISTINGS);
         }
+
         sortedFilteredListings.setComparator(comparator);
     }
 
     @Override
     public void updateFilteredTagList(Predicate<Tag> predicate) {
         requireNonNull(predicate);
+
+        if (predicate.equals(filteredTags.getPredicate())) {
+            filteredTags.setPredicate(PREDICATE_SHOW_ALL_TAGS);
+        }
         filteredTags.setPredicate(predicate);
     }
 
