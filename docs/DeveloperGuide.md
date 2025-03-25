@@ -97,6 +97,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 <box type="info" seamless>
 
 **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+
 </box>
 
 How the `Logic` component works:
@@ -120,19 +121,72 @@ How the parsing works:
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
+**Note:** The attributes of some `Person`, `Tag`, `Price Range` that have been promoted to a class are abstracted into separate class diagrams for ease of reading.
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the match estate data composed of `Person`, `Property Preference`,  `Listing` and `Tag` and `Price Range` objects.
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Property Preference` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<PropertyPreference>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Listing` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Listing>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Tag` objects (e.g., results of a search query) as a separate _filtered_ set which is exposed to outsiders as an unmodifiable `ObservableList<Tag>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+`Person`
 
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
+<puml src="diagrams/PersonAttributesClassDiagram.puml" width="450" />
+
+* Stores person-related data as `Person` objects contained in a `UniquePersonList` object.
+* Each `Person` may have multiple`PropertyPreference` and `Listing` associations.
+* Each `Person` is identified their phone number.
+
+</box>
+
+<box type="info" seamless>
+
+`PropertyPreference`
+
+* Each `PropertyPreference` may have a `PriceRange`, and multiple `Tag` associations.
+**Note:** A `PropertyPreference` can only be tied to 1 `Person` to group criterias for a property that are looking for under a representative person responsible for the purchase.
+
+</box>
+
+<box type="info" seamless>
+
+`Listing`
+
+<puml src="diagrams/ListingAttributesClassDiagram.puml" width="450" />
+
+* Stores listing-related data as `Listing` objects contained in a `UniqueListingList` object.
+* Each `Listing` may have a `PriceRange`, and multiple `Tag`  and `Owner` associations.
+* Each `Listing` should have either a `Unit Number` or a `House Number` but not both.
+* Each `Listing` is identified by a combination of the `Postal Code` and either the `Unit Number` or the `House Number` depending on which one is present.
+**Note:** A `Listing` can have multiple `Person` to reflect co-ownership scenarios. Additionally in certain cases joint approval of a listing is required for a purchase.
+
+</box>
+
+<box type="info" seamless>
+
+`PriceRange`
+
+<puml src="diagrams/PriceRangeAttributesClassDiagram.puml" width="450" />
+
+* Each `PriceRange` may have a lower bound price and a upper bounce price.
+
+</box>
+
+<box type="info" seamless>
+
+`Tag`
+* Stores tag-related data as `Tag` objects contained in a `TagRegistry` object.
+* Each `Tag` may have multiple `Listing`  and `PropertyPreferences` associations.
+* Each `Tag` is identified by a string tag name.
+**Note:** An arguably better representation of Tag is to split the tag that stores the association from the tag name, promoting the tag name into a class.
+
+<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
 
 </box>
 
@@ -303,9 +357,6 @@ Real estate agents often struggle to manage buyers and sellers through messaging
 MatchEstate allows tracking of buyers and sellers easily as well as their preferences and offerings respectively. 
 It enables fast matching of buyers and sellers. It is tailored for those who prefer CLIs.
 
-
-
-
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
@@ -452,6 +503,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 4a. Person has no properties.
 
   Use case resumes at 6.
+
 #### Use case: UC04 - Add property to person
 
 **MSS**
@@ -867,7 +919,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. MatchEstate displays a message for an empty list.
 
       Use case resumes at 3.
-
 
 #### Use case: UC17 - Delete tag
 
