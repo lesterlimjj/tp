@@ -26,6 +26,8 @@ public class Tag {
             + "The tag cannot be blank and must not already exist.";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9' ._+&-]{2,30}$";
 
+    private static final ObservableMap<String, Tag> activeSearchTags = FXCollections.observableHashMap();
+
     // Identity fields
     public final String tagName;
 
@@ -33,7 +35,6 @@ public class Tag {
     private final List<PropertyPreference> propertyPreferences = new ArrayList<>();
     private final List<Listing> listings = new ArrayList<>();
 
-    private static final ObservableMap<String, Tag> activeSearchTags = FXCollections.observableHashMap();
 
 
     /**
@@ -122,7 +123,7 @@ public class Tag {
      *
      * @return the unmodifiable map of ActiveSearchTags.
      */
-    static public ObservableMap<String, Tag> getActiveSearchTags() {
+    public static ObservableMap<String, Tag> getActiveSearchTags() {
         return FXCollections.unmodifiableObservableMap(activeSearchTags);
     }
 
@@ -132,7 +133,7 @@ public class Tag {
      *
      * @param tags the replacement list.
      */
-    static public void setActiveSearchTags(List<Tag> tags) {
+    public static void setActiveSearchTags(List<Tag> tags) {
         requireAllNonNull(tags);
 
         activeSearchTags.clear();

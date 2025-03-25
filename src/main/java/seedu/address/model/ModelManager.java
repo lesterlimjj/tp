@@ -227,7 +227,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredListingList(Predicate<Listing> predicate) {
         requireNonNull(predicate);
-        if (predicate.equals(filteredListings.getPredicate())){
+        if (predicate.equals(filteredListings.getPredicate())) {
             filteredListings.setPredicate(PREDICATE_SHOW_ALL_LISTINGS);
         }
         filteredListings.setPredicate(predicate);
@@ -236,7 +236,7 @@ public class ModelManager implements Model {
     @Override
     public void updateSortedFilteredListingList(Comparator<Listing> comparator) {
         requireNonNull(comparator);
-        if (comparator.equals(sortedFilteredListings.getComparator())){
+        if (comparator.equals(sortedFilteredListings.getComparator())) {
             sortedFilteredListings.setComparator(COMPARATOR_SHOW_ALL_LISTINGS);
         }
         sortedFilteredListings.setComparator(comparator);

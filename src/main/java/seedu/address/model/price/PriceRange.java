@@ -15,10 +15,10 @@ import java.util.Objects;
  */
 public class PriceRange {
 
+    private static PriceRange filteredAgainst = null;
+
     public final Price lowerBoundPrice;
     public final Price upperBoundPrice;
-
-    private static PriceRange filteredAgainst = null;
 
     /**
      * Constructs an unbounded {@code PriceRange}.
@@ -105,21 +105,33 @@ public class PriceRange {
         return isLowerBoundWithinRange || isUpperBoundWithinRange;
     }
 
-    public static PriceRange getFilteredAgainst(){
+    /**
+     * Returns the price range that is being filtered against.
+     */
+    public static PriceRange getFilteredAgainst() {
         return filteredAgainst;
     }
 
-    public static void setFilteredAgainst(PriceRange newFilteredAgainst){
+
+
+    /**
+     * Sets the price range that is being filtered against.
+     *
+     */
+    public static void setFilteredAgainst(PriceRange newFilteredAgainst) {
         filteredAgainst = newFilteredAgainst;
     }
 
-    public boolean isPriceMatched(){
-        if (filteredAgainst == null){
+    /**
+     * Checks if the price range is matched against the filtered price range.
+     *
+     */
+    public boolean isPriceMatched() {
+        if (filteredAgainst == null) {
             return false;
         }
 
         return this.doPriceRangeOverlap(filteredAgainst);
-
     }
 
     @Override

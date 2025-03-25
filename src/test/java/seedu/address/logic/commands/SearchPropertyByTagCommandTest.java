@@ -64,6 +64,7 @@ public class SearchPropertyByTagCommandTest {
                 )),
                 true
         );
+        model.updateFilteredListingList(Model.PREDICATE_SHOW_ALL_LISTINGS);
         model.addListing(listing);
     }
 

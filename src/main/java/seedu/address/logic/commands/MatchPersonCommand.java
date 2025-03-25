@@ -18,7 +18,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Find matches for @{code Person}'s {@code PropertyPreference} based on tags and attributes (i.e. within price range),
@@ -85,7 +84,7 @@ public class MatchPersonCommand extends Command {
         model.updateFilteredListingList(model.PREDICATE_SHOW_ALL_LISTINGS);
         model.updateSortedFilteredListingList(model.COMPARATOR_SHOW_ALL_LISTINGS);
 
-        for (Listing listing : model.getFilteredListingList()) {
+        for (Listing listing : model.getSortedFilteredListingList()) {
             int score = 0;
 
             if (preferenceToMatch.getPriceRange().doPriceRangeOverlap(listing.getPriceRange())) {

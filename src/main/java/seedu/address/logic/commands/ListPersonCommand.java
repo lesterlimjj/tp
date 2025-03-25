@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Lists all persons in the address book to the user.

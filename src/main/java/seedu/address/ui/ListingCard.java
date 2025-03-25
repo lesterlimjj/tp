@@ -79,7 +79,7 @@ public class ListingCard extends UiPart<Region> {
         }
 
         priceRange.setText(listing.getPriceRange().toString());
-        if(listing.getPriceRange().isPriceMatched()) {
+        if (listing.getPriceRange().isPriceMatched()) {
             System.out.println("price matched");
             priceRange.getStyleClass().add("active");
         }
