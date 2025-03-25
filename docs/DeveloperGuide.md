@@ -97,6 +97,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 <box type="info" seamless>
 
 **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+
 </box>
 
 How the `Logic` component works:
@@ -120,19 +121,73 @@ How the parsing works:
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
+**Note:** The attributes of `Person`, `Tag`, `PriceRange` that have been promoted to a class are abstracted into separate class diagrams for ease of reading.
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the match estate data composed of `Person`, `PropertyPreference`,  `Listing` and `Tag` and `PriceRange` objects.
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `PropertyPreference` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<PropertyPreference>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Listing` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Listing>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Tag` objects (e.g., results of a search query) as a separate _filtered_ set which is exposed to outsiders as an unmodifiable `ObservableList<Tag>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+`Person`
 
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
+<puml src="diagrams/PersonAttributesClassDiagram.puml" width="450" />
+
+* Stores person-related data as `Person` objects contained in a `UniquePersonList` object.
+* Each `Person` may have multiple`PropertyPreference` and `Listing` associations.
+* Each `Person` is identified their phone number.
+
+</box>
+
+<box type="info" seamless>
+
+`PropertyPreference`
+
+* Each `PropertyPreference` may have a `PriceRange`, and multiple `Tag` associations.
+**Note:** A `PropertyPreference` can only be tied to 1 `Person` to group criterias for a property that are looking for under a representative person responsible for the purchase.
+
+</box>
+
+<box type="info" seamless>
+
+`Listing`
+
+<puml src="diagrams/ListingAttributesClassDiagram.puml" width="450" />
+
+* Stores listing-related data as `Listing` objects contained in a `UniqueListingList` object.
+* Each `Listing` may have a `PriceRange`, and multiple `Tag`  and `Owner` associations.
+* Each `Listing` should have either a `Unit Number` or a `House Number` but not both.
+* Each `Listing` is identified by a combination of the `Postal Code` and either the `Unit Number` or the `House Number` depending on which one is present.
+**Note:** A `Listing` can have multiple `Person` to reflect co-ownership scenarios. Additionally in certain cases joint approval of a listing is required for a purchase.
+
+</box>
+
+<box type="info" seamless>
+
+`PriceRange`
+
+<puml src="diagrams/PriceRangeAttributesClassDiagram.puml" width="450" />
+
+* Each `PriceRange` may have a lower bound price and a upper bound price.
+* If neither bound is specified, the `PriceRange` is unbounded.
+
+</box>
+
+<box type="info" seamless>
+
+`Tag`
+* Stores tag-related data as `Tag` objects contained in a `TagRegistry` object.
+* Each `Tag` may have multiple `Listing`  and `PropertyPreference` associations.
+* Each `Tag` is identified by a string tag name.
+**Note:** An arguably better representation of Tag is to split the tag that stores the association from the tag name, promoting the tag name into a class.
+
+<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
 
 </box>
 
@@ -274,37 +329,34 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Target User Profile:
 
-**Profile**  
-Tim is a busy, independent real estate agent working in Singapore, managing multiple buyers and sellers simultaneously.  
+**Profile**
+Tim is a busy, independent real estate agent working in Singapore, managing multiple buyers and sellers simultaneously.
 
-He often communicates with clients through messaging applications and understands their preferences and specifications from chat logs. During client meetups, open houses, and property tours, he may also take notes on common likes and dislikes among clients.  
+He often communicates with clients through messaging applications and understands their preferences and specifications from chat logs. During client meetups, open houses, and property tours, he may also take notes on common likes and dislikes among clients.
 
-He records these details in an Excel sheet on his laptop, sometimes on the fly, and is highly experienced in fast typing.  
+He records these details in an Excel sheet on his laptop, sometimes on the fly, and is highly experienced in fast typing.
 
-Tim has noticed that many client requests can be matched with specific listings he has, but manually filtering and matching these requests with listings can be cumbersome.  
+Tim has noticed that many client requests can be matched with specific listings he has, but manually filtering and matching these requests with listings can be cumbersome.
 
-**Work Patterns**  
+**Work Patterns**
 
-- Primarily works alone but may collaborate with other agents to gain information on additional listings, so he needs to send and receive listing and client information easily.  
-- Commonly works with clients, many of whom have preferences that overlap with those of other clients.  
-- Uses both a laptop and a smartphone for work.  
-- Prefers typing and, by extension, CLI tools for speed and efficiency, as he frequently needs to quickly note down client preferences.  
-- Regularly shares the tools he uses with other agents he is familiar with.  
-- Struggles to manage client details across messaging apps and spreadsheets.  
-- Needs to match buyers with sellers quickly and accurately.  
-- Works on the go, handling leads from different sources.  
-- Wants to keep client contacts separate from personal contacts for **PDPA** compliance.  
-- Prefers offline tools due to security concerns regarding potential customer data leaks.  
-- Also favors offline tools due to the possibility of an unstable internet connection.  
-- Does not use **CRM** or organizational tools, as they are beyond his job scope as an independent real estate agent.  
+- Primarily works alone but may collaborate with other agents to gain information on additional listings, so he needs to send and receive listing and client information easily.
+- Commonly works with clients, many of whom have preferences that overlap with those of other clients.
+- Uses both a laptop and a smartphone for work.
+- Prefers typing and, by extension, CLI tools for speed and efficiency, as he frequently needs to quickly note down client preferences.
+- Regularly shares the tools he uses with other agents he is familiar with.
+- Struggles to manage client details across messaging apps and spreadsheets.
+- Needs to match buyers with sellers quickly and accurately.
+- Works on the go, handling leads from different sources.
+- Wants to keep client contacts separate from personal contacts for **PDPA** compliance.
+- Prefers offline tools due to security concerns regarding potential customer data leaks.
+- Also favors offline tools due to the possibility of an unstable internet connection.
+- Does not use **CRM** or organizational tools, as they are beyond his job scope as an independent real estate agent.
 
 ### Value Proposition:
-Real estate agents often struggle to manage buyers and sellers through messaging apps. 
-MatchEstate allows tracking of buyers and sellers easily as well as their preferences and offerings respectively. 
+Real estate agents often struggle to manage buyers and sellers through messaging apps.
+MatchEstate allows tracking of buyers and sellers easily as well as their preferences and offerings respectively.
 It enables fast matching of buyers and sellers. It is tailored for those who prefer CLIs.
-
-
-
 
 ### User stories
 
@@ -452,6 +504,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 4a. Person has no properties.
 
   Use case resumes at 6.
+
 #### Use case: UC04 - Add property to person
 
 **MSS**
@@ -867,7 +920,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. MatchEstate displays a message for an empty list.
 
       Use case resumes at 3.
-
 
 #### Use case: UC17 - Delete tag
 
