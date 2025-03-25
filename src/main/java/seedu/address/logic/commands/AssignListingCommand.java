@@ -45,7 +45,7 @@ public class AssignListingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Person> lastShownPersonList = model.getFilteredPersonList();
+        List<Person> lastShownPersonList = model.getSortedFilteredPersonList();
         if (personIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
