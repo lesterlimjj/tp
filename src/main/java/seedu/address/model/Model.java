@@ -158,4 +158,6 @@ public interface Model {
 
     void setTag(Tag target, Tag editedTag);
 
+    void setActiveFilterTags(Set<String> tags);
+    Set<String> getActiveFilterTags();
 }

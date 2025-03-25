@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Set;
+
 import seedu.address.model.Model;
 
 /**
@@ -21,7 +23,8 @@ public class ListPersonCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setActiveFilterTags(Set.of()); // Clear active filter tags
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS); // Trigger re-render
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
