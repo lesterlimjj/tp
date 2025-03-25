@@ -67,6 +67,19 @@ public class PropertyPreference {
         this.tags.remove(toDelete);
     }
 
+    /**
+     * Checks whether this {@code PropertyPreference} matches all of the given search tags.
+     *
+     * @param searchTags The set of tag names to match against.
+     * @return True if this preference contains all the specified search tags (case-insensitive), or if searchTags is empty.
+     */
+    public boolean matchesSearchTags(Set<String> searchTags) {
+        return searchTags.isEmpty()
+                || searchTags.stream()
+                .allMatch(tagName -> tags.stream()
+                        .anyMatch(tag -> tag.tagName.equalsIgnoreCase(tagName)));
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

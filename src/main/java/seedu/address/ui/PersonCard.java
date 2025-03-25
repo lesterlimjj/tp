@@ -61,14 +61,9 @@ public class PersonCard extends UiPart<Region> {
         // Filter preferences if search tags are present
         ObservableList<PropertyPreference> filteredPreferences = FXCollections.observableArrayList(
                 person.getPropertyPreferences().stream()
-                        .filter(pref -> searchTags.isEmpty()
-                                || searchTags.stream()
-                                .allMatch(tagName -> pref.getTags().stream()
-                                        .anyMatch(tag -> tag.tagName.equalsIgnoreCase(tagName))))
+                        .filter(pref -> pref.matchesSearchTags(searchTags))
                         .collect(Collectors.toList())
         );
-
-
 
         if (!filteredPreferences.isEmpty()) {
             Label buyerTag = new Label("BUYER");
