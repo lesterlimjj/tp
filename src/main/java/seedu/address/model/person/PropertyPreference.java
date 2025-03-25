@@ -68,16 +68,17 @@ public class PropertyPreference {
     }
 
     /**
-     * Checks whether this {@code PropertyPreference} matches all the given search tags.
+     * Checks whether this {@code PropertyPreference} is to be shown in the UI.
      *
-     * @param searchTags The set of tag names to match against.
      * @return True if preference contains all the specified search tags (case-insensitive), or if searchTags is empty.
      */
-    public boolean matchesSearchTags(Set<String> searchTags) {
-        return searchTags.isEmpty()
-                || searchTags.stream()
-                .allMatch(tagName -> tags.stream()
-                        .anyMatch(tag -> tag.tagName.equalsIgnoreCase(tagName)));
+    public boolean isActive() {
+
+        boolean tagMatches = tags.stream().anyMatch(tag -> Tag
+                .getActiveSearchTags()
+                .containsKey(tag.tagName));
+
+        return tagMatches || Tag.getActiveSearchTags().isEmpty();
     }
 
     @Override

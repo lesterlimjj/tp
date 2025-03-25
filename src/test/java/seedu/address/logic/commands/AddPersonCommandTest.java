@@ -251,15 +251,6 @@ public class AddPersonCommandTest {
         public void addTags(Set<String> tags) {
             storedTags.addAll(tags);
         }
-
-        @Override
-        public void setActiveFilterTags(Set<String> tags) {
-        }
-
-        @Override
-        public Set<String> getActiveFilterTags() {
-            return Set.of();
-        }
     }
 
     /**

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +12,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.PersonPropertyPreferencesContainAllTagsPredicate;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagRegistry;
 
 /**
  * Searches for persons whose property preferences contain all specified tags.
@@ -52,10 +55,17 @@ public class SearchPersonByTagCommand extends Command {
 
         PersonPropertyPreferencesContainAllTagsPredicate predicate =
                 new PersonPropertyPreferencesContainAllTagsPredicate(tagsToSearch);
-        model.setActiveFilterTags(tagsToSearch);
+
+        List<Tag> activeTags = new ArrayList<>();
+
+        for (String tagName : tagsToSearch) {
+            activeTags.add(TagRegistry.of().get(tagName));
+        }
+
+        Tag.setActiveSearchTags(activeTags);
         model.updateFilteredPersonList(predicate);
 
-        List<Person> filteredPersons = model.getFilteredPersonList();
+        List<Person> filteredPersons = model.getSortedFilteredPersonList();
         if (filteredPersons.isEmpty()) {
             return new CommandResult(Messages.MESSAGE_SEARCH_PERSON_TAGS_NO_MATCH);
         } else {

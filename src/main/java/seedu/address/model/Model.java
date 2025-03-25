@@ -168,7 +168,4 @@ public interface Model {
     void deleteTag(Tag tagToDelete);
 
     void setTag(Tag target, Tag editedTag);
-
-    void setActiveFilterTags(Set<String> tags);
-    Set<String> getActiveFilterTags();
 }
