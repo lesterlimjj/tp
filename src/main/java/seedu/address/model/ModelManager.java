@@ -162,14 +162,15 @@ public class ModelManager implements Model {
     public void addListing(Listing listing) {
         requireNonNull(listing);
         addressBook.addListing(listing);
-        updateFilteredListingList(PREDICATE_SHOW_ALL_LISTINGS);
-        updateSortedFilteredListingList(COMPARATOR_SHOW_ALL_LISTINGS);
+        updateFilteredListingList((Predicate<Listing>) filteredListings.getPredicate());
+        updateSortedFilteredListingList((Comparator<Listing>) sortedFilteredListings.getComparator());
     }
 
     @Override
     public void setListing(Listing listing, Listing editedListing) {
         requireNonNull(listing);
         addressBook.setListing(listing, editedListing);
+        updateFilteredListingList(PREDICATE_SHOW_ALL_LISTINGS);
     }
 
     @Override
@@ -226,12 +227,18 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredListingList(Predicate<Listing> predicate) {
         requireNonNull(predicate);
+        if (predicate.equals(filteredListings.getPredicate())){
+            filteredListings.setPredicate(PREDICATE_SHOW_ALL_LISTINGS);
+        }
         filteredListings.setPredicate(predicate);
     }
 
     @Override
     public void updateSortedFilteredListingList(Comparator<Listing> comparator) {
         requireNonNull(comparator);
+        if (comparator.equals(sortedFilteredListings.getComparator())){
+            sortedFilteredListings.setComparator(COMPARATOR_SHOW_ALL_LISTINGS);
+        }
         sortedFilteredListings.setComparator(comparator);
     }
 
