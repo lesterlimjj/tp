@@ -31,6 +31,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final SortedList<Person> sortedFilteredPersons;
     private final FilteredList<Listing> filteredListings;
     private final SortedList<Listing> sortedFilteredListings;
     private final FilteredList<Tag> filteredTags;
@@ -48,6 +49,10 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        sortedFilteredPersons = new SortedList<>(filteredPersons);
+
+        updateSortedFilteredPersonList(COMPARATOR_SHOW_ALL_PERSONS);
+
         filteredListings = new FilteredList<>(this.addressBook.getListingList());
         sortedFilteredListings = new SortedList<>(this.filteredListings);
         updateSortedFilteredListingList(COMPARATOR_SHOW_ALL_LISTINGS);
@@ -146,6 +151,7 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateSortedFilteredPersonList(COMPARATOR_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -206,9 +212,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Person> getSortedFilteredPersonList() {
+        return filteredPersons;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateSortedFilteredPersonList(Comparator<Person> comparator) {
+        requireNonNull(comparator);
+        sortedFilteredPersons.setComparator(comparator);
     }
 
     @Override
