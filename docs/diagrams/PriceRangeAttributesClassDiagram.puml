@@ -17,7 +17,7 @@ Class C #FFFFFF
 Class PriceRange
 
 ' Price Range
-PriceRange "1" *-down--> "0..1 lower bound" Price
+PriceRange "1" *-down--> "lower bound 0..1" Price
 PriceRange "1" *-up--> "0..1 upper bound" Price
 
 ' Hidden associations for formatting and tidiness

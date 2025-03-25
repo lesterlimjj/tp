@@ -55,22 +55,22 @@ UniquePersonList --> "~* all" Person
 Person "1" *-right-> "*" PropertyPreference
 
 ' Listing
-UniqueListingList ---> "~* all" Listing
+UniqueListingList ---> "all ~* " Listing
 
 ' Tag
-TagRegistry ----> "~* all" Tag
+TagRegistry ----> "all ~* " Tag
 
 ' Associations
-Listing "~*" <-> "~* specification" Tag
+Listing "~*" <-> "specification ~* " Tag
 Tag "~* criteria" <-up-> "~*" PropertyPreference
-Person "~* owner" <-left-> "~*" Listing
+Person "owner ~*" <-left-> "~*" Listing
 Listing "1" -down-> "1" PriceRange
 PropertyPreference "1" -right-> "1" PriceRange
 
 ' Filtering
-ModelManager ------> "~* filtered" Tag
-ModelManager --> "~* filtered" Person
-ModelManager --> "~* filtered" Listing
+ModelManager ------> "filtered ~* " Tag
+ModelManager --> "filtered ~*" Person
+ModelManager --> "filtered ~*" Listing
 
 ' Hidden associations for formatting and tidiness
 TagRegistry -[hidden]right-> UniquePersonList
