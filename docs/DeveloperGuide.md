@@ -174,7 +174,8 @@ The `Model` component,
 
 <puml src="diagrams/PriceRangeAttributesClassDiagram.puml" width="450" />
 
-* Each `PriceRange` may have a lower bound price and a upper bounce price.
+* Each `PriceRange` may have a lower bound price and a upper bound price.
+* If neither bound is specified, the `PriceRange` is unbounded.
 
 </box>
 
