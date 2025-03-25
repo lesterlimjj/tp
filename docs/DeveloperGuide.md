@@ -121,13 +121,13 @@ How the parsing works:
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
-**Note:** The attributes of some `Person`, `Tag`, `Price Range` that have been promoted to a class are abstracted into separate class diagrams for ease of reading.
+**Note:** The attributes of `Person`, `Tag`, `PriceRange` that have been promoted to a class are abstracted into separate class diagrams for ease of reading.
 
 The `Model` component,
 
-* stores the match estate data composed of `Person`, `Property Preference`,  `Listing` and `Tag` and `Price Range` objects.
+* stores the match estate data composed of `Person`, `PropertyPreference`,  `Listing` and `Tag` and `PriceRange` objects.
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores the currently 'selected' `Property Preference` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<PropertyPreference>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `PropertyPreference` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<PropertyPreference>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores the currently 'selected' `Listing` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Listing>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores the currently 'selected' `Tag` objects (e.g., results of a search query) as a separate _filtered_ set which is exposed to outsiders as an unmodifiable `ObservableList<Tag>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
@@ -182,7 +182,7 @@ The `Model` component,
 
 `Tag`
 * Stores tag-related data as `Tag` objects contained in a `TagRegistry` object.
-* Each `Tag` may have multiple `Listing`  and `PropertyPreferences` associations.
+* Each `Tag` may have multiple `Listing`  and `PropertyPreference` associations.
 * Each `Tag` is identified by a string tag name.
 **Note:** An arguably better representation of Tag is to split the tag that stores the association from the tag name, promoting the tag name into a class.
 
