@@ -59,8 +59,10 @@ public class ListingCard extends UiPart<Region> {
      */
     public ListingCard(Listing listing, int displayedIndex) {
         super(FXML);
+
         this.listing = listing;
         id.setText(displayedIndex + ". ");
+
         postalCode.setText("Postal Code: " + listing.getPostalCode());
 
         houseNumber.setVisible(listing.getHouseNumber() != null);
@@ -80,7 +82,6 @@ public class ListingCard extends UiPart<Region> {
 
         priceRange.setText(listing.getPriceRange().toString());
         if (listing.getPriceRange().isPriceMatched()) {
-            System.out.println("price matched");
             priceRange.getStyleClass().add("active");
         }
 
