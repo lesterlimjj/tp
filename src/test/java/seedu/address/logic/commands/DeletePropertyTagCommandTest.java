@@ -29,7 +29,6 @@ import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
-import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Unit tests for DeletePropertyTagCommand.
@@ -68,7 +67,8 @@ public class DeletePropertyTagCommandTest {
                 new PriceRange(new Price("100000"), new Price("200000")),
                 null, // property name
                 Set.of(luxuryTag, poolTag),
-                List.of(sampleOwner)
+                List.of(sampleOwner),
+                true
         );
 
         // Add listing to model (this registers tags automatically)
@@ -119,6 +119,15 @@ public class DeletePropertyTagCommandTest {
 
         DeletePropertyTagCommand deleteCommand = new DeletePropertyTagCommand(validIndex, tagsToRemove);
 
-        assertThrows(TagNotFoundException.class, () -> deleteCommand.execute(model));
+        assertThrows(CommandException.class, () -> deleteCommand.execute(model));
+    }
+
+    @Test
+    public void execute_tagNotInListing_failure() {
+        Index validIndex = Index.fromZeroBased(0);
+        Set<String> tagsToRemove = Set.of("NotInListingTag");
+
+        DeletePropertyTagCommand deleteCommand = new DeletePropertyTagCommand(validIndex, tagsToRemove);
+        assertThrows(CommandException.class, () -> deleteCommand.execute(model));
     }
 }

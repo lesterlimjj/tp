@@ -133,7 +133,7 @@ public class TagRegistryTest {
         Set<Tag> tags = new HashSet<>();
         List<Person> interestedPersons = new ArrayList<>();
 
-        Listing listing = new Listing(postalCode, houseNumber, priceRange, propertyName, tags, interestedPersons);
+        Listing listing = new Listing(postalCode, houseNumber, priceRange, propertyName, tags, interestedPersons, true);
 
         tag1.addListing(listing);
         assertTrue(tagRegistry.get("HDB").getListings().contains(listing));

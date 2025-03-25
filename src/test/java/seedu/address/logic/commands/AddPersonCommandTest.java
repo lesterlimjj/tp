@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -132,6 +133,11 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public ObservableList<Listing> getSortedFilteredListingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Tag> getFilteredTagList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -212,7 +218,22 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getSortedFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateSortedFilteredPersonList(Comparator<Person> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateSortedFilteredListingList(Comparator<Listing> comparator) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -228,7 +249,16 @@ public class AddPersonCommandTest {
 
         @Override
         public void addTags(Set<String> tags) {
-            storedTags.addAll(tags); // Allows tracking tags for testing
+            storedTags.addAll(tags);
+        }
+
+        @Override
+        public void setActiveFilterTags(Set<String> tags) {
+        }
+
+        @Override
+        public Set<String> getActiveFilterTags() {
+            return Set.of();
         }
     }
 
