@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,24 +14,14 @@ import javafx.scene.layout.StackPane;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 
-
 /**
  * An UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
-
     public final Person person;
-
+    private final Set<String> searchTags;
     private PreferenceListPanel preferenceListPanel;
 
     @FXML
@@ -48,30 +41,36 @@ public class PersonCard extends UiPart<Region> {
     private StackPane preferenceListPanelPlaceholder;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PersonCode} with the given {@code Person}, index, and current search tags.
      */
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Person person, int displayedIndex, Set<String> searchTags) {
         super(FXML);
         this.person = person;
+        this.searchTags = searchTags;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
 
-        if (person.getListings().size() > 0) {
+        if (!person.getListings().isEmpty()) {
             Label sellerTag = new Label("SELLER");
             sellerTag.getStyleClass().add("seller");
             tags.getChildren().add(sellerTag);
         }
 
-        ObservableList<PropertyPreference> preferencesList =
-            FXCollections.observableList(person.getPropertyPreferences());
-        if (preferencesList.size() > 0) {
+        // Filter preferences if search tags are present
+        ObservableList<PropertyPreference> filteredPreferences = FXCollections.observableArrayList(
+                person.getPropertyPreferences().stream()
+                        .filter(pref -> pref.matchesSearchTags(searchTags))
+                        .collect(Collectors.toList())
+        );
+
+        if (!filteredPreferences.isEmpty()) {
             Label buyerTag = new Label("BUYER");
             buyerTag.getStyleClass().add("buyer");
             tags.getChildren().add(buyerTag);
 
-            preferenceListPanel = new PreferenceListPanel(preferencesList);
+            preferenceListPanel = new PreferenceListPanel(filteredPreferences);
             preferenceListPanelPlaceholder.getChildren().add(preferenceListPanel.getRoot());
         }
     }
