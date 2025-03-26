@@ -16,6 +16,11 @@ public class PropertyPreferencesContainAnyActiveSearchTagsPredicate implements P
     @Override
     public boolean test(PropertyPreference preference) {
         Set<Tag> tagsToMatch = new HashSet<>(Tag.getActiveSearchTags().values());
+
+        if (tagsToMatch.isEmpty()) {
+            return true;
+        }
+
         Set<Tag> preferenceTags = preference.getTags();
         return !Collections.disjoint(preferenceTags, tagsToMatch);
     }
