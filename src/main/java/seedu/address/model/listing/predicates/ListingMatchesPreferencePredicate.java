@@ -22,6 +22,14 @@ public class ListingMatchesPreferencePredicate implements Predicate<Listing> {
     public boolean test(Listing listing) {
         Set<Tag> tagsToMatch = preferenceToMatch.getTags();
 
+        if (!listing.getAvailability()) {
+            return false;
+        }
+        
+        if (listing.getOwners().contains(preferenceToMatch.getPerson())) {
+            return false;
+        }
+
         if (tagsToMatch.isEmpty() || listing.getPriceRange().doPriceRangeOverlap(preferenceToMatch.getPriceRange())) {
             return true;
         }

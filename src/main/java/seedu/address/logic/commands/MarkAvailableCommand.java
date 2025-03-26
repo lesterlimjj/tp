@@ -43,6 +43,9 @@ public class MarkAvailableCommand extends Command {
         Listing toMarkAvailable = lastShownList.get(targetIndex.getZeroBased());
         toMarkAvailable.markAvailable();
         model.setListing(toMarkAvailable, toMarkAvailable);
+
+        model.resetAllLists();
+
         return new CommandResult(String.format(MESSAGE_MARK_AVAILABLE_SUCCESS,
                 Messages.format(toMarkAvailable.getAvailability(), toMarkAvailable)));
     }

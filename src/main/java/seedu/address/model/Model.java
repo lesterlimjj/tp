@@ -171,4 +171,9 @@ public interface Model {
     void deleteTag(Tag tagToDelete);
 
     void setTag(Tag target, Tag editedTag);
+
+    /**
+     * Resets all lists to show all items.
+     */
+    void resetAllLists();
 }

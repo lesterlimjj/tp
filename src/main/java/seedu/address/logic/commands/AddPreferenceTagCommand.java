@@ -119,6 +119,7 @@ public class AddPreferenceTagCommand extends Command {
         }
 
         model.setPerson(targetPerson, targetPerson);
+        model.resetAllLists();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 Messages.format(targetPerson, preference), Messages.format(tags)));

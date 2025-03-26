@@ -72,6 +72,8 @@ public class DeletePreferenceCommand extends Command {
         removePropertyPreferenceFromTags(preferenceToDelete);
 
         model.setPerson(targetPerson, targetPerson);
+        model.resetAllLists();
+
         return new CommandResult(String.format(MESSAGE_DELETE_PREFERENCE_SUCCESS,
                 Messages.format(targetPerson, preferenceToDelete)));
     }

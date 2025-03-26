@@ -27,6 +27,14 @@ public class PersonMatchesPropertyPredicate implements Predicate<Person> {
             return false;
         }
 
+        if(listingToMatch.getOwners().contains(person)) {
+            return false;
+        }
+
+        if(!listingToMatch.getAvailability()) {
+            return false;
+        }
+
         Set<Tag> tagsToMatch = listingToMatch.getTags();
         if (tagsToMatch.isEmpty()) {
             return true;

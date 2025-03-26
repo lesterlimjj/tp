@@ -137,15 +137,11 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
-        updateFilteredPersonList((Predicate<Person>) filteredPersons.getPredicate());
-        updateSortedFilteredPersonList((Comparator<Person>) sortedFilteredPersons.getComparator());
     }
 
     @Override
     public void deleteListing(Listing target) {
         addressBook.removeListing(target);
-        updateFilteredListingList((Predicate<Listing>) filteredListings.getPredicate());
-        updateSortedFilteredListingList((Comparator<Listing>) sortedFilteredListings.getComparator());
     }
 
     @Override
@@ -156,8 +152,6 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList((Predicate<Person>) filteredPersons.getPredicate());
-        updateSortedFilteredPersonList((Comparator<Person>) sortedFilteredPersons.getComparator());
     }
 
     @Override
@@ -165,8 +159,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
-        updateFilteredPersonList((Predicate<Person>) filteredPersons.getPredicate());
-        updateSortedFilteredPersonList((Comparator<Person>) sortedFilteredPersons.getComparator());
     }
 
     @Override
@@ -179,16 +171,12 @@ public class ModelManager implements Model {
     public void addListing(Listing listing) {
         requireNonNull(listing);
         addressBook.addListing(listing);
-        updateFilteredListingList((Predicate<Listing>) filteredListings.getPredicate());
-        updateSortedFilteredListingList((Comparator<Listing>) sortedFilteredListings.getComparator());
     }
 
     @Override
     public void setListing(Listing listing, Listing editedListing) {
         requireNonNull(listing);
         addressBook.setListing(listing, editedListing);
-        updateFilteredListingList((Predicate<Listing>) filteredListings.getPredicate());
-        updateSortedFilteredListingList((Comparator<Listing>) sortedFilteredListings.getComparator());
     }
 
     @Override
@@ -208,6 +196,27 @@ public class ModelManager implements Model {
         requireNonNull(tags);
         addressBook.addTags(tags);
         updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
+    }
+
+    private void resetTagList() {
+        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
+    }
+
+    private void resetPersonList() {
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateSortedFilteredPersonList(COMPARATOR_SHOW_ALL_PERSONS);
+    }
+
+    private void resetListingList() {
+        updateFilteredListingList(PREDICATE_SHOW_ALL_LISTINGS);
+        updateSortedFilteredListingList(COMPARATOR_SHOW_ALL_LISTINGS);
+    }
+
+    @Override
+    public void resetAllLists() {
+        resetPersonList();
+        resetListingList();
+        resetTagList();
     }
 
     //=========== Filtered Person List Accessors =============================================================
