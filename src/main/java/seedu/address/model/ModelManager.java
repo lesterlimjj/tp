@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -217,6 +218,7 @@ public class ModelManager implements Model {
         resetPersonList();
         resetListingList();
         resetTagList();
+        Tag.setActiveSearchTags(new ArrayList<>());
     }
 
     //=========== Filtered Person List Accessors =============================================================

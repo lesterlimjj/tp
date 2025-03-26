@@ -29,6 +29,7 @@ public class ListListingCommand extends Command {
 
         PriceRange.setFilteredAgainst(null);
         Tag.setActiveSearchTags(new ArrayList<>());
+
         model.updateFilteredListingList(PREDICATE_SHOW_ALL_LISTINGS);
         model.updateSortedFilteredListingList(COMPARATOR_SHOW_ALL_LISTINGS);
         return new CommandResult(MESSAGE_SUCCESS);

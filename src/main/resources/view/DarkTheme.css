@@ -4,7 +4,7 @@
     -fx-tag-color: #7097b8;
     -fx-buyer-tag-color: #9461bd;
     -fx-seller-tag-color: #bd9861;
-    -fx-active-tag-color: #3cd337;
+    -fx-active-tag-color: #4ca54a;
 }
 
 .background {
@@ -133,6 +133,10 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
+}
+
+.cell_big_label.active {
+    -fx-text-fill: -fx-active-tag-color !important;
 }
 
 .cell_small_label {

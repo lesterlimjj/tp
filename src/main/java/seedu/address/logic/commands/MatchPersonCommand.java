@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -16,6 +17,7 @@ import seedu.address.model.listing.comparators.ListingPreferenceScoreComparator;
 import seedu.address.model.listing.predicates.ListingMatchesPreferencePredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -53,6 +55,8 @@ public class MatchPersonCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getSortedFilteredPersonList();
+        PriceRange.setFilteredAgainst(null);
+        Tag.setActiveSearchTags(new ArrayList<>());
 
         if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -82,10 +86,16 @@ public class MatchPersonCommand extends Command {
         model.updateFilteredListingList(model.PREDICATE_SHOW_ALL_LISTINGS);
         model.updateSortedFilteredListingList(model.COMPARATOR_SHOW_ALL_LISTINGS);
 
+        PriceRange.setFilteredAgainst(null);
+        Tag.setActiveSearchTags(new ArrayList<>());
+
+
         Predicate<Listing> predicate = new ListingMatchesPreferencePredicate(preferenceToMatch);
         Comparator<Listing> comparator = new ListingPreferenceScoreComparator(preferenceToMatch);
 
+        PriceRange.setFilteredAgainst(preferenceToMatch.getPriceRange());
         Tag.setActiveSearchTags(preferenceToMatch.getTags().stream().toList());
+
         model.updateFilteredListingList(predicate);
         model.updateSortedFilteredListingList(comparator);
     }
