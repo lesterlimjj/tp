@@ -43,6 +43,9 @@ public class MarkUnavailableCommand extends Command {
         Listing toMarkUnavailable = lastShownList.get(targetIndex.getZeroBased());
         toMarkUnavailable.markUnavailable();
         model.setListing(toMarkUnavailable, toMarkUnavailable);
+
+        model.resetAllLists();
+
         return new CommandResult(String.format(MESSAGE_MARK_UNAVAILABLE_SUCCESS,
                 Messages.format(toMarkUnavailable.getAvailability(), toMarkUnavailable)));
     }

@@ -66,6 +66,8 @@ public class AssignListingCommand extends Command {
 
         model.setPerson(personToAddListing, personToAddListing);
         model.setListing(listing, listing);
+        model.resetAllLists();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToAddListing,
                 listing)));
     }
