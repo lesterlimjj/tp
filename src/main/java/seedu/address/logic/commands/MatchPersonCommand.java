@@ -13,6 +13,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
+import seedu.address.model.listing.comparators.ListingPreferenceScoreComparator;
 import seedu.address.model.listing.predicates.ListingMatchesPreferencePredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
@@ -78,38 +79,12 @@ public class MatchPersonCommand extends Command {
     }
 
     private void matchPreference(Model model, PropertyPreference preferenceToMatch) {
-        HashMap<Listing, Integer> listingScores = new HashMap<>();
 
         model.updateFilteredListingList(model.PREDICATE_SHOW_ALL_LISTINGS);
         model.updateSortedFilteredListingList(model.COMPARATOR_SHOW_ALL_LISTINGS);
 
-        for (Listing listing : model.getFilteredListingList()) {
-            int score = 0;
-
-            if (preferenceToMatch.getPriceRange().doPriceRangeOverlap(listing.getPriceRange())) {
-                score += 1;
-            }
-
-            for (Tag tag : preferenceToMatch.getTags()) {
-                if (listing.getTags().contains(tag)) {
-                    score += 1;
-                }
-            }
-
-            if (score == 0) {
-                continue;
-            }
-
-            listingScores.put(listing, score);
-        }
-
         Predicate<Listing> predicate = new ListingMatchesPreferencePredicate(preferenceToMatch);
-
-        Comparator<Listing> comparator = (listing1, listing2) -> {
-            int score1 = listingScores.getOrDefault(listing1, 0);
-            int score2 = listingScores.getOrDefault(listing2, 0);
-            return Integer.compare(score2, score1);
-        };
+        Comparator<Listing> comparator = new ListingPreferenceScoreComparator(preferenceToMatch);
 
         Tag.setActiveSearchTags(preferenceToMatch.getTags().stream().toList());
         model.updateFilteredListingList(predicate);
