@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
@@ -17,8 +15,10 @@ import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.person.comparators.PersonListingScoreComparator;
+import seedu.address.model.person.predicates.PersonMatchesPropertyPredicate;
+import seedu.address.model.person.predicates.PropertyPreferencesContainAnyActiveSearchTagsPredicate;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Matches a {@code Listing} identified using it's displayed index in the address book to
@@ -87,10 +87,10 @@ public class MatchListingCommand extends Command {
     }
 
     private void matchListing(Model model, Listing listingToMatch) {
-        HashMap<Person, Integer> personScores = new HashMap<>();
 
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PERSONS);
         model.updateSortedFilteredPersonList(model.COMPARATOR_SHOW_ALL_PERSONS);
+        HashMap<Person, Integer> personScores = new HashMap<>();
 
         for (Person person : model.getFilteredPersonList()) {
             int score = 0;
@@ -124,27 +124,13 @@ public class MatchListingCommand extends Command {
             personScores.put(person, score);
         }
 
-        Predicate<Person> predicate = person -> personScores.containsKey(person);
+        Predicate<Person> predicate = new PersonMatchesPropertyPredicate(listingToMatch);
+        Comparator<Person> comparator = new PersonListingScoreComparator(listingToMatch);
 
-        Comparator<Person> comparator = (person1, person2) -> {
-            int score1 = personScores.getOrDefault(person1, 0);
-            int score2 = personScores.getOrDefault(person2, 0);
-            return Integer.compare(score2, score1);
-        };
-
+        Tag.setActiveSearchTags(listingToMatch.getTags().stream().toList());
+        PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAnyActiveSearchTagsPredicate());
         model.updateFilteredPersonList(predicate);
         model.updateSortedFilteredPersonList(comparator);
     }
 
-
-    private void removeListingFromTags(Listing toDelete) {
-
-        TagRegistry tagRegistry = TagRegistry.of();
-        Set<Tag> tags = new HashSet<>(toDelete.getTags());
-
-        for (Tag tag: tags) {
-            tag.removeListing(toDelete);
-            tagRegistry.setTag(tag, tag);
-        }
-    }
 }

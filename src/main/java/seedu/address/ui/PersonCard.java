@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -21,7 +20,6 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
     public final Person person;
-    private final Set<String> searchTags;
     private PreferenceListPanel preferenceListPanel;
 
     @FXML
@@ -43,10 +41,9 @@ public class PersonCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person}, index, and current search tags.
      */
-    public PersonCard(Person person, int displayedIndex, Set<String> searchTags) {
+    public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        this.searchTags = searchTags;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
@@ -61,7 +58,7 @@ public class PersonCard extends UiPart<Region> {
         // Filter preferences if search tags are present
         ObservableList<PropertyPreference> filteredPreferences = FXCollections.observableArrayList(
                 person.getPropertyPreferences().stream()
-                        .filter(pref -> pref.matchesSearchTags(searchTags))
+                        .filter(PropertyPreference::isFiltered)
                         .collect(Collectors.toList())
         );
 
