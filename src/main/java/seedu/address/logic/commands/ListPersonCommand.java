@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.COMPARATOR_SHOW_ALL_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES;
 
 import java.util.ArrayList;
 
@@ -31,9 +32,11 @@ public class ListPersonCommand extends Command {
         PriceRange.setFilteredAgainst(null);
         Tag.setActiveSearchTags(new ArrayList<>());
 
-        PropertyPreference.setFilterPredicate(model.PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES);
+        PropertyPreference.setFilterPredicate(PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES);
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateSortedFilteredPersonList(COMPARATOR_SHOW_ALL_PERSONS); // Trigger re-render
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

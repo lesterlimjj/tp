@@ -47,7 +47,7 @@ public class PreferenceListCard extends UiPart<Region> {
         this.propertyPreference = propertyPreference;
         id.setText(displayedIndex + ". ");
         priceRange.setText("  --------------  " + propertyPreference.getPriceRange().toString());
-        System.out.println(propertyPreference.getPriceRange().isPriceMatched());
+
         if (propertyPreference.getPriceRange().isPriceMatched()) {
             priceRange.getStyleClass().add("active");
         }

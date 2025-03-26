@@ -49,12 +49,12 @@ public class SearchPropertyByTagCommand extends Command {
         // Validate each tag exists
         for (String tagName : tagsToSearch) {
             if (!model.hasTags(Set.of(tagName))) {
-                throw new CommandException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_NOT_FOUND, tagName));
+                throw new CommandException(String
+                        .format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_NOT_FOUND, tagName));
             }
         }
 
         List<Tag> activeTags = new ArrayList<>();
-
         for (String tagName : tagsToSearch) {
             activeTags.add(TagRegistry.of().get(tagName));
         }
@@ -64,6 +64,7 @@ public class SearchPropertyByTagCommand extends Command {
         model.updateFilteredListingList(predicate);
 
         List<Listing> filteredListings = model.getSortedFilteredListingList();
+
         if (filteredListings.isEmpty()) {
             return new CommandResult(Messages.MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH);
         } else {
