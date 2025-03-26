@@ -27,11 +27,11 @@ public class PersonMatchesPropertyPredicate implements Predicate<Person> {
             return false;
         }
 
-        if(listingToMatch.getOwners().contains(person)) {
+        if (listingToMatch.getOwners().contains(person)) {
             return false;
         }
 
-        if(!listingToMatch.getAvailability()) {
+        if (!listingToMatch.getAvailability()) {
             return false;
         }
 

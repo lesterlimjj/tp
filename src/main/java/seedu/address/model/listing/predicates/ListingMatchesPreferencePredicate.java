@@ -25,7 +25,7 @@ public class ListingMatchesPreferencePredicate implements Predicate<Listing> {
         if (!listing.getAvailability()) {
             return false;
         }
-        
+
         if (listing.getOwners().contains(preferenceToMatch.getPerson())) {
             return false;
         }
