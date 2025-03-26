@@ -306,6 +306,14 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### \[Proposed\] Edit Tag feature
+
+The Edit Tag feature allows users to edit the name of an existing tag. This feature is useful when users want to change the name of a tag that they have already created. The following sequence diagram shows how the Edit Tag feature works:
+
+<puml src="diagrams/EditTagSequenceDiagram.puml" alt="EditTagSequenceDiagram" />
+
+The associated Listings and PropertyPreferences will be updated to reflect the new tag name.
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
