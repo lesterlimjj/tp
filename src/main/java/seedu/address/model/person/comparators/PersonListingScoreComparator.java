@@ -8,6 +8,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Compares two persons based on their how well they match a given listing.
+ */
 public class PersonListingScoreComparator implements Comparator<Person> {
     private static Listing listingToScore;
 

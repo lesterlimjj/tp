@@ -7,6 +7,9 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Compares two listings based on how well they match a given preference.
+ */
 public class ListingPreferenceScoreComparator implements Comparator<Listing> {
     private static PropertyPreference preferenceToScore;
 
