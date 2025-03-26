@@ -5,14 +5,17 @@ skinparam ArrowFontStyle plain
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":EditTagParser" as EditTagParser LOGIC_COLOR
+participant ":EditTagCommandParser" as EditTagCommandParser LOGIC_COLOR
 participant "e:EditTagCommand" as EditTagCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "tagRegistry:TagRegistry" as TagRegistry MODEL_COLOR
-participant "nt:Tag" as Tag MODEL_COLOR
+participant "model:Model" as Model MODEL_COLOR
+participant "nt:Tag" as nTag MODEL_COLOR
+participant "t:Tag" as Tag MODEL_COLOR
+participant "l:Listing" as Listing MODEL_COLOR
+participant "pref:PropertyPreferences" as Pref MODEL_COLOR
 end box
 
 [-> LogicManager : execute("editTag t/hdb nt/condo")
@@ -21,28 +24,28 @@ activate LogicManager
 LogicManager -> AddressBookParser : parseCommand("editTag t/hdb nt/condo")
 activate AddressBookParser
 
-create EditTagParser
-AddressBookParser -> EditTagParser
-activate EditTagParser
+create EditTagCommandParser
+AddressBookParser -> EditTagCommandParser
+activate EditTagCommandParser
 
-EditTagParser --> AddressBookParser
-deactivate EditTagParser
+EditTagCommandParser --> AddressBookParser
+deactivate EditTagCommandParser
 
-AddressBookParser -> EditTagParser : parse("t/hdb nt/condo")
-activate EditTagParser
+AddressBookParser -> EditTagCommandParser : parse("t/hdb nt/condo")
+activate EditTagCommandParser
 
 create EditTagCommand
-EditTagParser -> EditTagCommand
+EditTagCommandParser -> EditTagCommand
 activate EditTagCommand
 
-EditTagCommand --> EditTagParser : e
+EditTagCommand --> EditTagCommandParser : e
 deactivate EditTagCommand
 
-EditTagParser --> AddressBookParser : e
-deactivate EditTagParser
+EditTagCommandParser --> AddressBookParser : e
+deactivate EditTagCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-EditTagParser -[hidden]-> AddressBookParser
-destroy EditTagParser
+EditTagCommandParser -[hidden]-> AddressBookParser
+destroy EditTagCommandParser
 
 AddressBookParser --> LogicManager : e
 deactivate AddressBookParser
@@ -50,30 +53,70 @@ deactivate AddressBookParser
 LogicManager -> EditTagCommand : execute(m)
 activate EditTagCommand
 
-EditTagCommand -> TagRegistry : of()
-activate TagRegistry
+EditTagCommand -> Model : getTag("hdb")
+activate Model
 
-TagRegistry --> EditTagCommand : tagRegistry
-deactivate TagRegistry
+Model --> EditTagCommand : t
+deactivate Model
 
-EditTagCommand -> TagRegistry : tagRegistry.getTag("hdb")
-activate TagRegistry
-
-TagRegistry --> EditTagCommand : t
-deactivate TagRegistry
-
-create Tag
-EditTagCommand -> Tag: new Tag("condo", t.getListings(), t.getPropertyPreferences())
+EditTagCommand -> Tag : getListings()
 activate Tag
-
-Tag --> EditTagCommand: nt
+Tag --> EditTagCommand : listings
 deactivate Tag
 
-EditTagCommand -> TagRegistry: tagRegistry.setTag(t, nt)
-activate TagRegistry
+EditTagCommand -> Tag : getPropertyPreferences()
+activate Tag
+Tag --> EditTagCommand : propertyPreferences
+deactivate Tag
 
-TagRegistry --> EditTagCommand
-deactivate TagRegistry
+create nTag
+EditTagCommand -> nTag: new Tag("condo", listings, propertyPreferences)
+note right
+If the new tag already exists, an exception is thrown
+end note
+activate nTag
+nTag --> EditTagCommand: nt
+deactivate nTag
+
+loop for each listing associated with t
+EditTagCommand -> Listing : removeTag(t)
+activate Listing
+Listing --> EditTagCommand
+deactivate Listing
+EditTagCommand -> Listing : addTag(nt)
+activate Listing
+Listing --> EditTagCommand
+deactivate Listing
+EditTagCommand -> Model : setListing(listing, listing)
+activate Model
+Model --> EditTagCommand
+deactivate Model
+end loop
+
+loop for each property preference associated with t
+EditTagCommand -> Pref : removeTag(t)
+activate Pref
+Pref --> EditTagCommand
+deactivate Pref
+EditTagCommand --> Pref : addTag(nt)
+activate Pref
+Pref --> EditTagCommand
+deactivate Pref
+EditTagCommand -> Pref : getPerson()
+activate Pref
+Pref --> EditTagCommand : person
+deactivate Pref
+EditTagCommand -> Model : setPerson(person, person)
+activate Model
+Model --> EditTagCommand
+deactivate Model
+end loop
+
+EditTagCommand -> Model: setTag(t, nt)
+activate Model
+
+Model --> EditTagCommand
+deactivate Model
 
 create CommandResult
 EditTagCommand -> CommandResult
@@ -84,7 +127,6 @@ deactivate CommandResult
 
 EditTagCommand --> LogicManager : r
 deactivate EditTagCommand
-destroy EditTagCommand
 
 [<--LogicManager
 deactivate LogicManager
