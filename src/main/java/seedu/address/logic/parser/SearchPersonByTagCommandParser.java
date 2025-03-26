@@ -7,24 +7,24 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.SearchPropertyByTagCommand;
+import seedu.address.logic.commands.SearchPersonByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new {@code SearchPropertyByTagCommand} object.
+ * Parses input arguments and creates a new SearchPersonByTagCommand object.
  */
-public class SearchPropertyByTagCommandParser implements Parser<SearchPropertyByTagCommand> {
+public class SearchPersonByTagCommandParser implements Parser<SearchPersonByTagCommand> {
 
     @Override
-    public SearchPropertyByTagCommand parse(String args) throws ParseException {
+    public SearchPersonByTagCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
-        // If no prefix or random input found
+        // If no prefix found or other random input (like empty string)
         if (argMultimap.getPreamble().isEmpty() && argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
-            throw new ParseException(SearchPropertyByTagCommand.MESSAGE_USAGE);
+            throw new ParseException(SearchPersonByTagCommand.MESSAGE_USAGE);
         }
 
         Set<String> tags = argMultimap.getAllValues(PREFIX_TAG).stream()
@@ -32,19 +32,19 @@ public class SearchPropertyByTagCommandParser implements Parser<SearchPropertyBy
                 .collect(Collectors.toSet());
 
         if (tags.isEmpty()) {
-            throw new ParseException(Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS);
+            throw new ParseException(Messages.MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS);
         }
         if (tags.stream().anyMatch(String::isBlank)) {
-            throw new ParseException(Messages.MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY);
+            throw new ParseException(Messages.MESSAGE_SEARCH_PERSON_TAG_PREFIX_EMPTY);
         }
 
-        // Validate tag formats
         for (String tagName : tags) {
             if (!Tag.isValidTagName(tagName)) {
                 throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
             }
         }
 
-        return new SearchPropertyByTagCommand(tags);
+        return new SearchPersonByTagCommand(tags);
     }
+
 }
