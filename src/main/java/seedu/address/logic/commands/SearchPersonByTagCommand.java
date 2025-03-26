@@ -48,27 +48,28 @@ public class SearchPersonByTagCommand extends Command {
             throw new CommandException(Messages.MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS);
         }
 
-        // Check tags exist
+        // Validate each tag exists
         for (String tagName : tagsToSearch) {
             if (!model.hasTags(Set.of(tagName))) {
-                throw new CommandException(String.format(Messages.MESSAGE_SEARCH_PERSON_TAG_NOT_FOUND, tagName));
+                throw new CommandException(String
+                        .format(Messages.MESSAGE_SEARCH_PERSON_TAG_NOT_FOUND, tagName));
             }
         }
 
-        PersonPropertyPreferencesContainAllTagsPredicate predicate =
-                new PersonPropertyPreferencesContainAllTagsPredicate(tagsToSearch);
-
         List<Tag> activeTags = new ArrayList<>();
-
         for (String tagName : tagsToSearch) {
             activeTags.add(TagRegistry.of().get(tagName));
         }
-
         Tag.setActiveSearchTags(activeTags);
+
         PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAllActiveSearchTagsPredicate());
+
+        PersonPropertyPreferencesContainAllTagsPredicate predicate =
+                new PersonPropertyPreferencesContainAllTagsPredicate(tagsToSearch);
         model.updateFilteredPersonList(predicate);
 
         List<Person> filteredPersons = model.getSortedFilteredPersonList();
+
         if (filteredPersons.isEmpty()) {
             return new CommandResult(Messages.MESSAGE_SEARCH_PERSON_TAGS_NO_MATCH);
         } else {

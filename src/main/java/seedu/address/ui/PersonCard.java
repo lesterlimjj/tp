@@ -25,7 +25,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private FlowPane personTags;
+    private FlowPane tags;
     @FXML
     private Label name;
     @FXML
@@ -51,8 +51,8 @@ public class PersonCard extends UiPart<Region> {
 
         if (!person.getListings().isEmpty()) {
             Label sellerTag = new Label("SELLER");
-            sellerTag.getStyleClass().add("seller-tag");
-            personTags.getChildren().add(sellerTag);
+            sellerTag.getStyleClass().add("seller");
+            tags.getChildren().add(sellerTag);
         }
 
         // Filter preferences if search tags are present
@@ -64,8 +64,8 @@ public class PersonCard extends UiPart<Region> {
 
         if (!filteredPreferences.isEmpty()) {
             Label buyerTag = new Label("BUYER");
-            buyerTag.getStyleClass().add("buyer-tag");
-            personTags.getChildren().add(buyerTag);
+            buyerTag.getStyleClass().add("buyer");
+            tags.getChildren().add(buyerTag);
 
             preferenceListPanel = new PreferenceListPanel(filteredPreferences);
             preferenceListPanelPlaceholder.getChildren().add(preferenceListPanel.getRoot());

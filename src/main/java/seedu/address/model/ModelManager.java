@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -19,6 +20,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -205,6 +208,8 @@ public class ModelManager implements Model {
     private void resetPersonList() {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         updateSortedFilteredPersonList(COMPARATOR_SHOW_ALL_PERSONS);
+
+        PropertyPreference.setFilterPredicate(PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES);
     }
 
     private void resetListingList() {
@@ -214,6 +219,9 @@ public class ModelManager implements Model {
 
     @Override
     public void resetAllLists() {
+        Tag.setActiveSearchTags(new ArrayList<>());
+        PriceRange.setFilteredAgainst(null);
+
         resetPersonList();
         resetListingList();
         resetTagList();

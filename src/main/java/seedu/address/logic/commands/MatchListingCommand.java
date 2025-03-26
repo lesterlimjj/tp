@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -18,6 +18,7 @@ import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.person.comparators.PersonListingScoreComparator;
 import seedu.address.model.person.predicates.PersonMatchesPropertyPredicate;
 import seedu.address.model.person.predicates.PropertyPreferencesContainAnyActiveSearchTagsPredicate;
+import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -90,44 +91,16 @@ public class MatchListingCommand extends Command {
 
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PERSONS);
         model.updateSortedFilteredPersonList(model.COMPARATOR_SHOW_ALL_PERSONS);
-        HashMap<Person, Integer> personScores = new HashMap<>();
 
-        for (Person person : model.getFilteredPersonList()) {
-            int score = 0;
-
-            for (PropertyPreference preference : person.getPropertyPreferences()) {
-                int preferenceScore = 0;
-
-                if (listingToMatch.getPriceRange().doPriceRangeOverlap(preference.getPriceRange())) {
-                    preferenceScore += 1;
-                }
-
-                for (Tag tag : preference.getTags()) {
-                    if (listingToMatch.getTags().contains(tag)) {
-                        preferenceScore += 1;
-                    }
-                }
-
-                if (preferenceScore == 0) {
-                    continue;
-                }
-
-                if (preferenceScore > score) {
-                    score = preferenceScore;
-                }
-            }
-
-            if (score == 0) {
-                continue;
-            }
-
-            personScores.put(person, score);
-        }
+        PriceRange.setFilteredAgainst(null);
+        Tag.setActiveSearchTags(new ArrayList<>());
 
         Predicate<Person> predicate = new PersonMatchesPropertyPredicate(listingToMatch);
         Comparator<Person> comparator = new PersonListingScoreComparator(listingToMatch);
 
+        PriceRange.setFilteredAgainst(listingToMatch.getPriceRange());
         Tag.setActiveSearchTags(listingToMatch.getTags().stream().toList());
+
         PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAnyActiveSearchTagsPredicate());
         model.updateFilteredPersonList(predicate);
         model.updateSortedFilteredPersonList(comparator);

@@ -22,6 +22,7 @@ public interface Model {
 
     Predicate<Listing> PREDICATE_SHOW_ALL_LISTINGS = unused -> true;
     Comparator<Listing> COMPARATOR_SHOW_ALL_LISTINGS = Comparator.comparing(l -> l.getPostalCode().postalCode);
+
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
 
     Predicate<PropertyPreference> PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES = unused -> true;

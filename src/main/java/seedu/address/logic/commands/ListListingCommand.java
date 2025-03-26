@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LISTINGS;
 import java.util.ArrayList;
 
 import seedu.address.model.Model;
+import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +26,10 @@ public class ListListingCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        PriceRange.setFilteredAgainst(null);
         Tag.setActiveSearchTags(new ArrayList<>());
+
         model.updateFilteredListingList(PREDICATE_SHOW_ALL_LISTINGS);
         model.updateSortedFilteredListingList(COMPARATOR_SHOW_ALL_LISTINGS);
         return new CommandResult(MESSAGE_SUCCESS);
