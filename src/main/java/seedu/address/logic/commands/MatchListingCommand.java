@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.person.predicates.PropertyPreferencesContainAnyActiveSearchTagsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -129,6 +130,8 @@ public class MatchListingCommand extends Command {
             return Integer.compare(score2, score1);
         };
 
+        Tag.setActiveSearchTags(listingToMatch.getTags().stream().toList());
+        PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAnyActiveSearchTagsPredicate());
         model.updateFilteredPersonList(predicate);
         model.updateSortedFilteredPersonList(comparator);
     }

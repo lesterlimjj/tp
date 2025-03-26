@@ -111,7 +111,7 @@ public class MatchPersonCommand extends Command {
             return Integer.compare(score2, score1);
         };
 
-        PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAnyActiveSearchTagsPredicate());
+        Tag.setActiveSearchTags(preferenceToMatch.getTags().stream().toList());
         model.updateFilteredListingList(predicate);
         model.updateSortedFilteredListingList(comparator);
     }
