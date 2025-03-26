@@ -53,7 +53,7 @@ public class SearchPropertyByTagCommand extends Command {
         ListingContainsAllTagsPredicate predicate = new ListingContainsAllTagsPredicate(tagsToSearch);
         model.updateFilteredListingList(predicate);
 
-        List<Listing> filteredListings = model.getFilteredListingList();
+        List<Listing> filteredListings = model.getSortedFilteredListingList();
         if (filteredListings.isEmpty()) {
             return new CommandResult(Messages.MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH);
         } else {
