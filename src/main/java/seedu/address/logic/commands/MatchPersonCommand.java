@@ -13,9 +13,9 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
+import seedu.address.model.listing.predicates.ListingMatchesPreferencePredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
-import seedu.address.model.person.predicates.PropertyPreferencesContainAnyActiveSearchTagsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -103,7 +103,7 @@ public class MatchPersonCommand extends Command {
             listingScores.put(listing, score);
         }
 
-        Predicate<Listing> predicate = listing -> listingScores.containsKey(listing);
+        Predicate<Listing> predicate = new ListingMatchesPreferencePredicate(preferenceToMatch);
 
         Comparator<Listing> comparator = (listing1, listing2) -> {
             int score1 = listingScores.getOrDefault(listing1, 0);

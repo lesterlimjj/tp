@@ -46,16 +46,16 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
 
         sortedFilteredPersons = new SortedList<>(filteredPersons);
-        updateSortedFilteredPersonList(COMPARATOR_SHOW_ALL_PERSONS);
+        sortedFilteredPersons.setComparator(COMPARATOR_SHOW_ALL_PERSONS);
 
         filteredListings = new FilteredList<>(this.addressBook.getListingList());
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        filteredListings.setPredicate(PREDICATE_SHOW_ALL_LISTINGS);
 
         sortedFilteredListings = new SortedList<>(this.filteredListings);
-        updateSortedFilteredListingList(COMPARATOR_SHOW_ALL_LISTINGS);
+        sortedFilteredListings.setComparator(COMPARATOR_SHOW_ALL_LISTINGS);
 
         // Convert ObservableMap values to ObservableList
         ObservableMap<String, Tag> tagMap = this.addressBook.getTagList();

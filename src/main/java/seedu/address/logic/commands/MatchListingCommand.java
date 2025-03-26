@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.person.predicates.PersonMatchesPropertyPredicate;
 import seedu.address.model.person.predicates.PropertyPreferencesContainAnyActiveSearchTagsPredicate;
 import seedu.address.model.tag.Tag;
 
@@ -122,7 +123,7 @@ public class MatchListingCommand extends Command {
             personScores.put(person, score);
         }
 
-        Predicate<Person> predicate = person -> personScores.containsKey(person);
+        Predicate<Person> predicate = new PersonMatchesPropertyPredicate(listingToMatch);
 
         Comparator<Person> comparator = (person1, person2) -> {
             int score1 = personScores.getOrDefault(person1, 0);
