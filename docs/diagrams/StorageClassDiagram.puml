@@ -47,10 +47,18 @@ JsonSerializableAddressBook --> "*" JsonAdaptedListing
 JsonSerializableAddressBook --> "*" JsonAdaptedTag
 
 JsonAdaptedPerson --> "*" JsonAdaptedPreference
+
 JsonAdaptedPreference --> JsonAdaptedPriceRange
 JsonAdaptedPreference --> "*" JsonAdaptedTag
 
 JsonAdaptedListing --> JsonAdaptedPriceRange
 JsonAdaptedListing --> "*" JsonAdaptedTag
+JsonAdaptedListing --> "*" JsonAdaptedPerson
+
+note on link
+Owners are stored as Strings in JsonAdaptedListing,
+but used to retrieve associated JsonAdaptedPerson objects
+during model conversion.
+end note
 
 @enduml
