@@ -55,7 +55,7 @@ JsonAdaptedListing --> JsonAdaptedPriceRange
 JsonAdaptedListing --> "*" JsonAdaptedTag
 JsonAdaptedListing --> "*" JsonAdaptedPerson
 
-note on link
+note top of JsonAdaptedListing
 Owners are stored as Strings in JsonAdaptedListing,
 but used to retrieve associated JsonAdaptedPerson objects
 during model conversion.
