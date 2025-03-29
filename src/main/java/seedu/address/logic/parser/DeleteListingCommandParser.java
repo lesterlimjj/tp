@@ -19,13 +19,8 @@ public class DeleteListingCommandParser implements Parser<DeleteListingCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteListingCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteListingCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, DeleteListingCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndex(args);
+        return new DeleteListingCommand(index);
     }
 
 }
