@@ -57,9 +57,9 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_KEYWORD =
-            "ERROR: Invalid keyword '%s'. Keywords can only contain letters, spaces, hyphens, or apostrophes.";
+            "ERROR: Invalid keyword '%s'. \n%s";
     public static final String MESSAGE_MISSING_KEYWORD =
-            "ERROR: Missing parameters. You must provide at least one keyword.";
+            "ERROR: Missing parameters. You must provide at least one keyword.\n%s";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%d persons found matching the keywords.";
     public static final String MESSAGE_SEARCH_PERSON_TAG_NOT_FOUND = "Tag '%s' does not exist.";
     public static final String MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS =
