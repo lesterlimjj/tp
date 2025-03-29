@@ -27,8 +27,7 @@ public class DeletePreferenceCommandParser implements Parser<DeletePreferenceCom
     public DeletePreferenceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
         checkCommandFormat(argMultimap, args);
-        List<Index> multipleIndices;
-        multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
+        List<Index> multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
         return new DeletePreferenceCommand(multipleIndices.get(0), multipleIndices.get(1));
 
     }
