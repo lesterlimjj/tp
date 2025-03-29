@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.SearchPersonByTagCommand;
 import seedu.address.logic.commands.SearchPropertyByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
@@ -38,6 +39,11 @@ public class SearchPropertyByTagCommandParser implements Parser<SearchPropertyBy
         if (ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG)).isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS,
                     SearchPropertyByTagCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_PREAMBLE_FOUND,
+                    SearchPersonByTagCommand.MESSAGE_USAGE));
         }
     }
 }
