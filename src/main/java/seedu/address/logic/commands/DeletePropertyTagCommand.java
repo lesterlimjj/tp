@@ -14,7 +14,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
@@ -61,14 +60,13 @@ public class DeletePropertyTagCommand extends Command {
 
         Listing listingToEdit = lastShownList.get(propertyIndex.getZeroBased());
 
-        TagRegistry tagRegistry = TagRegistry.of();
         Set<Tag> deletedTags = new HashSet<>();
 
         // Modify listing and tag registry in place
         for (String tagName : tagsToDelete) {
             String trimmedTagName = tagName.trim();
             try {
-                Tag tagToDelete = tagRegistry.get(trimmedTagName);
+                Tag tagToDelete = model.getTag(trimmedTagName);;
                 if (!listingToEdit.getTags().contains(tagToDelete)) {
                     throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND, tagName));
                 }
@@ -86,7 +84,7 @@ public class DeletePropertyTagCommand extends Command {
             listingToEdit.removeTag(tag);
             model.setListing(listingToEdit, listingToEdit);
             tag.removeListing(listingToEdit);
-            tagRegistry.setTag(tag, tag);
+            model.setTag(tag, tag);
             deletedTags.add(tag);
         }
 

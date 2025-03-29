@@ -19,7 +19,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Adds a {@code PropertyPreference} to a {@code Person} identified using it's displayed index in
@@ -95,12 +94,11 @@ public class AddPreferenceCommand extends Command {
         Set<String> tagNames = new HashSet<>(tagSet);
         tagNames.addAll(newTagSet);
 
-        TagRegistry tagRegistry = TagRegistry.of();
         for (String tagName: tagNames) {
-            Tag tag = tagRegistry.get(tagName);
+            Tag tag = model.getTag(tagName);
             tag.addPropertyPreference(preference);
-            tagRegistry.setTag(tag, tag);
-            preference.addTag(tagRegistry.get(tagName));
+            model.setTag(tag, tag);
+            preference.addTag(model.getTag(tagName));
         }
 
         personToAddPreference.addPropertyPreference(preference);

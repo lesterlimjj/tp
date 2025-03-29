@@ -15,7 +15,6 @@ import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.predicates.ListingContainsAllTagsPredicate;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Searches for {@code Listing}(s) whose tags contain all specified tags.
@@ -56,7 +55,7 @@ public class SearchPropertyByTagCommand extends Command {
 
         List<Tag> activeTags = new ArrayList<>();
         for (String tagName : tagsToSearch) {
-            activeTags.add(TagRegistry.of().get(tagName));
+            activeTags.add(model.getTag(tagName));
         }
         Tag.setActiveSearchTags(activeTags);
 

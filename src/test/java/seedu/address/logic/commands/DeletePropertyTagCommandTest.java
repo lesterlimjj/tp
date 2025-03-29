@@ -28,7 +28,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Unit tests for DeletePropertyTagCommand.
@@ -36,6 +35,7 @@ import seedu.address.model.tag.TagRegistry;
 public class DeletePropertyTagCommandTest {
     private Model model;
     private Listing sampleListing;
+
     @BeforeEach
     public void setUp() {
         model = new ModelManager(new AddressBook(), new UserPrefs());
@@ -49,15 +49,16 @@ public class DeletePropertyTagCommandTest {
                 List.of() // Empty listings
         );
 
+
+        model.addTags(Set.of("Luxury", "Pool"));
+
         // Create tags (do NOT manually add to registry)
-        Tag luxuryTag = new Tag("Luxury", List.of(), List.of());
-        Tag poolTag = new Tag("Pool", List.of(), List.of());
-        if (!TagRegistry.of().contains(luxuryTag)) {
-            TagRegistry.of().add(luxuryTag);
-        }
-        if (!TagRegistry.of().contains(poolTag)) {
-            TagRegistry.of().add(poolTag);
-        }
+        Tag luxuryTag = model.getTag("Luxury");
+        Tag poolTag = model.getTag("Pool");
+
+        Set<Tag> tags = new HashSet<>();
+        tags.add(luxuryTag);
+        tags.add(poolTag);
 
         // Create listing with tags
         sampleListing = Listing.of(
@@ -66,7 +67,7 @@ public class DeletePropertyTagCommandTest {
                 null, // house number
                 new PriceRange(new Price("100000"), new Price("200000")),
                 null, // property name
-                Set.of(luxuryTag, poolTag),
+                tags,
                 List.of(sampleOwner),
                 true
         );
@@ -93,7 +94,7 @@ public class DeletePropertyTagCommandTest {
         List<String> sortedTags = tagsToRemove.stream().sorted().collect(Collectors.toList());
         String expectedMessage = String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
                 sampleListing.getPostalCode(), sortedTags);
-        assert(result.getFeedbackToUser().contains(sampleListing.getPostalCode().toString()));
+        assert (result.getFeedbackToUser().contains(sampleListing.getPostalCode().toString()));
         assertEquals(
                 expectedMessage,
                 String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,

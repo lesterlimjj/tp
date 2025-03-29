@@ -14,7 +14,6 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Deletes a {@code PropertyPreference} identified using it's displayed index
@@ -69,7 +68,7 @@ public class DeletePreferenceCommand extends Command {
         // Delete the preference from the full preference list using object reference
         PropertyPreference preferenceToDelete = filteredPreferences.get(targetPreferenceIndex.getZeroBased());
         targetPerson.removePropertyPreference(preferenceToDelete);
-        removePropertyPreferenceFromTags(preferenceToDelete);
+        removePropertyPreferenceFromTags(preferenceToDelete, model);
 
         model.setPerson(targetPerson, targetPerson);
         model.resetAllLists();
@@ -102,15 +101,12 @@ public class DeletePreferenceCommand extends Command {
                 .toString();
     }
 
-    private void removePropertyPreferenceFromTags(PropertyPreference propertyPreference) {
-
-        TagRegistry tagRegistry = TagRegistry.of();
-
+    private void removePropertyPreferenceFromTags(PropertyPreference propertyPreference, Model model) {
         Set<Tag> tags = new HashSet<>(propertyPreference.getTags());
 
         for (Tag tag: tags) {
             tag.removePropertyPreference(propertyPreference);
-            tagRegistry.setTag(tag, tag);
+            model.setTag(tag, tag);
         }
     }
 }

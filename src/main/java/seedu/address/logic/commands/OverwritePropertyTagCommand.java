@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -16,7 +17,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Overwrites all {@code Tag}s in a {@code Listing} identified using it's displayed index in the address book.
@@ -84,14 +84,14 @@ public class OverwritePropertyTagCommand extends Command {
         // Create new tags
         model.addTags(newTagSet);
 
-        TagRegistry tagRegistry = TagRegistry.of();
+        ObservableMap<String, Tag> uniqueTagList = model.getTagMap();
         Set<String> tagNames = new HashSet<>(tagSet);
         Set<Tag> newTags = new HashSet<>();
         tagNames.addAll(newTagSet);
 
         // Prepare new tags to be added
         for (String tagName : tagNames) {
-            Tag tag = tagRegistry.get(tagName);
+            Tag tag = uniqueTagList.get(tagName);
             newTags.add(tag);
         }
 
@@ -99,14 +99,14 @@ public class OverwritePropertyTagCommand extends Command {
         Set<Tag> existingTags = new HashSet<>(property.getTags());
         for (Tag tag : existingTags) {
             tag.removeListing(property);
-            tagRegistry.setTag(tag, tag);
+            model.setTag(tag, tag);
             property.removeTag(tag);
         }
 
         // Add new tags
         for (Tag tag : newTags) {
             tag.addListing(property);
-            tagRegistry.setTag(tag, tag);
+            model.setTag(tag, tag);
             property.addTag(tag);
         }
 

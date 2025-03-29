@@ -36,7 +36,9 @@ public class ModelManager implements Model {
     private final SortedList<Person> sortedFilteredPersons;
     private final FilteredList<Listing> filteredListings;
     private final SortedList<Listing> sortedFilteredListings;
+    private final ObservableMap<String, Tag> tagMap;
     private final FilteredList<Tag> filteredTags;
+    private final SortedList<Tag> sortedFilteredTags;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -60,10 +62,10 @@ public class ModelManager implements Model {
         sortedFilteredListings = new SortedList<>(this.filteredListings);
         sortedFilteredListings.setComparator(COMPARATOR_SHOW_ALL_LISTINGS);
 
-        // Convert ObservableMap values to ObservableList
-        ObservableMap<String, Tag> tagMap = this.addressBook.getTagList();
-        ObservableList<Tag> tagObservableList = FXCollections.observableArrayList(tagMap.values());
+        tagMap = this.addressBook.getTagList();
 
+        // Convert ObservableMap values to ObservableList
+        ObservableList<Tag> tagObservableList = FXCollections.observableArrayList(tagMap.values());
         // Add a listener to the ObservableMap to update the ObservableList dynamically
         tagMap.addListener((MapChangeListener<String, Tag>) change -> {
             if (change.wasAdded()) {
@@ -75,9 +77,12 @@ public class ModelManager implements Model {
         });
 
 
-
         // Create a FilteredList from the ObservableList
         filteredTags = new FilteredList<>(tagObservableList);
+        filteredTags.setPredicate(PREDICATE_SHOW_ALL_TAGS);
+        sortedFilteredTags = new SortedList<>(this.filteredTags);
+        sortedFilteredTags.setComparator(COMPARATOR_SHOW_ALL_TAGS);
+
     }
 
     public ModelManager() {
@@ -253,9 +258,18 @@ public class ModelManager implements Model {
         return sortedFilteredListings;
     }
 
+    public ObservableMap<String, Tag> getTagMap() {
+        return tagMap;
+    }
+
     @Override
     public ObservableList<Tag> getFilteredTagList() {
         return filteredTags;
+    }
+
+    @Override
+    public ObservableList<Tag> getSortedFilteredTagList() {
+        return sortedFilteredTags;
     }
 
 
@@ -325,6 +339,12 @@ public class ModelManager implements Model {
             filteredTags.setPredicate(PREDICATE_SHOW_ALL_TAGS);
         }
         filteredTags.setPredicate(predicate);
+    }
+
+    @Override
+    public Tag getTag(String tagName) {
+        requireNonNull(tagName);
+        return tagMap.get(tagName.toUpperCase());
     }
 
     @Override

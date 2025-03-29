@@ -17,7 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Overwrites all {@code Tag}s in a {@code PropertyPreference} identified using it's displayed index
@@ -97,14 +96,13 @@ public class OverwritePreferenceTagCommand extends Command {
         // Create new tags
         model.addTags(newTagSet);
 
-        TagRegistry tagRegistry = TagRegistry.of();
         Set<String> tagNames = new HashSet<>(tagSet);
         Set<Tag> newTags = new HashSet<>();
         tagNames.addAll(newTagSet);
 
         // Prepare new tags to be added
         for (String tagName : tagNames) {
-            Tag tag = tagRegistry.get(tagName);
+            Tag tag = model.getTag(tagName);
             newTags.add(tag);
         }
 
@@ -112,14 +110,14 @@ public class OverwritePreferenceTagCommand extends Command {
         Set<Tag> existingTags = new HashSet<>(preference.getTags());
         for (Tag tag : existingTags) {
             tag.removePropertyPreference(preference);
-            tagRegistry.setTag(tag, tag);
+            model.setTag(tag, tag);
             preference.removeTag(tag);
         }
 
         // Add new tags
         for (Tag tag : newTags) {
             tag.addPropertyPreference(preference);
-            tagRegistry.setTag(tag, tag);
+            model.setTag(tag, tag);
             preference.addTag(tag);
         }
 

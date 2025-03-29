@@ -15,7 +15,6 @@ import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.person.predicates.PersonPropertyPreferencesContainAllTagsPredicate;
 import seedu.address.model.person.predicates.PropertyPreferencesContainAllActiveSearchTagsPredicate;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Searches for persons whose property preferences contain all specified tags.
@@ -58,7 +57,7 @@ public class SearchPersonByTagCommand extends Command {
 
         List<Tag> activeTags = new ArrayList<>();
         for (String tagName : tagsToSearch) {
-            activeTags.add(TagRegistry.of().get(tagName));
+            activeTags.add(model.getTag(tagName));
         }
         Tag.setActiveSearchTags(activeTags);
 
