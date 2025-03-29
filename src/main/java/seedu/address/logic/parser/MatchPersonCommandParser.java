@@ -2,11 +2,14 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_OWNER_OR_LISTING_DISPLAYED_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MatchPersonCommand;
+import seedu.address.logic.commands.OverwritePreferenceTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -22,23 +25,20 @@ public class MatchPersonCommandParser implements Parser<MatchPersonCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public MatchPersonCommand parse(String args) throws ParseException {
-        List<Index> multipleIndices;
-        try {
-            multipleIndices = ParserUtil.parseMultipleIndices(args);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_OWNER_OR_LISTING_DISPLAYED_INDEX,
-                    MatchPersonCommand.MESSAGE_USAGE),
-                    pe);
-        }
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        try {
-            if (multipleIndices.size() != 2) {
-                throw new ParseException("Expected 2 indices");
-            }
-            return new MatchPersonCommand(multipleIndices.get(0), multipleIndices.get(1));
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_EXPECTED_TWO_INDICES, MatchPersonCommand.MESSAGE_USAGE), pe);
+        checkCommandFormat(argMultimap);
+
+        List<Index> multipleIndices = ParserUtil.parseMultipleIndices(args);
+        return new MatchPersonCommand(multipleIndices.get(0), multipleIndices.get(1));
+    }
+
+    private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
+        String preamble = argMultimap.getPreamble().trim();
+
+        if (preamble.isEmpty() || preamble.split(" ").length != 2) {
+            throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
+                    MatchPersonCommand.MESSAGE_USAGE));
         }
     }
 
