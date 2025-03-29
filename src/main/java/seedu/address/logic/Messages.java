@@ -55,7 +55,9 @@ public class Messages {
             + "is invalid.\n%1$s";
     public static final String MESSAGE_ADD_TAG_PREAMBLE_FOUND = "Add tag should not have preamble. \n%1$s";
     public static final String MESSAGE_TAG_OR_NEW_TAG_PREFIX_EMPTY_VALUE = "At least one given tag or new tag prefix "
-            + "is empty";
+            + "is empty.\n%1$s";
+    public static final String MESSAGE_NEW_TAG_PREFIX_EMPTY_VALUE = "At least one new tag prefix "
+            + "is empty.\n%1$s";
     public static final String MESSAGE_INDEX_REQUIRED = "Please provide 1 index for this command";
     public static final String MESSAGE_ARGUMENTS_EMPTY = "Arguments should not be empty. \n%1$s";
     public static final String MESSAGE_DUPLICATE_FIELDS =
