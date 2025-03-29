@@ -4,13 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
-import seedu.address.logic.commands.SearchPropertyByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new SearchPersonByTagCommand object.
@@ -37,7 +34,7 @@ public class SearchPersonByTagCommandParser implements Parser<SearchPersonByTagC
         }
 
         if (ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG)).isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS,
+            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS,
                     SearchPersonByTagCommand.MESSAGE_USAGE));
         }
 

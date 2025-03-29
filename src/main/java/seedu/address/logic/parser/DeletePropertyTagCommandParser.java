@@ -34,7 +34,7 @@ public class DeletePropertyTagCommandParser implements Parser<DeletePropertyTagC
         return new DeletePropertyTagCommand(index, tags);
     }
 
-    private static void checkCommandFormat(ArgumentMultimap argMultimap ,String args) throws ParseException {
+    private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
         String preamble = argMultimap.getPreamble().trim();
         boolean hasTags = !(argMultimap.getAllValues(PREFIX_TAG).isEmpty());
 

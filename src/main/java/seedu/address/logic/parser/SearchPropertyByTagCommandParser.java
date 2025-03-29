@@ -4,13 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.SearchPersonByTagCommand;
 import seedu.address.logic.commands.SearchPropertyByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new {@code SearchPropertyByTagCommand} object.

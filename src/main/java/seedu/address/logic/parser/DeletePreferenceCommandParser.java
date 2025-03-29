@@ -2,14 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeletePreferenceCommand;
-import seedu.address.logic.commands.DeletePreferenceTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_TAG_OR_NEW_TAG_REQUIRED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;

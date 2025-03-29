@@ -1,15 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_EXPECTED_TWO_INDICES;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_OWNER_OR_LISTING_DISPLAYED_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MatchPersonCommand;
-import seedu.address.logic.commands.OverwritePreferenceTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

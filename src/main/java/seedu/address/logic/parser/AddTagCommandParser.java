@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_ADD_TAG_PREAMBLE_FOUND;
 import static seedu.address.logic.Messages.MESSAGE_NEW_TAG_PREFIX_EMPTY_VALUE;
-import static seedu.address.logic.Messages.MESSAGE_TAG_OR_NEW_TAG_PREFIX_EMPTY_VALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 
 import java.util.Set;
