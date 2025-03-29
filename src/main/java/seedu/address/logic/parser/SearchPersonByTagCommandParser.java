@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
+import seedu.address.logic.commands.SearchPropertyByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -22,20 +23,28 @@ public class SearchPersonByTagCommandParser implements Parser<SearchPersonByTagC
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
-        // If no prefix found or other random input (like empty string)
+        checkCommandFormat(argMultimap);
+
+        Set<String> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+        return new SearchPersonByTagCommand(tags);
+    }
+
+    private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getPreamble().isEmpty() && argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_ARGUMENTS_EMPTY,
                     SearchPersonByTagCommand.MESSAGE_USAGE));
         }
 
-        Set<String> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        if (tags.isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS,
+        if (ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG)).isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS,
                     SearchPersonByTagCommand.MESSAGE_USAGE));
         }
 
-        return new SearchPersonByTagCommand(tags);
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PERSON_TAG_PREAMBLE_FOUND,
+                    SearchPersonByTagCommand.MESSAGE_USAGE));
+        }
     }
 
 }
