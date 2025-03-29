@@ -53,7 +53,7 @@ public class Messages {
     public static final String MESSAGE_TAG_OR_NEW_TAG_PREFIX_EMPTY_VALUE = "At least one given tag or new tag prefix "
             + "is empty";
     public static final String MESSAGE_INDEX_REQUIRED = "Please provide 1 index for this command";
-    public static final String MESSAGE_ARGUMENTS_EMPTY = "Arguments should not be empty";
+    public static final String MESSAGE_ARGUMENTS_EMPTY = "Arguments should not be empty. \n%1$s";
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_KEYWORD =
@@ -67,7 +67,7 @@ public class Messages {
     public static final String MESSAGE_SEARCH_PERSON_TAGS_SUCCESS = "%d persons matching the tags.";
     public static final String MESSAGE_SEARCH_PERSON_TAGS_NO_MATCH = "No persons matching the tags.";
     public static final String MESSAGE_SEARCH_PERSON_TAG_PREFIX_EMPTY =
-            "Tag prefix specified but no tag value given. Please specify a tag after t/.";
+            "Tag prefix specified but no tag value given. Please specify a tag after t/.\n%S";
     public static final String MESSAGE_SEARCH_PROPERTY_TAGS_SUCCESS = "%d properties matching the tags!";
     public static final String MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH = "No properties matching the tags.";
     public static final String MESSAGE_TAG_DOES_NOT_EXIST = "Tag '%s' does not exist in the system.\n%s";
