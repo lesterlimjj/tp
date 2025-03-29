@@ -60,13 +60,11 @@ public class SearchPersonByTagCommand extends Command {
         for (String tagName : tagsToSearch) {
             activeTags.add(TagRegistry.of().get(tagName));
         }
-        Tag.setActiveSearchTags(activeTags);
 
+        model.resetAllLists();
+        model.setSearch(activeTags, null, Model.searchTypeEnum.PERSON);
         PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAllActiveSearchTagsPredicate());
-
-        PersonPropertyPreferencesContainAllTagsPredicate predicate =
-                new PersonPropertyPreferencesContainAllTagsPredicate(tagsToSearch);
-        model.updateFilteredPersonList(predicate);
+        model.updateFilteredPersonList(new PersonPropertyPreferencesContainAllTagsPredicate(tagsToSearch));
 
         List<Person> filteredPersons = model.getSortedFilteredPersonList();
 

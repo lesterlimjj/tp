@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -25,6 +26,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
+import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
@@ -82,6 +84,11 @@ public class AddPersonCommandTest {
     private class ModelStub implements Model {
 
         private final Set<String> storedTags = new HashSet<>();
+
+        @Override
+        public void setSearch(List<Tag> tags, PriceRange priceRange, searchTypeEnum searchTypeEnum) {
+            throw new AssertionError("This method should not be called.");
+        };
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {

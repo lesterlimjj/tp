@@ -58,8 +58,9 @@ public class SearchPropertyByTagCommand extends Command {
         for (String tagName : tagsToSearch) {
             activeTags.add(TagRegistry.of().get(tagName));
         }
-        Tag.setActiveSearchTags(activeTags);
 
+        model.resetAllLists();
+        model.setSearch(activeTags, null, Model.searchTypeEnum.LISTING);
         ListingContainsAllTagsPredicate predicate = new ListingContainsAllTagsPredicate(tagsToSearch);
         model.updateFilteredListingList(predicate);
 

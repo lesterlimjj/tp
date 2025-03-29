@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -73,7 +74,6 @@ public class ModelManager implements Model {
                 tagObservableList.remove(change.getValueRemoved());
             }
         });
-
 
 
         // Create a FilteredList from the ObservableList
@@ -219,12 +219,18 @@ public class ModelManager implements Model {
 
     @Override
     public void resetAllLists() {
-        Tag.setActiveSearchTags(new ArrayList<>());
-        PriceRange.setFilteredAgainst(null);
-
+        setSearch(new ArrayList<>(), null, searchTypeEnum.NONE);
         resetPersonList();
         resetListingList();
         resetTagList();
+    }
+
+    @Override
+    public void setSearch(List<Tag> tags, PriceRange priceRange, searchTypeEnum searchTypeEnum) {
+        Tag.setActiveSearchTags(tags);
+        Tag.setSearch(searchTypeEnum);
+        PriceRange.setFilteredAgainst(priceRange);
+        PriceRange.setSearch(searchTypeEnum);
     }
 
     //=========== Filtered Person List Accessors =============================================================

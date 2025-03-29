@@ -48,7 +48,7 @@ public class PreferenceListCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         priceRange.setText("  --------------  " + propertyPreference.getPriceRange().toString());
 
-        if (propertyPreference.getPriceRange().isPriceMatched()) {
+        if (propertyPreference.getPriceRange().isPriceMatchedForPerson()) {
             priceRange.getStyleClass().add("active");
         }
 
@@ -56,7 +56,7 @@ public class PreferenceListCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {
                     Label label = new Label(tag.tagName);
-                    if (tag.isActive()) {
+                    if (tag.isActiveForPerson()) {
                         label.getStyleClass().add("active");
                     }
                     tags.getChildren().add(label);

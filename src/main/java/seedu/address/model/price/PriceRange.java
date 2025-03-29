@@ -5,6 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
+import seedu.address.model.Model;
+
 /**
  * Represents a Price Range in the real estate system.
  * Guarantees: immutable; is valid as Price is valid.
@@ -16,6 +18,7 @@ import java.util.Objects;
 public class PriceRange {
 
     private static PriceRange filteredAgainst = null;
+    private static Model.searchTypeEnum searchType = Model.searchTypeEnum.NONE;
 
     public final Price lowerBoundPrice;
     public final Price upperBoundPrice;
@@ -99,6 +102,7 @@ public class PriceRange {
 
         boolean isLowerBoundWithinRange = otherPriceRange.lowerBoundPrice == null
                 || this.isPriceWithinRange(otherPriceRange.lowerBoundPrice);
+
         boolean isUpperBoundWithinRange = otherPriceRange.upperBoundPrice == null
                 || this.isPriceWithinRange(otherPriceRange.upperBoundPrice);
 
@@ -113,21 +117,40 @@ public class PriceRange {
     }
 
 
-
     /**
      * Sets the price range that is being filtered against.
      *
+     * @param newFilteredAgainst the price range to set.
      */
     public static void setFilteredAgainst(PriceRange newFilteredAgainst) {
         filteredAgainst = newFilteredAgainst;
     }
 
     /**
-     * Checks if the price range is matched against the filtered price range.
+     * Sets the price range to filter against.
      *
+     * @param searchType the search type to set.
      */
-    public boolean isPriceMatched() {
-        if (filteredAgainst == null) {
+    public static void setSearch(Model.searchTypeEnum searchType) {
+        PriceRange.searchType = searchType;
+    }
+
+    /**
+     * Checks if the price range is matched against the filtered price range for a person.
+     */
+    public boolean isPriceMatchedForPerson() {
+        if (filteredAgainst == null || searchType != Model.searchTypeEnum.PERSON) {
+            return false;
+        }
+
+        return this.doPriceRangeOverlap(filteredAgainst);
+    }
+
+    /**
+     * Checks if the price range is matched against the filtered price range for a listing.
+     */
+    public boolean isPriceMatchedForListing() {
+        if (filteredAgainst == null || searchType != Model.searchTypeEnum.LISTING) {
             return false;
         }
 
