@@ -1,13 +1,12 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER_BOUND_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddPreferenceCommand;
@@ -30,14 +29,10 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE, PREFIX_TAG,
                         PREFIX_NEW_TAG);
+        checkCommandFormat(args);
         Index index;
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
-                    AddPreferenceCommand.MESSAGE_USAGE), pe);
-        }
+        index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE);
         Price lowerBoundPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_LOWER_BOUND_PRICE).orElse(null));
@@ -49,14 +44,6 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
         return new AddPreferenceCommand(index, priceRange, tagList, newTagList);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
     private static PriceRange createPriceRange(Price lowerBoundPrice, Price upperBoundPrice) {
         if (lowerBoundPrice == null && upperBoundPrice == null) {
             return new PriceRange();
@@ -66,6 +53,13 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
             return new PriceRange(lowerBoundPrice, false);
         } else {
             return new PriceRange(lowerBoundPrice, upperBoundPrice);
+        }
+    }
+
+    private static void checkCommandFormat(String args) throws ParseException {
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
+                    AddPreferenceCommand.MESSAGE_USAGE));
         }
     }
 
