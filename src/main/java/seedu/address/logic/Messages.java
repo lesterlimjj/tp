@@ -70,7 +70,7 @@ public class Messages {
             "Tag prefix specified but no tag value given. Please specify a tag after t/.";
     public static final String MESSAGE_SEARCH_PROPERTY_TAGS_SUCCESS = "%d properties matching the tags!";
     public static final String MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH = "No properties matching the tags.";
-    public static final String MESSAGE_TAG_DOES_NOT_EXIST = "Tag '%s' does not exist.\n%s";
+    public static final String MESSAGE_TAG_DOES_NOT_EXIST = "Tag '%s' does not exist in the system.\n%s";
     public static final String MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS =
             "At least one [t/TAG] needs to be specified for search.";
     public static final String MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY =
