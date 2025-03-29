@@ -24,24 +24,15 @@ public class SearchPersonByTagCommandParser implements Parser<SearchPersonByTagC
 
         // If no prefix found or other random input (like empty string)
         if (argMultimap.getPreamble().isEmpty() && argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
-            throw new ParseException(SearchPersonByTagCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(Messages.MESSAGE_ARGUMENTS_EMPTY,
+                    SearchPersonByTagCommand.MESSAGE_USAGE));
         }
 
-        Set<String> tags = argMultimap.getAllValues(PREFIX_TAG).stream()
-                .map(String::toLowerCase)
-                .collect(Collectors.toSet());
+        Set<String> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         if (tags.isEmpty()) {
-            throw new ParseException(Messages.MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS);
-        }
-        if (tags.stream().anyMatch(String::isBlank)) {
-            throw new ParseException(Messages.MESSAGE_SEARCH_PERSON_TAG_PREFIX_EMPTY);
-        }
-
-        for (String tagName : tags) {
-            if (!Tag.isValidTagName(tagName)) {
-                throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-            }
+            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS,
+                    SearchPersonByTagCommand.MESSAGE_USAGE));
         }
 
         return new SearchPersonByTagCommand(tags);
