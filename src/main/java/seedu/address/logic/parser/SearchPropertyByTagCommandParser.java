@@ -22,29 +22,22 @@ public class SearchPropertyByTagCommandParser implements Parser<SearchPropertyBy
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
-        // If no prefix or random input found
-        if (argMultimap.getPreamble().isEmpty() && argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
-            throw new ParseException(SearchPropertyByTagCommand.MESSAGE_USAGE);
-        }
+        checkCommandFormat(argMultimap);
 
-        Set<String> tags = argMultimap.getAllValues(PREFIX_TAG).stream()
-                .map(String::toLowerCase)
-                .collect(Collectors.toSet());
-
-        if (tags.isEmpty()) {
-            throw new ParseException(Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS);
-        }
-        if (tags.stream().anyMatch(String::isBlank)) {
-            throw new ParseException(Messages.MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY);
-        }
-
-        // Validate tag formats
-        for (String tagName : tags) {
-            if (!Tag.isValidTagName(tagName)) {
-                throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-            }
-        }
+        Set<String> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         return new SearchPropertyByTagCommand(tags);
+    }
+
+    private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getPreamble().isEmpty() && argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_ARGUMENTS_EMPTY,
+                    SearchPropertyByTagCommand.MESSAGE_USAGE));
+        }
+
+        if (ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG)).isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS,
+                    SearchPropertyByTagCommand.MESSAGE_USAGE));
+        }
     }
 }
