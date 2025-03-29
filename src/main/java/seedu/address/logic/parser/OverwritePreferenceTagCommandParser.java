@@ -32,9 +32,8 @@ public class OverwritePreferenceTagCommandParser implements Parser<OverwritePref
         Index preferenceIndex;
 
         checkCommandFormat(argMultimap, args);
-        List<Index> multipleIndices;
 
-        multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
+        List<Index> multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
 
         personIndex = multipleIndices.get(0);
         preferenceIndex = multipleIndices.get(1);
@@ -65,6 +64,5 @@ public class OverwritePreferenceTagCommandParser implements Parser<OverwritePref
             throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
                     OverwritePreferenceTagCommand.MESSAGE_USAGE));
         }
-
     }
 }
