@@ -48,7 +48,7 @@ public class Messages {
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag(s) not found in property: %s";
     public static final String MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE = "Tag(s) not found in property preference: %s";
     public static final String MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX = "The property preference index provided "
-            + "is invalid";
+            + "is invalid.\n%1$s";
     public static final String MESSAGE_ADD_TAG_PREAMBLE_FOUND = "Add tag should not have preamble. \n%1$s";
     public static final String MESSAGE_TAG_OR_NEW_TAG_PREFIX_EMPTY_VALUE = "At least one given tag or new tag prefix "
             + "is empty";
