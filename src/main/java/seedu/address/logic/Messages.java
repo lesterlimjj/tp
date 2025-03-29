@@ -63,7 +63,7 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%d persons found matching the keywords.";
     public static final String MESSAGE_SEARCH_PERSON_TAG_NOT_FOUND = "Tag '%s' does not exist.";
     public static final String MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS =
-            "At least one tag [t/TAG] must be specified for search.";
+            "At least one tag [t/TAG] must be specified for search.\n%s";
     public static final String MESSAGE_SEARCH_PERSON_TAGS_SUCCESS = "%d persons matching the tags.";
     public static final String MESSAGE_SEARCH_PERSON_TAGS_NO_MATCH = "No persons matching the tags.";
     public static final String MESSAGE_SEARCH_PERSON_TAG_PREFIX_EMPTY =
@@ -72,7 +72,7 @@ public class Messages {
     public static final String MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH = "No properties matching the tags.";
     public static final String MESSAGE_TAG_DOES_NOT_EXIST = "Tag '%s' does not exist in the system.\n%s";
     public static final String MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS =
-            "At least one [t/TAG] needs to be specified for search.";
+            "At least one [t/TAG] needs to be specified for search.\n%s";
     public static final String MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY =
             "Tag prefix specified but no tag value given. Please specify a tag after t/.";
 

@@ -85,7 +85,8 @@ public class AddPreferenceTagCommand extends Command {
                 .toList();
 
         if (targetPreferenceIndex.getZeroBased() >= targetPreferenceList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX, MESSAGE_USAGE));
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX,
+                    MESSAGE_USAGE));
         }
 
         PropertyPreference preference = targetPreferenceList.get(targetPreferenceIndex.getZeroBased());

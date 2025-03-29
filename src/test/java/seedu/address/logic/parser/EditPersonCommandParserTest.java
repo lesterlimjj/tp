@@ -50,7 +50,8 @@ public class EditPersonCommandParserTest {
                 EditPersonCommand.MESSAGE_USAGE));
 
         // no field specified
-        assertParseFailure(parser, "1", EditPersonCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", String.format(EditPersonCommand.MESSAGE_NOT_EDITED,
+                EditPersonCommand.MESSAGE_USAGE));
 
         // no index and no field specified
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
