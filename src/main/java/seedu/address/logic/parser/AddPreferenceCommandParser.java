@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
+import static seedu.address.logic.Messages.MESSAGE_ONE_INDEX_EXPECTED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER_BOUND_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -29,7 +30,7 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE, PREFIX_TAG,
                         PREFIX_NEW_TAG);
-        checkCommandFormat(args);
+        checkCommandFormat(argMultimap, args);
         Index index;
 
         index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -56,9 +57,15 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
         }
     }
 
-    private static void checkCommandFormat(String args) throws ParseException {
+    private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
+        String preamble = argMultimap.getPreamble().trim();
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
+                    AddPreferenceCommand.MESSAGE_USAGE));
+        }
+
+        if (preamble.isEmpty() || preamble.split("\\s+").length != 1) {
+            throw new ParseException(String.format(MESSAGE_ONE_INDEX_EXPECTED,
                     AddPreferenceCommand.MESSAGE_USAGE));
         }
     }
