@@ -30,7 +30,7 @@ public class DeleteOwnerCommandParser implements Parser<DeleteOwnerCommand> {
     }
 
     private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
-        String preamble = argMultimap.getPreamble();
+        String preamble = argMultimap.getPreamble().trim();
 
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,

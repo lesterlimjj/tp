@@ -32,27 +32,9 @@ public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCom
         Index preferenceIndex;
 
         checkCommandFormat(argMultimap, args);
-        List<Index> multipleIndices;
-
-        try {
-            multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX,
-                    AddPreferenceTagCommand.MESSAGE_USAGE),
-                    pe);
-        }
-
-        try {
-            if (multipleIndices.size() != 2) {
-                throw new ParseException("Expected 2 indices");
-            }
-            personIndex = multipleIndices.get(0);
-            preferenceIndex = multipleIndices.get(1);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
-                    AddPreferenceTagCommand.MESSAGE_USAGE),
-                    pe);
-        }
+        List<Index> multipleIndices = ParserUtil.parseMultipleIndices(argMultimap.getPreamble());
+        personIndex = multipleIndices.get(0);
+        preferenceIndex = multipleIndices.get(1);
 
         Set<String> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<String> newTagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NEW_TAG));
@@ -61,7 +43,7 @@ public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCom
     }
 
     private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
-        String preamble = argMultimap.getPreamble();
+        String preamble = argMultimap.getPreamble().trim();
         boolean hasTags = !(argMultimap.getAllValues(PREFIX_TAG).isEmpty());
         boolean hasNewTags = !(argMultimap.getAllValues(PREFIX_NEW_TAG).isEmpty());
         boolean hasCombinedTags = hasTags || hasNewTags;
@@ -76,7 +58,7 @@ public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCom
                     AddPreferenceTagCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty()) {
+        if (preamble.isEmpty() || preamble.split("\\s+").length != 2) {
             throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
                     AddPreferenceTagCommand.MESSAGE_USAGE));
         }
