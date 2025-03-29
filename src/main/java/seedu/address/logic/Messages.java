@@ -45,8 +45,8 @@ public class Messages {
             + "\n%1$s";
     public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid. \n%1$s";
     public static final String MESSAGE_DELETE_PROPERTY_TAG_SUCCESS = "Tag(s) in property %s deleted: %s";
-    public static final String MESSAGE_TAG_NOT_FOUND = "Tag(s) not found in property: %s";
-    public static final String MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE = "Tag(s) not found in property preference: %s";
+    public static final String MESSAGE_TAG_NOT_FOUND_IN_PROPERTY = "Tag(s) not found in property: %s\n%s";
+    public static final String MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE = "Tag(s) not found in property preference: %s\n%s";
     public static final String MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX = "The property preference index provided "
             + "is invalid.\n%1$s";
     public static final String MESSAGE_ADD_TAG_PREAMBLE_FOUND = "Add tag should not have preamble. \n%1$s";
@@ -70,7 +70,7 @@ public class Messages {
             "Tag prefix specified but no tag value given. Please specify a tag after t/.";
     public static final String MESSAGE_SEARCH_PROPERTY_TAGS_SUCCESS = "%d properties matching the tags!";
     public static final String MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH = "No properties matching the tags.";
-    public static final String MESSAGE_SEARCH_PROPERTY_TAG_NOT_FOUND = "Tag '%s' does not exist.";
+    public static final String MESSAGE_TAG_DOES_NOT_EXIST = "Tag '%s' does not exist.\n%s";
     public static final String MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS =
             "At least one [t/TAG] needs to be specified for search.";
     public static final String MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY =
