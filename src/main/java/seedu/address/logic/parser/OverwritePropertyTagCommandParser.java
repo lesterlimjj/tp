@@ -56,7 +56,7 @@ public class OverwritePropertyTagCommandParser implements Parser<OverwriteProper
                     OverwritePropertyTagCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty() || preamble.split(" ").length != 1) {
+        if (preamble.isEmpty() || preamble.split("\\s+").length != 1) {
             throw new ParseException(String.format(MESSAGE_ONE_INDEX_EXPECTED,
                     OverwritePropertyTagCommand.MESSAGE_USAGE));
         }

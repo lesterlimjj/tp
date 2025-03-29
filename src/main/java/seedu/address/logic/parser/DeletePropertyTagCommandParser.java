@@ -48,7 +48,7 @@ public class DeletePropertyTagCommandParser implements Parser<DeletePropertyTagC
                     DeletePropertyTagCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty() || preamble.split(" ").length != 1) {
+        if (preamble.isEmpty() || preamble.split("\\s+").length != 1) {
             throw new ParseException(String.format(MESSAGE_ONE_INDEX_EXPECTED,
                     DeletePropertyTagCommand.MESSAGE_USAGE));
         }

@@ -43,7 +43,7 @@ public class SearchPropertyByTagCommandParser implements Parser<SearchPropertyBy
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_PREAMBLE_FOUND,
-                    SearchPersonByTagCommand.MESSAGE_USAGE));
+                    SearchPropertyByTagCommand.MESSAGE_USAGE));
         }
     }
 }

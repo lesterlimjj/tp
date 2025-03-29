@@ -36,7 +36,7 @@ public class MatchPersonCommandParser implements Parser<MatchPersonCommand> {
     private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
         String preamble = argMultimap.getPreamble().trim();
 
-        if (preamble.isEmpty() || preamble.split(" ").length != 2) {
+        if (preamble.isEmpty() || preamble.split("\\s+").length != 2) {
             throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
                     MatchPersonCommand.MESSAGE_USAGE));
         }

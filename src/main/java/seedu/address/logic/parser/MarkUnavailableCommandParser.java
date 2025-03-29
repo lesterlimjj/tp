@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MarkUnavailableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
