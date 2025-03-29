@@ -35,11 +35,6 @@ public class PersonMatchesPropertyPredicate implements Predicate<Person> {
             return false;
         }
 
-        // If listing is not available, reject.
-        if (!listingToMatch.getAvailability()) {
-            return false;
-        }
-
         Set<Tag> tagsToMatch = listingToMatch.getTags();
         for (PropertyPreference pref : propertyPreferences) {
             // If any tag matches, return true.
