@@ -76,6 +76,8 @@ public class Messages {
     public static final String MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY =
             "Tag prefix specified but no tag value given. Please specify a tag after t/.";
 
+    public static final String MESSAGE_ONE_INDEX_EXPECTED = "This command expects only 1 index to be provided. \n%s";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
