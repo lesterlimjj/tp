@@ -112,8 +112,8 @@ public class PriceRange {
         boolean isThisUpperBoundWithinRange = this.upperBoundPrice == null
                 || otherPriceRange.isPriceWithinRange(this.upperBoundPrice);
 
-        return isOtherLowerBoundWithinRange || isOtherUpperBoundWithinRange ||
-                (isThisLowerBoundWithinRange && isThisUpperBoundWithinRange);
+        return isOtherLowerBoundWithinRange || isOtherUpperBoundWithinRange
+                || (isThisLowerBoundWithinRange && isThisUpperBoundWithinRange);
     }
 
     /**
