@@ -218,7 +218,7 @@ public interface Model {
 
     /**
      * Returns the tag with the given tag name.
-     * 
+     *
      * @param tagName
      * @return The tag with the given tag name.
      */
