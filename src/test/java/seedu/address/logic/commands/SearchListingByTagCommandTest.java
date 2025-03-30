@@ -25,7 +25,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 public class SearchListingByTagCommandTest {
     private Model model;
@@ -40,17 +39,16 @@ public class SearchListingByTagCommandTest {
         model.updateSortedFilteredListingList(model.COMPARATOR_SHOW_ALL_LISTINGS);
 
         // Clear registry first to avoid duplicates
-        Set<String> keys = Set.copyOf(TagRegistry.of().asUnmodifiableObservableMap().keySet());
+        Set<String> keys = Set.copyOf(model.getTagMap().keySet());
         for (String key : keys) {
-            Tag tag = TagRegistry.of().get(key);
-            TagRegistry.of().remove(tag);
+            Tag tag = model.getTagMap().get(key);
+            model.getTagMap().remove(tag);
         }
 
         // Add tags
         Tag petFriendly = new Tag("pet-friendly", List.of(), List.of());
         Tag pool = new Tag("pool", List.of(), List.of());
-        TagRegistry.of().add(petFriendly);
-        TagRegistry.of().add(pool);
+        model.addTags(Set.of(petFriendly.getTagName(), pool.getTagName()));
 
         // Add sample listing
         Listing listing = Listing.of(
@@ -95,7 +93,7 @@ public class SearchListingByTagCommandTest {
     @Test
     public void execute_noMatch_successMessageNoMatch() throws Exception {
         // Search for tag not in listings but present in registry
-        TagRegistry.of().add(new Tag("garden", List.of(), List.of()));
+        model.addTags(Set.of("garden"));
         Set<String> tagsToSearch = Set.of("garden");
         SearchListingByTagCommand command = new SearchListingByTagCommand(tagsToSearch);
 

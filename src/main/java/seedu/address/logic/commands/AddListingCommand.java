@@ -19,7 +19,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Adds a {@code Listing} to the address book.
@@ -91,12 +90,11 @@ public class AddListingCommand extends Command {
         Set<String> tagNames = new HashSet<>(tagSet);
         tagNames.addAll(newTagSet);
 
-        TagRegistry tagRegistry = TagRegistry.of();
         for (String tagName: tagNames) {
-            Tag tag = tagRegistry.get(tagName);
+            Tag tag = model.getTag(tagName);
             tag.addListing(toAdd);
-            tagRegistry.setTag(tag, tag);
-            toAdd.addTag(tagRegistry.get(tagName));
+            model.setTag(tag, tag);
+            toAdd.addTag(model.getTag(tagName));
         }
 
         model.addListing(toAdd);

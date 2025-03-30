@@ -17,7 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Deletes {@code Tag}(s) from a {@code PropertyPreference} identified using it's displayed index
@@ -74,16 +73,16 @@ public class DeletePreferenceTagCommand extends Command {
 
         PropertyPreference preferenceToDelete = targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
 
-        TagRegistry tagRegistry = TagRegistry.of();
         Set<Tag> tags = new HashSet<>();
-
         for (String tagName : tagsToDelete) {
             Tag tag = new Tag(tagName, new ArrayList<>(), new ArrayList<>());
-            if (!tagRegistry.contains(tag)) {
+
+            if (!model.hasTag(tagName)) {
                 throw new CommandException(String.format(Messages.MESSAGE_TAG_DOES_NOT_EXIST, tagName,
                         MESSAGE_USAGE));
             }
-            Tag tagToRemove = tagRegistry.get(tagName);
+
+            Tag tagToRemove = model.getTag(tagName);
             if (!preferenceToDelete.getTags().contains(tag)) {
                 throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE, tagName,
                         MESSAGE_USAGE));
@@ -93,7 +92,7 @@ public class DeletePreferenceTagCommand extends Command {
 
         for (Tag tag : tags) {
             tag.removePropertyPreference(preferenceToDelete);
-            tagRegistry.setTag(tag, tag);
+            model.setTag(tag, tag);
             preferenceToDelete.removeTag(tag);
         }
 

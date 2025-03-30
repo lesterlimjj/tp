@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
@@ -18,7 +19,9 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Comparator<Person> COMPARATOR_SHOW_ALL_PERSONS = Comparator.comparing(p -> p.getName().fullName);
 
@@ -26,6 +29,7 @@ public interface Model {
     Comparator<Listing> COMPARATOR_SHOW_ALL_LISTINGS = Comparator.comparing(l -> l.getPostalCode().postalCode);
 
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
+    Comparator<Tag> COMPARATOR_SHOW_ALL_TAGS = Comparator.comparing(t -> t.tagName);
 
     Predicate<PropertyPreference> PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES = unused -> true;
 
@@ -74,7 +78,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -101,47 +107,72 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the sorted filtered person list */
+    /**
+     * Returns an unmodifiable view of the sorted filtered person list
+     */
     ObservableList<Person> getSortedFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered listing list*/
+    /**
+     * Returns an unmodifiable view of the filtered listing list
+     */
     ObservableList<Listing> getFilteredListingList();
 
-    /** Returns an unmodifiable view of the sorted filtered listing list*/
+    /**
+     * Returns an unmodifiable view of the sorted filtered listing list
+     */
     ObservableList<Listing> getSortedFilteredListingList();
 
-    /** Returns an unmodifiable view of the filtered tag list*/
+    /**
+     * Returns an unmodifiable view of the tag map
+     */
+    ObservableMap<String, Tag> getTagMap();
+
+    /**
+     * Returns an unmodifiable view of the filtered tag list
+     */
     ObservableList<Tag> getFilteredTagList();
 
     /**
+     * Returns an unmodifiable view of the sorted filtered tag list
+     */
+    ObservableList<Tag> getSortedFilteredTagList();
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
      * Updates the comparator of the sorted filtered person list to sort by the given {@code comparator}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateSortedFilteredPersonList(Comparator<Person> comparator);
 
     /**
      * Updates the filter of the filtered listing list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredListingList(Predicate<Listing> predicate);
 
     /**
      * Updates the comparator of the sorted filtered listing list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code comparator} is null.
      */
     void updateSortedFilteredListingList(Comparator<Listing> comparator);
 
     /**
      * Updates the filter of the filtered tag list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTagList(Predicate<Tag> predicate);
@@ -171,6 +202,8 @@ public interface Model {
      */
     void deleteListing(Listing target);
 
+    boolean hasTag(String tag);
+
     boolean hasTags(Set<String> tags);
 
     boolean hasNewTags(Set<String> tags);
@@ -182,6 +215,14 @@ public interface Model {
      * The tag must exist in the address book.
      */
     void deleteTag(Tag tagToDelete);
+
+    /**
+     * Returns the tag with the given tag name.
+     *
+     * @param tagName
+     * @return The tag with the given tag name.
+     */
+    Tag getTag(String tagName);
 
     /**
      * Sets the given tag {@code target} with {@code editedTag}.

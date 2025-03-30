@@ -15,7 +15,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Deletes {@code Tag}(s) from a {@code Listing} identified using it's displayed index in the address book.
@@ -58,16 +57,16 @@ public class DeleteListingTagCommand extends Command {
 
         Listing listingToEdit = lastShownList.get(propertyIndex.getZeroBased());
 
-        TagRegistry tagRegistry = TagRegistry.of();
         Set<Tag> deletedTags = new HashSet<>();
 
+        // Modify listing and tag registry in place
         for (String tagName : tagsToDelete) {
             Tag tag = new Tag(tagName, new ArrayList<>(), new ArrayList<>());
-            if (!tagRegistry.contains(tag)) {
+            if (!model.hasTag(tagName)) {
                 throw new CommandException(String.format(Messages.MESSAGE_TAG_DOES_NOT_EXIST, tagName,
                         MESSAGE_USAGE));
             }
-            Tag tagToRemove = tagRegistry.get(tagName);
+            Tag tagToRemove = model.getTag(tagName);
             if (!listingToEdit.getTags().contains(tag)) {
                 throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_PROPERTY, tagName,
                         MESSAGE_USAGE));
@@ -79,7 +78,7 @@ public class DeleteListingTagCommand extends Command {
             listingToEdit.removeTag(tag);
             model.setListing(listingToEdit, listingToEdit);
             tag.removeListing(listingToEdit);
-            tagRegistry.setTag(tag, tag);
+            model.setTag(tag, tag);
             deletedTags.add(tag);
         }
 

@@ -16,7 +16,6 @@ import seedu.address.model.SearchType;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.predicates.ListingContainsAllTagsPredicate;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Searches for {@code Listing}(s) whose tags contain all specified tags.
@@ -50,7 +49,7 @@ public class SearchListingByTagCommand extends Command {
 
         // Validate each tag exists
         for (String tagName : tagsToSearch) {
-            if (!model.hasTags(Set.of(tagName))) {
+            if (!model.hasTag(tagName)) {
                 throw new CommandException(String
                         .format(Messages.MESSAGE_TAG_DOES_NOT_EXIST, tagName, MESSAGE_USAGE));
             }
@@ -58,7 +57,7 @@ public class SearchListingByTagCommand extends Command {
 
         List<Tag> activeTags = new ArrayList<>();
         for (String tagName : tagsToSearch) {
-            activeTags.add(TagRegistry.of().get(tagName));
+            activeTags.add(model.getTag(tagName));
         }
 
         model.resetAllLists();

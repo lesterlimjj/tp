@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -133,7 +134,17 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public ObservableMap<String, Tag> getTagMap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Tag> getFilteredTagList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getSortedFilteredTagList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -235,6 +246,16 @@ public class AddPersonCommandTest {
         @Override
         public void resetAllLists() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Tag getTag(String tagName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTag(String tag) {
+            return false;
         }
 
         @Override
