@@ -20,9 +20,9 @@ import seedu.address.model.tag.TagRegistry;
 /**
  * Deletes {@code Tag}(s) from a {@code Listing} identified using it's displayed index in the address book.
  */
-public class DeletePropertyTagCommand extends Command {
+public class DeleteListingTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletePropertyTag";
+    public static final String COMMAND_WORD = "deleteListingTag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes tags from a property identified "
             + "by the index number used in the displayed property list.\n"
@@ -34,12 +34,12 @@ public class DeletePropertyTagCommand extends Command {
     private final Set<String> tagsToDelete;
 
     /**
-     * Creates a {@code DeletePreferenceTagCommand} to delete a set of {@code Tag} from the specified {@code Listing}.
+     * Creates a {@code DeleteListingTagCommand} to delete a set of {@code Tag} from the specified {@code Listing}.
      *
      * @param propertyIndex The index of the property from which tags will be removed.
      * @param tagsToDelete  The set of tag names to be deleted.
      */
-    public DeletePropertyTagCommand(Index propertyIndex, Set<String> tagsToDelete) {
+    public DeleteListingTagCommand(Index propertyIndex, Set<String> tagsToDelete) {
         requireNonNull(propertyIndex);
         requireNonNull(tagsToDelete);
 
@@ -92,9 +92,9 @@ public class DeletePropertyTagCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof DeletePropertyTagCommand
-                && propertyIndex.equals(((DeletePropertyTagCommand) other).propertyIndex)
-                && tagsToDelete.equals(((DeletePropertyTagCommand) other).tagsToDelete));
+                || (other instanceof DeleteListingTagCommand
+                && propertyIndex.equals(((DeleteListingTagCommand) other).propertyIndex)
+                && tagsToDelete.equals(((DeleteListingTagCommand) other).tagsToDelete));
     }
 
     @Override

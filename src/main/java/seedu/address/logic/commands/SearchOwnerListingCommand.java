@@ -17,9 +17,9 @@ import seedu.address.model.person.Person;
 /**
  * Searches for {@code Listing}(s) that are owned by a {@code Person} identified using it's displayed index.
  */
-public class SearchOwnerPropertyCommand extends Command {
+public class SearchOwnerListingCommand extends Command {
 
-    public static final String COMMAND_WORD = "searchOwnerProperty";
+    public static final String COMMAND_WORD = "searchOwnerListing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all properties owned by a person identified by the index number "
@@ -32,12 +32,12 @@ public class SearchOwnerPropertyCommand extends Command {
     private final Index targetIndex;
 
     /**
-     * Creates a {@code SearchOwnerPropertyCommand} to list the specified {@code Person}'s owned
+     * Creates a {@code SearchOwnerListingCommand} to list the specified {@code Person}'s owned
      * {@code Listing}s.
      *
      * @param targetIndex of the listing in the filtered listing list to delete
      */
-    public SearchOwnerPropertyCommand(Index targetIndex) {
+    public SearchOwnerListingCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -79,7 +79,7 @@ public class SearchOwnerPropertyCommand extends Command {
             return false;
         }
 
-        SearchOwnerPropertyCommand otherDeletePersonCommand = (SearchOwnerPropertyCommand) other;
+        SearchOwnerListingCommand otherDeletePersonCommand = (SearchOwnerListingCommand) other;
         return targetIndex.equals(otherDeletePersonCommand.targetIndex);
     }
 

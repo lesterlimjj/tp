@@ -21,13 +21,13 @@ import seedu.address.model.tag.TagRegistry;
 /**
  * Overwrites all {@code Tag}s in a {@code Listing} identified using it's displayed index in the address book.
  */
-public class OverwritePropertyTagCommand extends Command {
+public class OverwriteListingTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "overwritePropertyTag";
+    public static final String COMMAND_WORD = "overwriteListingTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Replaces all tags in an existing property "
-            + "identified by the index number used in the displayed property list.\n"
-            + "Parameters: PROPERTY_INDEX (must be a positive integer) "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Replaces all tags in an existing listing "
+            + "identified by the index number used in the displayed listing list.\n"
+            + "Parameters: LISTING_INDEX (must be a positive integer) "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
             + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "2-bedrooms\n"
@@ -46,13 +46,13 @@ public class OverwritePropertyTagCommand extends Command {
     private final Set<String> newTagSet;
 
     /**
-     * Creates an @{code OverwritePropertyTagCommand} to replace all {@code Tag}s in {@code Listing}.
+     * Creates an @{code OverwriteListingTagCommand} to replace all {@code Tag}s in {@code Listing}.
      *
      * @param propertyIndex The index of the property in which tags will be overwritten.
      * @param tagSet The set of existing tags to be used in the property.
      * @param newTagSet The set of new tags to be created and used in the property.
      */
-    public OverwritePropertyTagCommand(Index propertyIndex, Set<String> tagSet, Set<String> newTagSet) {
+    public OverwriteListingTagCommand(Index propertyIndex, Set<String> tagSet, Set<String> newTagSet) {
         requireAllNonNull(propertyIndex, tagSet, newTagSet);
 
         this.propertyIndex = propertyIndex;
@@ -121,10 +121,10 @@ public class OverwritePropertyTagCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof OverwritePropertyTagCommand
-                && propertyIndex.equals(((OverwritePropertyTagCommand) other).propertyIndex)
-                && tagSet.equals(((OverwritePropertyTagCommand) other).tagSet))
-                && newTagSet.equals(((OverwritePropertyTagCommand) other).newTagSet);
+                || (other instanceof OverwriteListingTagCommand
+                && propertyIndex.equals(((OverwriteListingTagCommand) other).propertyIndex)
+                && tagSet.equals(((OverwriteListingTagCommand) other).tagSet))
+                && newTagSet.equals(((OverwriteListingTagCommand) other).newTagSet);
     }
 
     @Override

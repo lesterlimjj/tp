@@ -8,18 +8,18 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.SearchPropertyByTagCommand;
+import seedu.address.logic.commands.SearchListingByTagCommand;
 import seedu.address.model.tag.Tag;
 
-public class SearchPropertyByTagCommandParserTest {
+public class SearchListingByTagCommandParserTest {
 
-    private final SearchPropertyByTagCommandParser parser = new SearchPropertyByTagCommandParser();
+    private final SearchListingByTagCommandParser parser = new SearchListingByTagCommandParser();
 
     @Test
     public void parse_validInput_success() {
         Set<String> expectedTags = Set.of("pet-friendly", "pool");
         String userInput = " t/pool t/pet-friendly";
-        SearchPropertyByTagCommand expectedCommand = new SearchPropertyByTagCommand(expectedTags);
+        SearchListingByTagCommand expectedCommand = new SearchListingByTagCommand(expectedTags);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -27,7 +27,7 @@ public class SearchPropertyByTagCommandParserTest {
     public void parse_missingPrefixOrRandomInput_showsUsage() {
         String userInput = "random words without prefix";
         assertParseFailure(parser, userInput, String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS,
-                SearchPropertyByTagCommand.MESSAGE_USAGE));
+                SearchListingByTagCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -40,7 +40,7 @@ public class SearchPropertyByTagCommandParserTest {
     public void parse_emptyArguments_showsUsage() {
         String userInput = " ";
         assertParseFailure(parser, userInput, String.format(Messages.MESSAGE_ARGUMENTS_EMPTY,
-                SearchPropertyByTagCommand.MESSAGE_USAGE));
+                SearchListingByTagCommand.MESSAGE_USAGE));
     }
 
     @Test
