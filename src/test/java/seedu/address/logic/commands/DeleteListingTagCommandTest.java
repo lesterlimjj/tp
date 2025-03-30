@@ -31,9 +31,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
 /**
- * Unit tests for DeletePropertyTagCommand.
+ * Unit tests for DeleteListingTagCommand.
  */
-public class DeletePropertyTagCommandTest {
+public class DeleteListingTagCommandTest {
     private Model model;
     private Listing sampleListing;
     @BeforeEach
@@ -83,7 +83,7 @@ public class DeletePropertyTagCommandTest {
         tagsToRemove.add("Luxury");
         tagsToRemove.add("Pool");
 
-        DeletePropertyTagCommand deleteCommand = new DeletePropertyTagCommand(validIndex, tagsToRemove);
+        DeleteListingTagCommand deleteCommand = new DeleteListingTagCommand(validIndex, tagsToRemove);
 
         CommandResult result = deleteCommand.execute(model);
 
@@ -107,7 +107,7 @@ public class DeletePropertyTagCommandTest {
         Set<String> tagsToRemove = new HashSet<>();
         tagsToRemove.add("Luxury");
 
-        DeletePropertyTagCommand deleteCommand = new DeletePropertyTagCommand(outOfBoundsIndex, tagsToRemove);
+        DeleteListingTagCommand deleteCommand = new DeleteListingTagCommand(outOfBoundsIndex, tagsToRemove);
 
         assertThrows(CommandException.class, () -> deleteCommand.execute(model));
     }
@@ -118,7 +118,7 @@ public class DeletePropertyTagCommandTest {
         Set<String> tagsToRemove = new HashSet<>();
         tagsToRemove.add("NonExistentTag");
 
-        DeletePropertyTagCommand deleteCommand = new DeletePropertyTagCommand(validIndex, tagsToRemove);
+        DeleteListingTagCommand deleteCommand = new DeleteListingTagCommand(validIndex, tagsToRemove);
 
         assertThrows(CommandException.class, () -> deleteCommand.execute(model));
     }
@@ -128,7 +128,7 @@ public class DeletePropertyTagCommandTest {
         Index validIndex = Index.fromZeroBased(0);
         Set<String> tagsToRemove = Set.of("NotInListingTag");
 
-        DeletePropertyTagCommand deleteCommand = new DeletePropertyTagCommand(validIndex, tagsToRemove);
+        DeleteListingTagCommand deleteCommand = new DeleteListingTagCommand(validIndex, tagsToRemove);
         assertThrows(CommandException.class, () -> deleteCommand.execute(model));
     }
 }

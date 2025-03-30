@@ -23,7 +23,7 @@ import seedu.address.model.person.predicates.PropertyPreferencesContainAnyActive
  */
 public class MatchListingCommand extends Command {
 
-    public static final String COMMAND_WORD = "matchProperty";
+    public static final String COMMAND_WORD = "matchListing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Matches the listing identified by the index number used in the displayed listing list"
