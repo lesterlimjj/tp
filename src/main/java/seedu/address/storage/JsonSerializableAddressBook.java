@@ -49,7 +49,7 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).toList());
         listings.addAll(source.getListingList().stream().map(JsonAdaptedListing::new).toList());
-        tags.addAll(source.getTagList().keySet().stream().map(JsonAdaptedTag::new).toList());
+        tags.addAll(source.getTagMap().keySet().stream().map(JsonAdaptedTag::new).toList());
     }
 
     /**

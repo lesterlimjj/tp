@@ -147,7 +147,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableMap<String, Tag> getTagList() {
+        public ObservableMap<String, Tag> getTagMap() {
             return tags;
         }
     }

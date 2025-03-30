@@ -24,9 +24,9 @@ public interface ReadOnlyAddressBook {
     ObservableList<Listing> getListingList();
 
     /**
-     * Returns an unmodifiable view of the tag list.
-     * This list will not contain any duplicate tag.
+     * Returns an unmodifiable view of the tag map.
+     * This map will not contain any duplicate tag.
      */
-    ObservableMap<String, Tag> getTagList();
+    ObservableMap<String, Tag> getTagMap();
 
 }

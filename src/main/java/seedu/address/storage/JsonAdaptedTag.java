@@ -48,7 +48,7 @@ class JsonAdaptedTag {
 
         Tag tag = new Tag(tagName, new ArrayList<>(), new ArrayList<>());
         if (addressBook.hasTag(tagName)) {
-            tag = addressBook.getTagList().get(tagName);
+            tag = addressBook.getTagMap().get(tagName);
         }
 
         return tag;

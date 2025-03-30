@@ -62,7 +62,7 @@ public class ModelManager implements Model {
         sortedFilteredListings = new SortedList<>(this.filteredListings);
         sortedFilteredListings.setComparator(COMPARATOR_SHOW_ALL_LISTINGS);
 
-        tagMap = this.addressBook.getTagList();
+        tagMap = this.addressBook.getTagMap();
 
         // Convert ObservableMap values to ObservableList
         ObservableList<Tag> tagObservableList = FXCollections.observableArrayList(tagMap.values());

@@ -14,7 +14,7 @@ import seedu.address.model.listing.UniqueListingList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagMap;
 
 /**
  * Wraps all data at the address-book level
@@ -24,7 +24,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueListingList listings;
-    private final UniqueTagList tags;
+    private final UniqueTagMap tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -36,7 +36,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         listings = new UniqueListingList();
-        tags = new UniqueTagList();
+        tags = new UniqueTagMap();
     }
 
     public AddressBook() {
@@ -97,7 +97,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @return An ObservableMap representing the tag list.
      */
-    public ObservableMap<String, Tag> getTagList() {
+    public ObservableMap<String, Tag> getTagMap() {
         return tags.asUnmodifiableObservableMap();
     }
 
@@ -130,7 +130,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setListings(newData.getListingList());
-        setTags(newData.getTagList().values().stream().toList());
+        setTags(newData.getTagMap().values().stream().toList());
     }
 
     //// person-level operations
