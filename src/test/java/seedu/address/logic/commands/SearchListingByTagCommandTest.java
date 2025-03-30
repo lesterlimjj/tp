@@ -27,7 +27,7 @@ import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagRegistry;
 
-public class SearchPropertyByTagCommandTest {
+public class SearchListingByTagCommandTest {
     private Model model;
 
     @BeforeEach
@@ -76,7 +76,7 @@ public class SearchPropertyByTagCommandTest {
     @Test
     public void execute_validTag_success() throws Exception {
         Set<String> tagsToSearch = Set.of("pet-friendly", "pool");
-        SearchPropertyByTagCommand command = new SearchPropertyByTagCommand(tagsToSearch);
+        SearchListingByTagCommand command = new SearchListingByTagCommand(tagsToSearch);
 
         CommandResult result = command.execute(model);
         assertEquals("1 properties matching the tags!", result.getFeedbackToUser());
@@ -85,11 +85,11 @@ public class SearchPropertyByTagCommandTest {
     @Test
     public void execute_tagNotFound_throwsCommandException() {
         Set<String> tagsToSearch = Set.of("nonexistenttag");
-        SearchPropertyByTagCommand command = new SearchPropertyByTagCommand(tagsToSearch);
+        SearchListingByTagCommand command = new SearchListingByTagCommand(tagsToSearch);
 
         CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
         assertEquals(String.format(Messages.MESSAGE_TAG_DOES_NOT_EXIST,
-                "nonexistenttag", SearchPropertyByTagCommand.MESSAGE_USAGE), thrown.getMessage());
+                "nonexistenttag", SearchListingByTagCommand.MESSAGE_USAGE), thrown.getMessage());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class SearchPropertyByTagCommandTest {
         // Search for tag not in listings but present in registry
         TagRegistry.of().add(new Tag("garden", List.of(), List.of()));
         Set<String> tagsToSearch = Set.of("garden");
-        SearchPropertyByTagCommand command = new SearchPropertyByTagCommand(tagsToSearch);
+        SearchListingByTagCommand command = new SearchListingByTagCommand(tagsToSearch);
 
         CommandResult result = command.execute(model);
         assertEquals(Messages.MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH, result.getFeedbackToUser());
@@ -105,10 +105,10 @@ public class SearchPropertyByTagCommandTest {
 
     @Test
     public void execute_noParams_throwsCommandException() {
-        SearchPropertyByTagCommand command = new SearchPropertyByTagCommand(Set.of());
+        SearchListingByTagCommand command = new SearchListingByTagCommand(Set.of());
 
         CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
         assertEquals(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS,
-                SearchPropertyByTagCommand.MESSAGE_USAGE), thrown.getMessage());
+                SearchListingByTagCommand.MESSAGE_USAGE), thrown.getMessage());
     }
 }
