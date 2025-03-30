@@ -75,50 +75,38 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
+### Person Management
 
-### Adding a person: `add`
-
+#### Adding a person: `addPerson`
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-
-<box type="tip" seamless>
-
-**Tip:** A person can have any number of tags (including 0)
-</box>
+Format: `addPerson n/NAME p/PHONE e/EMAIL`
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addPerson n/John Doe p/98765432 e/johnd@example.com`
 
-### Listing all persons : `list`
-
+#### Listing all persons: `listPerson`
 Shows a list of all persons in the address book.
 
-Format: `list`
+Format: `listPerson`
 
-### Editing a person : `edit`
-
+#### Editing a person: `editPerson`
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `editPerson INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+#### Locating persons by name: `findPerson`
 
 Finds persons whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `findPerson KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -128,32 +116,228 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+* `findPerson John` returns `john` and `John Doe`
+* `findPerson alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+#### Searching persons by preferences: `searchPerson`
+Finds persons with property preferences containing all specified tags.
+
+Format: `searchPerson t/TAG [t/TAG]...`
+
+Example:
+* `searchPerson t/gym t/pet-friendly` returns all persons who have both `gym` and `pet-friendly` tags in their property preference.
+
+#### Deleting a person : `deletePerson`
 
 Deletes the specified person from the address book.
 
-Format: `delete INDEX`
+Format: `deletePerson INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `listListing` followed by `deletePerson 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
 
-### Clearing all entries : `clear`
+### Listing Management
 
+#### Adding a listing: `addListing`
+Adds a property listing to the address book.
+
+Format: `addListing pc/POSTAL_CODE [u/UNIT_NUMBER] [h/HOUSE_NUMBER] [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [n/PROPERTY_NAME] [t/TAG]... [nt/NEW_TAG]...`
+
+Example:
+* `addListing pc/654321 h/12 lbp/300000 ubp/600000 n/Sunny Villa t/quiet t/pet-friendly nt/family-friendly nt/spacious`
+
+<box type="tip" seamless>
+**Tip:** A listing can have any number of tags (including 0)
+</box>
+
+#### Listing all properties: `listListing`
+Shows a list of all property listings.
+
+Format: `listListing`
+
+#### Searching properties: `searchProperty`
+Finds properties with all specified tags.
+
+Format: `searchProperty t/TAG [t/TAG]...`
+
+Example:
+* `searchProperty t/pet-friendly t/pool`
+
+#### Searching owner properties: `searchOwnerProperty`
+Finds properties owned by a specific person.
+
+Format: `searchOwnerProperty PERSON_INDEX`
+
+Example:
+* `searchOwnerProperty 1`
+
+#### Marking listing availability:
+- `markAvailable`: Marks listing as available
+- `markUnavailable`: Marks listing as unavailable
+
+Format: `markAvailable INDEX` or `markUnavailable INDEX`
+
+Listings marked as unavailable will not be matched to any person.
+
+Example:
+* `markAvailable 1`
+* `markUnavailable 2`
+
+#### Deleting a listing: `deleteListing`
+Deletes the specified listing from the address book.
+
+Format: `deleteListing INDEX`
+
+Example:
+* `deleteListing 1`
+
+### Tag Management
+
+#### Adding tags: `addTag`
+Adds new tags to the system.
+
+Format: `addTag [nt/NEW_TAG]...`
+
+Example:
+* `addTag nt/family-friendly nt/spacious`
+
+#### Listing all tags: `listTag`
+Shows a list of all available tags.
+
+Format: `listTag`
+
+#### Deleting tags: `deleteTag`
+Deletes the specified tags from the system.
+
+Format: `deleteTag [t/TAG]...`
+
+Example:
+* `deleteTag t/quiet t/pet-friendly`
+
+### Preference Management
+
+#### Adding a preference: `addPreference`
+Adds a property preference to a person.
+
+Format: `addPreference INDEX lbp/LOWER_BOUND_PRICE ubp/UPPER_BOUND_PRICE [t/TAG]... [nt/NEW_TAG]...`
+
+Example:
+* `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
+
+<box type="tip" seamless>
+**Tip:** A preference can have any number of tags (including 0)
+</box>
+
+#### Adding tags to a preference: `addPreferenceTag`
+Adds tags to an existing preference.
+
+Format: `addPreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]... [nt/NEW_TAG]...`
+
+Example:
+* `addPreferenceTag 2 1 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
+
+#### Overwriting preference tags: `overwritePreferenceTag`
+Replaces all tags in an existing preference.
+
+Format: `overwritePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]... [nt/NEW_TAG]...`
+
+Example:
+* `overwritePreferenceTag 3 2 t/2-bedrooms nt/seaside-view`
+
+#### Deleting a preference: `deletePreference`
+Deletes a person's property preference.
+
+Format: `deletePreference PERSON_INDEX PREFERENCE_INDEX`
+
+Example:
+* `deletePreference 1 2`
+
+#### Deleting preference tags: `deletePreferenceTag`
+Deletes tags from a person's preference.
+
+Format: `deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]...`
+
+Example:
+* `deletePreferenceTag 3 1 t/pet-friendly t/pool`
+
+### Property Tag Management
+
+#### Adding tags to listing: `addListingTag`
+Adds tags to a property listing.
+
+Format: `addListingTag INDEX [t/TAG]... [nt/NEW_TAG]...`
+
+Example:
+* `addListingTag 2 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
+
+#### Overwriting property tags: `overwritePropertyTag`
+Replaces all tags in a property listing.
+
+Format: `overwritePropertyTag PROPERTY_INDEX [t/TAG]... [nt/NEW_TAG]...`
+
+Example:
+* `overwritePropertyTag 3 t/4-bedrooms t/2-toilets nt/seaside-view`
+
+#### Deleting property tags: `deletePropertyTag`
+Deletes tags from a property.
+
+Format: `deletePropertyTag PROPERTY_INDEX [t/TAG]...`
+
+Example:
+* `deletePropertyTag 3 t/pet-friendly t/pool`
+
+### Matching System
+
+#### Matching persons to listings: `matchPerson`
+Finds listings matching a person's preference.
+
+Format: `matchPerson PERSON_INDEX PREFERENCE_INDEX`
+
+Example:
+* `matchPerson 1 2`
+
+Listings that are marked as unavailable or owned by the person will not be shown.
+
+#### Matching listings to persons: `matchProperty`
+Finds persons whose preferences match a listing.
+
+Format: `matchProperty INDEX`
+
+Example:
+* `matchProperty 1`
+
+### Owner Management
+
+#### Assigning an owner to a person: `assignOwner`
+Assigns an owner to a listing.
+
+Format: `assignListing PERSON_INDEX LISTING_INDEX`
+
+Example:
+* `assignOwner 2 1`
+
+#### Deleting an owner: `deleteOwner`
+Removes an owner from a listing.
+
+Format: `deleteOwner LISTING_INDEX OWNER_INDEX`
+
+Example:
+* `deleteOwner 1 2`
+
+### General Commands
+
+#### Clearing all data: `clear`
 Clears all entries from the address book.
 
 Format: `clear`
 
-### Exiting the program : `exit`
-
+#### Exiting the program: `exit`
 Exits the program.
 
 Format: `exit`
