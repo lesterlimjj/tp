@@ -143,7 +143,7 @@ public class AddressBookParser {
             return new ListTagCommand();
 
         case AddOwnerCommand.COMMAND_WORD:
-            return new AssignListingCommandParser().parse(arguments);
+            return new AddOwnerCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -11,9 +11,9 @@ import seedu.address.logic.commands.AddOwnerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code AssignListingCommandParser} object.
+ * Parses input arguments and creates a new {@code AddOwnerCommandParser} object.
  */
-public class AssignListingCommandParser implements Parser<AddOwnerCommand> {
+public class AddOwnerCommandParser implements Parser<AddOwnerCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddOwnerCommand
