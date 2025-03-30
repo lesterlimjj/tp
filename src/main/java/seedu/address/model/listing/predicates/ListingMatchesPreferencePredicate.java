@@ -24,14 +24,14 @@ public class ListingMatchesPreferencePredicate implements Predicate<Listing> {
     public boolean test(Listing listing) {
         Set<Tag> tagsToMatch = preferenceToMatch.getTags();
 
-        // If unavailable or listing is owned by a person, reject.
+        // If unavailable or listing is owned by the person in the preference, reject.
         if (!listing.getAvailability() || listing.getOwners().contains(preferenceToMatch.getPerson())) {
             return false;
         }
 
         // If price range overlaps, accept.
-        boolean priceRangeOverlaps = listing.getPriceRange().doPriceRangeOverlap(preferenceToMatch.getPriceRange());
-        if (priceRangeOverlaps) {
+        boolean PriceRangeOverlaps = preferenceToMatch.getPriceRange().doPriceRangeOverlap(listing.getPriceRange());
+        if (PriceRangeOverlaps) {
             return true;
         }
 

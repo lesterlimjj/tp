@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -56,14 +57,16 @@ public class SearchOwnerListingCommand extends Command {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
 
+        model.resetAllLists();
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
-
         searchSellerProperty(model, targetPerson);
 
         return new CommandResult(String.format(MESSAGE_SEARCH_SELLER_PROPERTY_SUCCESS, Messages.format(targetPerson)));
     }
 
     private void searchSellerProperty(Model model, Person targetPerson) {
+        requireAllNonNull(model, targetPerson);
+
         Predicate<Listing> predicate = new ListingContainsOwnerPredicate(targetPerson);
         model.updateFilteredListingList(predicate);
     }

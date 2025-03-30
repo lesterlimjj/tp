@@ -12,6 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.SearchType;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.predicates.ListingContainsAllTagsPredicate;
 import seedu.address.model.tag.Tag;
@@ -59,8 +60,9 @@ public class SearchListingByTagCommand extends Command {
         for (String tagName : tagsToSearch) {
             activeTags.add(TagRegistry.of().get(tagName));
         }
-        Tag.setActiveSearchTags(activeTags);
 
+        model.resetAllLists();
+        model.setSearch(activeTags, null, SearchType.LISTING);
         ListingContainsAllTagsPredicate predicate = new ListingContainsAllTagsPredicate(tagsToSearch);
         model.updateFilteredListingList(predicate);
 

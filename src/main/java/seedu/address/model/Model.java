@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -10,6 +11,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,6 +28,16 @@ public interface Model {
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
 
     Predicate<PropertyPreference> PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES = unused -> true;
+
+
+    /**
+     *  Sets the search parameters
+     *
+     *  @param tags the tags to search for
+     *  @param priceRange the price range to search for
+     *  @param searchType the type of search to perform
+     */
+    void setSearch(List<Tag> tags, PriceRange priceRange, SearchType searchType);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -171,6 +183,11 @@ public interface Model {
      */
     void deleteTag(Tag tagToDelete);
 
+    /**
+     * Sets the given tag {@code target} with {@code editedTag}.
+     * @param target The tag to be replaced.
+     * @param editedTag The tag to replace with.
+     */
     void setTag(Tag target, Tag editedTag);
 
     /**
