@@ -219,18 +219,18 @@ public class ModelManager implements Model {
 
     @Override
     public void resetAllLists() {
-        setSearch(new ArrayList<>(), null, searchTypeEnum.NONE);
+        setSearch(new ArrayList<>(), null, SearchType.NONE);
         resetPersonList();
         resetListingList();
         resetTagList();
     }
 
     @Override
-    public void setSearch(List<Tag> tags, PriceRange priceRange, searchTypeEnum searchTypeEnum) {
+    public void setSearch(List<Tag> tags, PriceRange priceRange, SearchType searchType) {
         Tag.setActiveSearchTags(tags);
-        Tag.setSearch(searchTypeEnum);
+        Tag.setSearch(searchType);
         PriceRange.setFilteredAgainst(priceRange);
-        PriceRange.setSearch(searchTypeEnum);
+        PriceRange.setSearch(searchType);
     }
 
     //=========== Filtered Person List Accessors =============================================================

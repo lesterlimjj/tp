@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
-import seedu.address.model.Model;
+import seedu.address.model.SearchType;
 
 /**
  * Represents a Price Range in the real estate system.
@@ -18,7 +18,7 @@ import seedu.address.model.Model;
 public class PriceRange {
 
     private static PriceRange filteredAgainst = null;
-    private static Model.searchTypeEnum searchType = Model.searchTypeEnum.NONE;
+    private static SearchType searchType = SearchType.NONE;
 
     public final Price lowerBoundPrice;
     public final Price upperBoundPrice;
@@ -131,7 +131,7 @@ public class PriceRange {
      *
      * @param searchType the search type to set.
      */
-    public static void setSearch(Model.searchTypeEnum searchType) {
+    public static void setSearch(SearchType searchType) {
         PriceRange.searchType = searchType;
     }
 
@@ -139,7 +139,7 @@ public class PriceRange {
      * Checks if the price range is matched against the filtered price range for a person.
      */
     public boolean isPriceMatchedForPerson() {
-        if (filteredAgainst == null || searchType != Model.searchTypeEnum.PERSON) {
+        if (filteredAgainst == null || searchType != SearchType.PERSON) {
             return false;
         }
 
@@ -150,7 +150,7 @@ public class PriceRange {
      * Checks if the price range is matched against the filtered price range for a listing.
      */
     public boolean isPriceMatchedForListing() {
-        if (filteredAgainst == null || searchType != Model.searchTypeEnum.LISTING) {
+        if (filteredAgainst == null || searchType != SearchType.LISTING) {
             return false;
         }
 

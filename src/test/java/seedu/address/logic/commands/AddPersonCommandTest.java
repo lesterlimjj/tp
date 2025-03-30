@@ -24,6 +24,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.SearchType;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.price.PriceRange;
@@ -86,7 +87,7 @@ public class AddPersonCommandTest {
         private final Set<String> storedTags = new HashSet<>();
 
         @Override
-        public void setSearch(List<Tag> tags, PriceRange priceRange, searchTypeEnum searchTypeEnum) {
+        public void setSearch(List<Tag> tags, PriceRange priceRange, SearchType searchTypeEnum) {
             throw new AssertionError("This method should not be called.");
         };
 

@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.SearchType;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.person.predicates.PersonPropertyPreferencesContainAllTagsPredicate;
@@ -62,7 +63,7 @@ public class SearchPersonByTagCommand extends Command {
         }
 
         model.resetAllLists();
-        model.setSearch(activeTags, null, Model.searchTypeEnum.PERSON);
+        model.setSearch(activeTags, null, SearchType.PERSON);
         PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAllActiveSearchTagsPredicate());
         model.updateFilteredPersonList(new PersonPropertyPreferencesContainAllTagsPredicate(tagsToSearch));
 

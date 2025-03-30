@@ -10,6 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.SearchType;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.person.comparators.PersonListingScoreComparator;
@@ -66,7 +67,7 @@ public class MatchListingCommand extends Command {
 
         model.setSearch(listingToMatch.getTags().stream().toList(),
                 listingToMatch.getPriceRange(),
-                Model.searchTypeEnum.PERSON);
+                SearchType.PERSON);
 
         PropertyPreference.setFilterPredicate(new PropertyPreferencesContainAnyActiveSearchTagsPredicate());
         model.updateFilteredPersonList(new PersonMatchesPropertyPredicate(listingToMatch));

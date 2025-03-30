@@ -11,7 +11,7 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.Model;
+import seedu.address.model.SearchType;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.PropertyPreference;
 
@@ -28,7 +28,7 @@ public class Tag {
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9' ._+&-]{2,30}$";
 
     private static final ObservableMap<String, Tag> activeSearchTags = FXCollections.observableHashMap();
-    private static Model.searchTypeEnum searchType = Model.searchTypeEnum.NONE;
+    private static SearchType searchType = SearchType.NONE;
 
     // Identity fields
     public final String tagName;
@@ -148,7 +148,7 @@ public class Tag {
      *
      * @param searchType
      */
-    public static void setSearch(Model.searchTypeEnum searchType) {
+    public static void setSearch(SearchType searchType) {
         Tag.searchType = searchType;
     }
 
@@ -156,14 +156,14 @@ public class Tag {
      * Returns true if the tag is active in search for person.
      */
     public boolean isActiveForPerson() {
-        return activeSearchTags.containsKey(tagName) && searchType == Model.searchTypeEnum.PERSON;
+        return activeSearchTags.containsKey(tagName) && searchType == SearchType.PERSON;
     }
 
     /**
      * Returns true if the tag is active in search for listing.
      */
     public boolean isActiveForListing() {
-        return activeSearchTags.containsKey(tagName) && searchType == Model.searchTypeEnum.LISTING;
+        return activeSearchTags.containsKey(tagName) && searchType == SearchType.LISTING;
     }
 
     /**

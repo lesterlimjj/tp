@@ -18,15 +18,6 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    /**
-     * Type of search to perform
-    */
-    enum searchTypeEnum {
-        PERSON,
-        LISTING,
-        NONE
-    }
-
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Comparator<Person> COMPARATOR_SHOW_ALL_PERSONS = Comparator.comparing(p -> p.getName().fullName);
@@ -44,9 +35,9 @@ public interface Model {
      *
      *  @param tags the tags to search for
      *  @param priceRange the price range to search for
-     *  @param searchTypeEnum the type of search to perform
+     *  @param searchType the type of search to perform
      */
-    void setSearch(List<Tag> tags, PriceRange priceRange, searchTypeEnum searchTypeEnum);
+    void setSearch(List<Tag> tags, PriceRange priceRange, SearchType searchType);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
