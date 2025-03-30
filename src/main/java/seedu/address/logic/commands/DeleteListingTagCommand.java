@@ -62,16 +62,17 @@ public class DeleteListingTagCommand extends Command {
 
         // Modify listing and tag registry in place
         for (String tagName : tagsToDelete) {
-            String trimmedTagName = tagName.trim();
-            try {
-                Tag tagToDelete = model.getTag(trimmedTagName);;
-                if (!listingToEdit.getTags().contains(tagToDelete)) {
-                    throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND, tagName));
-                }
-                deletedTags.add(tagToDelete);
-            } catch (TagNotFoundException e) {
-                throw new CommandException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_NOT_FOUND, tagName));
+            Tag tag = new Tag(tagName, new ArrayList<>(), new ArrayList<>());
+            if (!model.hasTag(tagName)) {
+                throw new CommandException(String.format(Messages.MESSAGE_TAG_DOES_NOT_EXIST, tagName,
+                        MESSAGE_USAGE));
             }
+            Tag tagToRemove = model.getTag(tagName);
+            if (!listingToEdit.getTags().contains(tag)) {
+                throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_PROPERTY, tagName,
+                        MESSAGE_USAGE));
+            }
+            deletedTags.add(tagToRemove);
         }
 
         for (Tag tag : deletedTags) {
