@@ -207,18 +207,16 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* saves both address book data and user preferences in JSON format, and reads them back into corresponding model objects.
-* inherits from both `AddressBookStorage` and `UserPrefsStorage`, allowing it to be used as either interface depending on need.
-* is implemented by `StorageManager`, which composes both `JsonAddressBookStorage` and `JsonUserPrefsStorage`
-  to handle storage of their respective data types.
-* serializes model objects (such as `Person`, `Listing`, `Tag`, `PropertyPreference`, and `PriceRange`) through Jackson-compatible
-  intermediate classes like `JsonAdaptedPerson`, `JsonAdaptedListing`, `JsonAdaptedTag`, `JsonAdaptedPreference`, and `JsonAdaptedPriceRange`.
-* uses `JsonSerializableAddressBook` as the main JSON container that handles the full serialization and deserialization
-  of the address book.
-* depends on model classes such as `ReadOnlyAddressBook` and `UserPrefs` because its role is to persist and retrieve
-  these model-layer entities.
-* supports listing co-ownership via `JsonAdaptedListing`, which stores owner phone numbers (`ownerKeys`) as strings
-  and re-maps them to `Person` objects during deserialization using phone-based matching.
+* stores match estate data and user preferences locally on disk in JSON format, and reads them back into the model when needed.
+* is defined by the `Storage` interface, which inherits from both `AddressBookStorage` and `UserPrefsStorage`.
+  This allows it to be used for storing either address book data or user preferences independently.
+* is implemented by `StorageManager`, which delegates to:
+  * `JsonAddressBookStorage` — handles storage and retrieval of address book data.
+  * `JsonUserPrefsStorage` — handles storage and retrieval of user preferences.
+* uses `JsonSerializableAddressBook` as the top-level serializable container to read/write the full address book.
+* relies on Jackson-compatible intermediary classes (e.g. `JsonAdaptedPerson`, `JsonAdaptedListing`, `JsonAdaptedTag`,
+  `JsonAdaptedPreference`, and `JsonAdaptedPriceRange`) to convert between JSON and model types.
+* depends on model classes such as `ReadOnlyAddressBook` and `UserPrefs`, as it handles the persistence of these entities.
 
 **Note:**  
 In `JsonAdaptedListing`, the `ownerKeys` field contains phone numbers as strings.  
