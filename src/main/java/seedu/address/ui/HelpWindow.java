@@ -13,11 +13,11 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddListingCommand;
 import seedu.address.logic.commands.AddListingTagCommand;
+import seedu.address.logic.commands.AddOwnerCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
-import seedu.address.logic.commands.AssignOwnerCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteListingCommand;
 import seedu.address.logic.commands.DeleteOwnerCommand;
@@ -175,7 +175,7 @@ public class HelpWindow extends UiPart<Stage> {
         helpTexts.add(new String[]{AddPreferenceCommand.COMMAND_WORD, AddPreferenceCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{AddListingTagCommand.COMMAND_WORD, AddListingTagCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{AddPreferenceTagCommand.COMMAND_WORD, AddPreferenceTagCommand.MESSAGE_USAGE});
-        helpTexts.add(new String[]{AssignOwnerCommand.COMMAND_WORD, AssignOwnerCommand.MESSAGE_USAGE});
+        helpTexts.add(new String[]{AddOwnerCommand.COMMAND_WORD, AddOwnerCommand.MESSAGE_USAGE});
         return helpTexts;
     }
 
