@@ -39,9 +39,9 @@ import seedu.address.logic.commands.MatchListingCommand;
 import seedu.address.logic.commands.MatchPersonCommand;
 import seedu.address.logic.commands.OverwriteListingTagCommand;
 import seedu.address.logic.commands.OverwritePreferenceTagCommand;
+import seedu.address.logic.commands.SearchListingByTagCommand;
 import seedu.address.logic.commands.SearchOwnerListingCommand;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
-import seedu.address.logic.commands.SearchListingByTagCommand;
 
 /**
  * Controller for a help page
