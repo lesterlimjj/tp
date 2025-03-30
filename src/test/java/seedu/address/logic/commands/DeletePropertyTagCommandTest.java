@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.List;
@@ -94,7 +95,7 @@ public class DeletePropertyTagCommandTest {
         List<String> sortedTags = tagsToRemove.stream().sorted().collect(Collectors.toList());
         String expectedMessage = String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
                 sampleListing.getPostalCode(), sortedTags);
-        assert (result.getFeedbackToUser().contains(sampleListing.getPostalCode().toString()));
+        assertTrue(result.getFeedbackToUser().contains(sampleListing.getPostalCode().toString()));
         assertEquals(
                 expectedMessage,
                 String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
