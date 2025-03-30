@@ -14,7 +14,7 @@ import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
-import seedu.address.logic.commands.AssignListingCommand;
+import seedu.address.logic.commands.AssignOwnerCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteListingCommand;
@@ -142,7 +142,7 @@ public class AddressBookParser {
         case ListTagCommand.COMMAND_WORD:
             return new ListTagCommand();
 
-        case AssignListingCommand.COMMAND_WORD:
+        case AssignOwnerCommand.COMMAND_WORD:
             return new AssignListingCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
