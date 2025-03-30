@@ -11,12 +11,12 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeletePropertyTagCommand;
+import seedu.address.logic.commands.DeleteListingTagCommand;
 
 /**
  * Unit tests for DeletePropertyTagCommandParser.
  */
-public class DeletePropertyTagCommandParserTest {
+public class DeleteListingTagCommandParserTest {
 
     private final DeletePropertyTagCommandParser parser = new DeletePropertyTagCommandParser();
 
@@ -26,7 +26,7 @@ public class DeletePropertyTagCommandParserTest {
         Set<String> expectedTags = Set.of("pet-friendly", "pool");
 
         String userInput = "3 " + PREFIX_TAG + "pet-friendly " + PREFIX_TAG + "pool";
-        DeletePropertyTagCommand expectedCommand = new DeletePropertyTagCommand(expectedIndex, expectedTags);
+        DeleteListingTagCommand expectedCommand = new DeleteListingTagCommand(expectedIndex, expectedTags);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -34,7 +34,7 @@ public class DeletePropertyTagCommandParserTest {
     @Test
     public void parse_missingIndex_failure() {
         String userInput = PREFIX_TAG + "pet-friendly";
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePropertyTagCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteListingTagCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, userInput, "Index is not a non-zero unsigned integer.");
     }
@@ -43,7 +43,7 @@ public class DeletePropertyTagCommandParserTest {
     public void parse_missingTags_failure() {
         String userInput = "3"; // No tags provided
         String expectedMessage = String.format(MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE,
-                DeletePropertyTagCommand.MESSAGE_USAGE);
+                DeleteListingTagCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, userInput, expectedMessage);
     }
@@ -51,7 +51,7 @@ public class DeletePropertyTagCommandParserTest {
     @Test
     public void parse_invalidIndex_failure() {
         String userInput = "abc " + PREFIX_TAG + "pet-friendly";
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePropertyTagCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteListingTagCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, userInput, "Index is not a non-zero unsigned integer.");
     }
@@ -60,6 +60,6 @@ public class DeletePropertyTagCommandParserTest {
     public void parse_blankTag_failure() {
         String userInput = "3 " + PREFIX_TAG + " "; // empty tag value
         assertParseFailure(parser, userInput, String.format(MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE,
-                DeletePropertyTagCommand.MESSAGE_USAGE));
+                DeleteListingTagCommand.MESSAGE_USAGE));
     }
 }

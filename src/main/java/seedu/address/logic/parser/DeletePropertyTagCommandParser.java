@@ -8,29 +8,29 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeletePropertyTagCommand;
+import seedu.address.logic.commands.DeleteListingTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new {@code DeletePropertyTagCommandParser} object.
  */
-public class DeletePropertyTagCommandParser implements Parser<DeletePropertyTagCommand> {
+public class DeletePropertyTagCommandParser implements Parser<DeleteListingTagCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeletePropertyTagCommand
-     * and returns a DeletePropertyTagCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteListingTagCommand
+     * and returns a DeleteListingTagCommand object for execution.
      *
      * @param args arguments to be parsed.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeletePropertyTagCommand parse(String args) throws ParseException {
+    public DeleteListingTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
         // Ensure arguments are not empty
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(
                     seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeletePropertyTagCommand.MESSAGE_USAGE));
+                    DeleteListingTagCommand.MESSAGE_USAGE));
         }
 
         String preamble = argMultimap.getPreamble();
@@ -38,7 +38,7 @@ public class DeletePropertyTagCommandParser implements Parser<DeletePropertyTagC
         // Ensure an index is provided
         if (preamble.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INDEX_REQUIRED,
-                    DeletePropertyTagCommand.MESSAGE_USAGE));
+                    DeleteListingTagCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -54,10 +54,10 @@ public class DeletePropertyTagCommandParser implements Parser<DeletePropertyTagC
             // Validate at least one tag is provided and no tag is blank
             if (tags.isEmpty() || tags.stream().anyMatch(String::isBlank)) {
                 throw new ParseException(String.format(MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE,
-                        DeletePropertyTagCommand.MESSAGE_USAGE));
+                        DeleteListingTagCommand.MESSAGE_USAGE));
             }
 
-            return new DeletePropertyTagCommand(index, tags);
+            return new DeleteListingTagCommand(index, tags);
 
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage());
