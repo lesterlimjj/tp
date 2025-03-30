@@ -15,7 +15,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Adds {@code Tag} to a {@code Listing} identified using it's displayed index in the addressbook.
@@ -77,13 +76,12 @@ public class AddListingTagCommand extends Command {
         model.addTags(newTagSet);
 
         Listing listingToAddTags = lastShownList.get(index.getZeroBased());
-        TagRegistry tagRegistry = TagRegistry.of();
         Set<String> tagNames = new HashSet<>(tagSet);
         Set<Tag> tags = new HashSet<>();
         tagNames.addAll(newTagSet);
 
         for (String tagName : tagNames) {
-            Tag tag = tagRegistry.get(tagName);
+            Tag tag = model.getTag(tagName);
             if (listingToAddTags.getTags().contains(tag)) {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS_IN_LISTING, MESSAGE_USAGE));
             }
@@ -92,7 +90,7 @@ public class AddListingTagCommand extends Command {
 
         for (Tag tag : tags) {
             tag.addListing(listingToAddTags);
-            tagRegistry.setTag(tag, tag);
+            model.setTag(tag, tag);
             listingToAddTags.addTag(tag);
         }
 

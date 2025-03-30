@@ -16,7 +16,6 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagRegistry;
 
 /**
  * Deletes a {@code Person} identified using it's displayed index from the address book.
@@ -55,7 +54,7 @@ public class DeletePersonCommand extends Command {
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         removeListingOwnership(personToDelete, model);
-        removePersonPropertyPreferenceFromTags(personToDelete);
+        removePersonPropertyPreferenceFromTags(personToDelete, model);
 
         model.deletePerson(personToDelete);
         model.resetAllLists();
@@ -93,17 +92,14 @@ public class DeletePersonCommand extends Command {
         }
     }
 
-    private void removePersonPropertyPreferenceFromTags(Person personToDelete) {
-
-        TagRegistry tagRegistry = TagRegistry.of();
-
+    private void removePersonPropertyPreferenceFromTags(Person personToDelete, Model model) {
         List<PropertyPreference> propertyPreferences = new ArrayList<>(personToDelete.getPropertyPreferences());
         for (PropertyPreference propertyPreference : propertyPreferences) {
             Set<Tag> tags = new HashSet<>(propertyPreference.getTags());
 
             for (Tag tag: tags) {
                 tag.removePropertyPreference(propertyPreference);
-                tagRegistry.setTag(tag, tag);
+                model.setTag(tag, tag);
             }
         }
     }

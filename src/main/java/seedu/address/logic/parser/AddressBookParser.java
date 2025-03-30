@@ -18,11 +18,11 @@ import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteListingCommand;
+import seedu.address.logic.commands.DeleteListingTagCommand;
 import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.DeletePreferenceCommand;
 import seedu.address.logic.commands.DeletePreferenceTagCommand;
-import seedu.address.logic.commands.DeletePropertyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -35,11 +35,11 @@ import seedu.address.logic.commands.MarkAvailableCommand;
 import seedu.address.logic.commands.MarkUnavailableCommand;
 import seedu.address.logic.commands.MatchListingCommand;
 import seedu.address.logic.commands.MatchPersonCommand;
+import seedu.address.logic.commands.OverwriteListingTagCommand;
 import seedu.address.logic.commands.OverwritePreferenceTagCommand;
-import seedu.address.logic.commands.OverwritePropertyTagCommand;
-import seedu.address.logic.commands.SearchOwnerPropertyCommand;
+import seedu.address.logic.commands.SearchListingByTagCommand;
+import seedu.address.logic.commands.SearchOwnerListingCommand;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
-import seedu.address.logic.commands.SearchPropertyByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -118,8 +118,8 @@ public class AddressBookParser {
         case MatchPersonCommand.COMMAND_WORD:
             return new MatchPersonCommandParser().parse(arguments);
 
-        case SearchOwnerPropertyCommand.COMMAND_WORD:
-            return new SearchOwnerPropertyCommandParser().parse(arguments);
+        case SearchOwnerListingCommand.COMMAND_WORD:
+            return new SearchOwnerListingCommandParser().parse(arguments);
 
         case EditPersonCommand.COMMAND_WORD:
             return new EditPersonCommandParser().parse(arguments);
@@ -151,8 +151,8 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case DeletePropertyTagCommand.COMMAND_WORD:
-            return new DeletePropertyTagCommandParser().parse(arguments);
+        case DeleteListingTagCommand.COMMAND_WORD:
+            return new DeleteListingTagCommandParser().parse(arguments);
 
         case DeletePreferenceTagCommand.COMMAND_WORD:
             return new DeletePreferenceTagCommandParser().parse(arguments);
@@ -160,14 +160,14 @@ public class AddressBookParser {
         case OverwritePreferenceTagCommand.COMMAND_WORD:
             return new OverwritePreferenceTagCommandParser().parse(arguments);
 
-        case OverwritePropertyTagCommand.COMMAND_WORD:
-            return new OverwritePropertyTagCommandParser().parse(arguments);
+        case OverwriteListingTagCommand.COMMAND_WORD:
+            return new OverwriteListingTagCommandParser().parse(arguments);
 
         case SearchPersonByTagCommand.COMMAND_WORD:
             return new SearchPersonByTagCommandParser().parse(arguments);
 
-        case SearchPropertyByTagCommand.COMMAND_WORD:
-            return new SearchPropertyByTagCommandParser().parse(arguments);
+        case SearchListingByTagCommand.COMMAND_WORD:
+            return new SearchListingByTagCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
