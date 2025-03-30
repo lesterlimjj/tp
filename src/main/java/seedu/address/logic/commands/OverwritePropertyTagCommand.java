@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javafx.collections.ObservableMap;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -84,14 +83,13 @@ public class OverwritePropertyTagCommand extends Command {
         // Create new tags
         model.addTags(newTagSet);
 
-        ObservableMap<String, Tag> uniqueTagList = model.getTagMap();
         Set<String> tagNames = new HashSet<>(tagSet);
         Set<Tag> newTags = new HashSet<>();
         tagNames.addAll(newTagSet);
 
         // Prepare new tags to be added
         for (String tagName : tagNames) {
-            Tag tag = uniqueTagList.get(tagName);
+            Tag tag = model.getTag(tagName);
             newTags.add(tag);
         }
 
