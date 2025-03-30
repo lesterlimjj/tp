@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_ONE_INDEX_EXPECTED;
 import static seedu.address.logic.Messages.MESSAGE_TAG_OR_NEW_TAG_REQUIRED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -9,14 +9,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.OverwriteListingTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new {@code OverwriteListingTagCommand} object.
  */
-public class OverwritePropertyTagCommandParser implements Parser<OverwriteListingTagCommand> {
+public class OverwriteListingTagCommandParser implements Parser<OverwriteListingTagCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the OverwriteListingTagCommand
@@ -31,13 +30,8 @@ public class OverwritePropertyTagCommandParser implements Parser<OverwriteListin
 
         checkCommandFormat(argMultimap, args);
 
-        try {
-            propertyIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    OverwriteListingTagCommand.MESSAGE_USAGE), ive);
-        }
 
+        propertyIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         Set<String> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<String> newTagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NEW_TAG));
 
@@ -45,7 +39,7 @@ public class OverwritePropertyTagCommandParser implements Parser<OverwriteListin
     }
 
     private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
-        String preamble = argMultimap.getPreamble();
+        String preamble = argMultimap.getPreamble().trim();
         boolean hasTags = !(argMultimap.getAllValues(PREFIX_TAG).isEmpty());
         boolean hasNewTags = !(argMultimap.getAllValues(PREFIX_NEW_TAG).isEmpty());
         boolean hasCombinedTags = hasTags || hasNewTags;
@@ -60,8 +54,9 @@ public class OverwritePropertyTagCommandParser implements Parser<OverwriteListin
                     OverwriteListingTagCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+
+        if (preamble.isEmpty() || preamble.split("\\s+").length != 1) {
+            throw new ParseException(String.format(MESSAGE_ONE_INDEX_EXPECTED,
                     OverwriteListingTagCommand.MESSAGE_USAGE));
         }
     }
