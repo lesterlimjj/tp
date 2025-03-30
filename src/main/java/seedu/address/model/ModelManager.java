@@ -187,25 +187,6 @@ public class ModelManager implements Model {
         addressBook.setListing(listing, editedListing);
     }
 
-    @Override
-    public boolean hasTags(Set<String> tags) {
-        requireNonNull(tags);
-        return addressBook.hasTags(tags);
-    }
-
-    @Override
-    public boolean hasNewTags(Set<String> tags) {
-        requireNonNull(tags);
-        return addressBook.hasNewTags(tags);
-    }
-
-    @Override
-    public void addTags(Set<String> tags) {
-        requireNonNull(tags);
-        addressBook.addTags(tags);
-        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
-    }
-
     private void resetTagList() {
         updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
     }
@@ -339,6 +320,31 @@ public class ModelManager implements Model {
             filteredTags.setPredicate(PREDICATE_SHOW_ALL_TAGS);
         }
         filteredTags.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasTag(String tag) {
+        requireNonNull(tag);
+        return addressBook.hasTag(tag);
+    }
+
+    @Override
+    public boolean hasTags(Set<String> tags) {
+        requireNonNull(tags);
+        return addressBook.hasTags(tags);
+    }
+
+    @Override
+    public boolean hasNewTags(Set<String> tags) {
+        requireNonNull(tags);
+        return addressBook.hasNewTags(tags);
+    }
+
+    @Override
+    public void addTags(Set<String> tags) {
+        requireNonNull(tags);
+        addressBook.addTags(tags);
+        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
     }
 
     @Override

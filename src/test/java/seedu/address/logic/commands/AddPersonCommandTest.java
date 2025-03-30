@@ -245,6 +245,11 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public boolean hasTag(String tag) {
+            return false;
+        }
+
+        @Override
         public boolean hasTags(Set<String> tags) {
             return false;
         }

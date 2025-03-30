@@ -190,6 +190,8 @@ public interface Model {
      */
     void deleteListing(Listing target);
 
+    boolean hasTag(String tag);
+
     boolean hasTags(Set<String> tags);
 
     boolean hasNewTags(Set<String> tags);

@@ -75,7 +75,7 @@ public class DeletePreferenceTagCommand extends Command {
         Set<Tag> tags = new HashSet<>();
         for (String tagName : tagsToDelete) {
             Tag tag = new Tag(tagName, new ArrayList<>(), new ArrayList<>());
-            if (!model.hasTags(Set.of(tagName))) {
+            if (!model.hasTag(tagName)) {
                 throw new CommandException(Messages.MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE);
             }
             Tag tagToRemove = model.getTag(tagName);

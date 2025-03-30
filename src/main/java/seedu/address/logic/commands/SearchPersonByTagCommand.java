@@ -49,7 +49,7 @@ public class SearchPersonByTagCommand extends Command {
 
         // Validate each tag exists
         for (String tagName : tagsToSearch) {
-            if (!model.hasTags(Set.of(tagName))) {
+            if (!model.hasTag(tagName)) {
                 throw new CommandException(String
                         .format(Messages.MESSAGE_SEARCH_PERSON_TAG_NOT_FOUND, tagName));
             }
