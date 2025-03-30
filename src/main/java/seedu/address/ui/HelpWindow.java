@@ -39,7 +39,7 @@ import seedu.address.logic.commands.MatchListingCommand;
 import seedu.address.logic.commands.MatchPersonCommand;
 import seedu.address.logic.commands.OverwriteListingTagCommand;
 import seedu.address.logic.commands.OverwritePreferenceTagCommand;
-import seedu.address.logic.commands.SearchOwnerPropertyCommand;
+import seedu.address.logic.commands.SearchOwnerListingCommand;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
 import seedu.address.logic.commands.SearchListingByTagCommand;
 
@@ -192,7 +192,7 @@ public class HelpWindow extends UiPart<Stage> {
         helpTexts.add(new String[]{FindPersonCommand.COMMAND_WORD, FindPersonCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{SearchPersonByTagCommand.COMMAND_WORD, SearchPersonByTagCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{SearchListingByTagCommand.COMMAND_WORD, SearchListingByTagCommand.MESSAGE_USAGE});
-        helpTexts.add(new String[]{SearchOwnerPropertyCommand.COMMAND_WORD, SearchOwnerPropertyCommand.MESSAGE_USAGE});
+        helpTexts.add(new String[]{SearchOwnerListingCommand.COMMAND_WORD, SearchOwnerListingCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{MatchPersonCommand.COMMAND_WORD, MatchPersonCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{MatchListingCommand.COMMAND_WORD, MatchListingCommand.MESSAGE_USAGE});
         return helpTexts;
