@@ -16,10 +16,10 @@ import seedu.address.model.person.Person;
  * Assigns a {@code Listing} identified using it's displayed index in the address book
  * to a {@code Person} identified using it's displayed index in the address book.
  */
-public class AssignListingCommand extends Command {
-    public static final String COMMAND_WORD = "assignListing";
+public class AddOwnerCommand extends Command {
+    public static final String COMMAND_WORD = "addOwner";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a listing (to sell) to a person "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to a listing as its seller"
             + "Parameters: PERSON_INDEX (must be a positive integer) "
             + "LISTING_INDEX (must be a positive integer)"
             + "Example: " + COMMAND_WORD + " 2 1";
@@ -32,12 +32,12 @@ public class AssignListingCommand extends Command {
     private final Index listingIndex;
 
     /**
-     * Creates an {@code AssignListingCommand} to add the specified {@code Listing} to {@code Person}.
+     * Creates an {@code AddOwnerCommand} to add the specified {@code Listing} to {@code Person}.
      *
      * @param personIndex Index of the person in the filtered person list to add listing to
      * @param propertyIndex Index of the listing in the filtered listing list to add
      */
-    public AssignListingCommand(Index personIndex, Index propertyIndex) {
+    public AddOwnerCommand(Index personIndex, Index propertyIndex) {
         this.personIndex = personIndex;
         this.listingIndex = propertyIndex;
     }
@@ -80,13 +80,13 @@ public class AssignListingCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AssignListingCommand)) {
+        if (!(other instanceof AddOwnerCommand)) {
             return false;
         }
 
-        AssignListingCommand otherAssignListingCommand = (AssignListingCommand) other;
-        return personIndex.equals(otherAssignListingCommand.personIndex)
-                && listingIndex.equals(otherAssignListingCommand.listingIndex);
+        AddOwnerCommand otherAddOwnerCommand = (AddOwnerCommand) other;
+        return personIndex.equals(otherAddOwnerCommand.personIndex)
+                && listingIndex.equals(otherAddOwnerCommand.listingIndex);
     }
 
     @Override
