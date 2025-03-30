@@ -86,7 +86,7 @@ Examples:
 * `addPerson n/John Doe p/98765432 e/johnd@example.com`
 
 #### Listing all persons: `listPerson`
-Shows a list of all persons in the address book.
+Shows a list of all persons in the address book and removes any filters that are currently applied.
 
 Format: `listPerson`
 
@@ -100,7 +100,7 @@ Format: `editPerson INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
 * Existing values will be updated to the input values.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `editPerson 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 
 #### Locating persons by name: `findPerson`
 
@@ -140,7 +140,7 @@ Format: `deletePerson INDEX`
 
 Examples:
 * `listListing` followed by `deletePerson 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
+* `findPerson Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `findPerson` command.
 
 ### Listing Management
 
@@ -157,7 +157,7 @@ Example:
 </box>
 
 #### Listing all properties: `listListing`
-Shows a list of all property listings.
+Shows a list of all property listings and removes any filters that are currently applied.
 
 Format: `listListing`
 
@@ -208,7 +208,7 @@ Example:
 * `addTag nt/family-friendly nt/spacious`
 
 #### Listing all tags: `listTag`
-Shows a list of all available tags.
+Shows a list of all available tags and removes any filters that are currently applied.
 
 Format: `listTag`
 
