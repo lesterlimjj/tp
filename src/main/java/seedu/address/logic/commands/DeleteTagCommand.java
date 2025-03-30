@@ -32,7 +32,7 @@ public class DeleteTagCommand extends Command {
             + PREFIX_TAG + "pet-friendly ";
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tags: %1$s";
-    public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.";
+    public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.\n%1$s";
 
     private final Set<String> toDelete;
 
@@ -50,7 +50,7 @@ public class DeleteTagCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasTags(toDelete)) {
-            throw new CommandException(MESSAGE_INVALID_TAGS);
+            throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
         }
 
         Set<Tag> deletedTags = new HashSet<>();
