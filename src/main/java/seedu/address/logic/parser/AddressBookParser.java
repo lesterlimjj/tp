@@ -18,11 +18,11 @@ import seedu.address.logic.commands.AssignListingCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteListingCommand;
+import seedu.address.logic.commands.DeleteListingTagCommand;
 import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.DeletePreferenceCommand;
 import seedu.address.logic.commands.DeletePreferenceTagCommand;
-import seedu.address.logic.commands.DeletePropertyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -35,8 +35,8 @@ import seedu.address.logic.commands.MarkAvailableCommand;
 import seedu.address.logic.commands.MarkUnavailableCommand;
 import seedu.address.logic.commands.MatchListingCommand;
 import seedu.address.logic.commands.MatchPersonCommand;
+import seedu.address.logic.commands.OverwriteListingTagCommand;
 import seedu.address.logic.commands.OverwritePreferenceTagCommand;
-import seedu.address.logic.commands.OverwritePropertyTagCommand;
 import seedu.address.logic.commands.SearchOwnerPropertyCommand;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
 import seedu.address.logic.commands.SearchPropertyByTagCommand;
@@ -151,7 +151,7 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case DeletePropertyTagCommand.COMMAND_WORD:
+        case DeleteListingTagCommand.COMMAND_WORD:
             return new DeletePropertyTagCommandParser().parse(arguments);
 
         case DeletePreferenceTagCommand.COMMAND_WORD:
@@ -160,7 +160,7 @@ public class AddressBookParser {
         case OverwritePreferenceTagCommand.COMMAND_WORD:
             return new OverwritePreferenceTagCommandParser().parse(arguments);
 
-        case OverwritePropertyTagCommand.COMMAND_WORD:
+        case OverwriteListingTagCommand.COMMAND_WORD:
             return new OverwritePropertyTagCommandParser().parse(arguments);
 
         case SearchPersonByTagCommand.COMMAND_WORD:
