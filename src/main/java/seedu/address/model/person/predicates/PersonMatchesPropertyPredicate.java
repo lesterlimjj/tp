@@ -43,7 +43,7 @@ public class PersonMatchesPropertyPredicate implements Predicate<Person> {
             }
 
             // If price range matches, return true.
-            if (pref.getPriceRange().doPriceRangeOverlap(listingToMatch.getPriceRange())) {
+            if (listingToMatch.getPriceRange().doPriceRangeOverlap(pref.getPriceRange())) {
                 return true;
             }
         }
