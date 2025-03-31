@@ -278,13 +278,13 @@ Example:
 
 ### Matching System
 
-#### Matching persons to listings: `matchPerson`
+#### Matching persons to listings: `matchPreference`
 Finds listings matching a person's preference.
 
-Format: `matchPerson PERSON_INDEX PREFERENCE_INDEX`
+Format: `matchPreference PERSON_INDEX PREFERENCE_INDEX`
 
 Example:
-* `matchPerson 1 2`
+* `matchPreference 1 2`
 
 Listings that are marked as unavailable or owned by the person will not be shown.
 
@@ -416,7 +416,7 @@ Action | Format, Examples
 
 Action | Format, Examples
 ---|---
-**Match Person to Listings** | `matchPerson PERSON_INDEX PREFERENCE_INDEX`<br>e.g., `matchPerson 1 2`
+**Match Person to Listings** | `matchPreference PERSON_INDEX PREFERENCE_INDEX`<br>e.g., `matchPreference 1 2`
 **Match Listing to Persons** | `matchListing INDEX`<br>e.g., `matchListing 1`
 
 ### Owner Management
