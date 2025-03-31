@@ -3,6 +3,7 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeFontColor white
 skinparam linetype ortho
 
 Package Model as ModelPackage <<Rectangle>>{
@@ -16,14 +17,24 @@ Class UserPrefs
 
 Class UniquePersonList
 Class Person
-Class PropertyPreference
+Class PropertyPreference {
+    {static} + searchType:SearchType
+}
 
 Class TagRegistry
 Class Tag
 
 Class UniqueListingList
 Class Listing
-Class PriceRange
+Class PriceRange {
+     {static} + searchType:SearchType
+}
+
+Class "<<enumerations>>\nSearchType" as SearchType {
+    PERSON
+    LISTING
+    NONE
+}
 
 Class A #FFFFFF
 Class B #FFFFFF
@@ -83,5 +94,6 @@ TagRegistry -[hidden]up-> ModelManager
 Person -[hidden]up--> A
 C -[hidden]up-> Listing
 PriceRange -[hidden]left->C
+SearchType -[hidden]left-> Tag
 
 @enduml
