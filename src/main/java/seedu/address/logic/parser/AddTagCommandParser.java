@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_ADD_TAG_PREAMBLE_FOUND;
-import static seedu.address.logic.Messages.MESSAGE_TAG_OR_NEW_TAG_PREFIX_EMPTY_VALUE;
+import static seedu.address.logic.Messages.MESSAGE_NEW_TAG_PREFIX_EMPTY_VALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 
 import java.util.Set;
@@ -22,6 +22,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
      */
     public AddTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NEW_TAG);
+        argMultimap.verifyNoDuplicateTagValues(AddTagCommand.MESSAGE_USAGE);
         checkCommandFormat(argMultimap);
 
         Set<String> newTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NEW_TAG));
@@ -34,7 +35,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
         boolean hasPreamble = !argMultimap.getPreamble().isEmpty();
 
         if (!hasNewTags) {
-            throw new ParseException(String.format(MESSAGE_TAG_OR_NEW_TAG_PREFIX_EMPTY_VALUE,
+            throw new ParseException(String.format(MESSAGE_NEW_TAG_PREFIX_EMPTY_VALUE,
                     AddTagCommand.MESSAGE_USAGE));
         }
 

@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MarkAvailableCommand;
@@ -18,12 +18,15 @@ public class MarkAvailableCommandParser implements Parser<MarkAvailableCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public MarkAvailableCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new MarkAvailableCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MarkAvailableCommand.MESSAGE_USAGE), pe);
+        checkCommandFormat(args);
+        Index index = ParserUtil.parseIndex(args);
+        return new MarkAvailableCommand(index);
+    }
+
+    private static void checkCommandFormat(String args) throws ParseException {
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
+                    MarkAvailableCommand.MESSAGE_USAGE));
         }
     }
 }
