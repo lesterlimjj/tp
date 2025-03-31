@@ -207,9 +207,20 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+* stores match estate data and user preferences locally on disk in JSON format, and reads them back into the model when needed.
+* is defined by the `Storage` interface, which inherits from both `AddressBookStorage` and `UserPrefsStorage`.
+  This allows it to be used for storing either address book data or user preferences independently.
+* is implemented by `StorageManager`, which delegates to:
+  * `JsonAddressBookStorage` — handles storage and retrieval of address book data.
+  * `JsonUserPrefsStorage` — handles storage and retrieval of user preferences.
+* uses `JsonSerializableAddressBook` as the top-level serializable container to read/write the full address book.
+* relies on Jackson-compatible intermediary classes (e.g. `JsonAdaptedPerson`, `JsonAdaptedListing`, `JsonAdaptedTag`,
+  `JsonAdaptedPreference`, and `JsonAdaptedPriceRange`) to convert between JSON and model types.
+* depends on model classes such as `ReadOnlyAddressBook` and `UserPrefs`, as it handles the persistence of these entities.
+
+**Note:**  
+In `JsonAdaptedListing`, the `ownerKeys` field contains phone numbers as strings.  
+These are used to look up the corresponding `Person` objects during deserialization — forming an indirect association from `Listing` to `Person`.
 
 ### Common classes
 
