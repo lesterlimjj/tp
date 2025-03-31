@@ -75,4 +75,30 @@ public class ArgumentMultimap {
             throw new ParseException(Messages.getErrorMessageForDuplicatePrefixes(duplicatedPrefixes));
         }
     }
+
+    /**
+     * Throws a {@code ParseException} if any values of new tag or tag prefix given in {@code prefixes}
+     * appears more than once.
+     */
+    public void verifyNoDuplicateTagValues(String messageUsage) throws ParseException {
+        Prefix newTagPrefix = new Prefix("nt/");
+        Prefix tagPrefix = new Prefix("t/");
+        List <String> newTagValues = getAllValues(newTagPrefix);
+        List <String> tagValues = getAllValues(tagPrefix);
+
+        List <String> allTagValues = new ArrayList<>();
+        allTagValues.addAll(newTagValues);
+        allTagValues.addAll(tagValues);
+        Map<String, Integer> valueCounts = new HashMap<>();
+
+        for (String value : allTagValues) {
+            String tagName = value.trim().toUpperCase();
+            valueCounts.put(tagName, valueCounts.getOrDefault(tagName, 0) + 1);
+
+            if (valueCounts.get(tagName) > 1) {
+                throw new ParseException(String.format(Messages.MESSAGE_DUPLICATE_VALUES_FOR_TAGS, tagName,
+                        messageUsage));
+            }
+        }
+    }
 }
