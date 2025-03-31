@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddListingCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.price.Price;
