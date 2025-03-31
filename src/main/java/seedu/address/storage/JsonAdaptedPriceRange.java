@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,15 +13,15 @@ import seedu.address.model.price.PriceRange;
  */
 class JsonAdaptedPriceRange {
 
-    private final Float upper;
-    private final Float lower;
+    private final BigDecimal upper;
+    private final BigDecimal lower;
 
     /**
      * Constructs a {@code JsonAdaptedPriceRange} with the given {@code upperPriceRange} and {@code lowerPriceRange}.
      */
     @JsonCreator
-    public JsonAdaptedPriceRange(@JsonProperty("upper") Float upperPriceRange,
-                                 @JsonProperty("lower") Float lowerPriceRange) {
+    public JsonAdaptedPriceRange(@JsonProperty("upper") BigDecimal upperPriceRange,
+                                 @JsonProperty("lower") BigDecimal lowerPriceRange) {
         this.upper = upperPriceRange;
         this.lower = lowerPriceRange;
     }
@@ -33,12 +35,12 @@ class JsonAdaptedPriceRange {
     }
 
     @JsonProperty("upper")
-    public Float getUpperPriceRange() {
+    public BigDecimal getUpperPriceRange() {
         return upper;
     }
 
     @JsonProperty("lower")
-    public Float getLowerPriceRange() {
+    public BigDecimal getLowerPriceRange() {
         return lower;
     }
 
