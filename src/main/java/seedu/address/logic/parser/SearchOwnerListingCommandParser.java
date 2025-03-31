@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.MatchPersonCommand;
 import seedu.address.logic.commands.SearchOwnerListingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
