@@ -21,7 +21,7 @@ import seedu.address.model.tag.Tag;
  * Searches for {@code Listing}(s) whose tags contain all specified tags.
  */
 public class SearchListingByTagCommand extends Command {
-    public static final String COMMAND_WORD = "searchListing";
+    public static final String COMMAND_WORD = "searchListingTag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all properties with all specified tags.\n"
             + "Parameters: " + PREFIX_TAG + "TAG [" + PREFIX_TAG + "TAG]...\n"
