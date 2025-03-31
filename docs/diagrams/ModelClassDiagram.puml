@@ -17,12 +17,12 @@ Class UserPrefs
 
 Class UniquePersonList
 Class Person
-Class PropertyPreference {
-    {static} + searchType:SearchType
-}
+Class PropertyPreference
 
 Class TagRegistry
-Class Tag
+Class Tag {
+    {static} + searchType:SearchType
+}
 
 Class UniqueListingList
 Class Listing
@@ -94,6 +94,6 @@ TagRegistry -[hidden]up-> ModelManager
 Person -[hidden]up--> A
 C -[hidden]up-> Listing
 PriceRange -[hidden]left->C
-SearchType -[hidden]left-> Tag
+SearchType -[hidden]up-> Tag
 
 @enduml
