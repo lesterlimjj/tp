@@ -7,7 +7,6 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MatchPersonCommand;
-import seedu.address.logic.commands.OverwriteListingTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -36,7 +35,7 @@ public class MatchPersonCommandParser implements Parser<MatchPersonCommand> {
 
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
-                    OverwriteListingTagCommand.MESSAGE_USAGE));
+                    MatchPersonCommand.MESSAGE_USAGE));
         }
 
         if (preamble.isEmpty() || preamble.split("\\s+").length != 2) {

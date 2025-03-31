@@ -4,7 +4,6 @@ import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MarkAvailableCommand;
-import seedu.address.logic.commands.OverwriteListingTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -27,7 +26,7 @@ public class MarkAvailableCommandParser implements Parser<MarkAvailableCommand> 
     private static void checkCommandFormat(String args) throws ParseException {
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
-                    OverwriteListingTagCommand.MESSAGE_USAGE));
+                    MarkAvailableCommand.MESSAGE_USAGE));
         }
     }
 }
