@@ -30,8 +30,8 @@ public class ListingMatchesPreferencePredicate implements Predicate<Listing> {
         }
 
         // If price range overlaps, accept.
-        boolean PriceRangeOverlaps = preferenceToMatch.getPriceRange().doPriceRangeOverlap(listing.getPriceRange());
-        if (PriceRangeOverlaps) {
+        boolean priceRangeOverlaps = preferenceToMatch.getPriceRange().doPriceRangeOverlap(listing.getPriceRange());
+        if (priceRangeOverlaps) {
             return true;
         }
 

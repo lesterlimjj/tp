@@ -96,7 +96,8 @@ public class ArgumentMultimap {
             valueCounts.put(tagName, valueCounts.getOrDefault(tagName, 0) + 1);
 
             if (valueCounts.get(tagName) > 1) {
-                throw new ParseException(String.format(Messages.MESSAGE_DUPLICATE_VALUES_FOR_TAGS, tagName, messageUsage));
+                throw new ParseException(String.format(Messages.MESSAGE_DUPLICATE_VALUES_FOR_TAGS, tagName,
+                        messageUsage));
             }
         }
     }
