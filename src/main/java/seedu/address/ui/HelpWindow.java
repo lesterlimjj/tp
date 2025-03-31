@@ -142,6 +142,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+        getRoot().setIconified(false);
     }
 
     /**
