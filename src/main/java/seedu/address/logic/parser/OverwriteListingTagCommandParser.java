@@ -26,6 +26,7 @@ public class OverwriteListingTagCommandParser implements Parser<OverwriteListing
      */
     public OverwriteListingTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NEW_TAG);
+        argMultimap.verifyNoDuplicateTagValues(OverwriteListingTagCommand.MESSAGE_USAGE);
         Index propertyIndex;
 
         checkCommandFormat(argMultimap, args);

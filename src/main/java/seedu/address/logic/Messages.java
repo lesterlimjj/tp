@@ -84,6 +84,9 @@ public class Messages {
 
     public static final String MESSAGE_ONE_INDEX_EXPECTED = "This command expects only 1 index to be provided. \n%s";
 
+    public static final String MESSAGE_DUPLICATE_VALUES_FOR_TAGS = "Duplicate value '%s' in nt/ and t/ prefixes "
+            + "is not allowed.\n%s";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */

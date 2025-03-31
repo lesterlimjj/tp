@@ -26,6 +26,7 @@ public class DeletePreferenceTagCommandParser implements Parser<DeletePreference
      */
     public DeletePreferenceTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+        argMultimap.verifyNoDuplicateTagValues(DeletePreferenceTagCommand.MESSAGE_USAGE);
         Index personIndex;
         Index preferenceIndex;
 
