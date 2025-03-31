@@ -18,7 +18,7 @@ import seedu.address.model.person.Person;
  */
 public class SearchPersonByName extends Command {
 
-    public static final String COMMAND_WORD = "searchPersonByName";
+    public static final String COMMAND_WORD = "searchPersonName";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all persons whose names match the given keyword(s). "

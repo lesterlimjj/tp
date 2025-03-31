@@ -57,7 +57,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("Alice", "Bob");
-        SearchPersonByName command = (SearchPersonByName) parser.parseCommand("searchPersonByName Alice Bob");
+        SearchPersonByName command = (SearchPersonByName) parser.parseCommand("searchPersonName Alice Bob");
 
         assertEquals(new SearchPersonByName(keywords), command);
     }
