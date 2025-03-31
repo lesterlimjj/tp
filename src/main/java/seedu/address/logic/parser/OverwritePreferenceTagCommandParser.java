@@ -27,6 +27,7 @@ public class OverwritePreferenceTagCommandParser implements Parser<OverwritePref
      */
     public OverwritePreferenceTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NEW_TAG);
+        argMultimap.verifyNoDuplicateTagValues(OverwritePreferenceTagCommand.MESSAGE_USAGE);
         Index personIndex;
         Index preferenceIndex;
 
