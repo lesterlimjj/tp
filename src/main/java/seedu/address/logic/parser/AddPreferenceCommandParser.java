@@ -59,7 +59,7 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
                 return new PriceRange(lowerBoundPrice, upperBoundPrice);
             } catch (IllegalArgumentException e) {
                 throw new ParseException(String.format(MESSAGE_LOWER_GREATER_THAN_UPPER_FOR_PRICE,
-                        AddListingCommand.MESSAGE_USAGE));
+                        AddPreferenceCommand.MESSAGE_USAGE));
             }
         }
     }
