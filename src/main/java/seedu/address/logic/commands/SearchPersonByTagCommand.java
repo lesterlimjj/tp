@@ -21,7 +21,7 @@ import seedu.address.model.tag.Tag;
  * Searches for persons whose property preferences contain all specified tags.
  */
 public class SearchPersonByTagCommand extends Command {
-    public static final String COMMAND_WORD = "searchPerson";
+    public static final String COMMAND_WORD = "searchPersonTag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons with property preferences "
             + "containing all specified tags.\n"
