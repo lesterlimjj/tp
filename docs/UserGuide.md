@@ -278,7 +278,7 @@ Example:
 
 ### Matching System
 
-#### Matching persons to listings: `matchPreference`
+#### Matching person's preference to listings: `matchPreference`
 Finds listings matching a person's preference.
 
 Format: `matchPreference PERSON_INDEX PREFERENCE_INDEX`
@@ -416,7 +416,7 @@ Action | Format, Examples
 
 Action | Format, Examples
 ---|---
-**Match Person to Listings** | `matchPreference PERSON_INDEX PREFERENCE_INDEX`<br>e.g., `matchPreference 1 2`
+**Match Person's Preference to Listings** | `matchPreference PERSON_INDEX PREFERENCE_INDEX`<br>e.g., `matchPreference 1 2`
 **Match Listing to Persons** | `matchListing INDEX`<br>e.g., `matchListing 1`
 
 ### Owner Management
