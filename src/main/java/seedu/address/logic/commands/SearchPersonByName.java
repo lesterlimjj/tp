@@ -16,13 +16,14 @@ import seedu.address.model.person.Person;
  * Represents a command to find and list {@code Person} in the address book whose names match the given keyword(s).
  * Keyword matching is case insensitive and must adhere to a valid name format.
  */
-public class FindPersonCommand extends Command {
+public class SearchPersonByName extends Command {
 
-    public static final String COMMAND_WORD = "findPerson";
+    public static final String COMMAND_WORD = "searchPersonName";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all persons whose names match the given keyword(s). "
             + "Keywords must contain only letters, spaces, hyphens, full stops, or apostrophes.\n"
+            + "Every keyword can only start with a letter.\n"
             + "Parameters: " + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " Alex Yeoh";
 
@@ -33,21 +34,21 @@ public class FindPersonCommand extends Command {
     private final Predicate<Person> predicate;
 
     /**
-     * Constructs a @{code FindPersonCommand} to find {@code Person} with the given keywords.
+     * Constructs a @{code SearchPersonByName} to find {@code Person} with the given keywords.
      *
      * @param keywords List of keywords to match against names.
      * @throws CommandException if the keywords are empty or invalid.
      */
-    public FindPersonCommand(List<String> keywords) throws CommandException {
+    public SearchPersonByName(List<String> keywords) throws CommandException {
         requireNonNull(keywords);
         if (keywords.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_MISSING_KEYWORD);
+            throw new CommandException(String.format(Messages.MESSAGE_MISSING_KEYWORD, MESSAGE_USAGE));
         }
 
         // Validate each keyword before proceeding
         for (String keyword : keywords) {
             if (!VALID_NAME_PATTERN.matcher(keyword).matches()) {
-                throw new CommandException(String.format(Messages.MESSAGE_INVALID_KEYWORD, keyword));
+                throw new CommandException(String.format(Messages.MESSAGE_INVALID_KEYWORD, keyword, MESSAGE_USAGE));
             }
         }
 
@@ -86,12 +87,12 @@ public class FindPersonCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof FindPersonCommand)) {
+        if (!(other instanceof SearchPersonByName)) {
             return false;
         }
 
-        FindPersonCommand otherFindPersonCommand = (FindPersonCommand) other;
-        return keywords.equals(otherFindPersonCommand.keywords);
+        SearchPersonByName otherSearchPersonByName = (SearchPersonByName) other;
+        return keywords.equals(otherSearchPersonByName.keywords);
     }
 
     /**

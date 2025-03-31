@@ -13,22 +13,21 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddListingCommand;
 import seedu.address.logic.commands.AddListingTagCommand;
+import seedu.address.logic.commands.AddOwnerCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddPreferenceCommand;
 import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
-import seedu.address.logic.commands.AssignListingCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteListingCommand;
+import seedu.address.logic.commands.DeleteListingTagCommand;
 import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.DeletePreferenceCommand;
 import seedu.address.logic.commands.DeletePreferenceTagCommand;
-import seedu.address.logic.commands.DeletePropertyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListListingCommand;
 import seedu.address.logic.commands.ListPersonCommand;
@@ -37,11 +36,12 @@ import seedu.address.logic.commands.MarkAvailableCommand;
 import seedu.address.logic.commands.MarkUnavailableCommand;
 import seedu.address.logic.commands.MatchListingCommand;
 import seedu.address.logic.commands.MatchPersonCommand;
+import seedu.address.logic.commands.OverwriteListingTagCommand;
 import seedu.address.logic.commands.OverwritePreferenceTagCommand;
-import seedu.address.logic.commands.OverwritePropertyTagCommand;
-import seedu.address.logic.commands.SearchOwnerPropertyCommand;
+import seedu.address.logic.commands.SearchListingByTagCommand;
+import seedu.address.logic.commands.SearchOwnerListingCommand;
+import seedu.address.logic.commands.SearchPersonByName;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
-import seedu.address.logic.commands.SearchPropertyByTagCommand;
 
 /**
  * Controller for a help page
@@ -142,6 +142,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+        getRoot().setIconified(false);
     }
 
     /**
@@ -175,7 +176,7 @@ public class HelpWindow extends UiPart<Stage> {
         helpTexts.add(new String[]{AddPreferenceCommand.COMMAND_WORD, AddPreferenceCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{AddListingTagCommand.COMMAND_WORD, AddListingTagCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{AddPreferenceTagCommand.COMMAND_WORD, AddPreferenceTagCommand.MESSAGE_USAGE});
-        helpTexts.add(new String[]{AssignListingCommand.COMMAND_WORD, AssignListingCommand.MESSAGE_USAGE});
+        helpTexts.add(new String[]{AddOwnerCommand.COMMAND_WORD, AddOwnerCommand.MESSAGE_USAGE});
         return helpTexts;
     }
 
@@ -189,10 +190,10 @@ public class HelpWindow extends UiPart<Stage> {
 
     private ArrayList<String[]> getFindCommandsHelpMessages() {
         ArrayList<String[]> helpTexts = new ArrayList<>();
-        helpTexts.add(new String[]{FindPersonCommand.COMMAND_WORD, FindPersonCommand.MESSAGE_USAGE});
+        helpTexts.add(new String[]{SearchPersonByName.COMMAND_WORD, SearchPersonByName.MESSAGE_USAGE});
         helpTexts.add(new String[]{SearchPersonByTagCommand.COMMAND_WORD, SearchPersonByTagCommand.MESSAGE_USAGE});
-        helpTexts.add(new String[]{SearchPropertyByTagCommand.COMMAND_WORD, SearchPropertyByTagCommand.MESSAGE_USAGE});
-        helpTexts.add(new String[]{SearchOwnerPropertyCommand.COMMAND_WORD, SearchOwnerPropertyCommand.MESSAGE_USAGE});
+        helpTexts.add(new String[]{SearchListingByTagCommand.COMMAND_WORD, SearchListingByTagCommand.MESSAGE_USAGE});
+        helpTexts.add(new String[]{SearchOwnerListingCommand.COMMAND_WORD, SearchOwnerListingCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{MatchPersonCommand.COMMAND_WORD, MatchPersonCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{MatchListingCommand.COMMAND_WORD, MatchListingCommand.MESSAGE_USAGE});
         return helpTexts;
@@ -202,7 +203,7 @@ public class HelpWindow extends UiPart<Stage> {
         ArrayList<String[]> helpTexts = new ArrayList<>();
         helpTexts.add(new String[]{EditPersonCommand.COMMAND_WORD, EditPersonCommand.MESSAGE_USAGE});
         helpTexts.add(
-                new String[]{OverwritePropertyTagCommand.COMMAND_WORD, OverwritePropertyTagCommand.MESSAGE_USAGE}
+                new String[]{OverwriteListingTagCommand.COMMAND_WORD, OverwriteListingTagCommand.MESSAGE_USAGE}
         );
         helpTexts.add(
                 new String[]{OverwritePreferenceTagCommand.COMMAND_WORD, OverwritePreferenceTagCommand.MESSAGE_USAGE}
@@ -218,7 +219,7 @@ public class HelpWindow extends UiPart<Stage> {
         helpTexts.add(new String[]{DeleteListingCommand.COMMAND_WORD, DeleteListingCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{DeleteTagCommand.COMMAND_WORD, DeleteTagCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{DeletePreferenceCommand.COMMAND_WORD, DeletePreferenceCommand.MESSAGE_USAGE});
-        helpTexts.add(new String[]{DeletePropertyTagCommand.COMMAND_WORD, DeletePropertyTagCommand.MESSAGE_USAGE});
+        helpTexts.add(new String[]{DeleteListingTagCommand.COMMAND_WORD, DeleteListingTagCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{DeletePreferenceTagCommand.COMMAND_WORD, DeletePreferenceTagCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{DeleteOwnerCommand.COMMAND_WORD, DeleteOwnerCommand.MESSAGE_USAGE});
         return helpTexts;

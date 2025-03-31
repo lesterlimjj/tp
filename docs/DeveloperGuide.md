@@ -71,7 +71,15 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a MainWindow that is made up of several parts:
+- Command Interface: CommandBox, ResultDisplay
+- List Panels:
+    - `PersonListPanel` with `PersonCard` and `PreferenceListPanel` with `PreferenceCard`
+    - `ListingListPanel` with `ListingCard` and `OwnerListPanel` with `OwnerCard`
+    - `TagListPanel` 
+- Utility Components: `HelpWindow`, `StatusBarFooter`
+
+All these components, including the `MainWindow`, `inherit` from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -199,9 +207,20 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+* stores match estate data and user preferences locally on disk in JSON format, and reads them back into the model when needed.
+* is defined by the `Storage` interface, which inherits from both `AddressBookStorage` and `UserPrefsStorage`.
+  This allows it to be used for storing either address book data or user preferences independently.
+* is implemented by `StorageManager`, which delegates to:
+  * `JsonAddressBookStorage` — handles storage and retrieval of address book data.
+  * `JsonUserPrefsStorage` — handles storage and retrieval of user preferences.
+* uses `JsonSerializableAddressBook` as the top-level serializable container to read/write the full address book.
+* relies on Jackson-compatible intermediary classes (e.g. `JsonAdaptedPerson`, `JsonAdaptedListing`, `JsonAdaptedTag`,
+  `JsonAdaptedPreference`, and `JsonAdaptedPriceRange`) to convert between JSON and model types.
+* depends on model classes such as `ReadOnlyAddressBook` and `UserPrefs`, as it handles the persistence of these entities.
+
+**Note:**  
+In `JsonAdaptedListing`, the `ownerKeys` field contains phone numbers as strings.  
+These are used to look up the corresponding `Person` objects during deserialization — forming an indirect association from `Listing` to `Person`.
 
 ### Common classes
 
