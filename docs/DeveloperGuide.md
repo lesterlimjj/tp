@@ -199,6 +199,35 @@ The `Model` component,
 
 </box>
 
+<box type="info" seamless>
+
+**Bidirectional navigability:**
+
+`Listing` and `Person`:
+- Listings require references to their owners to display on the UI.
+- Listings uses reference to the owners to ensure that when matching, owners of a listing are not matched to them.
+- Person uses reference to the listings to ensure that they should have a `seller` display label. Alternatively a counter could also be used, however a direct reference would better ensure correctness.
+- Person uses references to the listings to ensure cascading deletion of a person also removes the person as a owner from their listings. Searching through all listings to maintain the cascading delete would be inefficient.
+
+`Person` and `PropertyPreference`:
+- Person requires references to their preferences to display on the UI.
+- Preferences requires references to their owner, such that when a tag is removed from the preference (by cascading deletion of a tag). The person the preference belongs to can update the display on the UI.
+- Preferences uses references to their owner to ensure cascading deletion of a preference also removes the preference from their owner without needing to search all persons which is especially inefficient since a preference can only have 1 owner.
+
+`Listing` and `Tags`:
+- Listing requires references to tags to display on the UI.
+- Tags uses references to the listing to ensure that they have an accurate instance usage label. Alternatively a counter could also be used, however a direct reference would better ensure correctness.
+- Tags uses references to their listing to ensure cascading deletion of a tag also removes the tag from the listings that uses it. Searching through all listings, would be inefficient.
+
+`PropertyPreference` and `Tags`:
+- Property preferences requires references to tags to display on the UI.
+- Tags uses references to the property preferences to ensure that they have an accurate instance usage label. Alternatively a counter could also be used, however a direct reference would better ensure correctness.
+- Tags uses references to their property preferences to ensure cascading deletion of a tag also removes the tag from the property preferences that uses it. Searching through all preferences, would be inefficient.
+
+<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
+
+</box>
+
 
 ### Storage component
 
