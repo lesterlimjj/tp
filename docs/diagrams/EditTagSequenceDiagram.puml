@@ -98,7 +98,7 @@ EditTagCommand -> Pref : removeTag(t)
 activate Pref
 Pref --> EditTagCommand
 deactivate Pref
-EditTagCommand --> Pref : addTag(nt)
+EditTagCommand -> Pref : addTag(nt)
 activate Pref
 Pref --> EditTagCommand
 deactivate Pref

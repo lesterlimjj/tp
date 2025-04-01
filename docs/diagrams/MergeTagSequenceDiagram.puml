@@ -12,16 +12,16 @@ end box
 
 box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
-participant "nt:Tag" as nTag MODEL_COLOR
-participant "t:Tag" as Tag MODEL_COLOR
+participant "ot:Tag" as Tag MODEL_COLOR
+participant "t:Tag" as Tag2 MODEL_COLOR
 participant "l:Listing" as Listing MODEL_COLOR
 participant "pref:PropertyPreferences" as Pref MODEL_COLOR
 end box
 
-[-> LogicManager : execute("mergeTag t/pet-friendly t/pet-allowed")
+[-> LogicManager : execute("mergeTag t/pet-friendly ot/pet-allowed")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("mergeTag t/pet-friendly t/pet-allowed")
+LogicManager -> AddressBookParser : parseCommand("mergeTag t/pet-friendly ot/pet-allowed")
 activate AddressBookParser
 
 create MergeTagCommandParser
@@ -31,7 +31,7 @@ activate MergeTagCommandParser
 MergeTagCommandParser --> AddressBookParser
 deactivate MergeTagCommandParser
 
-AddressBookParser -> MergeTagCommandParser : parse("t/pet-friendly t/pet-allowed")
+AddressBookParser -> MergeTagCommandParser : parse("t/pet-friendly ot/pet-allowed")
 activate MergeTagCommandParser
 
 create MergeTagCommand
@@ -56,7 +56,7 @@ activate MergeTagCommand
 MergeTagCommand -> Model : getTag("pet-allowed")
 activate Model
 
-Model --> MergeTagCommand : petAllowed
+Model --> MergeTagCommand : ot
 deactivate Model
 
 MergeTagCommand -> Tag : getListings()
@@ -72,33 +72,47 @@ deactivate Tag
 MergeTagCommand -> Model : getTag("pet-friendly")
 activate Model
 
-Model --> MergeTagCommand : petFriendly
+Model --> MergeTagCommand : t
 deactivate Model
 
-loop for each listing associated with petAllowed
-MergeTagCommand -> Listing : removeTag(petAllowed)
+loop for each listing associated with ot
+MergeTagCommand -> Listing : removeTag(ot)
 activate Listing
 Listing --> MergeTagCommand
 deactivate Listing
-MergeTagCommand -> Listing : addTag(petFriendly)
+
+MergeTagCommand -> Listing : addTag(t)
 activate Listing
 Listing --> MergeTagCommand
 deactivate Listing
+
+MergeTagCommand -> Tag2 : addListing(listing)
+activate Tag2
+Tag2 --> MergeTagCommand
+deactivate Tag2
+
 MergeTagCommand -> Model : setListing(listing, listing)
 activate Model
 Model --> MergeTagCommand
 deactivate Model
 end loop
 
-loop for each property preference associated with petAllowed
-MergeTagCommand -> Pref : removeTag(petAllowed)
+loop for each property preference associated with ot
+MergeTagCommand -> Pref : removeTag(ot)
 activate Pref
 Pref --> MergeTagCommand
 deactivate Pref
-MergeTagCommand --> Pref : addTag(petFriendly)
+
+MergeTagCommand -> Pref : addTag(t)
 activate Pref
 Pref --> MergeTagCommand
 deactivate Pref
+
+MergeTagCommand -> Tag2 : addPreference(pref)
+activate Tag2
+Tag2 --> MergeTagCommand
+deactivate Tag2
+
 MergeTagCommand -> Pref : getPerson()
 activate Pref
 Pref --> MergeTagCommand : person
@@ -109,7 +123,7 @@ Model --> MergeTagCommand
 deactivate Model
 end loop
 
-MergeTagCommand -> Model: deleteTag(petAllowed)
+MergeTagCommand -> Model: deleteTag(ot)
 activate Model
 
 Model --> MergeTagCommand
