@@ -52,13 +52,14 @@ public class SearchOwnerListingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getSortedFilteredPersonList();
+        System.out.println(lastShownList);
+
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
-
-        model.resetAllLists();
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
+
         searchSellerProperty(model, targetPerson);
 
         return new CommandResult(String.format(MESSAGE_SEARCH_SELLER_PROPERTY_SUCCESS, Messages.format(targetPerson)));
@@ -66,6 +67,7 @@ public class SearchOwnerListingCommand extends Command {
 
     private void searchSellerProperty(Model model, Person targetPerson) {
         requireAllNonNull(model, targetPerson);
+        model.resetAllLists();
 
         Predicate<Listing> predicate = new ListingContainsOwnerPredicate(targetPerson);
         model.updateFilteredListingList(predicate);
