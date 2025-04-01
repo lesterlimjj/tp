@@ -299,7 +299,7 @@ public class ModelManager implements Model {
                           Predicate<PropertyPreference> propertyPreferencePredicate) {
         searchContext.configureSearch(searchType, tags, priceRange, propertyPreferencePredicate);
     }
-    
+
     @Override
     public SearchContext getSearchContext() {
         return searchContext;
