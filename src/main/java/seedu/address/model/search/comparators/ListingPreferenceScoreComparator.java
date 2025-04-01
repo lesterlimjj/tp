@@ -1,5 +1,8 @@
 package seedu.address.model.search.comparators;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -13,12 +16,20 @@ import seedu.address.model.tag.Tag;
 public class ListingPreferenceScoreComparator implements Comparator<Listing> {
     private static PropertyPreference preferenceToScore;
 
+    /**
+     * Creates a comparator that compares two listings based on how well they match the given preference.
+     *
+     * @param preferenceToScore The preference to score the listings against.
+     */
     public ListingPreferenceScoreComparator(PropertyPreference preferenceToScore) {
+        requireNonNull(preferenceToScore);
+
         this.preferenceToScore = preferenceToScore;
     }
 
     @Override
     public int compare(Listing o1, Listing o2) {
+        requireAllNonNull(o1, o2);
 
         HashMap<Listing, Integer> listingScores = new HashMap<>();
 
