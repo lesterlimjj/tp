@@ -201,6 +201,16 @@ The `Model` component,
 
 <box type="info" seamless>
 
+`SearchContext` and `SearchType`
+* SearchContext represents the current active filters for Tags, PriceRange, and PropertyPreference.
+* SearchType enumeration represents the types (Person/ Listing) of searches that can be performed.
+
+<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
+
+</box>
+
+<box type="info" seamless>
+
 **Bidirectional navigability:**
 
 `Listing` and `Person`:
