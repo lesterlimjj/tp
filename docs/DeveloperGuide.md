@@ -1339,7 +1339,7 @@ Similar to <u>UC24</u> except for property preferences.
 1.  User requests to list <u>list persons(UC01)</u>.
 2.  User requests to <u>list listings (UC02)</u>.
 3.  User specifies a property preference in a person to find a matching listing.
-4.  MatchEstate filters the list of listings, displaying based on if any tags and price range of the listing matches the property preference.
+4.  MatchEstate filters the list of listings, displaying based on if any tags and price range of the available listing not owned by the person matches the property preference.
 5.  MatchEstate sorts the filtered listings by the highest number of matching criteria.
 6.  MatchEstate displays a success message.
 
@@ -1372,7 +1372,7 @@ Similar to <u>UC27</u> except for a listing.
 1.  User requests to list <u>list persons(UC01)</u>.
 2.  User requests to list <u>list listings(UC02)</u>.
 3.  User specifies a listing to find a matching property preference across all persons.
-4.  MatchEstate filters the list of property preferences, displaying persons based on if any tags and price range of any of their preferences matches the listing.
+4.  MatchEstate filters the list of property preferences, displaying persons who do not own the listing, based on if any tags and price range of any of their preferences matches the listing.
 5.  MatchEstate sorts the filtered persons by the highest number of matching criteria in their preferences.
 6.  MatchEstate displays a success message.
 
