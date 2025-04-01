@@ -108,7 +108,7 @@ public class PriceRange {
                 || otherPriceRange.isPriceWithinRange(this.upperBoundPrice);
 
         return isOtherLowerBoundWithinRange || isOtherUpperBoundWithinRange
-                || (isThisLowerBoundWithinRange || isThisUpperBoundWithinRange);
+                || (isThisLowerBoundWithinRange && isThisUpperBoundWithinRange);
     }
 
     @Override
