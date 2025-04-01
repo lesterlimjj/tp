@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
+import seedu.address.model.search.SearchContext;
 
 
 /**
@@ -57,7 +58,7 @@ public class ListingCard extends UiPart<Region> {
     /**
      * Creates a {@code PropertyCode} with the given {@code Property} and index to display.
      */
-    public ListingCard(Listing listing, int displayedIndex) {
+    public ListingCard(Listing listing, int displayedIndex, SearchContext searchContext) {
         super(FXML);
 
         this.listing = listing;
@@ -81,7 +82,7 @@ public class ListingCard extends UiPart<Region> {
         }
 
         priceRange.setText(listing.getPriceRange().toString());
-        if (listing.getPriceRange().isPriceMatchedForListing()) {
+        if (searchContext.isPriceInRangeForListing(listing.getPriceRange())) {
             priceRange.getStyleClass().add("active");
         }
 
@@ -95,7 +96,7 @@ public class ListingCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {
                     Label label = new Label(tag.tagName);
-                    if (tag.isActiveForListing()) {
+                    if (searchContext.isTagActiveForListing(tag)) {
                         label.getStyleClass().add("active");
                     }
                     tags.getChildren().add(label);
