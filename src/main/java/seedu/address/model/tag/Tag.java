@@ -1,5 +1,6 @@
 package seedu.address.model.tag;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -67,11 +68,25 @@ public class Tag {
         return Collections.unmodifiableList(propertyPreferences);
     }
 
+    /**
+     * Adds a property preference to the tracking list of property preferences that use the tag.
+     *
+     * @param toAdd A valid property preference.
+     */
     public void addPropertyPreference(PropertyPreference toAdd) {
+        requireNonNull(toAdd);
+
         this.propertyPreferences.add(toAdd);
     }
 
+    /**
+     * Removes a property preference from the tracking list of property preferences that use the tag.
+     *
+     * @param toDelete A valid property preference.
+     */
     public void removePropertyPreference(PropertyPreference toDelete) {
+        requireNonNull(toDelete);
+
         this.propertyPreferences.remove(toDelete);
     }
 
@@ -83,11 +98,25 @@ public class Tag {
         return Collections.unmodifiableList(listings);
     }
 
+    /**
+     * Adds a listing to the tracking list of listings that use the tag.
+     *
+     * @param toAdd A valid listing.
+     */
     public void addListing(Listing toAdd) {
+        requireNonNull(toAdd);
+
         this.listings.add(toAdd);
     }
 
+    /**
+     * Removes a listing from the tracking list of listings that use the tag.
+     *
+     * @param toDelete A valid listing.
+     */
     public void removeListing(Listing toDelete) {
+        requireNonNull(toDelete);
+
         this.listings.remove(toDelete);
     }
 

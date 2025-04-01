@@ -2,6 +2,7 @@ package seedu.address.model.price;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
@@ -33,7 +34,7 @@ public class PriceRange {
      * @param isUpperBound     if true, the singleBoundPrice is the upper bound, otherwise it is the lower bound.
      */
     public PriceRange(Price singleBoundPrice, boolean isUpperBound) {
-        requireNonNull(singleBoundPrice);
+        requireAllNonNull(singleBoundPrice, isUpperBound);
 
         if (isUpperBound) {
             this.lowerBoundPrice = null;
@@ -51,8 +52,7 @@ public class PriceRange {
      * @param upperBoundPrice the upper bound price.
      */
     public PriceRange(Price lowerBoundPrice, Price upperBoundPrice) {
-        requireNonNull(lowerBoundPrice);
-        requireNonNull(upperBoundPrice);
+        requireAllNonNull(lowerBoundPrice, upperBoundPrice);
         checkArgument(lowerBoundPrice.compare(upperBoundPrice) <= 0);
         this.lowerBoundPrice = lowerBoundPrice;
         this.upperBoundPrice = upperBoundPrice;
