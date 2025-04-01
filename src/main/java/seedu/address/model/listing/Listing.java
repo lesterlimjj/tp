@@ -210,11 +210,21 @@ public class Listing {
         return Collections.unmodifiableSet(tags);
     }
 
+    /**
+     * Adds a tag to the listing.
+     *
+     * @param toAdd A valid tag.
+     */
     public void addTag(Tag toAdd) {
         requireNonNull(toAdd);
         this.tags.add(toAdd);
     }
 
+    /**
+     * Removes a tag from the listing.
+     *
+     * @param toDelete A valid tag.
+     */
     public void removeTag(Tag toDelete) {
         requireNonNull(toDelete);
         this.tags.remove(toDelete);
@@ -228,11 +238,21 @@ public class Listing {
         return Collections.unmodifiableList(owners);
     }
 
+    /**
+     * Adds a person as the owner of the listing.
+     *
+     * @param toAdd A valid person.
+     */
     public void addOwner(Person toAdd) {
         requireNonNull(toAdd);
         this.owners.add(toAdd);
     }
 
+    /**
+     * Removes a person from the owner of the listing.
+     *
+     * @param toDelete A valid person.
+     */
     public void removeOwner(Person toDelete) {
         requireNonNull(toDelete);
         this.owners.remove(toDelete);

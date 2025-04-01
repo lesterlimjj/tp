@@ -68,12 +68,22 @@ public class Person {
         return Collections.unmodifiableList(propertyPreferences);
     }
 
+    /**
+     * Adds a property preference of the person.
+     *
+     * @param toAdd A valid property preference
+     */
     public void addPropertyPreference(PropertyPreference toAdd) {
         requireNonNull(toAdd);
 
         this.propertyPreferences.add(toAdd);
     }
 
+    /**
+     * Removes a property preference of the person.
+     *
+     * @param toDelete A valid property preference.
+     */
     public void removePropertyPreference(PropertyPreference toDelete) {
         requireNonNull(toDelete);
 
@@ -88,12 +98,22 @@ public class Person {
         return Collections.unmodifiableList(listings);
     }
 
+    /**
+     * Adds a listing as being owned by the person.
+     *
+     * @param toAdd A valid listing.
+     */
     public void addListing(Listing toAdd) {
         requireNonNull(toAdd);
 
         this.listings.add(toAdd);
     }
 
+    /**
+     * Removes a listing as being owned by the person.
+     *
+     * @param toDelete A valid listing.
+     */
     public void removeListing(Listing toDelete) {
         requireNonNull(toDelete);
 
