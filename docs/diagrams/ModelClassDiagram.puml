@@ -61,6 +61,7 @@ AddressBook *--> "1" UniqueTagMap
 ' Person
 UniquePersonList --> "~* all" Person
 Person "1" *-right-> "*" PropertyPreference
+PropertyPreference "*" -right-> "1" Person
 
 ' Listing
 UniqueListingList ---> "all ~* " Listing
