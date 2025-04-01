@@ -20,16 +20,13 @@ Class Person
 Class PropertyPreference
 
 Class TagRegistry
-Class Tag {
-    {static} + searchType:SearchType
-}
+Class Tag
 
 Class UniqueListingList
 Class Listing
-Class PriceRange {
-     {static} + searchType:SearchType
-}
+Class PriceRange
 
+Class SearchContext
 Class "<<enumerations>>\nSearchType" as SearchType {
     PERSON
     LISTING
@@ -78,10 +75,14 @@ Person "owner ~*" <-left-> "~*" Listing
 Listing "1" -down-> "1" PriceRange
 PropertyPreference "1" -right-> "1" PriceRange
 
+' Misc
+SearchContext *-> "1" SearchType
+
 ' Filtering
 ModelManager ------> "filtered ~* " Tag
 ModelManager --> "filtered ~*" Person
 ModelManager --> "filtered ~*" Listing
+ModelManager *-> "1" SearchContext
 
 ' Hidden associations for formatting and tidiness
 TagRegistry -[hidden]right-> UniquePersonList
@@ -94,6 +95,6 @@ TagRegistry -[hidden]up-> ModelManager
 Person -[hidden]up--> A
 C -[hidden]up-> Listing
 PriceRange -[hidden]left->C
-SearchType -[hidden]up-> Tag
+SearchContext -[hidden]down->UserPrefs
 
 @enduml
