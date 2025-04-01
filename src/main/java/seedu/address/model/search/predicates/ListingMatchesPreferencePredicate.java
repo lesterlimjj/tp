@@ -1,4 +1,4 @@
-package seedu.address.model.listing.predicates;
+package seedu.address.model.search.predicates;
 
 import java.util.Collections;
 import java.util.Set;
@@ -11,7 +11,7 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Tests if a {@code Listing} matches a {@code PropertyPreference}.
- * Used for {@code MatchPersonCommand}.
+ * Used for {@code MatchPreferenceCommand}.
  */
 public class ListingMatchesPreferencePredicate implements Predicate<Listing> {
     private final PropertyPreference preferenceToMatch;
