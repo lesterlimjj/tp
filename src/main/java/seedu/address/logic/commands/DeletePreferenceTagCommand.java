@@ -48,7 +48,8 @@ public class DeletePreferenceTagCommand extends Command {
      * @param tagsToDelete  The set of tag names to be deleted.
      */
     public DeletePreferenceTagCommand(Index personIndex, Index preferenceIndex, Set<String> tagsToDelete) {
-        requireAllNonNull(personIndex, preferenceIndex, tagsToDelete);
+        requireAllNonNull(personIndex, preferenceIndex);
+        requireAllNonNull(tagsToDelete);
 
         this.targetPersonIndex = personIndex;
         this.targetPreferenceIndex = preferenceIndex;

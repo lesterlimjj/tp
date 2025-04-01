@@ -39,6 +39,8 @@ public class SearchOwnerListingCommand extends Command {
      * @param targetIndex of the listing in the filtered listing list to delete
      */
     public SearchOwnerListingCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+
         this.targetIndex = targetIndex;
     }
 
