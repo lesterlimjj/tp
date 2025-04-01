@@ -1,14 +1,11 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.price.PriceRange;
@@ -20,7 +17,6 @@ import seedu.address.model.tag.Tag;
  * Associations are mutable.
  */
 public class PropertyPreference {
-    private static Predicate<PropertyPreference> filterPredicate = PREDICATE_SHOW_ALL_PROPERTY_PREFERENCES;
 
     // Data fields
     private final PriceRange priceRange;
@@ -70,23 +66,6 @@ public class PropertyPreference {
 
     public void removeTag(Tag toDelete) {
         this.tags.remove(toDelete);
-    }
-
-    public static Predicate<PropertyPreference> getFilterPredicate() {
-        return filterPredicate;
-    }
-
-    public static void setFilterPredicate(Predicate<PropertyPreference> predicate) {
-        requireNonNull(predicate);
-
-        PropertyPreference.filterPredicate = predicate;
-    }
-
-    /**
-     * Checks if this @{code PropertyPreference} fits the filterPredicate criteria.
-     */
-    public boolean isFiltered() {
-        return filterPredicate.test(this);
     }
 
     @Override

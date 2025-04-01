@@ -12,8 +12,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
-import seedu.address.model.listing.predicates.ListingContainsOwnerPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.search.predicates.ListingContainsOwnerPredicate;
 
 /**
  * Searches for {@code Listing}(s) that are owned by a {@code Person} identified using it's displayed index.
