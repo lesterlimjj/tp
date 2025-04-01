@@ -1,5 +1,6 @@
 package seedu.address.model.tag;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -68,10 +69,14 @@ public class Tag {
     }
 
     public void addPropertyPreference(PropertyPreference toAdd) {
+        requireNonNull(toAdd);
+
         this.propertyPreferences.add(toAdd);
     }
 
     public void removePropertyPreference(PropertyPreference toDelete) {
+        requireNonNull(toDelete);
+
         this.propertyPreferences.remove(toDelete);
     }
 
@@ -84,10 +89,14 @@ public class Tag {
     }
 
     public void addListing(Listing toAdd) {
+        requireNonNull(toAdd);
+
         this.listings.add(toAdd);
     }
 
     public void removeListing(Listing toDelete) {
+        requireNonNull(toDelete);
+
         this.listings.remove(toDelete);
     }
 

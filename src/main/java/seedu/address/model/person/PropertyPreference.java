@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -49,6 +50,8 @@ public class PropertyPreference {
     }
 
     public void setPerson(Person person) {
+        requireNonNull(person);
+
         this.person = person;
     }
 
@@ -61,10 +64,14 @@ public class PropertyPreference {
     }
 
     public void addTag(Tag toAdd) {
+        requireNonNull(toAdd);
+
         this.tags.add(toAdd);
     }
 
     public void removeTag(Tag toDelete) {
+        requireNonNull(toDelete);
+
         this.tags.remove(toDelete);
     }
 
