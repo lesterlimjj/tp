@@ -66,8 +66,11 @@ public class SearchPersonByName extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        model.resetAllLists();
         model.updateFilteredPersonList(predicate);
-        int count = model.getFilteredPersonList().size();
+
+        int count = model.getSortedFilteredPersonList().size();
 
         if (count == 0) {
             return new CommandResult("No persons found matching the keywords.");

@@ -1,4 +1,4 @@
-package seedu.address.model.listing.comparators;
+package seedu.address.model.search.comparators;
 
 import java.util.Comparator;
 import java.util.HashMap;

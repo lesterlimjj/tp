@@ -80,7 +80,7 @@ public class AddPreferenceTagCommand extends Command {
 
         // Filter preferences according to active filter tags
         List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences().stream()
-                .filter(PropertyPreference::isFiltered)
+                .filter(preference -> model.getSearchContext().matches(preference))
                 .toList();
 
         if (targetPreferenceIndex.getZeroBased() >= targetPreferenceList.size()) {
