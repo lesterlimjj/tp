@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.PropertyPreference;
+import seedu.address.model.search.SearchContext;
 
 /**
  * Panel containing the list of preferences.
@@ -16,15 +17,16 @@ import seedu.address.model.person.PropertyPreference;
 public class PreferenceListPanel extends UiPart<Region> {
     private static final String FXML = "PreferenceListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PreferenceListPanel.class);
-
+    private final SearchContext searchContext;
     @FXML
     private ListView<PropertyPreference> preferenceListView;
 
     /**
      * Creates a {@code PreferenceListPanel} with the given {@code ObservableList}.
      */
-    public PreferenceListPanel(ObservableList<PropertyPreference> preferenceList) {
+    public PreferenceListPanel(ObservableList<PropertyPreference> preferenceList, SearchContext searchContext) {
         super(FXML);
+        this.searchContext = searchContext;
         preferenceListView.setItems(preferenceList);
         preferenceListView.setCellFactory(listView -> new PreferenceListViewCell());
     }
@@ -41,7 +43,7 @@ public class PreferenceListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PreferenceCard(preference, getIndex() + 1).getRoot());
+                setGraphic(new PreferenceCard(preference, getIndex() + 1, searchContext).getRoot());
             }
         }
     }
