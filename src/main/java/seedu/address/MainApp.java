@@ -15,7 +15,6 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -86,11 +85,35 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
-                    + " Will be starting with an empty AddressBook.");
-            initialData = new AddressBook();
+                    + " Will be starting with a sample AddressBook.");
+
+            handleCorruptedFile(storage.getAddressBookFilePath());
+            initialData = SampleDataUtil.getSampleAddressBook();
         }
 
         return new ModelManager(initialData, userPrefs);
+    }
+
+    private void handleCorruptedFile(Path corruptedFilePath) {
+        // Rename the corrupted file with incrementing number if needed
+        Path directory = corruptedFilePath.getParent();
+        String baseName = "invalid_matchestate";
+        String extension = ".json";
+
+        Path newFilePath = directory.resolve(baseName + extension);
+        int counter = 1;
+
+        while (java.nio.file.Files.exists(newFilePath)) {
+            newFilePath = directory.resolve(baseName + "_" + counter + extension);
+            counter++;
+        }
+
+        try {
+            java.nio.file.Files.move(corruptedFilePath, newFilePath);
+            logger.warning("Renamed corrupted file to: " + newFilePath);
+        } catch (IOException ioException) {
+            logger.warning("Failed to rename corrupted file: " + StringUtil.getDetails(ioException));
+        }
     }
 
     private void initLogging(Config config) {
