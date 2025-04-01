@@ -19,7 +19,7 @@ Class UniquePersonList
 Class Person
 Class PropertyPreference
 
-Class TagRegistry
+Class UniqueTagMap
 Class Tag
 
 Class UniqueListingList
@@ -56,7 +56,7 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 ' Unique Lists
 AddressBook *--> "1" UniquePersonList
 AddressBook *--> "1" UniqueListingList
-AddressBook *--> "1" TagRegistry
+AddressBook *--> "1" UniqueTagMap
 
 ' Person
 UniquePersonList --> "~* all" Person
@@ -66,7 +66,7 @@ Person "1" *-right-> "*" PropertyPreference
 UniqueListingList ---> "all ~* " Listing
 
 ' Tag
-TagRegistry ----> "all ~* " Tag
+UniqueTagMap ----> "all ~* " Tag
 
 ' Associations
 Listing "~*" <-> "specification ~* " Tag
@@ -85,13 +85,13 @@ ModelManager --> "filtered ~*" Listing
 ModelManager *-> "1" SearchContext
 
 ' Hidden associations for formatting and tidiness
-TagRegistry -[hidden]right-> UniquePersonList
+UniqueTagMap -[hidden]right-> UniquePersonList
 B -[hidden]up-> ModelManager
-UniquePersonList -[hidden]up-> EOutside
-TagRegistry -[hidden]up-> DOutside
+UniquePersonList -[hidden]up--> EOutside
+UniqueTagMap -[hidden]up-> DOutside
 UniqueListingList -[hidden]up->AddressBook
-UniquePersonList -[hidden]up-> ModelManager
-TagRegistry -[hidden]up-> ModelManager
+UniquePersonList -[hidden]left-> ModelManager
+UniqueTagMap -[hidden]up-> ModelManager
 Person -[hidden]up--> A
 C -[hidden]up-> Listing
 PriceRange -[hidden]left->C
