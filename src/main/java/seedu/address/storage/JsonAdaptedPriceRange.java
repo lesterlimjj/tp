@@ -57,8 +57,7 @@ class JsonAdaptedPriceRange {
             } else if (upper != null) {
                 modelPriceRange = new PriceRange(new Price(upper.toString()), true);
             }
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalValueException(e.getMessage());
         }
 
