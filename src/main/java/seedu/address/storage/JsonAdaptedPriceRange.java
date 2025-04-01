@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 
@@ -44,15 +45,21 @@ class JsonAdaptedPriceRange {
         return lower;
     }
 
-    public PriceRange toModelType() {
+    public PriceRange toModelType() throws IllegalValueException {
 
         PriceRange modelPriceRange = new PriceRange();
-        if (lower != null && upper != null) {
-            modelPriceRange = new PriceRange(new Price(lower.toString()), new Price(upper.toString()));
-        } else if (lower != null) {
-            modelPriceRange = new PriceRange(new Price(lower.toString()), false);
-        } else if (upper != null) {
-            modelPriceRange = new PriceRange(new Price(upper.toString()), true);
+
+        try {
+            if (lower != null && upper != null) {
+                modelPriceRange = new PriceRange(new Price(lower.toString()), new Price(upper.toString()));
+            } else if (lower != null) {
+                modelPriceRange = new PriceRange(new Price(lower.toString()), false);
+            } else if (upper != null) {
+                modelPriceRange = new PriceRange(new Price(upper.toString()), true);
+            }
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalValueException(e.getMessage());
         }
 
         return modelPriceRange;

@@ -83,9 +83,15 @@ public class MainApp extends Application {
                         + " populated with a sample AddressBook.");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
-                    + " Will be starting with a sample AddressBook.");
+        } catch (DataLoadingException | IllegalArgumentException e) {
+//            if (e instanceof IllegalArgumentException) {
+//                logger.warning("Data file at " + storage.getAddressBookFilePath() + " is corrupted.");
+//            }
+
+            if (e instanceof DataLoadingException) {
+                logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
+                        + " Will be starting with a sample AddressBook.");
+            }
 
             handleCorruptedFile(storage.getAddressBookFilePath());
             initialData = SampleDataUtil.getSampleAddressBook();
