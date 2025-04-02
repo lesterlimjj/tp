@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.commons.util.CommandUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -45,5 +46,12 @@ public class MarkUnavailableCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_MARK_UNAVAILABLE_SUCCESS,
                 Messages.format(toMarkUnavailable.getAvailability(), toMarkUnavailable)));
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("targetListingIndex", targetListingIndex)
+                .toString();
     }
 }

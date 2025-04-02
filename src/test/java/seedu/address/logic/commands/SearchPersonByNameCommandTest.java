@@ -17,7 +17,7 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class SearchPersonByNameTest {
+public class SearchPersonByNameCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -26,14 +26,14 @@ public class SearchPersonByNameTest {
         List<String> firstPredicate = Arrays.asList("Alice");
         List<String> secondPredicate = Arrays.asList("Bob");
 
-        SearchPersonByName findFirstCommand = new SearchPersonByName(firstPredicate);
-        SearchPersonByName findSecondCommand = new SearchPersonByName(secondPredicate);
+        SearchPersonByNameCommand findFirstCommand = new SearchPersonByNameCommand(firstPredicate);
+        SearchPersonByNameCommand findSecondCommand = new SearchPersonByNameCommand(secondPredicate);
 
         // same object -> returns true
         assertEquals(findFirstCommand, findFirstCommand);
 
         // same values -> returns true
-        SearchPersonByName findFirstCommandCopy = new SearchPersonByName(firstPredicate);
+        SearchPersonByNameCommand findFirstCommandCopy = new SearchPersonByNameCommand(firstPredicate);
         assertEquals(findFirstCommand, findFirstCommandCopy);
 
         // different types -> returns false
@@ -51,7 +51,7 @@ public class SearchPersonByNameTest {
         String expectedMessage = "1 persons found matching the keywords.";
         List<String> keywords = Arrays.asList("Alice", "Bob");
 
-        SearchPersonByName command = new SearchPersonByName(keywords);
+        SearchPersonByNameCommand command = new SearchPersonByNameCommand(keywords);
         expectedModel.updateFilteredPersonList(person -> keywords.contains(person.getName().fullName));
 
         assertEquals(new CommandResult(expectedMessage), command.execute(model));

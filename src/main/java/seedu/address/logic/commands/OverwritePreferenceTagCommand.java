@@ -135,10 +135,10 @@ public class OverwritePreferenceTagCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("personIndex", targetPersonIndex)
-                .add("preferenceIndex", targetPreferenceIndex)
-                .add("tags", tagSet)
-                .add("newTags", newTagSet)
+                .add("targetPersonIndex", targetPersonIndex)
+                .add("targetPreferenceIndex", targetPreferenceIndex)
+                .add("tagSet", tagSet)
+                .add("newTagSet", newTagSet)
                 .toString();
     }
 }

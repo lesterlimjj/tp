@@ -87,7 +87,7 @@ public class DeleteTagCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("tags to delete ", toDelete)
+                .add("toDelete", toDelete)
                 .toString();
     }
 

@@ -165,9 +165,9 @@ public class OverwriteListingTagCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("listingIndex", listingIndex)
-                .add("tags", tagSet)
-                .add("newTags", newTagSet)
+                .add("targetListingIndex", targetListingIndex)
+                .add("tagSet", tagSet)
+                .add("newTagSet", newTagSet)
                 .toString();
     }
 }

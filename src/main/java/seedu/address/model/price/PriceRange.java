@@ -119,19 +119,6 @@ public class PriceRange {
     }
 
     @Override
-    public String toString() {
-        if (lowerBoundPrice == null && upperBoundPrice == null) {
-            return ANY_PRICE_STRING;
-        } else if (lowerBoundPrice == null) {
-            return UP_TO_STRING + upperBoundPrice;
-        } else if (upperBoundPrice == null) {
-            return FROM_STRING + lowerBoundPrice;
-        } else {
-            return lowerBoundPrice + TO_STRING + upperBoundPrice;
-        }
-    }
-
-    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -150,6 +137,19 @@ public class PriceRange {
     @Override
     public int hashCode() {
         return Objects.hash(lowerBoundPrice, upperBoundPrice);
+    }
+
+    @Override
+    public String toString() {
+        if (lowerBoundPrice == null && upperBoundPrice == null) {
+            return ANY_PRICE_STRING;
+        } else if (lowerBoundPrice == null) {
+            return UP_TO_STRING + upperBoundPrice;
+        } else if (upperBoundPrice == null) {
+            return FROM_STRING + lowerBoundPrice;
+        } else {
+            return lowerBoundPrice + TO_STRING + upperBoundPrice;
+        }
     }
 
 }

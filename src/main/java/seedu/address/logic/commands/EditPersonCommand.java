@@ -132,7 +132,7 @@ public class EditPersonCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", targetPersonIndex)
+                .add("targetPersonIndex", targetPersonIndex)
                 .add("editPersonDescriptor", editPersonDescriptor)
                 .toString();
     }
