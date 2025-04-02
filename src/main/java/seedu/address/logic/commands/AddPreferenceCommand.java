@@ -21,8 +21,8 @@ import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds a {@code PropertyPreference} to a {@code Person} identified using it's displayed index in
- * the address book.
+ * Adds a {@code PropertyPreference} to a {@code Person} in the address book.
+ * The {@code Person} is identified using it's displayed index.
  */
 public class AddPreferenceCommand extends Command {
     public static final String COMMAND_WORD = "addPreference";
@@ -46,35 +46,35 @@ public class AddPreferenceCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.%1$s\n";
     public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.%1$s\n";
 
-    private final Index index;
+    private final Index targetPersonIndex;
     private final PriceRange priceRange;
     private final Set<String> tagSet;
     private final Set<String> newTagSet;
 
     /**
-     * Creates an {@code AddPreferenceCommand} to add the specified {@code Preference} to {@code Person}.
+     * Creates an {@code AddPreferenceCommand} to add the specified {@code PropertyPreference} to the specified
+     * {@code Person}.
      *
-     * @param index Index of the person in the filtered person list to add preference to
-     * @param priceRange Price range of the preference
-     * @param tags  The set of existing tags to be added to the preference
-     * @param newTags The set of tags to be added to the preference and to the tag registry
+     * @param targetPersonIndex The index of the person in the filtered person list to add preference to.
+     * @param priceRange The price range of the preference.
+     * @param tags The set of existing tags to be added to the preference.
+     * @param newTags The set of tags to be added to the preference and to the unique tag map.
      */
-    public AddPreferenceCommand(Index index, PriceRange priceRange, Set<String> tags,
+    public AddPreferenceCommand(Index targetPersonIndex, PriceRange priceRange, Set<String> tags,
                                 Set<String> newTags) {
         requireNonNull(priceRange);
-        this.index = index;
+        this.targetPersonIndex = targetPersonIndex;
         this.priceRange = priceRange;
         tagSet = tags;
         newTagSet = newTags;
     }
-
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         List<Person> lastShownList = model.getSortedFilteredPersonList();
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
 
@@ -86,7 +86,7 @@ public class AddPreferenceCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
         }
 
-        Person personToAddPreference = lastShownList.get(index.getZeroBased());
+        Person personToAddPreference = lastShownList.get(targetPersonIndex.getZeroBased());
         PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>(), personToAddPreference);
 
         model.addTags(newTagSet);

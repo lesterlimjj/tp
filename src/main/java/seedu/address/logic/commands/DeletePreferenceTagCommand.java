@@ -19,8 +19,9 @@ import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes {@code Tag}(s) from a {@code PropertyPreference} identified using it's displayed index
- * from {@code Person} identified using it's displayed index in the address book.
+ * Deletes a {@code Tag} from the {@code PropertyPreference} of a {@code Person} in the address book.
+ * The {@code PropertyPreference} is identified using it's displayed index within the {@code Person}'s preferences,
+ * and the {@code Person} is identified using it's displayed index.
  */
 public class DeletePreferenceTagCommand extends Command {
 
@@ -40,18 +41,18 @@ public class DeletePreferenceTagCommand extends Command {
     private final Set<String> tagsToDelete;
 
     /**
-     * Creates a {@code DeletePreferenceTagCommand} to delete a set of {@code Tag}
+     * Creates a {@code DeletePreferenceTagCommand} to delete the specified {@code Tag}(s)
      * from the specified {@code Preference}.
      *
-     * @param personIndex The index of the person from which the preference is located in.
-     * @param preferenceIndex The index of the preference from which tags will be removed.
-     * @param tagsToDelete  The set of tag names to be deleted.
+     * @param targetPersonIndex The index of the person in the filtered person list that the preference is located in.
+     * @param targetPreferenceIndex The index of the preference to remove tags from.
+     * @param tagsToDelete The set of tag to be deleted from the preference.
      */
-    public DeletePreferenceTagCommand(Index personIndex, Index preferenceIndex, Set<String> tagsToDelete) {
-        requireAllNonNull(personIndex, preferenceIndex, tagsToDelete);
+    public DeletePreferenceTagCommand(Index targetPersonIndex, Index targetPreferenceIndex, Set<String> tagsToDelete) {
+        requireAllNonNull(targetPersonIndex, targetPreferenceIndex, tagsToDelete);
 
-        this.targetPersonIndex = personIndex;
-        this.targetPreferenceIndex = preferenceIndex;
+        this.targetPersonIndex = targetPersonIndex;
+        this.targetPreferenceIndex = targetPreferenceIndex;
         this.tagsToDelete = tagsToDelete;
     }
 
@@ -115,8 +116,8 @@ public class DeletePreferenceTagCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("personIndex", targetPersonIndex)
-                .add("preferenceIndex", targetPreferenceIndex)
+                .add("targetPersonIndex", targetPersonIndex)
+                .add("targetPreferenceIndex", targetPreferenceIndex)
                 .add("tagsToDelete", tagsToDelete)
                 .toString();
     }

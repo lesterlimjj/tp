@@ -11,7 +11,7 @@ import seedu.address.model.search.SearchContext;
 import seedu.address.model.search.SearchType;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the address book.
  */
 public class ListListingCommand extends Command {
 
@@ -21,7 +21,6 @@ public class ListListingCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed all listings";
-
 
     @Override
     public CommandResult execute(Model model) {

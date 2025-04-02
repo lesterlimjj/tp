@@ -16,7 +16,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.search.predicates.ListingContainsOwnerPredicate;
 
 /**
- * Searches for {@code Listing}(s) that are owned by a {@code Person} identified using it's displayed index.
+ * Lists all {@code Listing}(s) that are owned by a specified {@code Person}.
+ * The {@code Person} is identified using it's displayed index.
  */
 public class SearchOwnerListingCommand extends Command {
 
@@ -30,16 +31,16 @@ public class SearchOwnerListingCommand extends Command {
 
     public static final String MESSAGE_SEARCH_SELLER_PROPERTY_SUCCESS = "Searched Properties of Person: %1$s";
 
-    private final Index targetIndex;
+    private final Index targetPersonIndex;
 
     /**
-     * Creates a {@code SearchOwnerListingCommand} to list the specified {@code Person}'s owned
-     * {@code Listing}s.
+     * Creates a {@code SearchOwnerListingCommand} to list {@code Listing}(s) that are owned by a specified
+     * {@code Person}.
      *
-     * @param targetIndex of the listing in the filtered listing list to delete
+     * @param targetPersonIndex The index of the person in the filtered person list to search by.
      */
-    public SearchOwnerListingCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public SearchOwnerListingCommand(Index targetPersonIndex) {
+        this.targetPersonIndex = targetPersonIndex;
     }
 
     /**
@@ -55,10 +56,10 @@ public class SearchOwnerListingCommand extends Command {
         List<Person> lastShownList = model.getSortedFilteredPersonList();
         System.out.println(lastShownList);
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
-        Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
+        Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
 
         searchSellerProperty(model, targetPerson);
 
@@ -85,13 +86,13 @@ public class SearchOwnerListingCommand extends Command {
         }
 
         SearchOwnerListingCommand otherDeletePersonCommand = (SearchOwnerListingCommand) other;
-        return targetIndex.equals(otherDeletePersonCommand.targetIndex);
+        return targetPersonIndex.equals(otherDeletePersonCommand.targetPersonIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("targetPersonIndex", targetPersonIndex)
                 .toString();
     }
 }

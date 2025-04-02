@@ -12,7 +12,7 @@ import seedu.address.model.search.SearchContext;
 import seedu.address.model.search.SearchType;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the address book.
  */
 public class ListPersonCommand extends Command {
 
@@ -22,7 +22,6 @@ public class ListPersonCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
-
 
     @Override
     public CommandResult execute(Model model) {

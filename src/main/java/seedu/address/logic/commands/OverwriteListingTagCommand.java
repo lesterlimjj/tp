@@ -18,7 +18,8 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
 
 /**
- * Overwrites all {@code Tag}s in a {@code Listing} identified using it's displayed index in the address book.
+ * Overwrites all {@code Tag}(s) in a {@code Listing} with the specified {@code Tag}(s).
+ * The {@code Listing} is identified using it's displayed index.
  */
 public class OverwriteListingTagCommand extends Command {
 
@@ -40,21 +41,22 @@ public class OverwriteListingTagCommand extends Command {
     public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.\n%s";
     public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.\n%s";
 
-    private final Index propertyIndex;
+    private final Index targetListingIndex;
     private final Set<String> tagSet;
     private final Set<String> newTagSet;
 
     /**
-     * Creates an @{code OverwriteListingTagCommand} to replace all {@code Tag}s in {@code Listing}.
+     * Creates an @{code OverwriteListingTagCommand} to replace all {@code Tag}(s) in the specified {@code Listing}
+     * with the specified {@code Tag}(s).
      *
-     * @param propertyIndex The index of the property in which tags will be overwritten.
-     * @param tagSet The set of existing tags to be used in the property.
-     * @param newTagSet The set of new tags to be created and used in the property.
+     * @param targetListingIndex The index of the listing in which tags will be overwritten.
+     * @param tagSet The set of existing tags to be used in the listing.
+     * @param newTagSet The set of new tags to be added to the listing and to the unique tag map.
      */
-    public OverwriteListingTagCommand(Index propertyIndex, Set<String> tagSet, Set<String> newTagSet) {
-        requireAllNonNull(propertyIndex, tagSet, newTagSet);
+    public OverwriteListingTagCommand(Index targetListingIndex, Set<String> tagSet, Set<String> newTagSet) {
+        requireAllNonNull(targetListingIndex, tagSet, newTagSet);
 
-        this.propertyIndex = propertyIndex;
+        this.targetListingIndex = targetListingIndex;
         this.tagSet = tagSet;
         this.newTagSet = newTagSet;
     }
@@ -64,11 +66,11 @@ public class OverwriteListingTagCommand extends Command {
         requireNonNull(model);
         List<Listing> lastShownList = model.getSortedFilteredListingList();
 
-        if (propertyIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
 
-        Listing property = lastShownList.get(propertyIndex.getZeroBased());
+        Listing property = lastShownList.get(targetListingIndex.getZeroBased());
 
         if (!model.hasTags(tagSet)) {
             throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
@@ -120,7 +122,7 @@ public class OverwriteListingTagCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof OverwriteListingTagCommand
-                && propertyIndex.equals(((OverwriteListingTagCommand) other).propertyIndex)
+                && targetListingIndex.equals(((OverwriteListingTagCommand) other).targetListingIndex)
                 && tagSet.equals(((OverwriteListingTagCommand) other).tagSet))
                 && newTagSet.equals(((OverwriteListingTagCommand) other).newTagSet);
     }
@@ -128,7 +130,7 @@ public class OverwriteListingTagCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("propertyIndex", propertyIndex)
+                .add("targetListingIndex", targetListingIndex)
                 .add("tags", tagSet)
                 .add("newTags", newTagSet)
                 .toString();
