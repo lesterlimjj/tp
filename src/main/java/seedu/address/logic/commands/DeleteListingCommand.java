@@ -39,9 +39,9 @@ public class DeleteListingCommand extends Command {
      * @param targetListingIndex The index of the listing in the filtered listing list to be deleted.
      */
     public DeleteListingCommand(Index targetListingIndex) {
-       requireNonNull(targetListingIndex);
+        requireNonNull(targetListingIndex);
 
-       this.targetListingIndex = targetListingIndex;
+        this.targetListingIndex = targetListingIndex;
     }
 
     @Override
