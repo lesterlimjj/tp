@@ -7,7 +7,7 @@ import java.util.Comparator;
 import seedu.address.model.listing.Listing;
 
 /**
- * Compares two listings based on default criteria (postal code, unit number, and house number).
+ * Compares two @{code Listing}s based on default criteria (postal code, unit number, and house number).
  */
 public class DefaultListingComparator implements Comparator<Listing> {
     private static final String NULL_UNIT_NUMBER_PLACEHOLDER = "";
