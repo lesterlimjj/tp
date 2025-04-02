@@ -15,7 +15,7 @@ public class DefaultListingComparator implements Comparator<Listing> {
     /**
      * Creates a comparator that compares two listings based on:
      * 1. Postal code (primary)
-     * 2. Unit number (secondary, with nulls last)
+     * 2. Unit number (secondary, with nulls first)
      * 3. House number (tertiary)
      */
     public DefaultListingComparator() {}
@@ -32,10 +32,11 @@ public class DefaultListingComparator implements Comparator<Listing> {
             return postalCodeCompare;
         }
 
-        // Then compare by unit number (with nulls last)
+        // Then compare by unit number (with nulls first)
         String unitNumber1 = listing1.getUnitNumber() != null
                 ? listing1.getUnitNumber().unitNumber
                 : NULL_UNIT_NUMBER_PLACEHOLDER;
+
         String unitNumber2 = listing2.getUnitNumber() != null
                 ? listing2.getUnitNumber().unitNumber
                 : NULL_UNIT_NUMBER_PLACEHOLDER;
