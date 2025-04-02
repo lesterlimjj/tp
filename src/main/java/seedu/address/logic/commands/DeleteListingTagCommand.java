@@ -52,7 +52,7 @@ public class DeleteListingTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Listing listingToEdit = CommandUtil.getValidatedListing(model, propertyIndex, MESSAGE_USAGE);
+        Listing listingToEdit = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
 
         Set<Tag> deletedTags = new HashSet<>();
 

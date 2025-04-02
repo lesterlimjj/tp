@@ -67,7 +67,7 @@ public class EditPersonCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Person personToEdit = CommandUtil.getValidatedPerson(model, index, MESSAGE_USAGE);
+        Person personToEdit = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {

@@ -37,7 +37,7 @@ public class MarkUnavailableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Listing toMarkUnavailable = CommandUtil.getValidatedListing(model, targetIndex, MESSAGE_USAGE);
+        Listing toMarkUnavailable = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
         toMarkUnavailable.markUnavailable();
         model.setListing(toMarkUnavailable, toMarkUnavailable);
 

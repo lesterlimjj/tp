@@ -37,7 +37,7 @@ public class MarkAvailableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Listing toMarkAvailable = CommandUtil.getValidatedListing(model, targetIndex, MESSAGE_USAGE);
+        Listing toMarkAvailable = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
         toMarkAvailable.markAvailable();
         model.setListing(toMarkAvailable, toMarkAvailable);
 

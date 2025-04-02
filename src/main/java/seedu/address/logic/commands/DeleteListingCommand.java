@@ -49,7 +49,7 @@ public class DeleteListingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Listing toDelete = CommandUtil.getValidatedListing(model, targetIndex, MESSAGE_USAGE);
+        Listing toDelete = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
 
         removeListingOwners(toDelete, model);
         removeListingFromTags(toDelete, model);

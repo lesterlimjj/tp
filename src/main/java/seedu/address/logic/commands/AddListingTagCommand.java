@@ -71,7 +71,7 @@ public class AddListingTagCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
         }
         model.addTags(newTagSet);
-        Listing listingToAddTags = CommandUtil.getValidatedListing(model, index, MESSAGE_USAGE);
+        Listing listingToAddTags = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
         Set<String> tagNames = new HashSet<>(tagSet);
         Set<Tag> tags = new HashSet<>();
         tagNames.addAll(newTagSet);

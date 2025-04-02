@@ -46,9 +46,9 @@ public class AddOwnerCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Person personToAddListing = CommandUtil.getValidatedPerson(model, personIndex, MESSAGE_USAGE);
+        Person personToAddListing = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
-        Listing listing = CommandUtil.getValidatedListing(model, listingIndex, MESSAGE_USAGE);
+        Listing listing = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
 
         if (listing.getOwners().contains(personToAddListing)) {
             throw new CommandException(String.format(MESSAGE_OWNER_ALREADY_IN_LISTING, MESSAGE_USAGE));

@@ -88,7 +88,6 @@ public class OverwriteListingTagCommand extends Command {
      * Updates the listing's tags by removing existing ones and adding new ones.
      */
     private void updateListingTags(Model model, Listing listing) {
-    private void updateListingTags(Model model, Listing listing) {
         // Create new tags
         model.addTags(newTagSet);
 

@@ -59,7 +59,7 @@ public class SearchOwnerListingCommand extends Command {
         List<Person> lastShownList = model.getSortedFilteredPersonList();
         System.out.println(lastShownList);
 
-        Person targetPerson = CommandUtil.getValidatedPerson(model, targetIndex, MESSAGE_USAGE);
+        Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
         searchSellerProperty(model, targetPerson);
 

@@ -55,7 +55,7 @@ public class MatchListingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Listing listingToMatch = CommandUtil.getValidatedListing(model, targetIndex, MESSAGE_USAGE);
+        Listing listingToMatch = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
         matchListing(model, listingToMatch);
 
         return new CommandResult(String.format(MESSAGE_MATCH_LISTING_SUCCESS, Messages.format(listingToMatch)));
