@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -76,11 +75,11 @@ public class AddPreferenceTagCommand extends Command {
         Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
         // Get and validate preference
-        PropertyPreference targetPreference = CommandUtil.getValidatedPreference(model, targetPerson, 
+        PropertyPreference targetPreference = CommandUtil.getValidatedPreference(model, targetPerson,
                 targetPreferenceIndex, MESSAGE_USAGE, true);
 
         // Validate and process tags
-        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE, 
+        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE,
                 MESSAGE_INVALID_TAGS, MESSAGE_DUPLICATE_TAGS);
         Set<Tag> tags = processAndGetTags(model, targetPreference);
 

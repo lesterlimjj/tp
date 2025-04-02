@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -61,7 +59,7 @@ public class DeletePreferenceTagCommand extends Command {
         requireNonNull(model);
 
         Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
-        PropertyPreference targetPreference = CommandUtil.getValidatedPreference(model, targetPerson, 
+        PropertyPreference targetPreference = CommandUtil.getValidatedPreference(model, targetPerson,
                 targetPreferenceIndex, MESSAGE_USAGE, false);
 
         // Process and validate tags
@@ -81,7 +79,8 @@ public class DeletePreferenceTagCommand extends Command {
         for (String tagName : tagsToDelete) {
             Tag tag = model.getTag(tagName);
             if (!preference.getTags().contains(tag)) {
-                throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND, MESSAGE_USAGE));
+                throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE,
+                    tagName, MESSAGE_USAGE));
             }
             tagsToRemove.add(tag);
         }

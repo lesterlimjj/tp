@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -71,9 +70,9 @@ public class OverwritePreferenceTagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
-        PropertyPreference targetPreference = CommandUtil.getValidatedPreference(model, targetPerson, 
+        PropertyPreference targetPreference = CommandUtil.getValidatedPreference(model, targetPerson,
                 targetPreferenceIndex, MESSAGE_USAGE, false);
-        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE, 
+        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE,
                 MESSAGE_INVALID_TAGS, MESSAGE_DUPLICATE_TAGS);
         updatePreferenceTags(model, targetPreference, targetPerson);
         return generateCommandResult(targetPreference);
@@ -117,7 +116,7 @@ public class OverwritePreferenceTagCommand extends Command {
 
     private CommandResult generateCommandResult(PropertyPreference preference) {
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                Messages.format(preference), Messages.format(preference.getTags())));
+                Messages.formatTagsOnly(preference.getTags())));
     }
 
     @Override

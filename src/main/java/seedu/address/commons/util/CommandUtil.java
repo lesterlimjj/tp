@@ -1,16 +1,14 @@
 package seedu.address.commons.util;
 
-import seedu.address.commons.core.Messages;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
-import seedu.address.model.tag.Tag;
-
-import java.util.List;
-import java.util.Set;
-
 /**
  * Utility class for common command operations.
  */
@@ -23,7 +21,7 @@ public class CommandUtil {
      * @return The validated person
      * @throws CommandException if the person index is invalid
      */
-    public static Person getValidatedPerson(Model model, Index targetPersonIndex, String messageUsage) 
+    public static Person getValidatedPerson(Model model, Index targetPersonIndex, String messageUsage)
             throws CommandException {
         List<Person> lastShownList = model.getSortedFilteredPersonList();
         if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
@@ -42,8 +40,8 @@ public class CommandUtil {
      * @return The validated preference
      * @throws CommandException if the preference index is invalid
      */
-    public static PropertyPreference getValidatedPreference(Model model, Person targetPerson, 
-            Index targetPreferenceIndex, String messageUsage, boolean shouldFilterBySearchContext) 
+    public static PropertyPreference getValidatedPreference(Model model, Person targetPerson,
+            Index targetPreferenceIndex, String messageUsage, boolean shouldFilterBySearchContext)
             throws CommandException {
         List<PropertyPreference> targetPreferenceList = shouldFilterBySearchContext
                 ? targetPerson.getPropertyPreferences().stream()
@@ -69,7 +67,7 @@ public class CommandUtil {
      * @throws CommandException if validation fails
      */
     public static void validateTags(Model model, Set<String> tagSet, Set<String> newTagSet,
-            String messageUsage, String invalidTagsMessage, String duplicateTagsMessage) 
+            String messageUsage, String invalidTagsMessage, String duplicateTagsMessage)
             throws CommandException {
         if (!model.hasTags(tagSet)) {
             throw new CommandException(String.format(invalidTagsMessage, messageUsage));
@@ -78,4 +76,4 @@ public class CommandUtil {
             throw new CommandException(String.format(duplicateTagsMessage, messageUsage));
         }
     }
-} 
+}
