@@ -31,7 +31,7 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 
     * `listPerson` : Lists all persons.
 
-    * `listListng` : Lists all listings.
+    * `listListing` : Lists all listings.
 
     * `addPerson n/John Doe p/98765432 e/john@example.com` : Adds a person named `John Doe`.
 
