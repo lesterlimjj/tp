@@ -18,7 +18,8 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
 
 /**
- * Overwrites all {@code Tag}s in a {@code Listing} identified using it's displayed index in the address book.
+ * Overwrites all {@code Tag}(s) in a {@code Listing} with the specified {@code Tag}(s).
+ * The {@code Listing} is identified using it's displayed index.
  */
 public class OverwriteListingTagCommand extends Command {
 
@@ -40,21 +41,22 @@ public class OverwriteListingTagCommand extends Command {
     public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.\n%s";
     public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.\n%s";
 
-    private final Index propertyIndex;
+    private final Index targetListingIndex;
     private final Set<String> tagSet;
     private final Set<String> newTagSet;
 
     /**
-     * Creates an @{code OverwriteListingTagCommand} to replace all {@code Tag}s in {@code Listing}.
+     * Creates an @{code OverwriteListingTagCommand} to replace all {@code Tag}(s) in the specified {@code Listing}
+     * with the specified {@code Tag}(s).
      *
-     * @param propertyIndex The index of the property in which tags will be overwritten.
-     * @param tagSet The set of existing tags to be used in the property.
-     * @param newTagSet The set of new tags to be created and used in the property.
+     * @param targetListingIndex The index of the listing in which tags will be overwritten.
+     * @param tagSet The set of existing tags to be used in the listing.
+     * @param newTagSet The set of new tags to be added to the listing and to the unique tag map.
      */
-    public OverwriteListingTagCommand(Index propertyIndex, Set<String> tagSet, Set<String> newTagSet) {
-        requireAllNonNull(propertyIndex, tagSet, newTagSet);
+    public OverwriteListingTagCommand(Index targetListingIndex, Set<String> tagSet, Set<String> newTagSet) {
+        requireAllNonNull(targetListingIndex, tagSet, newTagSet);
 
-        this.propertyIndex = propertyIndex;
+        this.targetListingIndex = targetListingIndex;
         this.tagSet = tagSet;
         this.newTagSet = newTagSet;
     }
@@ -62,57 +64,94 @@ public class OverwriteListingTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
+        Listing listing = getListingFromIndex(model);
+        validateTags(model);
+        updateListingTags(model, listing);
+        return generateCommandResult(listing);
+    }
 
-        if (propertyIndex.getZeroBased() >= lastShownList.size()) {
+    /**
+     * Retrieves the listing from the filtered listing list.
+     */
+    private Listing getListingFromIndex(Model model) throws CommandException {
+        List<Listing> lastShownList = model.getSortedFilteredListingList();
+        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
+        return lastShownList.get(targetListingIndex.getZeroBased());
+    }
 
-        Listing property = lastShownList.get(propertyIndex.getZeroBased());
-
+    /**
+     * Validates that all existing tags exist and new tags don't exist.
+     */
+    private void validateTags(Model model) throws CommandException {
         if (!model.hasTags(tagSet)) {
             throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
         }
-
         if (model.hasNewTags(newTagSet)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
         }
+    }
 
+    /**
+     * Updates the listing's tags by removing existing ones and adding new ones.
+     */
+    private void updateListingTags(Model model, Listing listing) {
         // Create new tags
         model.addTags(newTagSet);
 
         Set<String> tagNames = new HashSet<>(tagSet);
-        Set<Tag> newTags = new HashSet<>();
-        tagNames.addAll(newTagSet);
+        Set<Tag> newTags = prepareNewTags(model, tagNames);
 
-        // Prepare new tags to be added
+        removeExistingTags(model, listing);
+        addNewTags(model, listing, newTags);
+
+        model.setListing(listing, listing);
+        model.resetAllLists();
+    }
+
+    /**
+     * Prepares the set of new tags to be added to the listing.
+     */
+    private Set<Tag> prepareNewTags(Model model, Set<String> tagNames) {
+        tagNames.addAll(newTagSet);
+        Set<Tag> newTags = new HashSet<>();
         for (String tagName : tagNames) {
             Tag tag = model.getTag(tagName);
             newTags.add(tag);
         }
+        return newTags;
+    }
 
-        // Remove all existing tags
+    /**
+     * Removes all existing tags from the listing.
+     */
+    private void removeExistingTags(Model model, Listing property) {
         Set<Tag> existingTags = new HashSet<>(property.getTags());
         for (Tag tag : existingTags) {
             tag.removeListing(property);
             model.setTag(tag, tag);
             property.removeTag(tag);
         }
+    }
 
-        // Add new tags
+    /**
+     * Adds new tags to the listing.
+     */
+    private void addNewTags(Model model, Listing property, Set<Tag> newTags) {
         for (Tag tag : newTags) {
             tag.addListing(property);
             model.setTag(tag, tag);
             property.addTag(tag);
         }
+    }
 
-        model.setListing(property, property);
-
-        // Format property details for success message
+    /**
+     * Generates the command result with formatted listing details.
+     */
+    private CommandResult generateCommandResult(Listing property) {
         String propertyDetails = Messages.formatPropertyDetails(property);
-
-        model.resetAllLists();
-
+        Set<Tag> newTags = property.getTags();
         return new CommandResult(String.format(MESSAGE_SUCCESS, propertyDetails, Messages.formatTagsOnly(newTags)));
     }
 
@@ -120,7 +159,7 @@ public class OverwriteListingTagCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof OverwriteListingTagCommand
-                && propertyIndex.equals(((OverwriteListingTagCommand) other).propertyIndex)
+                && targetListingIndex.equals(((OverwriteListingTagCommand) other).targetListingIndex)
                 && tagSet.equals(((OverwriteListingTagCommand) other).tagSet))
                 && newTagSet.equals(((OverwriteListingTagCommand) other).newTagSet);
     }
@@ -128,7 +167,7 @@ public class OverwriteListingTagCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("propertyIndex", propertyIndex)
+                .add("targetListingIndex", targetListingIndex)
                 .add("tags", tagSet)
                 .add("newTags", newTagSet)
                 .toString();

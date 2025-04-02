@@ -36,7 +36,7 @@ public class AddPersonCommand extends Command {
     /**
      * Creates an {@code AddPersonCommand} to add the specified {@code Person}.
      *
-     * @param person The person to add
+     * @param person The person to add.
      */
     public AddPersonCommand(Person person) {
         requireNonNull(person);

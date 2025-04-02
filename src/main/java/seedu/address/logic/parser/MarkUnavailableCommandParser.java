@@ -8,7 +8,7 @@ import seedu.address.logic.commands.MarkUnavailableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code MarkUnavailableCommandParser} object.
+ * Parses input arguments and creates a new {@code MarkUnavailableCommand} object.
  */
 public class MarkUnavailableCommandParser implements Parser<MarkUnavailableCommand> {
 
@@ -16,8 +16,8 @@ public class MarkUnavailableCommandParser implements Parser<MarkUnavailableComma
      * Parses the given {@code String} of arguments in the context of the MarkUnavailableCommand
      * and returns a MarkUnavailableCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public MarkUnavailableCommand parse(String args) throws ParseException {
         checkCommandFormat(args);

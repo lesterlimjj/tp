@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
@@ -18,7 +19,7 @@ import seedu.address.model.search.predicates.ListingContainsAllTagsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
- * Searches for {@code Listing}(s) whose tags contain all specified tags.
+ * Lists all {@code Listing}(s) that contains all the specified {@code Tag}(s).
  */
 public class SearchListingByTagCommand extends Command {
     public static final String COMMAND_WORD = "searchListingTag";
@@ -27,13 +28,17 @@ public class SearchListingByTagCommand extends Command {
             + "Parameters: " + PREFIX_TAG + "TAG [" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " t/pet-friendly t/pool";
     private static final Logger logger = LogsCenter.getLogger(SearchListingByTagCommand.class);
+
     private final Set<String> tagsToSearch;
 
     /**
-     * Constructs a {@code SearchListingByTagCommand} with the given set of tags.
+     * Constructs a {@code SearchListingByTagCommand} to list the {@code Listing}(s) that contains all the specified
+     * {@code Tag}(s).
+     *
+     * @param tagsToSearch The tags to search by.
      */
     public SearchListingByTagCommand(Set<String> tagsToSearch) {
-        requireNonNull(tagsToSearch);
+        requireAllNonNull(tagsToSearch);
         this.tagsToSearch = tagsToSearch;
     }
 

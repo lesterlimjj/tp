@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes {@code Tag}(s) using a specified tag name(s).
+ * Deletes {@code Tag}(s) from the address book.
  */
 public class DeleteTagCommand extends Command {
 
@@ -37,11 +38,12 @@ public class DeleteTagCommand extends Command {
     private final Set<String> toDelete;
 
     /**
-     * Creates a {@code DeleteTagCommand} to delete set of {@code Tag}.
+     * Creates a {@code DeleteTagCommand} to delete the specified {@code Tag}(s).
      *
-     * @param tagSet Set of tags to delete.
+     * @param tagSet The set of tags to delete.
      */
     public DeleteTagCommand(Set<String> tagSet) {
+        requireAllNonNull(tagSet);
         this.toDelete = tagSet;
     }
 

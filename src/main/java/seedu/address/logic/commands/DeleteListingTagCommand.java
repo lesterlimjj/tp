@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -17,7 +18,8 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes {@code Tag}(s) from a {@code Listing} identified using it's displayed index in the address book.
+ * Deletes {@code Tag}(s) from a {@code Listing} in the address book.
+ * The {@code Listing} is identified using it's displayed index.
  */
 public class DeleteListingTagCommand extends Command {
 
@@ -29,20 +31,21 @@ public class DeleteListingTagCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "pet-friendly " + PREFIX_TAG + "pool";
 
-    private final Index propertyIndex;
+    private final Index targetListingIndex;
     private final Set<String> tagsToDelete;
 
     /**
-     * Creates a {@code DeleteListingTagCommand} to delete a set of {@code Tag} from the specified {@code Listing}.
+     * Creates a {@code DeleteListingTagCommand} to delete the specified {@code Tag}(s) from the specified
+     * {@code Listing}.
      *
-     * @param propertyIndex The index of the property from which tags will be removed.
-     * @param tagsToDelete  The set of tag names to be deleted.
+     * @param targetListingIndex The index of the listing in the filtered listing list to delete tags from.
+     * @param tagsToDelete The set of tag to be deleted from the listing.
      */
-    public DeleteListingTagCommand(Index propertyIndex, Set<String> tagsToDelete) {
-        requireNonNull(propertyIndex);
-        requireNonNull(tagsToDelete);
+    public DeleteListingTagCommand(Index targetListingIndex, Set<String> tagsToDelete) {
+        requireNonNull(targetListingIndex);
+        requireAllNonNull(tagsToDelete);
 
-        this.propertyIndex = propertyIndex;
+        this.targetListingIndex = targetListingIndex;
         this.tagsToDelete = tagsToDelete;
     }
 
@@ -51,11 +54,11 @@ public class DeleteListingTagCommand extends Command {
         requireNonNull(model);
         List<Listing> lastShownList = model.getSortedFilteredListingList();
 
-        if (propertyIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
 
-        Listing listingToEdit = lastShownList.get(propertyIndex.getZeroBased());
+        Listing listingToEdit = lastShownList.get(targetListingIndex.getZeroBased());
 
         Set<Tag> deletedTags = new HashSet<>();
 
@@ -92,14 +95,14 @@ public class DeleteListingTagCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof DeleteListingTagCommand
-                && propertyIndex.equals(((DeleteListingTagCommand) other).propertyIndex)
+                && targetListingIndex.equals(((DeleteListingTagCommand) other).targetListingIndex)
                 && tagsToDelete.equals(((DeleteListingTagCommand) other).tagsToDelete));
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("propertyIndex", propertyIndex)
+                .add("targetListingIndex", targetListingIndex)
                 .add("tagsToDelete", tagsToDelete)
                 .toString();
     }

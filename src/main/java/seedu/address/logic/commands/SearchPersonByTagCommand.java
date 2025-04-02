@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
@@ -17,7 +18,9 @@ import seedu.address.model.search.predicates.PropertyPreferencesContainAllActive
 import seedu.address.model.tag.Tag;
 
 /**
- * Searches for persons whose property preferences contain all specified tags.
+ * Lists all {@code Person}(s) with {@code PropertyPreference}(s) that contains all
+ * the specified {@code Tag}(s).
+ * List excludes all {@code PropertyPreference}(s) that do not contain the specified {@code Tag}(s).
  */
 public class SearchPersonByTagCommand extends Command {
     public static final String COMMAND_WORD = "searchPersonTag";
@@ -30,12 +33,13 @@ public class SearchPersonByTagCommand extends Command {
     private final Set<String> tagsToSearch;
 
     /**
-     * Constructs a {@code SearchPersonByTagCommand} with the given set of tags to search for.
+     * Constructs a {@code SearchListingByTagCommand} to list the {@code Person}(s) with {@code PropertyPreference}(s)
+     * that contains all the specified {@code Tag}(s).
      *
-     * @param tagsToSearch The set of tag names to search for in persons' property preferences.
+     * @param tagsToSearch The tags to search by.
      */
     public SearchPersonByTagCommand(Set<String> tagsToSearch) {
-        requireNonNull(tagsToSearch);
+        requireAllNonNull(tagsToSearch);
         this.tagsToSearch = tagsToSearch;
     }
 

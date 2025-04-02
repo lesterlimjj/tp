@@ -4,12 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,8 +18,9 @@ import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes {@code Tag}(s) from a {@code PropertyPreference} identified using it's displayed index
- * from {@code Person} identified using it's displayed index in the address book.
+ * Deletes a {@code Tag} from the {@code PropertyPreference} of a {@code Person} in the address book.
+ * The {@code PropertyPreference} is identified using it's displayed index within the {@code Person}'s preferences,
+ * and the {@code Person} is identified using it's displayed index.
  */
 public class DeletePreferenceTagCommand extends Command {
 
@@ -40,67 +40,67 @@ public class DeletePreferenceTagCommand extends Command {
     private final Set<String> tagsToDelete;
 
     /**
-     * Creates a {@code DeletePreferenceTagCommand} to delete a set of {@code Tag}
+     * Creates a {@code DeletePreferenceTagCommand} to delete the specified {@code Tag}(s)
      * from the specified {@code Preference}.
      *
-     * @param personIndex The index of the person from which the preference is located in.
-     * @param preferenceIndex The index of the preference from which tags will be removed.
-     * @param tagsToDelete  The set of tag names to be deleted.
+     * @param targetPersonIndex The index of the person in the filtered person list that the preference is located in.
+     * @param targetPreferenceIndex The index of the preference to remove tags from.
+     * @param tagsToDelete The set of tag to be deleted from the preference.
      */
-    public DeletePreferenceTagCommand(Index personIndex, Index preferenceIndex, Set<String> tagsToDelete) {
-        requireAllNonNull(personIndex, preferenceIndex, tagsToDelete);
+    public DeletePreferenceTagCommand(Index targetPersonIndex, Index targetPreferenceIndex, Set<String> tagsToDelete) {
+        requireAllNonNull(targetPersonIndex, targetPreferenceIndex);
+        requireAllNonNull(tagsToDelete);
 
-        this.targetPersonIndex = personIndex;
-        this.targetPreferenceIndex = preferenceIndex;
+        this.targetPersonIndex = targetPersonIndex;
+        this.targetPreferenceIndex = targetPreferenceIndex;
         this.tagsToDelete = tagsToDelete;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
 
-        if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
+        Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
+        PropertyPreference targetPreference = CommandUtil.getValidatedPreference(model, targetPerson,
+                targetPreferenceIndex, MESSAGE_USAGE, false);
 
-        List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences();
-        if (targetPreferenceIndex.getZeroBased() >= targetPreferenceList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX,
-                    MESSAGE_USAGE));
-        }
-
-        PropertyPreference preferenceToDelete = targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
-
-        Set<Tag> tags = new HashSet<>();
-        for (String tagName : tagsToDelete) {
-            Tag tag = new Tag(tagName, new ArrayList<>(), new ArrayList<>());
-
-            if (!model.hasTag(tagName)) {
-                throw new CommandException(String.format(Messages.MESSAGE_TAG_DOES_NOT_EXIST, tagName,
-                        MESSAGE_USAGE));
-            }
-
-            Tag tagToRemove = model.getTag(tagName);
-            if (!preferenceToDelete.getTags().contains(tag)) {
-                throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE, tagName,
-                        MESSAGE_USAGE));
-            }
-            tags.add(tagToRemove);
-        }
-
-        for (Tag tag : tags) {
-            tag.removePropertyPreference(preferenceToDelete);
-            model.setTag(tag, tag);
-            preferenceToDelete.removeTag(tag);
-        }
-
-        model.setPerson(targetPerson, targetPerson);
-        model.resetAllLists();
+        // Process and validate tags
+        Set<Tag> tagsToRemove = getValidatedTags(model, targetPreference);
+        // Apply changes
+        removeTagsFromPreference(model, targetPerson, targetPreference, tagsToRemove);
 
         return new CommandResult(String.format(MESSAGE_DELETE_PREFERENCE_TAG_SUCCESS,
-                Messages.format(targetPerson, preferenceToDelete), Messages.format(tags)));
+                Messages.format(targetPerson, targetPreference), Messages.format(tagsToRemove)));
+    }
+
+    /**
+     * Gets and validates the tags to be removed.
+     */
+    private Set<Tag> getValidatedTags(Model model, PropertyPreference preference) throws CommandException {
+        Set<Tag> tagsToRemove = new HashSet<>();
+        for (String tagName : tagsToDelete) {
+            Tag tag = model.getTag(tagName);
+            if (!preference.getTags().contains(tag)) {
+                throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE,
+                    tagName, MESSAGE_USAGE));
+            }
+            tagsToRemove.add(tag);
+        }
+        return tagsToRemove;
+    }
+
+    /**
+     * Removes the validated tags from the preference and updates the model.
+     */
+    private void removeTagsFromPreference(Model model, Person targetPerson,
+            PropertyPreference preference, Set<Tag> tagsToRemove) {
+        for (Tag tag : tagsToRemove) {
+            tag.removePropertyPreference(preference);
+            model.setTag(tag, tag);
+            preference.removeTag(tag);
+        }
+        model.setPerson(targetPerson, targetPerson);
+        model.resetAllLists();
     }
 
     @Override
@@ -115,8 +115,8 @@ public class DeletePreferenceTagCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("personIndex", targetPersonIndex)
-                .add("preferenceIndex", targetPreferenceIndex)
+                .add("targetPersonIndex", targetPersonIndex)
+                .add("targetPreferenceIndex", targetPreferenceIndex)
                 .add("tagsToDelete", tagsToDelete)
                 .toString();
     }

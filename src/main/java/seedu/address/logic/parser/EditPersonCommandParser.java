@@ -13,16 +13,19 @@ import seedu.address.logic.commands.EditPersonCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code EditPersonCommandParser} object.
+ * Parses input arguments and creates a new {@code EditPersonCommand} object.
  */
 public class EditPersonCommandParser implements Parser<EditPersonCommand> {
+
+    private static final String WHITESPACE_REGEX = "\\s+";
+    private static final int EXPECTED_PREAMBLE_PARTS = 1;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditPersonCommand
      * and returns an EditPersonCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public EditPersonCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -65,7 +68,7 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
                     EditPersonCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty() || preamble.split("\\s+").length != 1) {
+        if (preamble.isEmpty() || preamble.split(WHITESPACE_REGEX).length != EXPECTED_PREAMBLE_PARTS) {
             throw new ParseException(String.format(MESSAGE_ONE_INDEX_EXPECTED,
                     EditPersonCommand.MESSAGE_USAGE));
         }

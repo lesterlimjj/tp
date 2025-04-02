@@ -16,6 +16,8 @@ import seedu.address.model.search.SearchContext;
  */
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
+    private static final int INDEX_OFFSET = 1;
+
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private final SearchContext searchContext;
 
@@ -44,7 +46,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1, searchContext).getRoot());
+                setGraphic(new PersonCard(person, getIndex() + INDEX_OFFSET, searchContext).getRoot());
             }
         }
     }
