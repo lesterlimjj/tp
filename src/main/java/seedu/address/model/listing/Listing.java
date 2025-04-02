@@ -170,8 +170,8 @@ public class Listing {
         return null;
     }
 
+    //// Getters
 
-    // Getters
     public PostalCode getPostalCode() {
         return postalCode;
     }
@@ -220,7 +220,8 @@ public class Listing {
         return Collections.unmodifiableList(owners);
     }
 
-    // Setters for associations
+    //// Setters for associations
+
     /**
      * Adds a tag to the listing.
      *
@@ -261,13 +262,14 @@ public class Listing {
         this.owners.remove(toDelete);
     }
 
-    // Miscellaneous
+    //// Utility methods
+
     /**
      * Checks if two listings have the same unique identifiers.
      * This defines a weaker notion of equality between two listings.
      *
      * @param otherListing Listing to be compared with.
-     * @return true if both listings have the same postal code, unit number and house number. false otherwise.
+     * @return true if both listings have the same postal code, unit number and house number, false otherwise.
      */
     public boolean isSameListing(Listing otherListing) {
         if (otherListing == this) {
@@ -285,7 +287,7 @@ public class Listing {
      * This defines a stronger notion of equality between two listings.
      *
      * @param other Object to be compared with.
-     * @return true if both listings have the same identity and data fields. false otherwise.
+     * @return true if both listings have the same identity and data fields, false otherwise.
      */
     @Override
     public boolean equals(Object other) {

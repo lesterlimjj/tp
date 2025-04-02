@@ -16,7 +16,7 @@ import seedu.address.model.listing.exceptions.ListingNotFoundException;
  * A listing is considered unique by comparing using {@code Listing#isSameListing(Listing)}. As such, adding and
  * updating of listings uses Listing#isSameListing(Listing) for equality so as to ensure that the listing being added or
  * updated is unique in terms of identity in the UniqueListingList. However, the removal of a listing uses
- * Listing#equals(Object) so as to ensure that the person with exactly the same fields will be removed.
+ * Listing#equals(Object) so as to ensure that the listing with exactly the same fields will be removed.
  * Supports a minimal set of list operations.
  *
  * @see Listing#isSameListing(Listing)
@@ -31,7 +31,7 @@ public class UniqueListingList implements Iterable<Listing> {
      * Checks if the list contains an equivalent listing as the given argument.
      *
      * @param toCheck The listing to check if it exists in the list.
-     * @return true if the list contains an equivalent listing as the given argument. false otherwise.
+     * @return true if the list contains an equivalent listing as the given argument, false otherwise.
      */
     public boolean contains(Listing toCheck) {
         requireNonNull(toCheck);

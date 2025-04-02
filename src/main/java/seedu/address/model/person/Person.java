@@ -48,7 +48,7 @@ public class Person {
         this.listings.addAll(listings);
     }
 
-    // Getters
+    //// Getters
     public Name getName() {
         return name;
     }
@@ -77,11 +77,12 @@ public class Person {
         return Collections.unmodifiableList(listings);
     }
 
-    // Setters for associations
+    //// Setters for associations
+
     /**
      * Adds a property preference of the person.
      *
-     * @param toAdd A valid property preference
+     * @param toAdd A valid property preference.
      */
     public void addPropertyPreference(PropertyPreference toAdd) {
         requireNonNull(toAdd);
@@ -122,7 +123,8 @@ public class Person {
         this.listings.remove(toDelete);
     }
 
-    // Miscellaneous
+    //// Utility methods
+
     /**
      * Checks if two persons have the same unique identifiers.
      * This defines a weaker notion of equality between two persons.
@@ -144,7 +146,7 @@ public class Person {
      * This defines a stronger notion of equality between two persons.
      *
      * @param other Object to be compared with.
-     * @return true if both persons have the same identity and data fields. false otherwise.
+     * @return true if both persons have the same identity and data fields, false otherwise.
      */
     @Override
     public boolean equals(Object other) {

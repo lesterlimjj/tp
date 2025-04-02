@@ -24,10 +24,10 @@ public class Tag {
             + "The tag cannot be blank and must not already exist (unless for deleting).";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9' ._+&-]{2,30}$";
 
-    //// Identity fields
+    // Identity fields
     public final String tagName;
 
-    //// Associations
+    // Associations
     private final List<PropertyPreference> propertyPreferences = new ArrayList<>();
     private final List<Listing> listings = new ArrayList<>();
 
@@ -56,6 +56,7 @@ public class Tag {
     }
 
     //// Getters
+
     public String getTagName() {
         return tagName;
     }
@@ -77,6 +78,7 @@ public class Tag {
     }
 
     //// Setters for associations
+
     /**
      * Adds a property preference to the tracking list of property preferences that use the tag.
      *
@@ -122,6 +124,7 @@ public class Tag {
     }
 
     //// Utility methods
+
     /**
      * Returns the number of property preferences associated with the tag.
      */
@@ -145,11 +148,10 @@ public class Tag {
 
 
     /**
-     * Checks if two tag have the same identity and data fields and associations.
-     * This defines a stronger notion of equality between two tags.
+     * Checks if two tag have the same identity and data fields.
      *
      * @param other Object to be compared with.
-     * @return true if both tags have the same identity and data fields and associations. false otherwise.
+     * @return true if both tags have the same identity and data fields, false otherwise.
      */
     @Override
     public boolean equals(Object other) {
