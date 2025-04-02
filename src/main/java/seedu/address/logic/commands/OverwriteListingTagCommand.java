@@ -41,7 +41,7 @@ public class OverwriteListingTagCommand extends Command {
     public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.\n%s";
     public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.\n%s";
 
-    private final Index listingIndex;
+    private final Index targetListingIndex;
     private final Set<String> tagSet;
     private final Set<String> newTagSet;
 
@@ -49,14 +49,14 @@ public class OverwriteListingTagCommand extends Command {
      * Creates an @{code OverwriteListingTagCommand} to replace all {@code Tag}(s) in the specified {@code Listing}
      * with the specified {@code Tag}(s).
      *
-     * @param listingIndex The index of the listing in which tags will be overwritten.
+     * @param targetListingIndex The index of the listing in which tags will be overwritten.
      * @param tagSet The set of existing tags to be used in the listing.
      * @param newTagSet The set of new tags to be created and used in the listing.
      */
-    public OverwriteListingTagCommand(Index listingIndex, Set<String> tagSet, Set<String> newTagSet) {
-        requireAllNonNull(listingIndex, tagSet, newTagSet);
+    public OverwriteListingTagCommand(Index targetListingIndex, Set<String> tagSet, Set<String> newTagSet) {
+        requireAllNonNull(targetListingIndex, tagSet, newTagSet);
 
-        this.listingIndex = listingIndex;
+        this.targetListingIndex = targetListingIndex;
         this.tagSet = tagSet;
         this.newTagSet = newTagSet;
     }
@@ -64,7 +64,7 @@ public class OverwriteListingTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Listing listing = CommandUtil.getValidatedListing(model, listingIndex, MESSAGE_USAGE);
+        Listing listing = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
         validateTags(model);
         updateListingTags(model, listing);
         return generateCommandResult(listing);
@@ -157,7 +157,7 @@ public class OverwriteListingTagCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof OverwriteListingTagCommand
-                && listingIndex.equals(((OverwriteListingTagCommand) other).listingIndex)
+                && targetListingIndex.equals(((OverwriteListingTagCommand) other).targetListingIndex)
                 && tagSet.equals(((OverwriteListingTagCommand) other).tagSet))
                 && newTagSet.equals(((OverwriteListingTagCommand) other).newTagSet);
     }
