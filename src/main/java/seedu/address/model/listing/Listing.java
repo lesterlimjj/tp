@@ -2,6 +2,7 @@ package seedu.address.model.listing;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.Messages.MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.price.PriceRange;
@@ -152,9 +154,12 @@ public class Listing {
      */
     public static Listing of(PostalCode postalCode, UnitNumber unitNumber, HouseNumber houseNumber,
                              PriceRange priceRange, PropertyName propertyName, Set<Tag> tags, List<Person> owners,
-                             boolean isAvailable) {
+                             boolean isAvailable) throws IllegalValueException {
 
         requireAllNonNull(postalCode, priceRange, tags, owners);
+        if ((houseNumber == null) == (unitNumber == null)) {
+            throw new IllegalValueException(MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED);
+        }
 
         if (unitNumber == null && propertyName == null) {
             return new Listing(postalCode, houseNumber, priceRange, tags, owners, isAvailable);
