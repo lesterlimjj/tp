@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -57,10 +58,7 @@ public class SearchOwnerListingCommand extends Command {
         List<Person> lastShownList = model.getSortedFilteredPersonList();
         System.out.println(lastShownList);
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
+        Person targetPerson = CommandUtil.getValidatedPerson(model, targetIndex, MESSAGE_USAGE);
 
         searchSellerProperty(model, targetPerson);
 

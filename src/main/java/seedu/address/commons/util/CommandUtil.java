@@ -7,6 +7,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
 /**
@@ -75,5 +76,39 @@ public class CommandUtil {
         if (model.hasNewTags(newTagSet)) {
             throw new CommandException(String.format(duplicateTagsMessage, messageUsage));
         }
+    }
+
+    /**
+     * Gets and validates the target listing from the model using the given index.
+     * @param model The model to get the listing from
+     * @param targetListingIndex The index of the listing to get
+     * @param messageUsage The usage message to show if the index is invalid
+     * @return The validated listing
+     * @throws CommandException if the listing index is invalid
+     */
+    public static Listing getValidatedListing(Model model, Index targetListingIndex, String messageUsage)
+            throws CommandException {
+        List<Listing> lastShownList = model.getSortedFilteredListingList();
+        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, messageUsage));
+        }
+        return lastShownList.get(targetListingIndex.getZeroBased());
+    }
+
+    /**
+     * Gets and validates the target owner from the listing using the given index.
+     * @param listing The listing to get the owner from
+     * @param targetOwnerIndex The index of the owner to get
+     * @param messageUsage The usage message to show if the index is invalid
+     * @return The validated owner
+     * @throws CommandException if the owner index is invalid
+     */
+    public static Person getValidatedOwner(Listing listing, Index targetOwnerIndex, String messageUsage)
+            throws CommandException {
+        List<Person> ownerList = listing.getOwners();
+        if (targetOwnerIndex.getZeroBased() >= ownerList.size()) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_OWNER_DISPLAYED_INDEX, messageUsage));
+        }
+        return ownerList.get(targetOwnerIndex.getZeroBased());
     }
 }
