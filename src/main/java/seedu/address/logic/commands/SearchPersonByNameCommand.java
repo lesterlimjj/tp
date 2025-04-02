@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -17,7 +16,7 @@ import seedu.address.model.person.Person;
  * Represents a command to that lists all {@code Person}(s) whose names match any of the given keyword(s).
  * Keyword matching is case-insensitive and must adhere to a valid name format.
  */
-public class SearchPersonByName extends Command {
+public class SearchPersonByNameCommand extends Command {
 
     public static final String COMMAND_WORD = "searchPersonName";
 
@@ -28,43 +27,30 @@ public class SearchPersonByName extends Command {
             + "Parameters: " + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " Alex Yeoh";
 
-    private static final String VALID_NAME_REGEX = "^[A-Za-z][A-Za-z' .-]{0,49}$";
-    private static final Pattern VALID_NAME_PATTERN = Pattern.compile(VALID_NAME_REGEX);
+    public static final String VALID_NAME_REGEX = "^[A-Za-z][A-Za-z' .-]{0,49}$";
+    public static final Pattern VALID_NAME_PATTERN = Pattern.compile(VALID_NAME_REGEX);
 
     private final List<String> keywords;
-    private final Predicate<Person> predicate;
 
     /**
-     * Constructs a @{code SearchPersonByName} to find {@code Person}(s) with the given keywords.
+     * Constructs a @{code SearchPersonByNameCommand} to find {@code Person}(s) with the given keywords.
      *
      * @param keywords The list of keywords to match against names.
-     * @throws CommandException if the keywords are empty or invalid.
      */
-    public SearchPersonByName(List<String> keywords) throws CommandException {
+    public SearchPersonByNameCommand(List<String> keywords) {
         requireAllNonNull(keywords);
-
-        if (keywords.isEmpty()) {
-            throw new CommandException(String.format(Messages.MESSAGE_MISSING_KEYWORD, MESSAGE_USAGE));
-        }
-
-        // Validate each keyword before proceeding
-        for (String keyword : keywords) {
-            if (!VALID_NAME_PATTERN.matcher(keyword).matches()) {
-                throw new CommandException(String.format(Messages.MESSAGE_INVALID_KEYWORD, keyword, MESSAGE_USAGE));
-            }
-        }
-
         this.keywords = keywords;
-        this.predicate = person -> keywords.stream()
-                .anyMatch(keyword -> person.getName().fullName.toLowerCase().contains(keyword.toLowerCase()));
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
+        Predicate<Person> personPredicate = person -> keywords.stream()
+                .anyMatch(keyword -> person.getName().fullName.toLowerCase().contains(keyword.toLowerCase()));
+
         model.resetAllLists();
-        model.updateFilteredPersonList(predicate);
+        model.updateFilteredPersonList(personPredicate);
 
         int count = model.getSortedFilteredPersonList().size();
 
@@ -75,10 +61,10 @@ public class SearchPersonByName extends Command {
     }
 
     /**
-     * Checks if another object is equal to this FindCommand.
+     * Checks if another object is equal to this SearchPersonByNameCommand.
      *
      * @param other Object to compare with.
-     * @return true if the other object is a FindCommand with the same keywords, false otherwise.
+     * @return true if the other object is a SearchPersonByNameCommand with the same keywords, false otherwise.
      */
     @Override
     public boolean equals(Object other) {
@@ -86,16 +72,16 @@ public class SearchPersonByName extends Command {
             return true;
         }
 
-        if (!(other instanceof SearchPersonByName)) {
+        if (!(other instanceof SearchPersonByNameCommand)) {
             return false;
         }
 
-        SearchPersonByName otherSearchPersonByName = (SearchPersonByName) other;
-        return keywords.equals(otherSearchPersonByName.keywords);
+        SearchPersonByNameCommand otherSearchPersonByNameCommand = (SearchPersonByNameCommand) other;
+        return keywords.equals(otherSearchPersonByNameCommand.keywords);
     }
 
     /**
-     * Returns a string representation of the FindCommand.
+     * Returns a string representation of the SearchPersonByNameCommand.
      *
      * @return String representation of the command with keywords.
      */

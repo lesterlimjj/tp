@@ -122,6 +122,8 @@ public class AddListingTagCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("targetListingIndex", targetListingIndex)
+                .add("tagSet", tagSet)
+                .add("newTagSet", newTagSet)
                 .toString();
     }
 
