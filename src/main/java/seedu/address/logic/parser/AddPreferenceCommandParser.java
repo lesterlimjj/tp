@@ -17,15 +17,15 @@ import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 
 /**
- * Parses input arguments and creates a new {@code AddPreferenceCommandParser} object.
+ * Parses input arguments and creates a new {@code AddPreferenceCommand} object.
  */
 public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddPreferenceCommand
      * and returns an AddPreferenceCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddPreferenceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =

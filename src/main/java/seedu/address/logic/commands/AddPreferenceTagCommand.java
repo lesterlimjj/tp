@@ -19,8 +19,9 @@ import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds {@code Tag} to a {@code PropertyPreference} identified using it's displayed index
- * from {@code Person} identified using it's displayed index in the address book.
+ * Adds {@code Tag} to a {@code PropertyPreference} of a {@code Person} in the address book.
+ * The {@code PropertyPreference} is identified using it's displayed index within the {@code Person}'s preferences,
+ * and the {@code Person} is identified using it's displayed index.
  */
 public class AddPreferenceTagCommand extends Command {
 
@@ -50,19 +51,20 @@ public class AddPreferenceTagCommand extends Command {
     private final Set<String> newTagSet;
 
     /**
-     * Creates an @{code AddPreferenceTagCommand} to add specified {@code Tag} to {@code Preference}.
+     * Creates an @{code AddPreferenceTagCommand} to add the specified {@code Tag}(s) to the specified
+     * {@code PropertyPreference}.
      *
-     * @param personIndex The index of the person from which the preference is located in.
-     * @param preferenceIndex The index of the preference from which tags will be removed.
+     * @param targetPersonIndex The index of the person in the filtered person list that the preference is located in.
+     * @param targetPreferenceIndex The index of the preference to add tags to.
      * @param tagSet The set of existing tags to be added to the preference.
-     * @param newTagSet The set of new tags to be added to the preference.
+     * @param newTagSet The set of new tags to be added to the preference and to the unique tag map.
      */
-    public AddPreferenceTagCommand(Index personIndex, Index preferenceIndex, Set<String> tagSet,
+    public AddPreferenceTagCommand(Index targetPersonIndex, Index targetPreferenceIndex, Set<String> tagSet,
                                    Set<String> newTagSet) {
-        requireAllNonNull(personIndex, preferenceIndex, tagSet, newTagSet);
+        requireAllNonNull(targetPersonIndex, targetPreferenceIndex, tagSet, newTagSet);
 
-        this.targetPersonIndex = personIndex;
-        this.targetPreferenceIndex = preferenceIndex;
+        this.targetPersonIndex = targetPersonIndex;
+        this.targetPreferenceIndex = targetPreferenceIndex;
         this.tagSet = tagSet;
         this.newTagSet = newTagSet;
     }
@@ -137,8 +139,8 @@ public class AddPreferenceTagCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("personIndex", targetPersonIndex)
-                .add("preferenceIndex", targetPreferenceIndex)
+                .add("targetPersonIndex", targetPersonIndex)
+                .add("targetPreferenceIndex", targetPreferenceIndex)
                 .add("tags", tagSet)
                 .add("newTags", newTagSet)
                 .toString();

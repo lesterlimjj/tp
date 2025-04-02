@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddListingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.listing.HouseNumber;
@@ -36,8 +37,8 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
      * Parses the given {@code String} of arguments in the context of the AddListingCommand
      * and returns an AddListingCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddListingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -46,7 +47,6 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
                         PREFIX_NEW_TAG);
 
         checkCommandFormat(argMultimap);
-
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_POSTAL_CODE, PREFIX_UNIT_NUMBER, PREFIX_HOUSE_NUMBER,
                 PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE, PREFIX_PROPERTY_NAME);
         PostalCode postalCode = ParserUtil.parsePostalCode(argMultimap.getValue(PREFIX_POSTAL_CODE).get());
@@ -60,11 +60,17 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
         PriceRange priceRange = createPriceRange(lowerBoundPrice, upperBoundPrice);
         PropertyName propertyName = ParserUtil.parsePropertyName(argMultimap
                 .getValue(PREFIX_PROPERTY_NAME).orElse(null));
-        Listing listing = createListing(postalCode, unitNumber, houseNumber, priceRange, propertyName);
+        Listing listing;
+        try {
+            listing = Listing.of(postalCode, unitNumber, houseNumber, priceRange, propertyName, new HashSet<>(),
+                    new ArrayList<>(), true);
+        } catch (IllegalValueException e) {
+            throw new ParseException(String.format(MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED,
+                    AddListingCommand.MESSAGE_USAGE));
+        }
 
         Set<String> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<String> newTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NEW_TAG));
-
         return new AddListingCommand(listing, tagList, newTagList);
     }
 
@@ -83,22 +89,6 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
                         AddListingCommand.MESSAGE_USAGE));
             }
         }
-    }
-
-    private static Listing createListing(PostalCode postalCode, UnitNumber unitNumber, HouseNumber houseNumber,
-                                         PriceRange priceRange, PropertyName propertyName) {
-        if (unitNumber == null && propertyName == null) {
-            return new Listing(postalCode, houseNumber, priceRange, new HashSet<>(), new ArrayList<>(), true);
-        } else if (houseNumber == null && propertyName == null) {
-            return new Listing(postalCode, unitNumber, priceRange, new HashSet<>(), new ArrayList<>(), true);
-        }
-
-        if (unitNumber == null) {
-            return new Listing(postalCode, houseNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>(),
-                    true);
-        }
-        return new Listing(postalCode, unitNumber, priceRange, propertyName, new HashSet<>(), new ArrayList<>(),
-                true);
     }
 
     private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {

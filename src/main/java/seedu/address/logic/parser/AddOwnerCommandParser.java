@@ -10,7 +10,7 @@ import seedu.address.logic.commands.AddOwnerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code AddOwnerCommandParser} object.
+ * Parses input arguments and creates a new {@code AddOwnerCommand} object.
  */
 public class AddOwnerCommandParser implements Parser<AddOwnerCommand> {
 
@@ -18,8 +18,8 @@ public class AddOwnerCommandParser implements Parser<AddOwnerCommand> {
      * Parses the given {@code String} of arguments in the context of the AddOwnerCommand
      * and returns an AddOwnerCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddOwnerCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =

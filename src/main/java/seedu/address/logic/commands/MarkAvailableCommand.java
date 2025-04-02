@@ -11,7 +11,8 @@ import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 
 /**
- * Mark available a {@code Listing} identified using it's displayed index in the address book.
+ * Mark a {@code Listing} as available in the address book.
+ * The {@code Listing} is identified using it's displayed index.
  */
 public class MarkAvailableCommand extends Command {
     public static final String COMMAND_WORD = "markAvailable";
@@ -20,17 +21,17 @@ public class MarkAvailableCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_MARK_AVAILABLE_SUCCESS = "Marked Listing as available: %1$s";
 
-    private final Index targetIndex;
+    private final Index targetListingIndex;
 
     /**
      * Creates a {@code MarkAvailableCommand} to mark the specified {@code Listing} as available.
      *
-     * @param targetIndex of the listing in the filtered listing list to mark available.
+     * @param targetListingIndex The index of the listing in the filtered listing list to mark as available.
      */
-    public MarkAvailableCommand(Index targetIndex) {
-        requireNonNull(targetIndex);
+    public MarkAvailableCommand(Index targetListingIndex) {
+        requireNonNull(targetListingIndex);
 
-        this.targetIndex = targetIndex;
+        this.targetListingIndex = targetListingIndex;
     }
 
     @Override
@@ -38,11 +39,11 @@ public class MarkAvailableCommand extends Command {
         requireNonNull(model);
 
         List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
 
-        Listing toMarkAvailable = lastShownList.get(targetIndex.getZeroBased());
+        Listing toMarkAvailable = lastShownList.get(targetListingIndex.getZeroBased());
         toMarkAvailable.markAvailable();
         model.setListing(toMarkAvailable, toMarkAvailable);
 

@@ -18,7 +18,8 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds {@code Tag} to a {@code Listing} identified using it's displayed index in the addressbook.
+ * Adds {@code Tag} to a {@code Listing} in the address book.
+ * The {@code Listing} is identified using it's displayed index.
  */
 public class AddListingTagCommand extends Command {
     public static final String COMMAND_WORD = "addListingTag";
@@ -39,20 +40,20 @@ public class AddListingTagCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TAGS_IN_LISTING = "At least one of the "
             + "tags given already exist in the listing.\n%1$s";
 
-    private final Index index;
+    private final Index targetListingIndex;
     private final Set<String> tagSet;
     private final Set<String> newTagSet;
 
     /**
-     * Creates an {@code AddListingTagCommand} to add the specified {@code Tag} to {@code Listing}.
+     * Creates an {@code AddListingTagCommand} to add the specified {@code Tag}(s) to the specified {@code Listing}.
      *
-     * @param index The index of the listing in the filtered listing list to add tags to
-     * @param tagSet  The set of existing tags to be added to the listing
-     * @param newTagSet The set of tags to be added to the listing and to the tag registry
+     * @param targetListingIndex The index of the listing in the filtered listing list to add tags to.
+     * @param tagSet The set of existing tags to be added to the listing.
+     * @param newTagSet The set of tags to be added to the listing and to the unique tag map.
      */
-    public AddListingTagCommand(Index index, Set<String> tagSet, Set<String> newTagSet) {
-        requireAllNonNull(index, tagSet, newTagSet);
-        this.index = index;
+    public AddListingTagCommand(Index targetListingIndex, Set<String> tagSet, Set<String> newTagSet) {
+        requireAllNonNull(targetListingIndex, tagSet, newTagSet);
+        this.targetListingIndex = targetListingIndex;
         this.tagSet = tagSet;
         this.newTagSet = newTagSet;
     }
@@ -63,7 +64,7 @@ public class AddListingTagCommand extends Command {
         requireNonNull(model);
 
         List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
 
@@ -76,7 +77,7 @@ public class AddListingTagCommand extends Command {
         }
         model.addTags(newTagSet);
 
-        Listing listingToAddTags = lastShownList.get(index.getZeroBased());
+        Listing listingToAddTags = lastShownList.get(targetListingIndex.getZeroBased());
         Set<String> tagNames = new HashSet<>(tagSet);
         Set<Tag> tags = new HashSet<>();
         tagNames.addAll(newTagSet);
@@ -114,13 +115,13 @@ public class AddListingTagCommand extends Command {
         }
 
         AddListingTagCommand otherAddListingTagCommand = (AddListingTagCommand) other;
-        return index.equals(otherAddListingTagCommand.index);
+        return targetListingIndex.equals(otherAddListingTagCommand.targetListingIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("Index", index)
+                .add("targetListingIndex", targetListingIndex)
                 .toString();
     }
 
