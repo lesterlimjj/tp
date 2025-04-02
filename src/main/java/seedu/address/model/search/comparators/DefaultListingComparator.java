@@ -7,8 +7,7 @@ import java.util.Comparator;
 import seedu.address.model.listing.Listing;
 
 /**
- * Compares two {@code Listing}s based on default criteria (postal code, unit number, and house number).
- * Compares two listings based on:
+ * Compares two {@code Listing}s based on default criteria (postal code, unit number, and house number)
  * 1. Postal code (primary)
  * 2. Unit number (secondary, with nulls first)
  * 3. House number (tertiary)
