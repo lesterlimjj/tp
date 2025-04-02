@@ -8,17 +8,14 @@ import seedu.address.model.listing.Listing;
 
 /**
  * Compares two @{code Listing}s based on default criteria (postal code, unit number, and house number).
+ * Creates a comparator that compares two listings based on:
+ * 1. Postal code (primary)
+ * 2. Unit number (secondary, with nulls first)
+ * 3. House number (tertiary)
+ * If two listings have the same postal code house is ordered before unit number.
  */
 public class DefaultListingComparator implements Comparator<Listing> {
     private static final String NULL_UNIT_NUMBER_PLACEHOLDER = "";
-
-    /**
-     * Creates a comparator that compares two listings based on:
-     * 1. Postal code (primary)
-     * 2. Unit number (secondary, with nulls first)
-     * 3. House number (tertiary)
-     */
-    public DefaultListingComparator() {}
 
     @Override
     public int compare(Listing listing1, Listing listing2) {
