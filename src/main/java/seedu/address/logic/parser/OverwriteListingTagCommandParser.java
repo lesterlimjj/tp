@@ -17,6 +17,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class OverwriteListingTagCommandParser implements Parser<OverwriteListingTagCommand> {
 
+    private static final String WHITESPACE_REGEX = "\\s+";
+    private static final int EXPECTED_PREAMBLE_PARTS = 1;
+
     /**
      * Parses the given {@code String} of arguments in the context of the OverwriteListingTagCommand
      * and returns an OverwriteListingTagCommand object for execution.
@@ -31,7 +34,6 @@ public class OverwriteListingTagCommandParser implements Parser<OverwriteListing
 
         checkCommandFormat(argMultimap, args);
 
-
         propertyIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         Set<String> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<String> newTagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NEW_TAG));
@@ -41,8 +43,8 @@ public class OverwriteListingTagCommandParser implements Parser<OverwriteListing
 
     private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
         String preamble = argMultimap.getPreamble().trim();
-        boolean hasTags = !(argMultimap.getAllValues(PREFIX_TAG).isEmpty());
-        boolean hasNewTags = !(argMultimap.getAllValues(PREFIX_NEW_TAG).isEmpty());
+        boolean hasTags = !argMultimap.getAllValues(PREFIX_TAG).isEmpty();
+        boolean hasNewTags = !argMultimap.getAllValues(PREFIX_NEW_TAG).isEmpty();
         boolean hasCombinedTags = hasTags || hasNewTags;
 
         if (args.trim().isEmpty()) {
@@ -55,8 +57,7 @@ public class OverwriteListingTagCommandParser implements Parser<OverwriteListing
                     OverwriteListingTagCommand.MESSAGE_USAGE));
         }
 
-
-        if (preamble.isEmpty() || preamble.split("\\s+").length != 1) {
+        if (preamble.isEmpty() || preamble.split(WHITESPACE_REGEX).length != EXPECTED_PREAMBLE_PARTS) {
             throw new ParseException(String.format(MESSAGE_ONE_INDEX_EXPECTED,
                     OverwriteListingTagCommand.MESSAGE_USAGE));
         }

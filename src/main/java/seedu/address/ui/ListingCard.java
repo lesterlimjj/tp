@@ -21,7 +21,7 @@ import seedu.address.model.search.SearchContext;
 public class ListingCard extends UiPart<Region> {
 
     private static final String FXML = "ListingListCard.fxml";
-
+    private static final int MIN_OWNERS_FOR_PANEL = 0;
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -104,7 +104,7 @@ public class ListingCard extends UiPart<Region> {
 
         ObservableList<Person> ownerList = FXCollections.observableList(listing.getOwners());
 
-        if (ownerList.size() > 0) {
+        if (ownerList.size() > MIN_OWNERS_FOR_PANEL) {
             ownerListPanel = new OwnerListPanel(ownerList);
             ownerListPanelPlaceholder.getChildren().add(ownerListPanel.getRoot());
         }
