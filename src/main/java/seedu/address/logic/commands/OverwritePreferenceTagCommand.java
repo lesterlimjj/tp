@@ -69,61 +69,106 @@ public class OverwritePreferenceTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
+        Person targetPerson = getPersonFromIndex(model);
+        PropertyPreference preference = getPreferenceFromPerson(targetPerson);
+        validateTags(model);
+        updatePreferenceTags(model, preference, targetPerson);
+        return generateCommandResult(preference);
+    }
 
+    /**
+     * Retrieves the person from the model using the stored index.
+     */
+    private Person getPersonFromIndex(Model model) throws CommandException {
+        List<Person> lastShownList = model.getSortedFilteredPersonList();
         if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
-        Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
+        return lastShownList.get(targetPersonIndex.getZeroBased());
+    }
 
+    /**
+     * Retrieves the property preference from the person using the stored index.
+     */
+    private PropertyPreference getPreferenceFromPerson(Person targetPerson) throws CommandException {
         List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences();
         if (targetPreferenceIndex.getZeroBased() >= targetPreferenceList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX,
                     MESSAGE_USAGE));
         }
+        return targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
+    }
 
-        PropertyPreference preference = targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
-
+    /**
+     * Validates that all existing tags exist and new tags don't exist.
+     */
+    private void validateTags(Model model) throws CommandException {
         if (!model.hasTags(tagSet)) {
             throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
         }
-
         if (model.hasNewTags(newTagSet)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
         }
+    }
 
+    /**
+     * Updates the preference's tags by removing existing ones and adding new ones.
+     */
+    private void updatePreferenceTags(Model model, PropertyPreference preference, Person targetPerson) {
         // Create new tags
         model.addTags(newTagSet);
 
         Set<String> tagNames = new HashSet<>(tagSet);
-        Set<Tag> newTags = new HashSet<>();
-        tagNames.addAll(newTagSet);
+        Set<Tag> newTags = prepareNewTags(model, tagNames);
 
-        // Prepare new tags to be added
+        removeExistingTags(model, preference);
+        addNewTags(model, preference, newTags);
+
+        model.setPerson(targetPerson, targetPerson);
+        model.resetAllLists();
+    }
+
+    /**
+     * Prepares the set of new tags to be added to the preference.
+     */
+    private Set<Tag> prepareNewTags(Model model, Set<String> tagNames) {
+        tagNames.addAll(newTagSet);
+        Set<Tag> newTags = new HashSet<>();
         for (String tagName : tagNames) {
             Tag tag = model.getTag(tagName);
             newTags.add(tag);
         }
+        return newTags;
+    }
 
-        // Remove all existing tags
+    /**
+     * Removes all existing tags from the preference.
+     */
+    private void removeExistingTags(Model model, PropertyPreference preference) {
         Set<Tag> existingTags = new HashSet<>(preference.getTags());
         for (Tag tag : existingTags) {
             tag.removePropertyPreference(preference);
             model.setTag(tag, tag);
             preference.removeTag(tag);
         }
+    }
 
-        // Add new tags
+    /**
+     * Adds new tags to the preference.
+     */
+    private void addNewTags(Model model, PropertyPreference preference, Set<Tag> newTags) {
         for (Tag tag : newTags) {
             tag.addPropertyPreference(preference);
             model.setTag(tag, tag);
             preference.addTag(tag);
         }
+    }
 
-        model.setPerson(targetPerson, targetPerson);
-
-        model.resetAllLists();
-
+    /**
+     * Generates the command result with formatted tags.
+     */
+    private CommandResult generateCommandResult(PropertyPreference preference) {
+        Set<Tag> newTags = preference.getTags();
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatTagsOnly(newTags)));
     }
 

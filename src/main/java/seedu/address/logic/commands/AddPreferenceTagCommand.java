@@ -70,15 +70,39 @@ public class AddPreferenceTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
 
+        // Get and validate person
+        Person targetPerson = getValidatedPerson(model);
+
+        // Get and validate preference
+        PropertyPreference preference = getValidatedPreference(model, targetPerson);
+
+        // Validate and process tags
+        validateTags(model);
+        Set<Tag> tags = processAndGetTags(model, preference);
+
+        // Apply changes
+        applyTagsToPreference(model, targetPerson, preference, tags);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                Messages.format(targetPerson, preference), Messages.format(tags)));
+    }
+
+    /**
+     * Gets and validates the target person from the model.
+     */
+    private Person getValidatedPerson(Model model) throws CommandException {
+        List<Person> lastShownList = model.getSortedFilteredPersonList();
         if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
+        return lastShownList.get(targetPersonIndex.getZeroBased());
+    }
 
-        Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
-
-        // Filter preferences according to active filter tags
+    /**
+     * Gets and validates the target preference from the person.
+     */
+    private PropertyPreference getValidatedPreference(Model model, Person targetPerson) throws CommandException {
         List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences().stream()
                 .filter(preference -> model.getSearchContext().matches(preference))
                 .toList();
@@ -87,19 +111,27 @@ public class AddPreferenceTagCommand extends Command {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX,
                     MESSAGE_USAGE));
         }
+        return targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
+    }
 
-        PropertyPreference preference = targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
-
+    /**
+     * Validates both existing and new tags.
+     */
+    private void validateTags(Model model) throws CommandException {
         if (!model.hasTags(tagSet)) {
             throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
         }
-
         if (model.hasNewTags(newTagSet)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
         }
+    }
 
+    /**
+     * Processes tags and checks for duplicates in the preference.
+     * Returns the set of tags to be added.
+     */
+    private Set<Tag> processAndGetTags(Model model, PropertyPreference preference) throws CommandException {
         model.addTags(newTagSet);
-
         Set<String> tagNames = new HashSet<>(tagSet);
         Set<Tag> tags = new HashSet<>();
         tagNames.addAll(newTagSet);
@@ -111,18 +143,21 @@ public class AddPreferenceTagCommand extends Command {
             }
             tags.add(tag);
         }
+        return tags;
+    }
 
+    /**
+     * Applies the validated tags to the preference and updates the model.
+     */
+    private void applyTagsToPreference(Model model, Person targetPerson,
+        PropertyPreference preference, Set<Tag> tags) {
         for (Tag tag : tags) {
             tag.addPropertyPreference(preference);
             model.setTag(tag, tag);
             preference.addTag(tag);
         }
-
         model.setPerson(targetPerson, targetPerson);
         model.resetAllLists();
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                Messages.format(targetPerson, preference), Messages.format(tags)));
     }
 
     @Override
