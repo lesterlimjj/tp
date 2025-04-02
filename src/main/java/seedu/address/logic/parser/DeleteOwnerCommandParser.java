@@ -10,7 +10,7 @@ import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code DeleteOwnerCommandParser} object.
+ * Parses input arguments and creates a new {@code DeleteOwnerCommand} object.
  */
 public class DeleteOwnerCommandParser implements Parser<DeleteOwnerCommand> {
 
@@ -23,8 +23,8 @@ public class DeleteOwnerCommandParser implements Parser<DeleteOwnerCommand> {
      * Parses the given {@code String} of arguments in the context of the DeleteOwnerCommand
      * and returns a DeleteOwnerCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public DeleteOwnerCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);

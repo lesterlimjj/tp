@@ -14,7 +14,7 @@ import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code AddPreferenceTagCommandParser} object.
+ * Parses input arguments and creates a new {@code AddPreferenceTagCommand} object.
  */
 public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCommand> {
 
@@ -22,8 +22,8 @@ public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCom
      * Parses the given {@code String} of arguments in the context of the AddPreferenceTagCommand
      * and returns an AddPreferenceTagCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddPreferenceTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NEW_TAG);

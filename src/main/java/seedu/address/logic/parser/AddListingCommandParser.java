@@ -37,8 +37,8 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
      * Parses the given {@code String} of arguments in the context of the AddListingCommand
      * and returns an AddListingCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddListingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
