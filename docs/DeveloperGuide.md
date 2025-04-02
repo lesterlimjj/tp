@@ -346,8 +346,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 ### \[Proposed\] Edit tag command
 
 The edit tag command allows users to edit the name of an existing tag. This command is useful when users want to change the name of a tag that they have already created. The following sequence diagram shows how the edit tag command works:
