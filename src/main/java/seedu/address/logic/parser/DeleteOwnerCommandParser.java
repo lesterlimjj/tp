@@ -10,7 +10,7 @@ import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code DeleteOwnerCommandParser} object.
+ * Parses input arguments and creates a new {@code DeleteOwnerCommand} object.
  */
 public class DeleteOwnerCommandParser implements Parser<DeleteOwnerCommand> {
 

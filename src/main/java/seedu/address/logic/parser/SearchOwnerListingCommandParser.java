@@ -7,7 +7,7 @@ import seedu.address.logic.commands.SearchOwnerListingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code SearchOwnerListingCommandParser} object.
+ * Parses input arguments and creates a new {@code SearchOwnerListingCommand} object.
  */
 public class SearchOwnerListingCommandParser implements Parser<SearchOwnerListingCommand> {
 

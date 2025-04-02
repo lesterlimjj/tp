@@ -14,7 +14,7 @@ import seedu.address.logic.commands.AddPreferenceTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code AddPreferenceTagCommandParser} object.
+ * Parses input arguments and creates a new {@code AddPreferenceTagCommand} object.
  */
 public class AddPreferenceTagCommandParser implements Parser<AddPreferenceTagCommand> {
 

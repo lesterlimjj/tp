@@ -13,9 +13,10 @@ import seedu.address.logic.commands.AddListingTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code AddListingTagCommandParser} object.
+ * Parses input arguments and creates a new {@code AddListingTagCommand} object.
  */
 public class AddListingTagCommandParser implements Parser<AddListingTagCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddListingTagCommand
      * and returns an AddListingTagCommand object for execution.

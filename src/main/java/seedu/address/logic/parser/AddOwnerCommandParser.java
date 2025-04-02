@@ -10,7 +10,7 @@ import seedu.address.logic.commands.AddOwnerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code AddOwnerCommandParser} object.
+ * Parses input arguments and creates a new {@code AddOwnerCommand} object.
  */
 public class AddOwnerCommandParser implements Parser<AddOwnerCommand> {
 

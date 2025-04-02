@@ -7,7 +7,7 @@ import seedu.address.logic.commands.MarkAvailableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code MarkAvailableCommandParser} object.
+ * Parses input arguments and creates a new {@code MarkAvailableCommand} object.
  */
 public class MarkAvailableCommandParser implements Parser<MarkAvailableCommand> {
     /**

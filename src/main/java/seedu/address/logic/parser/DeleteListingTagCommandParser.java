@@ -12,7 +12,7 @@ import seedu.address.logic.commands.DeleteListingTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code DeleteListingTagCommandParser} object.
+ * Parses input arguments and creates a new {@code DeleteListingTagCommand} object.
  */
 public class DeleteListingTagCommandParser implements Parser<DeleteListingTagCommand> {
 

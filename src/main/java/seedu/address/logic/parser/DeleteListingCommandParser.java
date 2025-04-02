@@ -5,7 +5,7 @@ import seedu.address.logic.commands.DeleteListingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code DeleteListingCommandParser} object.
+ * Parses input arguments and creates a new {@code DeleteListingCommand} object.
  */
 public class DeleteListingCommandParser implements Parser<DeleteListingCommand> {
 

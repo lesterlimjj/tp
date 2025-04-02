@@ -17,7 +17,7 @@ import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
 
 /**
- * Parses input arguments and creates a new {@code AddPreferenceCommandParser} object.
+ * Parses input arguments and creates a new {@code AddPreferenceCommand} object.
  */
 public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> {
     /**

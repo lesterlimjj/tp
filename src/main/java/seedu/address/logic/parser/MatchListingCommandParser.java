@@ -7,7 +7,7 @@ import seedu.address.logic.commands.MatchListingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code MatchListingCommandParser} object.
+ * Parses input arguments and creates a new {@code MatchListingCommand} object.
  */
 public class MatchListingCommandParser implements Parser<MatchListingCommand> {
 
