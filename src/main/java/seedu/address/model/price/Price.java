@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Represents a Price in the real estate system.
@@ -53,11 +54,6 @@ public class Price {
     }
 
     @Override
-    public String toString() {
-        return "$" + price.toPlainString();
-    }
-
-    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -75,6 +71,11 @@ public class Price {
     @Override
     public int hashCode() {
         return this.price.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "$" + price.setScale(2, RoundingMode.HALF_DOWN).toPlainString();
     }
 
 }

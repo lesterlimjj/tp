@@ -94,6 +94,8 @@ public class AddOwnerCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .add("targetPersonIndex", targetPersonIndex)
+                .add("targetListingIndex", targetListingIndex)
                 .toString();
     }
 }
