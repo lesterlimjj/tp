@@ -41,6 +41,10 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 
     * `deleteListing 1` : Deletes the 1st listing shown in the current listings list.
 
+    * `clear` : Deletes all contacts.
+
+    * `exit` : Exits the app.
+
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
