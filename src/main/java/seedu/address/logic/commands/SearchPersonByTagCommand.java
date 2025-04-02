@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
@@ -35,7 +36,7 @@ public class SearchPersonByTagCommand extends Command {
      * @param tagsToSearch The set of tag names to search for in persons' property preferences.
      */
     public SearchPersonByTagCommand(Set<String> tagsToSearch) {
-        requireNonNull(tagsToSearch);
+        requireAllNonNull(tagsToSearch);
         this.tagsToSearch = tagsToSearch;
     }
 

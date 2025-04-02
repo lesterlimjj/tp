@@ -28,6 +28,8 @@ public class MarkUnavailableCommand extends Command {
      * @param targetIndex of the listing in the filtered listing list to mark unavailable.
      */
     public MarkUnavailableCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+
         this.targetIndex = targetIndex;
     }
 

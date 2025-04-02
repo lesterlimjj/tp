@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 
 import java.util.ArrayList;
@@ -35,11 +36,11 @@ public class AddTagCommand extends Command {
     /**
      * Creates an {@code AddTagCommand} to add the specified set of {@code Tags}.
      *
-     * @param tags Set of tags to be added to the tag registry
+     * @param tagSet Set of tags to be added to the tag registry
      */
-    public AddTagCommand(Set<String> tags) {
-        requireNonNull(tags);
-        toAdd = tags;
+    public AddTagCommand(Set<String> tagSet) {
+        requireAllNonNull(tagSet);
+        this.toAdd = tagSet;
     }
 
     @Override

@@ -38,6 +38,8 @@ public class DeleteListingCommand extends Command {
      * @param targetIndex of the listing in the filtered listing list to delete
      */
     public DeleteListingCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+
         this.targetIndex = targetIndex;
     }
 
