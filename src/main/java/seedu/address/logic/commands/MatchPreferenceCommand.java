@@ -44,6 +44,8 @@ public class MatchPreferenceCommand extends Command {
      * @param targetPreferenceIndex Index of the preference in the person to delete.
      */
     public MatchPreferenceCommand(Index targetPersonIndex, Index targetPreferenceIndex) {
+        requireAllNonNull(targetPersonIndex, targetPreferenceIndex);
+
         this.targetPersonIndex = targetPersonIndex;
         this.targetPreferenceIndex = targetPreferenceIndex;
     }
