@@ -13,7 +13,7 @@ import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person's property preference in the real estate system.
+ * Represents a {@code Person}'s property preference in the real estate system.
  * Guarantees: details are present and not null, field values are validated, immutable.
  * Associations are mutable.
  */
@@ -32,7 +32,8 @@ public class PropertyPreference {
      * Every field must be present and not null.
      *
      * @param priceRange A valid price range.
-     * @param tags       A valid set of tags.
+     * @param tags A valid set of tags.
+     * @param person A valid person.
      */
     public PropertyPreference(PriceRange priceRange, Set<Tag> tags, Person person) {
         requireAllNonNull(priceRange, tags, person);
@@ -41,6 +42,7 @@ public class PropertyPreference {
         this.person = person;
     }
 
+    // Getters
     public PriceRange getPriceRange() {
         return priceRange;
     }
@@ -49,6 +51,15 @@ public class PropertyPreference {
         return person;
     }
 
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
+
+    // Setters for associations
     /**
      * Sets the person associated with this property preference.
      * Can be updated due to immutable updating of data fields creating a new person.
@@ -59,14 +70,6 @@ public class PropertyPreference {
         requireNonNull(person);
 
         this.person = person;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -91,6 +94,7 @@ public class PropertyPreference {
         this.tags.remove(toDelete);
     }
 
+    // Miscellaneous
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
