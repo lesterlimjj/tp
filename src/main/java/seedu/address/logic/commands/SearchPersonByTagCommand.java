@@ -16,7 +16,6 @@ import seedu.address.model.search.SearchType;
 import seedu.address.model.search.predicates.PersonPropertyPreferencesContainAllTagsPredicate;
 import seedu.address.model.search.predicates.PropertyPreferencesContainAllActiveSearchTagsPredicate;
 import seedu.address.model.tag.Tag;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Searches for persons whose property preferences contain all specified tags.
@@ -84,12 +83,5 @@ public class SearchPersonByTagCommand extends Command {
         return other == this
                 || (other instanceof SearchPersonByTagCommand
                 && tagsToSearch.equals(((SearchPersonByTagCommand) other).tagsToSearch));
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("tagsToSearch", tagsToSearch)
-                .toString();
     }
 }
