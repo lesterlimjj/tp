@@ -1,5 +1,7 @@
 package seedu.address.model.search.predicates;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -17,12 +19,21 @@ import seedu.address.model.tag.Tag;
 public class PersonMatchesPropertyPredicate implements Predicate<Person> {
     private final Listing listingToMatch;
 
+    /**
+     * Creates a predicate that tests if a {@code Person}'s property preferences matches a {@code Listing}.
+     *
+     * @param listingToMatch The listing to match.
+     */
     public PersonMatchesPropertyPredicate(Listing listingToMatch) {
+        requireNonNull(listingToMatch);
+
         this.listingToMatch = listingToMatch;
     }
 
     @Override
     public boolean test(Person person) {
+        requireNonNull(person);
+
         List<PropertyPreference> propertyPreferences = person.getPropertyPreferences();
 
         // If person has no preferences, reject everything.

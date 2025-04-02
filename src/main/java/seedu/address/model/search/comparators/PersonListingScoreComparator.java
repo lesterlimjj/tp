@@ -1,5 +1,8 @@
 package seedu.address.model.search.comparators;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -19,12 +22,20 @@ public class PersonListingScoreComparator implements Comparator<Person> {
 
     private static Listing listingToScore;
 
+    /**
+     * Constructs a {@code PersonListingScoreComparator} with the given listing to score.
+     *
+     * @param listingToScore The listing to score.
+     */
     public PersonListingScoreComparator(Listing listingToScore) {
-        this.listingToScore = listingToScore;
+        requireNonNull(listingToScore);
+
+        PersonListingScoreComparator.listingToScore = listingToScore;
     }
 
     @Override
     public int compare(Person o1, Person o2) {
+        requireAllNonNull(o1, o2);
         HashMap<Person, Integer> personScores = new HashMap<>();
 
         personScores.put(o1, INITIAL_SCORE);
