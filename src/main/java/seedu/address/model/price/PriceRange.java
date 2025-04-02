@@ -20,9 +20,7 @@ public class PriceRange {
     private static final String UP_TO_STRING = "Up to ";
     private static final String FROM_STRING = "From ";
     private static final String TO_STRING = " to ";
-    private static final int LESS_THAN = -1;
     private static final int EQUAL_TO = 0;
-    private static final int GREATER_THAN = 1;
 
     public final Price lowerBoundPrice;
     public final Price upperBoundPrice;
@@ -38,8 +36,8 @@ public class PriceRange {
     /**
      * Constructs a {@code PriceRange} with one bound.
      *
-     * @param singleBoundPrice the price that is the bound.
-     * @param isUpperBound     if true, the singleBoundPrice is the upper bound, otherwise it is the lower bound.
+     * @param singleBoundPrice The price that is the bound.
+     * @param isUpperBound If true, the singleBoundPrice is the upper bound, otherwise it is the lower bound.
      */
     public PriceRange(Price singleBoundPrice, boolean isUpperBound) {
         requireAllNonNull(singleBoundPrice, isUpperBound);
@@ -56,8 +54,8 @@ public class PriceRange {
     /**
      * Constructs a {@code PriceRange} with both bounds.
      *
-     * @param lowerBoundPrice the lower bound price.
-     * @param upperBoundPrice the upper bound price.
+     * @param lowerBoundPrice The lower bound price.
+     * @param upperBoundPrice The upper bound price.
      */
     public PriceRange(Price lowerBoundPrice, Price upperBoundPrice) {
         requireAllNonNull(lowerBoundPrice, upperBoundPrice);
@@ -69,7 +67,7 @@ public class PriceRange {
     /**
      * Checks if a price is within the price range.
      *
-     * @param otherPrice the price to check.
+     * @param otherPrice The price to check.
      * @return true if the price is within the range, false otherwise.
      */
     public boolean isPriceWithinRange(Price otherPrice) {
@@ -98,7 +96,7 @@ public class PriceRange {
     /**
      * Checks if two price ranges overlap.
      *
-     * @param otherPriceRange the other price range to check.
+     * @param otherPriceRange The other price range to check.
      * @return true if the price ranges overlap, false otherwise.
      */
     public boolean doPriceRangeOverlap(PriceRange otherPriceRange) {

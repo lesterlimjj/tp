@@ -14,11 +14,6 @@ public class Price {
             "Price must be a non-negative number with up to 2 decimal places and at least 1 digit is present. "
                     + "If no value is given, the lower bound price will be unbounded.";
 
-    /*
-     * First character must be a letter
-     * The rest of the characters must be letters, apostrophes, spaces, periods, or hyphens
-     * Length of name should be between 2 and 50 characters
-     */
     public static final String VALIDATION_REGEX = "^[0-9]+(?:\\.\\d{1,2})?$";
 
     public final BigDecimal price;
@@ -35,7 +30,7 @@ public class Price {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid price.
      */
     public static boolean isValidPrice(String test) {
         if (test == null) {
@@ -48,7 +43,7 @@ public class Price {
     /**
      * Compares the value of this price with the value of another price.
      *
-     * @param otherPrice other price to compare with.
+     * @param otherPrice The other price to compare with.
      * @return 0 if the values are equal. 1 if this price is greater. -1 if this price is smaller.
      */
     public int compare(Price otherPrice) {

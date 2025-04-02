@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Listing's house number in the real estate system.
+ * Represents a {@code Listing}'s house number in the real estate system.
  * Guarantees: immutable; is valid as declared in {@link #isValidHouseNumber(String)}
  */
 public class HouseNumber {
@@ -13,13 +13,12 @@ public class HouseNumber {
             "House number must be at most 3 characters long, "
                     + "consisting of only letters and numbers. The last character cannot be 'I' or 'O'.";
 
-    /** Validation regex for house numbers */
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9]{1,2}[a-zA-HJ-KL-NP-Z0-9]$";
 
     public final String houseNumber;
 
     /**
-     * Constructs an {@code HouseNumber}.
+     * Constructs a {@code HouseNumber}.
      *
      * @param houseNumber A valid house number.
      */
@@ -30,7 +29,7 @@ public class HouseNumber {
     }
 
     /**
-     * Returns true if a given string is a valid unit number.
+     * Returns true if a given string is a valid house number.
      */
     public static boolean isValidHouseNumber(String test) {
         return test.matches(VALIDATION_REGEX);

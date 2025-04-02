@@ -21,8 +21,6 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
  * intended tag is deleted.
  *
  * Supports a minimal set of hashmap operations.
- *
- * TagRegistry is a singleton.
  */
 public class UniqueTagMap implements Iterable<Tag> {
     private final ObservableMap<String, Tag> internalHashmap = FXCollections.observableHashMap();

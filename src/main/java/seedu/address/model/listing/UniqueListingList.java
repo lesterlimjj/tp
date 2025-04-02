@@ -30,7 +30,7 @@ public class UniqueListingList implements Iterable<Listing> {
     /**
      * Checks if the list contains an equivalent listing as the given argument.
      *
-     * @param toCheck the listing to check if it exists in the list.
+     * @param toCheck The listing to check if it exists in the list.
      * @return true if the list contains an equivalent listing as the given argument. false otherwise.
      */
     public boolean contains(Listing toCheck) {
@@ -42,7 +42,7 @@ public class UniqueListingList implements Iterable<Listing> {
      * Adds a listing to the list.
      * The listing must not already exist in the list.
      *
-     * @param toAdd the listing to add.
+     * @param toAdd The listing to add.
      * @throws DuplicateListingException if the listing to add already exists in the list.
      */
     public void add(Listing toAdd) {
@@ -58,8 +58,8 @@ public class UniqueListingList implements Iterable<Listing> {
      * {@code target} must exist in the list.
      * The listing identity of {@code editedListing} must not be the same as another existing listing in the list.
      *
-     * @param target the listing to be replaced.
-     * @param editedListing the listing to replace the target listing with.
+     * @param target The listing to be replaced.
+     * @param editedListing The listing to replace the target listing with.
      * @throws DuplicateListingException if the replacement is equivalent to another existing listing in the list.
      */
     public void setListing(Listing target, Listing editedListing) {
@@ -81,7 +81,7 @@ public class UniqueListingList implements Iterable<Listing> {
      * Removes the equivalent listing from the list.
      * The listing must exist in the list.
      *
-     * @param toRemove the listing to remove.
+     * @param toRemove The listing to remove.
      * @throws ListingNotFoundException if the listing to remove does not exist in the list.
      */
     public void remove(Listing toRemove) {
@@ -94,7 +94,7 @@ public class UniqueListingList implements Iterable<Listing> {
     /**
      * Replaces the contents of this list with {@code replacement}.
      *
-     * @param replacement the replacement UniqueListingList which already ensures no duplicates.
+     * @param replacement The replacement UniqueListingList which already ensures no duplicates.
      */
     public void setListings(UniqueListingList replacement) {
         requireNonNull(replacement);
@@ -105,7 +105,7 @@ public class UniqueListingList implements Iterable<Listing> {
      * Replaces the contents of this list with {@code listings}.
      * {@code listings} must not contain duplicate listings.
      *
-     * @param listings the replacement list.
+     * @param listings The replacement list.
      */
     public void setListings(List<Listing> listings) {
         requireAllNonNull(listings);

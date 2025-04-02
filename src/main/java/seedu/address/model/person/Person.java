@@ -12,7 +12,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.listing.Listing;
 
 /**
- * Represents a Person in the real estate system.
+ * Represents a person in the real estate system.
  * Guarantees: details are present and not null, field values are validated, immutable. Associations are mutable.
  */
 public class Person {
@@ -30,7 +30,7 @@ public class Person {
 
     /**
      * Constructs an {@code Person}.
-     * Every field  must be present and not null.
+     * Every field must be present and not null.
      *
      * @param name A valid name.
      * @param phone A valid phone number.
@@ -48,6 +48,7 @@ public class Person {
         this.listings.addAll(listings);
     }
 
+    // Getters
     public Name getName() {
         return name;
     }
@@ -69,6 +70,15 @@ public class Person {
     }
 
     /**
+     * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<Listing> getListings() {
+        return Collections.unmodifiableList(listings);
+    }
+
+    // Setters for associations
+    /**
      * Adds a property preference of the person.
      *
      * @param toAdd A valid property preference
@@ -88,14 +98,6 @@ public class Person {
         requireNonNull(toDelete);
 
         this.propertyPreferences.remove(toDelete);
-    }
-
-    /**
-     * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public List<Listing> getListings() {
-        return Collections.unmodifiableList(listings);
     }
 
     /**
@@ -120,6 +122,7 @@ public class Person {
         this.listings.remove(toDelete);
     }
 
+    // Miscellaneous
     /**
      * Checks if two persons have the same unique identifiers.
      * This defines a weaker notion of equality between two persons.

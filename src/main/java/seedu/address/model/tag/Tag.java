@@ -14,7 +14,7 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.person.PropertyPreference;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a tag in the real estate system.
  * Guarantees: tag name is immutable; tag is valid as declared in {@link #isValidTagName(String)};
  * all details are present and not null. Associations are mutable.
  */
@@ -24,21 +24,20 @@ public class Tag {
             + "The tag cannot be blank and must not already exist (unless for deleting).";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9' ._+&-]{2,30}$";
 
-    // Identity fields
+    //// Identity fields
     public final String tagName;
 
-    // Associations
+    //// Associations
     private final List<PropertyPreference> propertyPreferences = new ArrayList<>();
     private final List<Listing> listings = new ArrayList<>();
 
 
     /**
      * Constructs a {@code Tag}.
-     * The constructor is protected to ensure that tags cannot be created without using the registry.
      *
-     * @param tagName             A valid tag name.
+     * @param tagName A valid tag name.
      * @param propertyPreferences A valid list of property preferences.
-     * @param listings            A valid list of listings.
+     * @param listings A valid list of listings.
      */
     public Tag(String tagName, List<PropertyPreference> propertyPreferences, List<Listing> listings) {
         requireAllNonNull(tagName, propertyPreferences, listings);
@@ -56,6 +55,7 @@ public class Tag {
         return test.matches(VALIDATION_REGEX);
     }
 
+    //// Getters
     public String getTagName() {
         return tagName;
     }
@@ -68,6 +68,15 @@ public class Tag {
         return Collections.unmodifiableList(propertyPreferences);
     }
 
+    /**
+     * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<Listing> getListings() {
+        return Collections.unmodifiableList(listings);
+    }
+
+    //// Setters for associations
     /**
      * Adds a property preference to the tracking list of property preferences that use the tag.
      *
@@ -88,14 +97,6 @@ public class Tag {
         requireNonNull(toDelete);
 
         this.propertyPreferences.remove(toDelete);
-    }
-
-    /**
-     * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public List<Listing> getListings() {
-        return Collections.unmodifiableList(listings);
     }
 
     /**
@@ -120,6 +121,7 @@ public class Tag {
         this.listings.remove(toDelete);
     }
 
+    //// Utility methods
     /**
      * Returns the number of property preferences associated with the tag.
      */
