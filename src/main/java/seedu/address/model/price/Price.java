@@ -53,11 +53,6 @@ public class Price {
     }
 
     @Override
-    public String toString() {
-        return "$" + price.toPlainString();
-    }
-
-    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -75,6 +70,11 @@ public class Price {
     @Override
     public int hashCode() {
         return this.price.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "$" + price.toPlainString();
     }
 
 }
