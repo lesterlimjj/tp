@@ -24,8 +24,8 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
      * Parses the given {@code String} of arguments in the context of the EditPersonCommand
      * and returns an EditPersonCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public EditPersonCommand parse(String args) throws ParseException {
         requireNonNull(args);

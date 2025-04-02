@@ -19,8 +19,8 @@ public class SearchPersonByNameParser implements Parser<SearchPersonByName> {
      * Parses the given {@code String} of arguments in the context of the SearchPersonByNameCommand
      * and returns a SearchPersonByNameCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     @Override
     public SearchPersonByName parse(String args) throws ParseException {

@@ -18,8 +18,8 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
      * Parses the given {@code String} of arguments in the context of the AddTagCommand
      * and returns an AddTagCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NEW_TAG);

@@ -18,8 +18,8 @@ public class SearchListingByTagCommandParser implements Parser<SearchListingByTa
      * Parses the given {@code String} of arguments in the context of the SearchListingByTagCommand
      * and returns a SearchListingByTagCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     @Override
     public SearchListingByTagCommand parse(String args) throws ParseException {

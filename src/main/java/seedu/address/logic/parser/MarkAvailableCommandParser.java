@@ -14,8 +14,8 @@ public class MarkAvailableCommandParser implements Parser<MarkAvailableCommand> 
      * Parses the given {@code String} of arguments in the context of the MarkAvailableCommand
      * and returns a MarkAvailableCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public MarkAvailableCommand parse(String args) throws ParseException {
         checkCommandFormat(args);

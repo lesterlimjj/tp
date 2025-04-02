@@ -26,8 +26,8 @@ public class DeletePreferenceTagCommandParser implements Parser<DeletePreference
      * Parses the given {@code String} of arguments in the context of the DeletePreferenceTagCommand
      * and returns an DeletePreferenceTagCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public DeletePreferenceTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);

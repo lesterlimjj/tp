@@ -21,8 +21,8 @@ public class AddListingTagCommandParser implements Parser<AddListingTagCommand> 
      * Parses the given {@code String} of arguments in the context of the AddListingTagCommand
      * and returns an AddListingTagCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddListingTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =

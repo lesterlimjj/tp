@@ -23,8 +23,8 @@ public class DeleteListingTagCommandParser implements Parser<DeleteListingTagCom
      * Parses the given {@code String} of arguments in the context of the DeleteListingTagCommand
      * and returns a DeleteListingTagCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public DeleteListingTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);

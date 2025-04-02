@@ -23,8 +23,8 @@ public class MatchPreferenceCommandParser implements Parser<MatchPreferenceComma
      * Parses the given {@code String} of arguments in the context of the MatchPreferenceCommand
      * and returns a MatchPreferenceCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public MatchPreferenceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
