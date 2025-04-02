@@ -177,7 +177,6 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
-                .add("property preferences", propertyPreferences)
                 .toString();
     }
 

@@ -105,6 +105,7 @@ public class PropertyPreference {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("price range", priceRange)
+                .add("person", person)
                 .add("tags", tags)
                 .toString();
     }

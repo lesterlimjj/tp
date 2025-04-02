@@ -4,7 +4,7 @@ title: "Developer Guide"
 pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# MatchEstate Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -50,7 +50,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `deletePerson 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -127,7 +127,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml" width="700" />
 
 **Note:** The attributes of `Person`, `Tag`, `PriceRange` that have been promoted to a class are abstracted into separate class diagrams for ease of reading.
 
@@ -141,75 +141,64 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>
-
 `Person`
 
-<puml src="diagrams/PersonAttributesClassDiagram.puml" width="450" />
+<puml src="diagrams/PersonAttributesClassDiagram.puml" width="350" />
 
 * Stores person-related data as `Person` objects contained in a `UniquePersonList` object.
 * Each `Person` may have multiple`PropertyPreference` and `Listing` associations.
 * Each `Person` is identified their phone number.
 
-</box>
 
-<box type="info" seamless>
 
 `PropertyPreference`
 
 * Each `PropertyPreference` may have a `PriceRange`, and multiple `Tag` associations.
-**Note:** A `PropertyPreference` can only be tied to 1 `Person` to group criterias for a property that are looking for under a representative person responsible for the purchase.
-
-</box>
 
 <box type="info" seamless>
 
+**Note:** A `PropertyPreference` can only be tied to 1 `Person` to group criterias for a property that they are looking for, under a representative person responsible for the purchase.
+
+</box>
+
 `Listing`
 
-<puml src="diagrams/ListingAttributesClassDiagram.puml" width="450" />
+<puml src="diagrams/ListingAttributesClassDiagram.puml" width="350" />
 
 * Stores listing-related data as `Listing` objects contained in a `UniqueListingList` object.
 * Each `Listing` may have a `PriceRange`, and multiple `Tag`  and `Owner` associations.
 * Each `Listing` should have either a `Unit Number` or a `House Number` but not both.
 * Each `Listing` is identified by a combination of the `Postal Code` and either the `Unit Number` or the `House Number` depending on which one is present.
+
+<box type="info" seamless>
+
 **Note:** A `Listing` can have multiple `Person` to reflect co-ownership scenarios. Additionally in certain cases joint approval of a listing is required for a purchase.
 
 </box>
 
-<box type="info" seamless>
-
 `PriceRange`
 
-<puml src="diagrams/PriceRangeAttributesClassDiagram.puml" width="450" />
+<puml src="diagrams/PriceRangeAttributesClassDiagram.puml" width="350" />
 
 * Each `PriceRange` may have a lower bound price and a upper bound price.
 * If neither bound is specified, the `PriceRange` is unbounded.
-
-</box>
-
-<box type="info" seamless>
 
 `Tag`
 * Stores tag-related data as `Tag` objects contained in a `TagRegistry` object.
 * Each `Tag` may have multiple `Listing`  and `PropertyPreference` associations.
 * Each `Tag` is identified by a string tag name.
-**Note:** An arguably better representation of Tag is to split the tag that stores the association from the tag name, promoting the tag name into a class.
-
-<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
-
-</box>
 
 <box type="info" seamless>
+
+**Note:** An possible alternative representation of Tag is to split the tag that stores the association from the tag name, promoting the tag name into a class.
+
+<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="350" />
+
+</box>
 
 `SearchContext` and `SearchType`
 * SearchContext represents the current active filters for Tags, PriceRange, and PropertyPreference.
 * SearchType enumeration represents the types (Person/ Listing) of searches that can be performed.
-
-<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
-
-</box>
-
-<box type="info" seamless>
 
 **Bidirectional navigability:**
 
@@ -233,11 +222,6 @@ The `Model` component,
 - Property preferences requires references to tags to display on the UI.
 - Tags uses references to the property preferences to ensure that they have an accurate instance usage label. Alternatively a counter could also be used, however a direct reference would better ensure correctness.
 - Tags uses references to their property preferences to ensure cascading deletion of a tag also removes the tag from the property preferences that uses it. Searching through all preferences, would be inefficient.
-
-<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
-
-</box>
-
 
 ### Storage component
 
@@ -362,27 +346,28 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+### \[Proposed\] Edit tag command
 
-### \[Proposed\] Edit Tag feature
-
-The Edit Tag feature allows users to edit the name of an existing tag. This feature is useful when users want to change the name of a tag that they have already created. The following sequence diagram shows how the Edit Tag feature works:
+The edit tag command allows users to edit the name of an existing tag. This command is useful when users want to change the name of a tag that they have already created. The following sequence diagram shows how the edit tag command works:
 
 <puml src="diagrams/EditTagSequenceDiagram.puml" alt="EditTagSequenceDiagram" />
 
 The associated Listings and PropertyPreferences will be updated to reflect the new tag name.
 
-### \[Proposed\] Edit Listing feature
+### \[Proposed\] Edit listing command
 
-The Edit Listing feature allows users to edit the details of an existing listing. This feature is useful when users want to update information such as postal code, unit/house number, price range, or property name of a listing. The following sequence diagram shows how the Edit Listing feature works:
+The edit listing command allows users to edit the details of an existing listing. This command is useful when users want to update information such as postal code, unit/house number, price range, or property name of a listing. The following sequence diagram shows how the edit listing command works:
 
 <puml src="diagrams/EditListingSequenceDiagram.puml" alt="EditListingSequenceDiagram" />
 
-The edit operation will update the listing's details while maintaining its existing tags and availability status. The system ensures that no duplicate listings can be created by checking the postal code and unit/house number combination.
+The edit operation will update the listing's details while maintaining its existing tags, owners and availability status. The system can ensure that no duplicate listings can be created through this command by checking the postal code and unit/house number combination.
 
-### \[Proposed\] Data archiving
+### \[Proposed\] Merge tag command
+The merge tag command allows users to merge an existing tag into another existing tag. This command is useful when users want to merge two similarly named tags. One consideration is to subsume this proposal into the proposed edit tag command, however this results in the possibility of users accidentally merging two distinct tags, when they intended to rename if a tag does not exist. The following sequence diagram shows how the merge tag command works:
 
-_{Explain here how the data archiving feature will be implemented}_
+<puml src="diagrams/MergeTagSequenceDiagram.puml" alt="MergeTagSequenceDiagram" />
+
+The associated Listings and PropertyPreferences from the tag that was merged from will also be merged into the other existing tag.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -712,7 +697,13 @@ Similar to <u>UC05</u> except listing persons and adding property preference to 
 
   Use case ends.
 
-* 3b. New tags to be created already exist.
+* 3b. The specified property preference is invalid.
+
+  * 3b1. MatchEstate shows an error message.
+
+  Use case ends.
+
+* 3c. New tags to be created already exist.
 
   * 3c1. MatchEstate shows an error message.
 
@@ -790,9 +781,9 @@ Similar to <u>UC09</u> but references an existing listing instead.
 
 **MSS**
 
-1.  User requests to list listings(UC02).
-2.  User requests to list tags(UC03).
-3.  User requests to add a tag to a listing.
+1.  User requests to <u>list listings(UC02)</u>.
+2.  User requests to <u>list tags(UC03)</u>.
+3.  User requests to add new and existing tags to a listing.
 4.  MatchEstate creates new tags.
 5.  MatchEstate adds the tags to the listing.
 6.  MatchEstate updates the usage number of the tags.
@@ -1094,11 +1085,18 @@ Similar to <u>UC08</u> but removes instead of adds. Note that tags are appropria
 
   Use case ends.
 
-* 2b. The expected edited person already exists.
+* 2b. The specified edited person is invalid.
 
   * 2b1. MatchEstate shows an error message.
 
   Use case ends.
+
+* 2c. The expected edited person already exists.
+
+  * 2c1. MatchEstate shows an error message.
+
+  Use case ends.
+
 
 #### Use case: UC19 - Mark a listing as unavailable
 
@@ -1396,6 +1394,8 @@ Similar to <u>UC24</u> except for property preferences.
 
   * 2b1. MatchEstate shows an error message.
 
+  Use case ends.
+
 * 4a. No listings match the specified property preference.
 
   * 4a1. MatchEstate displays a message indicating no results.
@@ -1464,21 +1464,25 @@ Similar to <u>UC27</u> except for a listing.
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to support at least 500 buyers and 500 sellers without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. The user interface should be intuitive enough that non-tech savvy users can use it.
-5. Should complete all user commands within 2 seconds.
-6. Should automatically save data to prevent data loss.
-
-*{More to be added}*
+3.  Should provide informative error messages for invalid commands or input.
+4.  Should be easily extensible by future developers with minimal breaking changes.
+5.  Should be distributable as a .jar file that runs without external setup beyond Java `17`.
+6.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+7.  The user interface should be intuitive enough that non-tech savvy users can use it.
+8.  The application should respond to all user commands within 2 seconds under typical conditions.
+9.  All data changes should be automatically saved to prevent data loss in the event of an application crash or closure.
+10.  The application should fail gracefully in most cases. However, as the application is intended for a single offline user, malicious manipulations of the data file is not an anticipated behaviour. Therefore, handling corrupted data files is a ‘good to have’ and not in scope.
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Listing**: Entry of a property that is currently on the market. Contains property address information. Used interchangeably with Property.
+* **Listing**: Entry of a property that is currently on the market. Contains property
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Owner**: A person associated with a listing to indicate they are selling the property. A listing can have multiple owners.
+* **PriceRange**: A model class representing a lower and upper bound for a listing’s price.
 * **Property**: The physical real estate itself. Used interchangeably with Listing.
-* **Property Preference**: The preference of people based on price range and tags.
-* **Tag Registry**: A Singleton used to store Tags to be put on properties and property preferences.
+* **Property Preference**: The type of property that people are looking to buy, based on price range and tags.
+* **Tag**: A category or label that can be associated with Listings or Preferences to describe attributes like "near MRT", "pet-friendly", etc.
+
 
 --------------------------------------------------------------------------------------------------------------------
 

@@ -29,15 +29,21 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+    * `listPerson` : Lists all persons.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+    * `listListing` : Lists all listings.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `addPerson n/John Doe p/98765432 e/john@example.com` : Adds a person named `John Doe`.
 
-   * `clear` : Deletes all contacts.
+    * `addTag nt/pool nt/near MRT` : Adds the tags `pool` and `near MRT`.
 
-   * `exit` : Exits the app.
+    * `deletePerson 3` : Deletes the 3rd person shown in the current persons list.
+
+    * `deleteListing 1` : Deletes the 1st listing shown in the current listings list.
+
+    * `clear` : Deletes all contacts.
+
+    * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 

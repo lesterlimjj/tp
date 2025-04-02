@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -89,5 +90,12 @@ public class SearchListingByTagCommand extends Command {
         return other == this
                 || (other instanceof SearchListingByTagCommand
                 && tagsToSearch.equals(((SearchListingByTagCommand) other).tagsToSearch));
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("tagsToSearch", tagsToSearch)
+                .toString();
     }
 }

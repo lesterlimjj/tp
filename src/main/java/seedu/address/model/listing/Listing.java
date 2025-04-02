@@ -337,8 +337,7 @@ public class Listing {
 
         stringBuilder.add("price range", priceRange)
                 .add("property name", propertyName)
-                .add("tags", tags)
-                .add("owners", owners);
+                .add("tags", tags);
 
         return stringBuilder.toString();
     }
