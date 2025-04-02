@@ -10,7 +10,8 @@ import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 
 /**
- * Mark unavailable a {@code Listing} identified using it's displayed index in the address book.
+ * Mark a {@code Listing} as unavailable in the address book.
+ * The {@code Listing} is identified using it's displayed index.
  */
 public class MarkUnavailableCommand extends Command {
     public static final String COMMAND_WORD = "markUnavailable";
@@ -19,17 +20,17 @@ public class MarkUnavailableCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_MARK_UNAVAILABLE_SUCCESS = "Marked Listing as unavailable: %1$s";
 
-    private final Index targetIndex;
+    private final Index targetListingIndex;
 
     /**
      * Creates a {@code MarkUnavailableCommand} to mark the specified {@code Listing} as unavailable.
      *
-     * @param targetIndex of the listing in the filtered listing list to mark unavailable.
+     * @param targetListingIndex The index of the listing in the filtered listing list to mark as unavailable.
      */
-    public MarkUnavailableCommand(Index targetIndex) {
-        requireNonNull(targetIndex);
+    public MarkUnavailableCommand(Index targetListingIndex) {
+        requireNonNull(targetListingIndex);
 
-        this.targetIndex = targetIndex;
+        this.targetListingIndex = targetListingIndex;
     }
 
     @Override

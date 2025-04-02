@@ -14,7 +14,7 @@ import seedu.address.model.listing.Listing;
 import seedu.address.model.person.PropertyPreference;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a tag in the real estate system.
  * Guarantees: tag name is immutable; tag is valid as declared in {@link #isValidTagName(String)};
  * all details are present and not null. Associations are mutable.
  */
@@ -34,11 +34,10 @@ public class Tag {
 
     /**
      * Constructs a {@code Tag}.
-     * The constructor is protected to ensure that tags cannot be created without using the registry.
      *
-     * @param tagName             A valid tag name.
+     * @param tagName A valid tag name.
      * @param propertyPreferences A valid list of property preferences.
-     * @param listings            A valid list of listings.
+     * @param listings A valid list of listings.
      */
     public Tag(String tagName, List<PropertyPreference> propertyPreferences, List<Listing> listings) {
         requireAllNonNull(tagName, propertyPreferences, listings);
@@ -56,6 +55,8 @@ public class Tag {
         return test.matches(VALIDATION_REGEX);
     }
 
+    //// Getters
+
     public String getTagName() {
         return tagName;
     }
@@ -67,6 +68,16 @@ public class Tag {
     public List<PropertyPreference> getPropertyPreferences() {
         return Collections.unmodifiableList(propertyPreferences);
     }
+
+    /**
+     * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<Listing> getListings() {
+        return Collections.unmodifiableList(listings);
+    }
+
+    //// Setters for associations
 
     /**
      * Adds a property preference to the tracking list of property preferences that use the tag.
@@ -91,14 +102,6 @@ public class Tag {
     }
 
     /**
-     * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public List<Listing> getListings() {
-        return Collections.unmodifiableList(listings);
-    }
-
-    /**
      * Adds a listing to the tracking list of listings that use the tag.
      *
      * @param toAdd A valid listing.
@@ -119,6 +122,8 @@ public class Tag {
 
         this.listings.remove(toDelete);
     }
+
+    //// Utility methods
 
     /**
      * Returns the number of property preferences associated with the tag.
@@ -143,11 +148,10 @@ public class Tag {
 
 
     /**
-     * * Checks if two tag have the same identity and data fields and associations.
-     * This defines a stronger notion of equality between two tags.
+     * Checks if two tag have the same identity and data fields.
      *
      * @param other Object to be compared with.
-     * @return true if both tags have the same identity and data fields and associations. false otherwise.
+     * @return true if both tags have the same identity and data fields, false otherwise.
      */
     @Override
     public boolean equals(Object other) {

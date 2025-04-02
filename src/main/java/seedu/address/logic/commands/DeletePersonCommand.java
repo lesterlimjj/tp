@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,7 +19,8 @@ import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes a {@code Person} identified using it's displayed index from the address book.
+ * Deletes a {@code Person} from the address book.
+ * The {@code Person} is identified using it's displayed index.
  */
 public class DeletePersonCommand extends Command {
 
@@ -33,17 +33,16 @@ public class DeletePersonCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    private final Index targetIndex;
+    private final Index targetPersonIndex;
 
     /**
      * Creates a {@code DeletePersonCommand} to delete the specified {@code Person}.
      *
-     * @param targetIndex of the listing in the filtered listing list to delete
+     * @param targetPersonIndex The index of the person in the filtered person list to be deleted.
      */
-    public DeletePersonCommand(Index targetIndex) {
-        requireAllNonNull(targetIndex);
-
-        this.targetIndex = targetIndex;
+    public DeletePersonCommand(Index targetPersonIndex) {
+        requireNonNull(targetPersonIndex);
+        this.targetPersonIndex = targetPersonIndex;
     }
 
     @Override
@@ -73,13 +72,13 @@ public class DeletePersonCommand extends Command {
         }
 
         DeletePersonCommand otherDeletePersonCommand = (DeletePersonCommand) other;
-        return targetIndex.equals(otherDeletePersonCommand.targetIndex);
+        return targetPersonIndex.equals(otherDeletePersonCommand.targetPersonIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("targetPersonIndex", targetPersonIndex)
                 .toString();
     }
 

@@ -24,8 +24,8 @@ public class OverwriteListingTagCommandParser implements Parser<OverwriteListing
      * Parses the given {@code String} of arguments in the context of the OverwriteListingTagCommand
      * and returns an OverwriteListingTagCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public OverwriteListingTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NEW_TAG);

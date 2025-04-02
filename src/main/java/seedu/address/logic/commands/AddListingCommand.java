@@ -60,9 +60,9 @@ public class AddListingCommand extends Command {
     /**
      * Creates an {@code AddListingCommand} to add the specified {@code Listing}.
      *
-     * @param listing Listing to be added.
-     * @param tagSet Set of tags to be added to the listing.
-     * @param newTagSet Set of new tags to be added to the tag registry.
+     * @param listing The listing to be added.
+     * @param tagSet The set of tags to be added to the listing.
+     * @param newTagSet The set of new tags to be added to the unique tag map.
      */
     public AddListingCommand(Listing listing, Set<String> tagSet, Set<String> newTagSet) {
         requireAllNonNull(listing, tagSet, newTagSet);

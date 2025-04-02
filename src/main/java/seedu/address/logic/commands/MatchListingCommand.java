@@ -16,8 +16,14 @@ import seedu.address.model.search.predicates.PersonMatchesPropertyPredicate;
 import seedu.address.model.search.predicates.PropertyPreferencesMatchesListingPredicate;
 
 /**
- * Matches a {@code Listing} identified using it's displayed index in the address book to
- * {@code Person}s' @code PropertyPreference}.
+ * Lists all {@code Person}(s) that have {@code PropertyPreference}(s) that match the specified {@code Listing} in the
+ * address book.
+ * The {@code Listing} is identified using it's displayed index.
+ * Matching excludes {@code Person}(s) that owns the specified {@code Listing}.
+ * A match is determined by whether a {@code PropertyPreference} has the same tags or an overlapping price range as the
+ * specified {@code Listing}.
+ * The {@code Person}(s) are sorted in descending order based on the {@code PropertyPreference} with
+ * the highest number of matching tags and price range.
  */
 public class MatchListingCommand extends Command {
 
@@ -31,18 +37,18 @@ public class MatchListingCommand extends Command {
 
     public static final String MESSAGE_MATCH_LISTING_SUCCESS = "Matched Listing: %1$s";
 
-    private final Index targetIndex;
+    private final Index targetListingIndex;
 
     /**
-     * Creates a {@code MatchListingCommand} to match the specified {@code Listing}
-     * to {@code Person}s' @code PropertyPreference}.
+     * Creates a {@code MatchListingCommand} to match {@code Person}s' @code PropertyPreference} to the
+     * specified {@code Listing}.
      *
-     * @param targetIndex of the listing in the filtered listing list to delete
+     * @param targetListingIndex The index of the listing in the filtered listing list to match to.
      */
-    public MatchListingCommand(Index targetIndex) {
-        requireNonNull(targetIndex);
+    public MatchListingCommand(Index targetListingIndex) {
+        requireNonNull(targetListingIndex);
 
-        this.targetIndex = targetIndex;
+        this.targetListingIndex = targetListingIndex;
     }
 
     @Override
@@ -81,13 +87,13 @@ public class MatchListingCommand extends Command {
         }
 
         MatchListingCommand otherDeleteCommand = (MatchListingCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        return targetListingIndex.equals(otherDeleteCommand.targetListingIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("targetListingIndex", targetListingIndex)
                 .toString();
     }
 }

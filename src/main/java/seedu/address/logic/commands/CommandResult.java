@@ -22,9 +22,9 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      *
-     * @param feedbackToUser the feedback to the user
-     * @param showHelp whether to show help
-     * @param exit whether to exit
+     * @param feedbackToUser The feedback to the user.
+     * @param showHelp Whether to show help.
+     * @param exit Whether to exit.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -35,6 +35,8 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
+     *
+     * @param feedbackToUser The feedback to the user.
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);

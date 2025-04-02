@@ -26,7 +26,8 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.PropertyPreference;
 
 /**
- * Edits the details of an existing {@code Person} identified using it's displayed index in the address book.
+ * Edits the details of an existing {@code Person} in the address book.
+ * The {@code Person} is identified using it's displayed index.
  */
 public class EditPersonCommand extends Command {
 
@@ -47,19 +48,19 @@ public class EditPersonCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n%1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n%1$s";
 
-    private final Index index;
+    private final Index targetPersonIndex;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
      * Creates an {@code EditPersonCommand} to edit the specified {@code Person}.
      *
-     * @param index Index of the person in the filtered person list to edit
-     * @param editPersonDescriptor Details to edit the person with
+     * @param targetPersonIndex The index of the person in the filtered person list to edit.
+     * @param editPersonDescriptor The details to edit the person with.
      */
-    public EditPersonCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireAllNonNull(index, editPersonDescriptor);
+    public EditPersonCommand(Index targetPersonIndex, EditPersonDescriptor editPersonDescriptor) {
+        requireAllNonNull(targetPersonIndex, editPersonDescriptor);
 
-        this.index = index;
+        this.targetPersonIndex = targetPersonIndex;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
@@ -124,14 +125,14 @@ public class EditPersonCommand extends Command {
         }
 
         EditPersonCommand otherEditPersonCommand = (EditPersonCommand) other;
-        return index.equals(otherEditPersonCommand.index)
+        return targetPersonIndex.equals(otherEditPersonCommand.targetPersonIndex)
                 && editPersonDescriptor.equals(otherEditPersonCommand.editPersonDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
+                .add("index", targetPersonIndex)
                 .add("editPersonDescriptor", editPersonDescriptor)
                 .toString();
     }
