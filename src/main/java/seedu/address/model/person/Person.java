@@ -140,11 +140,11 @@ public class Person {
     }
 
     /**
-     * Checks if two persons have the same identity and data fields and associations.
+     * Checks if two persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      *
      * @param other Object to be compared with.
-     * @return true if both persons have the same identity and data fields and associations. false otherwise.
+     * @return true if both persons have the same identity and data fields. false otherwise.
      */
     @Override
     public boolean equals(Object other) {

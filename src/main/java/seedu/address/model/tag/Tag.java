@@ -145,7 +145,7 @@ public class Tag {
 
 
     /**
-     * * Checks if two tag have the same identity and data fields and associations.
+     * Checks if two tag have the same identity and data fields and associations.
      * This defines a stronger notion of equality between two tags.
      *
      * @param other Object to be compared with.

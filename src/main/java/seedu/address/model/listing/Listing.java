@@ -281,12 +281,11 @@ public class Listing {
     }
 
     /**
-     * Checks if two listings have the same identity and data fields and associations.
+     * Checks if two listings have the same identity and data fields.
      * This defines a stronger notion of equality between two listings.
-     * Does not check equality by owners as it will result in an infinite loop.
      *
      * @param other Object to be compared with.
-     * @return true if both listings have the same identity and data fields and associations. false otherwise.
+     * @return true if both listings have the same identity and data fields. false otherwise.
      */
     @Override
     public boolean equals(Object other) {
@@ -304,8 +303,7 @@ public class Listing {
                 && Objects.equals(unitNumber, otherListing.unitNumber)
                 && Objects.equals(houseNumber, otherListing.houseNumber)
                 && priceRange.equals(otherListing.priceRange)
-                && Objects.equals(propertyName, otherListing.propertyName)
-                && tags.equals(otherListing.tags);
+                && Objects.equals(propertyName, otherListing.propertyName);
     }
 
     @Override
