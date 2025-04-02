@@ -11,7 +11,7 @@ import seedu.address.model.search.SearchContext;
 import seedu.address.model.search.SearchType;
 
 /**
- * Lists all persons in the address book.
+ * Lists all {@code Listing}(s) in the address book.
  */
 public class ListListingCommand extends Command {
 

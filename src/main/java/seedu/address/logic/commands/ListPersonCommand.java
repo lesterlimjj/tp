@@ -12,7 +12,7 @@ import seedu.address.model.search.SearchContext;
 import seedu.address.model.search.SearchType;
 
 /**
- * Lists all persons in the address book.
+ * Lists all {@code Person}(s) in the address book.
  */
 public class ListPersonCommand extends Command {
 

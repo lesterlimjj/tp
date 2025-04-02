@@ -56,7 +56,6 @@ public class AddPreferenceCommand extends Command {
      * Creates an {@code AddPreferenceCommand} to add the specified {@code PropertyPreference} to the specified
      * {@code Person}.
      *
-<<<<<<< HEAD
      * @param targetPersonIndex The index of the person in the filtered person list to add preference to.
      * @param priceRange The price range of the preference.
      * @param tagSet The set of existing tags to be added to the preference.

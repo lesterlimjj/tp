@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
 import seedu.address.model.Model;
 
 /**
- * Lists all tags in the address book.
+ * Lists all {@code Tag}(s) in the address book.
  */
 public class ListTagCommand extends Command {
 
