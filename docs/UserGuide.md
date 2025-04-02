@@ -143,7 +143,7 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 | Command   | Description                     | Usage |
 |-----------|---------------------------------|-------|
 **Add Listing Tags**  | Adds tags to a listing         |`addListingTag INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
-**Overwrite Listing Tags**  | Replaces all tags in a listing |`overwriteListingTag LISTING_INDEX [t/TAG] ... [nt/NEW_TAG]{1}...`
+**Overwrite Listing Tags**  | Replaces all tags in a listing |`overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Delete Listing Tags** | Deletes tags from a listing    |`deleteListingTag LISTING_INDEX t/TAG...`
 
 ### Matching System
