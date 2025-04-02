@@ -712,7 +712,13 @@ Similar to <u>UC05</u> except listing persons and adding property preference to 
 
   Use case ends.
 
-* 3b. New tags to be created already exist.
+* 3b. The specified property preference is invalid.
+
+  * 3b1. MatchEstate shows an error message.
+
+  Use case ends.
+
+* 3c. New tags to be created already exist.
 
   * 3c1. MatchEstate shows an error message.
 
@@ -790,9 +796,9 @@ Similar to <u>UC09</u> but references an existing listing instead.
 
 **MSS**
 
-1.  User requests to list listings(UC02).
-2.  User requests to list tags(UC03).
-3.  User requests to add a tag to a listing.
+1.  User requests to <u>list listings(UC02)</u>.
+2.  User requests to <u>list tags(UC03)</u>.
+3.  User requests to add new and existing tags to a listing.
 4.  MatchEstate creates new tags.
 5.  MatchEstate adds the tags to the listing.
 6.  MatchEstate updates the usage number of the tags.
@@ -1094,11 +1100,18 @@ Similar to <u>UC08</u> but removes instead of adds. Note that tags are appropria
 
   Use case ends.
 
-* 2b. The expected edited person already exists.
+* 2b. The specified edited person is invalid.
 
   * 2b1. MatchEstate shows an error message.
 
   Use case ends.
+
+* 2c. The expected edited person already exists.
+
+  * 2c1. MatchEstate shows an error message.
+
+  Use case ends.
+
 
 #### Use case: UC19 - Mark a listing as unavailable
 
@@ -1395,6 +1408,8 @@ Similar to <u>UC24</u> except for property preferences.
 * 2b. The property preference index is invalid.
 
   * 2b1. MatchEstate shows an error message.
+
+  Use case ends.
 
 * 4a. No listings match the specified property preference.
 

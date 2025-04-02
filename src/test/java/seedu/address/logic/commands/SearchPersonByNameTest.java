@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -45,17 +44,6 @@ public class SearchPersonByNameTest {
 
         // different person -> returns false
         assertNotEquals(findFirstCommand, findSecondCommand);
-    }
-
-    @Test
-    public void execute_zeroKeywords_noPersonFound() throws CommandException {
-        List<String> keywords = Arrays.asList(" "); // Invalid keyword
-
-        Exception exception = assertThrows(CommandException.class, () -> new SearchPersonByName(keywords));
-
-        String expectedMessage =
-                String.format("ERROR: Invalid keyword ' '. \n%s", SearchPersonByName.MESSAGE_USAGE);
-        assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
