@@ -8,7 +8,7 @@ import seedu.address.model.listing.Listing;
 
 /**
  * Compares two {@code Listing}s based on default criteria (postal code, unit number, and house number).
- * Creates a comparator that compares two listings based on:
+ * Compares two listings based on:
  * 1. Postal code (primary)
  * 2. Unit number (secondary, with nulls first)
  * 3. House number (tertiary)
