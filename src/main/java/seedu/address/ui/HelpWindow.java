@@ -40,7 +40,7 @@ import seedu.address.logic.commands.OverwriteListingTagCommand;
 import seedu.address.logic.commands.OverwritePreferenceTagCommand;
 import seedu.address.logic.commands.SearchListingByTagCommand;
 import seedu.address.logic.commands.SearchOwnerListingCommand;
-import seedu.address.logic.commands.SearchPersonByName;
+import seedu.address.logic.commands.SearchPersonByNameCommand;
 import seedu.address.logic.commands.SearchPersonByTagCommand;
 
 /**
@@ -190,7 +190,7 @@ public class HelpWindow extends UiPart<Stage> {
 
     private ArrayList<String[]> getFindCommandsHelpMessages() {
         ArrayList<String[]> helpTexts = new ArrayList<>();
-        helpTexts.add(new String[]{SearchPersonByName.COMMAND_WORD, SearchPersonByName.MESSAGE_USAGE});
+        helpTexts.add(new String[]{SearchPersonByNameCommand.COMMAND_WORD, SearchPersonByNameCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{SearchPersonByTagCommand.COMMAND_WORD, SearchPersonByTagCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{SearchListingByTagCommand.COMMAND_WORD, SearchListingByTagCommand.MESSAGE_USAGE});
         helpTexts.add(new String[]{SearchOwnerListingCommand.COMMAND_WORD, SearchOwnerListingCommand.MESSAGE_USAGE});

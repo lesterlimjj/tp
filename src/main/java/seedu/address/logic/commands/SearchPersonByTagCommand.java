@@ -33,7 +33,7 @@ public class SearchPersonByTagCommand extends Command {
     private final Set<String> tagsToSearch;
 
     /**
-     * Constructs a {@code SearchListingByTagCommand} to list the {@code Person}(s) with {@code PropertyPreference}(s)
+     * Constructs a {@code SearchPersonByTagCommand} to list the {@code Person}(s) with {@code PropertyPreference}(s)
      * that contains all the specified {@code Tag}(s).
      *
      * @param tagsToSearch The tags to search by.
