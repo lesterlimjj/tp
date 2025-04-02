@@ -88,7 +88,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns an unmodifiable view of the tag map.
      *
-     * @return An ObservableMap representing the tag map.
+     * @return an ObservableMap representing the tag map.
      */
     @Override
     public ObservableMap<String, Tag> getTagMap() {
@@ -98,7 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns an unmodifiable view of the listing list.
      *
-     * @return An ObservableList of listings.
+     * @return an ObservableList of listings.
      */
     @Override
     public ObservableList<Listing> getListingList() {
@@ -130,7 +130,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Returns true if a listing with the same identity as {@code listing} exists in the address book.
      *
      * @param listing The listing to check for.
-     * @return True if the listing exists, false otherwise.
+     * @return true if the listing exists, false otherwise.
      */
     public boolean hasListing(Listing listing) {
         requireNonNull(listing);
@@ -141,7 +141,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Checks if A given tag exist in the unique tag map.
      *
      * @param tagName Name of tag to check.
-     * @return True if all tags exist, false otherwise.
+     * @return true if all tags exist, false otherwise.
      */
     public boolean hasTag(String tagName) {
         requireNonNull(tagName);
@@ -154,7 +154,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Checks if all given tags exist in the unique tag map.
      *
      * @param tagNames A set of tag names to check.
-     * @return True if all tags exist, false otherwise.
+     * @return true if all tags exist, false otherwise.
      */
     public boolean hasTags(Set<String> tagNames) {
         requireNonNull(tagNames);
@@ -171,7 +171,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Checks if at least one of the given tags exists in the unique tag map.
      *
      * @param tagNames A set of tags to check.
-     * @return True if at least one tag exists, false otherwise.
+     * @return true if at least one tag exists, false otherwise.
      */
     public boolean hasNewTags(Set<String> tagNames) {
         requireNonNull(tagNames);
