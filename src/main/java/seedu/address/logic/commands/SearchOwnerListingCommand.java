@@ -40,6 +40,8 @@ public class SearchOwnerListingCommand extends Command {
      * @param targetPersonIndex The index of the person in the filtered person list to search by.
      */
     public SearchOwnerListingCommand(Index targetPersonIndex) {
+        requireNonNull(targetPersonIndex);
+
         this.targetPersonIndex = targetPersonIndex;
     }
 

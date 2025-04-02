@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -40,7 +41,8 @@ public class SearchPersonByName extends Command {
      * @throws CommandException if the keywords are empty or invalid.
      */
     public SearchPersonByName(List<String> keywords) throws CommandException {
-        requireNonNull(keywords);
+        requireAllNonNull(keywords);
+
         if (keywords.isEmpty()) {
             throw new CommandException(String.format(Messages.MESSAGE_MISSING_KEYWORD, MESSAGE_USAGE));
         }

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
 import java.util.List;
@@ -43,6 +44,8 @@ public class DeletePreferenceCommand extends Command {
      * @param targetPreferenceIndex The index of the preference in the person's preference list to delete.
      */
     public DeletePreferenceCommand(Index targetPersonIndex, Index targetPreferenceIndex) {
+        requireAllNonNull(targetPersonIndex, targetPreferenceIndex);
+
         this.targetPersonIndex = targetPersonIndex;
         this.targetPreferenceIndex = targetPreferenceIndex;
     }

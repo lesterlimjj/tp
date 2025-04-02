@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class DeleteListingTagCommand extends Command {
      */
     public DeleteListingTagCommand(Index targetListingIndex, Set<String> tagsToDelete) {
         requireNonNull(targetListingIndex);
-        requireNonNull(tagsToDelete);
+        requireAllNonNull(tagsToDelete);
 
         this.targetListingIndex = targetListingIndex;
         this.tagsToDelete = tagsToDelete;

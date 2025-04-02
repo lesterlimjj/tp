@@ -47,6 +47,8 @@ public class MatchListingCommand extends Command {
      * @param targetListingIndex The index of the listing in the filtered listing list to match to.
      */
     public MatchListingCommand(Index targetListingIndex) {
+        requireNonNull(targetListingIndex);
+
         this.targetListingIndex = targetListingIndex;
     }
 

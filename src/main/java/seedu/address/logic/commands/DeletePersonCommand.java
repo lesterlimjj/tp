@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,6 +41,7 @@ public class DeletePersonCommand extends Command {
      * @param targetPersonIndex The index of the person in the filtered person list to be deleted.
      */
     public DeletePersonCommand(Index targetPersonIndex) {
+        requireNonNull(targetPersonIndex);
         this.targetPersonIndex = targetPersonIndex;
     }
 

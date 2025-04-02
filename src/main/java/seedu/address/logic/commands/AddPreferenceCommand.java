@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER_BOUND_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -55,18 +56,19 @@ public class AddPreferenceCommand extends Command {
      * Creates an {@code AddPreferenceCommand} to add the specified {@code PropertyPreference} to the specified
      * {@code Person}.
      *
+<<<<<<< HEAD
      * @param targetPersonIndex The index of the person in the filtered person list to add preference to.
      * @param priceRange The price range of the preference.
-     * @param tags The set of existing tags to be added to the preference.
-     * @param newTags The set of tags to be added to the preference and to the unique tag map.
+     * @param tagSet The set of existing tags to be added to the preference.
+     * @param newTagSet The set of tags to be added to the preference and to the unique tag map.
      */
-    public AddPreferenceCommand(Index targetPersonIndex, PriceRange priceRange, Set<String> tags,
-                                Set<String> newTags) {
-        requireNonNull(priceRange);
+    public AddPreferenceCommand(Index targetPersonIndex, PriceRange priceRange, Set<String> tagSet,
+                                Set<String> newTagSet) {
+        requireAllNonNull(targetPersonIndex, priceRange, tagSet, newTagSet);
         this.targetPersonIndex = targetPersonIndex;
         this.priceRange = priceRange;
-        tagSet = tags;
-        newTagSet = newTags;
+        this.tagSet = tagSet;
+        this.newTagSet = newTagSet;
     }
 
     @Override

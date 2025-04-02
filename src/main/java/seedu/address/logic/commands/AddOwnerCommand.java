@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class AddOwnerCommand extends Command {
      * @param targetListingIndex The index of the listing in the filtered listing list to add to.
      */
     public AddOwnerCommand(Index targetPersonIndex, Index targetListingIndex) {
+        requireAllNonNull(targetPersonIndex, targetListingIndex);
         this.targetPersonIndex = targetPersonIndex;
         this.targetListingIndex = targetListingIndex;
     }

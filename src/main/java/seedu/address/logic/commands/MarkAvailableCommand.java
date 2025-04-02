@@ -29,6 +29,8 @@ public class MarkAvailableCommand extends Command {
      * @param targetListingIndex The index of the listing in the filtered listing list to mark as available.
      */
     public MarkAvailableCommand(Index targetListingIndex) {
+        requireNonNull(targetListingIndex);
+
         this.targetListingIndex = targetListingIndex;
     }
 

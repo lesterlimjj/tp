@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -56,8 +57,7 @@ public class EditPersonCommand extends Command {
      * @param editPersonDescriptor The details to edit the person with.
      */
     public EditPersonCommand(Index targetPersonIndex, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(targetPersonIndex);
-        requireNonNull(editPersonDescriptor);
+        requireAllNonNull(targetPersonIndex, editPersonDescriptor);
 
         this.targetPersonIndex = targetPersonIndex;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);

@@ -50,6 +50,8 @@ public class MatchPreferenceCommand extends Command {
      * @param targetPreferenceIndex The index of the preference to match to.
      */
     public MatchPreferenceCommand(Index targetPersonIndex, Index targetPreferenceIndex) {
+        requireAllNonNull(targetPersonIndex, targetPreferenceIndex);
+
         this.targetPersonIndex = targetPersonIndex;
         this.targetPreferenceIndex = targetPreferenceIndex;
     }
