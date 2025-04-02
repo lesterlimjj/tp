@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -72,58 +73,22 @@ public class AddPreferenceTagCommand extends Command {
         requireNonNull(model);
 
         // Get and validate person
-        Person targetPerson = getValidatedPerson(model);
+        Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
         // Get and validate preference
-        PropertyPreference preference = getValidatedPreference(model, targetPerson);
+        PropertyPreference targetPreference = CommandUtil.getValidatedPreference(model, targetPerson, 
+                targetPreferenceIndex, MESSAGE_USAGE, true);
 
         // Validate and process tags
-        validateTags(model);
-        Set<Tag> tags = processAndGetTags(model, preference);
+        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE, 
+                MESSAGE_INVALID_TAGS, MESSAGE_DUPLICATE_TAGS);
+        Set<Tag> tags = processAndGetTags(model, targetPreference);
 
         // Apply changes
-        applyTagsToPreference(model, targetPerson, preference, tags);
+        applyTagsToPreference(model, targetPerson, targetPreference, tags);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                Messages.format(targetPerson, preference), Messages.format(tags)));
-    }
-
-    /**
-     * Gets and validates the target person from the model.
-     */
-    private Person getValidatedPerson(Model model) throws CommandException {
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
-        if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        return lastShownList.get(targetPersonIndex.getZeroBased());
-    }
-
-    /**
-     * Gets and validates the target preference from the person.
-     */
-    private PropertyPreference getValidatedPreference(Model model, Person targetPerson) throws CommandException {
-        List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences().stream()
-                .filter(preference -> model.getSearchContext().matches(preference))
-                .toList();
-
-        if (targetPreferenceIndex.getZeroBased() >= targetPreferenceList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX,
-                    MESSAGE_USAGE));
-        }
-        return targetPreferenceList.get(targetPreferenceIndex.getZeroBased());
-    }
-
-    /**
-     * Validates both existing and new tags.
-     */
-    private void validateTags(Model model) throws CommandException {
-        if (!model.hasTags(tagSet)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
-        }
-        if (model.hasNewTags(newTagSet)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
-        }
+                Messages.format(targetPerson, targetPreference), Messages.format(tags)));
     }
 
     /**

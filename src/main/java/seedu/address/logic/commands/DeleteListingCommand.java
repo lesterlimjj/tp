@@ -45,15 +45,10 @@ public class DeleteListingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
+        Listing toDelete = CommandUtil.getValidatedListing(model, targetIndex, MESSAGE_USAGE);
 
-        Listing toDelete = lastShownList.get(targetIndex.getZeroBased());
-
-        removeListingOwners(toDelete, model);
-        removeListingFromTags(toDelete, model);
+        CommandUtil.removeListingFromOwners(model, toDelete);
+        CommandUtil.removeListingFromTags(model, toDelete);
 
         model.deleteListing(toDelete);
         model.resetAllLists();
@@ -81,23 +76,5 @@ public class DeleteListingCommand extends Command {
         return new ToStringBuilder(this)
                 .add("targetIndex", targetIndex)
                 .toString();
-    }
-
-    private void removeListingOwners(Listing toDelete, Model model) {
-        List<Person> owners = new ArrayList<>(toDelete.getOwners());
-        for (Person owner : owners) {
-            owner.removeListing(toDelete);
-            model.setPerson(owner, owner);
-        }
-    }
-
-    private void removeListingFromTags(Listing toDelete, Model model) {
-
-        Set<Tag> tags = new HashSet<>(toDelete.getTags());
-
-        for (Tag tag: tags) {
-            tag.removeListing(toDelete);
-            model.setTag(tag, tag);
-        }
     }
 }
