@@ -27,7 +27,6 @@ import seedu.address.model.listing.PropertyName;
 import seedu.address.model.listing.UnitNumber;
 import seedu.address.model.price.Price;
 import seedu.address.model.price.PriceRange;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new {@code AddListingCommand} object.
@@ -63,7 +62,7 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
                 .getValue(PREFIX_PROPERTY_NAME).orElse(null));
         Listing listing;
         try {
-             listing = Listing.of(postalCode, unitNumber, houseNumber, priceRange, propertyName, new HashSet<>(),
+            listing = Listing.of(postalCode, unitNumber, houseNumber, priceRange, propertyName, new HashSet<>(),
                     new ArrayList<>(), true);
         } catch (IllegalValueException e) {
             throw new ParseException(String.format(MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED,
