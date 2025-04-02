@@ -168,8 +168,8 @@ public class OverwriteListingTagCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("targetListingIndex", targetListingIndex)
-                .add("tags", tagSet)
-                .add("newTags", newTagSet)
+                .add("tagSet", tagSet)
+                .add("newTagSet", newTagSet)
                 .toString();
     }
 }

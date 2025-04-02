@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
  * Represents a command to that lists all {@code Person}(s) whose names match any of the given keyword(s).
  * Keyword matching is case-insensitive and must adhere to a valid name format.
  */
-public class SearchPersonByName extends Command {
+public class SearchPersonByNameCommand extends Command {
 
     public static final String COMMAND_WORD = "searchPersonName";
 
@@ -33,11 +33,11 @@ public class SearchPersonByName extends Command {
     private final List<String> keywords;
 
     /**
-     * Constructs a @{code SearchPersonByName} to find {@code Person}(s) with the given keywords.
+     * Constructs a @{code SearchPersonByNameCommand} to find {@code Person}(s) with the given keywords.
      *
      * @param keywords The list of keywords to match against names.
      */
-    public SearchPersonByName(List<String> keywords) {
+    public SearchPersonByNameCommand(List<String> keywords) {
         requireAllNonNull(keywords);
         this.keywords = keywords;
     }
@@ -61,10 +61,10 @@ public class SearchPersonByName extends Command {
     }
 
     /**
-     * Checks if another object is equal to this FindCommand.
+     * Checks if another object is equal to this SearchPersonByNameCommand.
      *
      * @param other Object to compare with.
-     * @return true if the other object is a FindCommand with the same keywords, false otherwise.
+     * @return true if the other object is a SearchPersonByNameCommand with the same keywords, false otherwise.
      */
     @Override
     public boolean equals(Object other) {
@@ -72,16 +72,16 @@ public class SearchPersonByName extends Command {
             return true;
         }
 
-        if (!(other instanceof SearchPersonByName)) {
+        if (!(other instanceof SearchPersonByNameCommand)) {
             return false;
         }
 
-        SearchPersonByName otherSearchPersonByName = (SearchPersonByName) other;
-        return keywords.equals(otherSearchPersonByName.keywords);
+        SearchPersonByNameCommand otherSearchPersonByNameCommand = (SearchPersonByNameCommand) other;
+        return keywords.equals(otherSearchPersonByNameCommand.keywords);
     }
 
     /**
-     * Returns a string representation of the FindCommand.
+     * Returns a string representation of the SearchPersonByNameCommand.
      *
      * @return String representation of the command with keywords.
      */

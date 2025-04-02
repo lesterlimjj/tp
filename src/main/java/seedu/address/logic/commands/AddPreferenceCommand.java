@@ -129,7 +129,10 @@ public class AddPreferenceCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .add("targetPersonIndex", targetPersonIndex)
                 .add("priceRange", priceRange)
+                .add("tagSet", tagSet)
+                .add("newTagSet", newTagSet)
                 .toString();
     }
 

@@ -164,8 +164,8 @@ public class EditPersonCommandTest {
         Index index = Index.fromOneBased(1);
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         EditPersonCommand editPersonCommand = new EditPersonCommand(index, editPersonDescriptor);
-        String expected = EditPersonCommand.class.getCanonicalName() + "{index=" + index + ", editPersonDescriptor="
-                + editPersonDescriptor + "}";
+        String expected = EditPersonCommand.class.getCanonicalName() + "{targetPersonIndex=" + index
+                + ", editPersonDescriptor=" + editPersonDescriptor + "}";
         assertEquals(expected, editPersonCommand.toString());
     }
 
