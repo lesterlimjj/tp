@@ -1460,12 +1460,14 @@ Similar to <u>UC27</u> except for a listing.
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to support at least 500 buyers and 500 sellers without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. The user interface should be intuitive enough that non-tech savvy users can use it.
-5. Should complete all user commands within 2 seconds.
-6. Should automatically save data to prevent data loss.
-
-*{More to be added}*
+3.  Should provide informative error messages for invalid commands or input.
+4.  Should be easily extensible by future developers with minimal breaking changes.
+5.  Should be distributable as a .jar file that runs without external setup beyond Java `17`.
+6.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+7.  The user interface should be intuitive enough that non-tech savvy users can use it.
+8.  The application should respond to all user commands within 2 seconds under typical conditions.
+9.  All data changes should be automatically saved to prevent data loss in the event of an application crash or closure.
+10.  The application should fail gracefully in most cases. However, as the application is intended for a single offline user, malicious manipulations of the data file is not an anticipated behaviour. Therefore, handling corrupted data files is a ‘good to have’ and not in scope.
 
 ### Glossary
 
