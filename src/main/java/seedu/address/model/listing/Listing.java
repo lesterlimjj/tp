@@ -1,6 +1,8 @@
 package seedu.address.model.listing;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.Messages.MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,15 +11,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Listing in the real estate system.
- * Guarantees: either unit number or house number is present and not null but not both,
- * rest of details are present and not null, field values are validated, immutable. Associations are mutable.
+ * Represents a listing in the real estate system.
+ * Guarantees: either {@code UnitNumber} or {@code HouseNumber} is present and not null but not both, property name may
+ * be null, rest of details are present and not null, field values are validated, immutable. Associations are mutable.
  */
 public class Listing {
 
@@ -38,9 +41,9 @@ public class Listing {
     private boolean isAvailable;
 
     /**
-     * Constructs an {@code Listing}.
-     * Every field except for unit number must be present and not null.
-     * Unit number must be null.
+     * Constructs a {@code Listing}.
+     * Every field except for {@code HouseNumber} and {@code PropertyName} must be present and not null.
+     * {@code HouseNumber} and {@code PropertyName} must be null.
      *
      * @param postalCode A valid postal code.
      * @param unitNumber A valid unit number.
@@ -62,9 +65,9 @@ public class Listing {
     }
 
     /**
-     * Constructs an {@code Listing}.
-     * Every field except for house number must be present and not null.
-     * House number must be null.
+     * Constructs a {@code Listing}.
+     * Every field except for {@code UnitNumber} and {@code PropertyName} must be present and not null.
+     * {@code UnitNumber} and {@code PropertyName} must be null.
      *
      * @param postalCode A valid postal code.
      * @param houseNumber A valid house number.
@@ -86,9 +89,9 @@ public class Listing {
     }
 
     /**
-     * Constructs an {@code Listing}.
-     * Every field except for house number must be present and not null.
-     * House number must be null.
+     * Constructs a {@code Listing}.
+     * Every field except for {@code HouseNumber} must be present and not null.
+     * {@code HouseNumber} must be null.
      *
      * @param postalCode A valid postal code.
      * @param unitNumber A valid unit number.
@@ -112,8 +115,8 @@ public class Listing {
 
     /**
      * Constructs an {@code Listing}.
-     * Every field except for unit number must be present and not null.
-     * Unit number must be null.
+     * Every field except for {@code UnitNumber} must be present and not null.
+     * {@code UnitNumber} must be null.
      *
      * @param postalCode A valid postal code.
      * @param houseNumber A valid house number.
@@ -125,6 +128,7 @@ public class Listing {
     public Listing(PostalCode postalCode, HouseNumber houseNumber, PriceRange priceRange,
                    PropertyName propertyName, Set<Tag> tags, List<Person> owners, boolean isAvailable) {
         requireAllNonNull(postalCode, houseNumber, priceRange, propertyName, tags, owners, isAvailable);
+
         this.postalCode = postalCode;
         this.unitNumber = null;
         this.houseNumber = houseNumber;
@@ -137,20 +141,26 @@ public class Listing {
 
     /**
      * Selects the appropriate constructor given the parameters.
-     * Every field except for property name and either house number or unit number must be present and not null.
+     * Every field except for property name and either house number or unit number must be present and not null, but
+     * not both.
      *
      * @param postalCode A valid postal code.
-     * @param unitNumber A valid unit number.
-     * @param houseNumber A valid house number.
+     * @param unitNumber A valid unit number or null.
+     * @param houseNumber A valid house number or null.
      * @param priceRange A valid price range.
-     * @param propertyName A valid property name.
+     * @param propertyName A valid property name or null.
      * @param tags A valid set of tags.
      * @param owners A valid list of owners.
-     * @return A Listing object.
+     * @return a listing object.
      */
     public static Listing of(PostalCode postalCode, UnitNumber unitNumber, HouseNumber houseNumber,
                              PriceRange priceRange, PropertyName propertyName, Set<Tag> tags, List<Person> owners,
-                             boolean isAvailable) {
+                             boolean isAvailable) throws IllegalValueException {
+
+        requireAllNonNull(postalCode, priceRange, tags, owners);
+        if ((houseNumber == null) == (unitNumber == null)) {
+            throw new IllegalValueException(MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED);
+        }
 
         if (unitNumber == null && propertyName == null) {
             return new Listing(postalCode, houseNumber, priceRange, tags, owners, isAvailable);
@@ -165,6 +175,7 @@ public class Listing {
         return null;
     }
 
+    //// Getters
 
     public PostalCode getPostalCode() {
         return postalCode;
@@ -206,14 +217,6 @@ public class Listing {
         return Collections.unmodifiableSet(tags);
     }
 
-    public void addTag(Tag toAdd) {
-        this.tags.add(toAdd);
-    }
-
-    public void removeTag(Tag toDelete) {
-        this.tags.remove(toDelete);
-    }
-
     /**
      * Returns an immutable owners list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -222,20 +225,56 @@ public class Listing {
         return Collections.unmodifiableList(owners);
     }
 
+    //// Setters for associations
+
+    /**
+     * Adds a tag to the listing.
+     *
+     * @param toAdd A valid tag.
+     */
+    public void addTag(Tag toAdd) {
+        requireNonNull(toAdd);
+        this.tags.add(toAdd);
+    }
+
+    /**
+     * Removes a tag from the listing.
+     *
+     * @param toDelete A valid tag.
+     */
+    public void removeTag(Tag toDelete) {
+        requireNonNull(toDelete);
+        this.tags.remove(toDelete);
+    }
+
+    /**
+     * Adds a person as the owner of the listing.
+     *
+     * @param toAdd A valid person.
+     */
     public void addOwner(Person toAdd) {
+        requireNonNull(toAdd);
         this.owners.add(toAdd);
     }
 
+    /**
+     * Removes a person from the owner of the listing.
+     *
+     * @param toDelete A valid person.
+     */
     public void removeOwner(Person toDelete) {
+        requireNonNull(toDelete);
         this.owners.remove(toDelete);
     }
+
+    //// Utility methods
 
     /**
      * Checks if two listings have the same unique identifiers.
      * This defines a weaker notion of equality between two listings.
      *
      * @param otherListing Listing to be compared with.
-     * @return true if both listings have the same postal code, unit number and house number. false otherwise.
+     * @return true if both listings have the same postal code, unit number and house number, false otherwise.
      */
     public boolean isSameListing(Listing otherListing) {
         if (otherListing == this) {
@@ -249,11 +288,11 @@ public class Listing {
     }
 
     /**
-     * Checks if two listings have the same identity and data fields and associations.
+     * Checks if two listings have the same identity and data fields.
      * This defines a stronger notion of equality between two listings.
      *
      * @param other Object to be compared with.
-     * @return true if both listings have the same identity and data fields and associations. false otherwise.
+     * @return true if both listings have the same identity and data fields, false otherwise.
      */
     @Override
     public boolean equals(Object other) {
@@ -271,8 +310,7 @@ public class Listing {
                 && Objects.equals(unitNumber, otherListing.unitNumber)
                 && Objects.equals(houseNumber, otherListing.houseNumber)
                 && priceRange.equals(otherListing.priceRange)
-                && Objects.equals(propertyName, otherListing.propertyName)
-                && tags.equals(otherListing.tags);
+                && Objects.equals(propertyName, otherListing.propertyName);
     }
 
     @Override

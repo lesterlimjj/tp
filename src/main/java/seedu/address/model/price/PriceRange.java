@@ -2,6 +2,7 @@ package seedu.address.model.price;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
@@ -14,6 +15,12 @@ import java.util.Objects;
  * If it is unbounded, it must have two null fields.
  */
 public class PriceRange {
+
+    private static final String ANY_PRICE_STRING = "Any Price";
+    private static final String UP_TO_STRING = "Up to ";
+    private static final String FROM_STRING = "From ";
+    private static final String TO_STRING = " to ";
+    private static final int EQUAL_TO = 0;
 
     public final Price lowerBoundPrice;
     public final Price upperBoundPrice;
@@ -29,11 +36,11 @@ public class PriceRange {
     /**
      * Constructs a {@code PriceRange} with one bound.
      *
-     * @param singleBoundPrice the price that is the bound.
-     * @param isUpperBound     if true, the singleBoundPrice is the upper bound, otherwise it is the lower bound.
+     * @param singleBoundPrice The price that is the bound.
+     * @param isUpperBound If true, the singleBoundPrice is the upper bound, otherwise it is the lower bound.
      */
     public PriceRange(Price singleBoundPrice, boolean isUpperBound) {
-        requireNonNull(singleBoundPrice);
+        requireAllNonNull(singleBoundPrice, isUpperBound);
 
         if (isUpperBound) {
             this.lowerBoundPrice = null;
@@ -47,13 +54,12 @@ public class PriceRange {
     /**
      * Constructs a {@code PriceRange} with both bounds.
      *
-     * @param lowerBoundPrice the lower bound price.
-     * @param upperBoundPrice the upper bound price.
+     * @param lowerBoundPrice The lower bound price.
+     * @param upperBoundPrice The upper bound price.
      */
     public PriceRange(Price lowerBoundPrice, Price upperBoundPrice) {
-        requireNonNull(lowerBoundPrice);
-        requireNonNull(upperBoundPrice);
-        checkArgument(lowerBoundPrice.compare(upperBoundPrice) <= 0);
+        requireAllNonNull(lowerBoundPrice, upperBoundPrice);
+        checkArgument(lowerBoundPrice.compare(upperBoundPrice) <= EQUAL_TO);
         this.lowerBoundPrice = lowerBoundPrice;
         this.upperBoundPrice = upperBoundPrice;
     }
@@ -61,7 +67,7 @@ public class PriceRange {
     /**
      * Checks if a price is within the price range.
      *
-     * @param otherPrice the price to check.
+     * @param otherPrice The price to check.
      * @return true if the price is within the range, false otherwise.
      */
     public boolean isPriceWithinRange(Price otherPrice) {
@@ -74,22 +80,23 @@ public class PriceRange {
 
         // If range is only upper bounded
         if (this.lowerBoundPrice == null) {
-            return otherPrice.compare(this.upperBoundPrice) <= 0;
+            return otherPrice.compare(this.upperBoundPrice) <= EQUAL_TO;
         }
 
         // If range is only lower bounded
         if (this.upperBoundPrice == null) {
-            return otherPrice.compare(this.lowerBoundPrice) >= 0;
+            return otherPrice.compare(this.lowerBoundPrice) >= EQUAL_TO;
         }
 
         // If range is bounded on both sides
-        return otherPrice.compare(this.lowerBoundPrice) >= 0 && otherPrice.compare(this.upperBoundPrice) <= 0;
+        return otherPrice.compare(this.lowerBoundPrice) >= EQUAL_TO
+            && otherPrice.compare(this.upperBoundPrice) <= EQUAL_TO;
     }
 
     /**
      * Checks if two price ranges overlap.
      *
-     * @param otherPriceRange the other price range to check.
+     * @param otherPriceRange The other price range to check.
      * @return true if the price ranges overlap, false otherwise.
      */
     public boolean doPriceRangeOverlap(PriceRange otherPriceRange) {
@@ -114,13 +121,13 @@ public class PriceRange {
     @Override
     public String toString() {
         if (lowerBoundPrice == null && upperBoundPrice == null) {
-            return "Any Price";
+            return ANY_PRICE_STRING;
         } else if (lowerBoundPrice == null) {
-            return "Up to " + upperBoundPrice;
+            return UP_TO_STRING + upperBoundPrice;
         } else if (upperBoundPrice == null) {
-            return "From " + lowerBoundPrice;
+            return FROM_STRING + lowerBoundPrice;
         } else {
-            return lowerBoundPrice + " to " + upperBoundPrice;
+            return lowerBoundPrice + TO_STRING + upperBoundPrice;
         }
     }
 

@@ -27,16 +27,19 @@ public class SearchContext {
     /**
      * Configures the complete search state.
      *
-     * @param type The type of search (PERSON, LISTING, or NONE)
-     * @param tags The set of tags to filter by
-     * @param range The price range to filter by
+     * @param type      The type of search (PERSON, LISTING, or NONE)
+     * @param tags      The set of tags to filter by
+     * @param range     The price range to filter by
      * @param predicate The predicate for property preference filtering
+     * @throws NullPointerException if type, tags, or predicate are null
      */
     public void configureSearch(SearchType type, Set<Tag> tags, PriceRange range,
                                 Predicate<PropertyPreference> predicate) {
+        requireAllNonNull(type, tags, predicate);
+
         setSearchType(type);
         setActiveSearchTags(tags);
-        setActivePriceRange(range);
+        setActivePriceRange(range); // range can be null
         setPropertyPreferencePredicate(predicate);
     }
 
@@ -52,29 +55,41 @@ public class SearchContext {
 
     /**
      * Checks if a property preference matches the current active filters.
+     *
+     * @throws NullPointerException if preference is null
      */
     public boolean matches(PropertyPreference preference) {
+        requireNonNull(preference);
         return propertyPreferencePredicate.test(preference);
     }
 
     /**
      * Checks if a tag is active for person searches.
+     *
+     * @throws NullPointerException if tag is null
      */
     public boolean isTagActiveForPerson(Tag tag) {
+        requireNonNull(tag);
         return searchType == SearchType.PERSON && activeTags.contains(tag);
     }
 
     /**
      * Checks if a tag is active for listing searches.
+     *
+     * @throws NullPointerException if tag is null
      */
     public boolean isTagActiveForListing(Tag tag) {
+        requireNonNull(tag);
         return searchType == SearchType.LISTING && activeTags.contains(tag);
     }
 
     /**
      * Checks if a price range matches the active filter range.
+     *
+     * @throws NullPointerException if range is null
      */
     public boolean isPriceInRangeForPerson(PriceRange range) {
+        requireNonNull(range);
         if (activePriceRange == null || searchType != SearchType.PERSON) {
             return false;
         }
@@ -83,8 +98,11 @@ public class SearchContext {
 
     /**
      * Checks if a price range matches the active filter range.
+     *
+     * @throws NullPointerException if range is null
      */
     public boolean isPriceInRangeForListing(PriceRange range) {
+        requireNonNull(range);
         if (activePriceRange == null || searchType != SearchType.LISTING) {
             return false;
         }
@@ -97,14 +115,21 @@ public class SearchContext {
         return searchType;
     }
 
+    /**
+     * @throws NullPointerException if searchType is null
+     */
     public void setSearchType(SearchType searchType) {
-        this.searchType = requireNonNull(searchType);
+        requireNonNull(searchType);
+        this.searchType = searchType;
     }
 
     public Set<Tag> getActiveTags() {
         return unmodifiableSet(activeTags);
     }
 
+    /**
+     * @throws NullPointerException if tags is null or contains null elements
+     */
     public void setActiveSearchTags(Set<Tag> tags) {
         requireAllNonNull(tags);
         this.activeTags.clear();
@@ -116,13 +141,16 @@ public class SearchContext {
     }
 
     public void setActivePriceRange(PriceRange range) {
-        this.activePriceRange = range;
+        this.activePriceRange = range; // intentionally allowing null
     }
 
     public Predicate<PropertyPreference> getPropertyPreferencePredicate() {
         return propertyPreferencePredicate;
     }
 
+    /**
+     * @throws NullPointerException if predicate is null
+     */
     public void setPropertyPreferencePredicate(Predicate<PropertyPreference> predicate) {
         this.propertyPreferencePredicate = requireNonNull(predicate);
     }

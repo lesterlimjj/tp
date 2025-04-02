@@ -21,8 +21,6 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
  * intended tag is deleted.
  *
  * Supports a minimal set of hashmap operations.
- *
- * TagRegistry is a singleton.
  */
 public class UniqueTagMap implements Iterable<Tag> {
     private final ObservableMap<String, Tag> internalHashmap = FXCollections.observableHashMap();
@@ -32,8 +30,8 @@ public class UniqueTagMap implements Iterable<Tag> {
     /**
      * Checks if the hashmap contains an equivalent tag with the same tag name as the given argument.
      *
-     * @param toCheck the tag to check if it exists in the hashmap as a key.
-     * @return true if the list contains an equivalent tag with the same tag name as the given argument.
+     * @param toCheck The tag to check if it exists in the hashmap as a key.
+     * @return true if the list contains an equivalent tag with the same tag name as the given argument,
      *         false otherwise.
      */
     public boolean contains(Tag toCheck) {
@@ -45,7 +43,7 @@ public class UniqueTagMap implements Iterable<Tag> {
      * Gets the existing tag with the specified tag name.
      * {@code tagName} must exist in the hashmap.
      *
-     * @param tagName the name of the tag to get.
+     * @param tagName The name of the tag to get.
      * @return tag with specified tag name.
      * @throws TagNotFoundException if tag is not found.
      */
@@ -64,7 +62,7 @@ public class UniqueTagMap implements Iterable<Tag> {
      * Adds a tag with the given tag name to the hashmap.
      * {@code tag} must not exist in the hashmap.
      *
-     * @param toAdd the tag to add.
+     * @param toAdd The tag to add.
      * @throws DuplicateTagException if the tag name to add already exists in the hashmap.
      */
     public void add(Tag toAdd) {
@@ -80,8 +78,8 @@ public class UniqueTagMap implements Iterable<Tag> {
      * {@code target} must exist in the hashmap.
      * The new key of {@code editedTag} must not be the same as another existing tag in the hashmap.
      *
-     * @param target the tag to be replaced.
-     * @param editedTag the tag to replace the target tag with.
+     * @param target The tag to be replaced.
+     * @param editedTag The tag to replace the target tag with.
      * @throws DuplicateTagException if the replacement is equivalent to another existing tag in the hashmap.
      */
     public void setTag(Tag target, Tag editedTag) {
@@ -103,7 +101,7 @@ public class UniqueTagMap implements Iterable<Tag> {
      * Removes the tag with the specified tag name from the hashmap.
      * {@code tagName} must exist in the hashmap.
      *
-     * @param toRemove the tag to remove.
+     * @param toRemove The tag to remove.
      * @throws TagNotFoundException if tag is not found.
      */
     public void remove(Tag toRemove) {
@@ -120,7 +118,7 @@ public class UniqueTagMap implements Iterable<Tag> {
      * Replaces the contents of this hashmap with {@code tags}.
      * {@code tags} must not contain duplicate tags.
      *
-     * @param tags the replacement list.
+     * @param tags The replacement list.
      */
     public void setTags(List<Tag> tags) {
         requireAllNonNull(tags);

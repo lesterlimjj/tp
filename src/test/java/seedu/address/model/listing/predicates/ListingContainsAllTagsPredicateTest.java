@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.listing.PostalCode;
 import seedu.address.model.listing.UnitNumber;
@@ -22,25 +23,35 @@ import seedu.address.model.tag.Tag;
 
 public class ListingContainsAllTagsPredicateTest {
 
-    private final Listing sampleListing = Listing.of(
-            new PostalCode("123456"),
-            new UnitNumber("10-12"),
-            null,
-            new PriceRange(new Price("500000"), new Price("700000")),
-            null,
-            Set.of(
-                    new Tag("Pool", List.of(), List.of()),
-                    new Tag("Pet-Friendly", List.of(), List.of())
-            ),
-            List.of(new Person(
-                    new Name("John Doe"),
-                    new Phone("98765432"),
-                    new Email("john@example.com"),
-                    List.of(),
-                    List.of()
-            )),
-            true
-    );
+    private final Listing sampleListing;
+
+    public ListingContainsAllTagsPredicateTest() {
+        Listing tempListing;
+        try {
+            tempListing = Listing.of(
+                    new PostalCode("123456"),
+                    new UnitNumber("10-12"),
+                    null,
+                    new PriceRange(new Price("500000"), new Price("700000")),
+                    null,
+                    Set.of(
+                            new Tag("Pool", List.of(), List.of()),
+                            new Tag("Pet-Friendly", List.of(), List.of())
+                    ),
+                    List.of(new Person(
+                            new Name("John Doe"),
+                            new Phone("98765432"),
+                            new Email("john@example.com"),
+                            List.of(),
+                            List.of()
+                    )),
+                    true
+            );
+        } catch (IllegalValueException e) {
+            throw new RuntimeException("Failed to initialize sampleListing", e);
+        }
+        sampleListing = tempListing;
+    }
 
     @Test
     public void test_containsAllTags_true() {

@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -30,7 +31,7 @@ public class SearchListingByTagCommandTest {
     private Model model;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IllegalValueException {
         model = new ModelManager(new AddressBook(), new UserPrefs());
 
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PERSONS);

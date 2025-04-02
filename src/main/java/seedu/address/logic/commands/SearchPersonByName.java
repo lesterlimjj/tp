@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -13,8 +14,8 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Represents a command to find and list {@code Person} in the address book whose names match the given keyword(s).
- * Keyword matching is case insensitive and must adhere to a valid name format.
+ * Represents a command to that lists all {@code Person}(s) whose names match any of the given keyword(s).
+ * Keyword matching is case-insensitive and must adhere to a valid name format.
  */
 public class SearchPersonByName extends Command {
 
@@ -34,13 +35,14 @@ public class SearchPersonByName extends Command {
     private final Predicate<Person> predicate;
 
     /**
-     * Constructs a @{code SearchPersonByName} to find {@code Person} with the given keywords.
+     * Constructs a @{code SearchPersonByName} to find {@code Person}(s) with the given keywords.
      *
-     * @param keywords List of keywords to match against names.
+     * @param keywords The list of keywords to match against names.
      * @throws CommandException if the keywords are empty or invalid.
      */
     public SearchPersonByName(List<String> keywords) throws CommandException {
-        requireNonNull(keywords);
+        requireAllNonNull(keywords);
+
         if (keywords.isEmpty()) {
             throw new CommandException(String.format(Messages.MESSAGE_MISSING_KEYWORD, MESSAGE_USAGE));
         }
@@ -57,12 +59,6 @@ public class SearchPersonByName extends Command {
                 .anyMatch(keyword -> person.getName().fullName.toLowerCase().contains(keyword.toLowerCase()));
     }
 
-    /**
-     * Executes the find command and updates the filtered person list in the model.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @return CommandResult with the number of matches found.
-     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

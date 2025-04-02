@@ -18,8 +18,14 @@ import seedu.address.model.search.comparators.ListingPreferenceScoreComparator;
 import seedu.address.model.search.predicates.ListingMatchesPreferencePredicate;
 
 /**
- * Find matches for @{code Person}'s {@code PropertyPreference} based on tags and attributes (i.e. within price range),
- * ranking them based on number of tags and attributes matching.
+ * Lists all {@code Listing}(s) that match the specified {@code PropertyPreference} of a {@code Person} in the address
+ * book.
+ * The {@code PropertyPreference} is identified using it's displayed index within the {@code Person}'s preferences,
+ * and the {@code Person} is identified using it's displayed index.
+ * Matching excludes {@code Listings}(s) that are owned by the specified {@code Person} or are unavailable.
+ * A match is determined by whether a {@code Listing} has the same tags or an overlapping price range as the
+ * specified {@code PropertyPreference}.
+ * The {@code Listing}(s) are sorted in descending order based on the number of matching tags and price range.
  */
 public class MatchPreferenceCommand extends Command {
 
@@ -38,12 +44,14 @@ public class MatchPreferenceCommand extends Command {
     private final Index targetPreferenceIndex;
 
     /**
-     * Creates a {@code MatchPreferenceCommand} to match {@code Listing}s from the specified {@code PropertyPreference}.
+     * Creates a {@code MatchPreferenceCommand} to match {@code Listing}s to the specified {@code PropertyPreference}.
      *
-     * @param targetPersonIndex     Index of the person in the filtered person list to delete the preference from.
-     * @param targetPreferenceIndex Index of the preference in the person to delete.
+     * @param targetPersonIndex The index of the person in the filtered person list that the preference is located in.
+     * @param targetPreferenceIndex The index of the preference to match to.
      */
     public MatchPreferenceCommand(Index targetPersonIndex, Index targetPreferenceIndex) {
+        requireAllNonNull(targetPersonIndex, targetPreferenceIndex);
+
         this.targetPersonIndex = targetPersonIndex;
         this.targetPreferenceIndex = targetPreferenceIndex;
     }

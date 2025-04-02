@@ -10,16 +10,21 @@ import seedu.address.logic.commands.MatchPreferenceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code MatchPreferenceCommandParser} object.
+ * Parses input arguments and creates a new {@code MatchPreferenceCommand} object.
  */
 public class MatchPreferenceCommandParser implements Parser<MatchPreferenceCommand> {
 
+    private static final String WHITESPACE_REGEX = "\\s+";
+    private static final int EXPECTED_PREAMBLE_PARTS = 2;
+    private static final int FIRST_INDEX = 0;
+    private static final int SECOND_INDEX = 1;
+
     /**
-     * Parses the given {@code String} of arguments in the context of the MatchPreferenceCommandParser
+     * Parses the given {@code String} of arguments in the context of the MatchPreferenceCommand
      * and returns a MatchPreferenceCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public MatchPreferenceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
@@ -27,7 +32,7 @@ public class MatchPreferenceCommandParser implements Parser<MatchPreferenceComma
         checkCommandFormat(argMultimap, args);
 
         List<Index> multipleIndices = ParserUtil.parseMultipleIndices(args);
-        return new MatchPreferenceCommand(multipleIndices.get(0), multipleIndices.get(1));
+        return new MatchPreferenceCommand(multipleIndices.get(FIRST_INDEX), multipleIndices.get(SECOND_INDEX));
     }
 
     private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
@@ -38,7 +43,7 @@ public class MatchPreferenceCommandParser implements Parser<MatchPreferenceComma
                     MatchPreferenceCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty() || preamble.split("\\s+").length != 2) {
+        if (preamble.isEmpty() || preamble.split(WHITESPACE_REGEX).length != EXPECTED_PREAMBLE_PARTS) {
             throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
                     MatchPreferenceCommand.MESSAGE_USAGE));
         }

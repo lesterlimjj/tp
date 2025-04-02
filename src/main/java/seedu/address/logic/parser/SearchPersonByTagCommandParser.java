@@ -14,6 +14,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class SearchPersonByTagCommandParser implements Parser<SearchPersonByTagCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the SearchPersonByTagCommand
+     * and returns a SearchPersonByTagCommand object for execution.
+     *
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
+     */
     @Override
     public SearchPersonByTagCommand parse(String args) throws ParseException {
         requireNonNull(args);

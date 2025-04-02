@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.listing.Listing;
 
 /**
- * Represents a Person in the real estate system.
+ * Represents a person in the real estate system.
  * Guarantees: details are present and not null, field values are validated, immutable. Associations are mutable.
  */
 public class Person {
@@ -29,7 +30,7 @@ public class Person {
 
     /**
      * Constructs an {@code Person}.
-     * Every field  must be present and not null.
+     * Every field must be present and not null.
      *
      * @param name A valid name.
      * @param phone A valid phone number.
@@ -47,6 +48,7 @@ public class Person {
         this.listings.addAll(listings);
     }
 
+    //// Getters
     public Name getName() {
         return name;
     }
@@ -67,14 +69,6 @@ public class Person {
         return Collections.unmodifiableList(propertyPreferences);
     }
 
-    public void addPropertyPreference(PropertyPreference toAdd) {
-        this.propertyPreferences.add(toAdd);
-    }
-
-    public void removePropertyPreference(PropertyPreference toDelete) {
-        this.propertyPreferences.remove(toDelete);
-    }
-
     /**
      * Returns an immutable listings list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -83,13 +77,53 @@ public class Person {
         return Collections.unmodifiableList(listings);
     }
 
+    //// Setters for associations
+
+    /**
+     * Adds a property preference of the person.
+     *
+     * @param toAdd A valid property preference.
+     */
+    public void addPropertyPreference(PropertyPreference toAdd) {
+        requireNonNull(toAdd);
+
+        this.propertyPreferences.add(toAdd);
+    }
+
+    /**
+     * Removes a property preference of the person.
+     *
+     * @param toDelete A valid property preference.
+     */
+    public void removePropertyPreference(PropertyPreference toDelete) {
+        requireNonNull(toDelete);
+
+        this.propertyPreferences.remove(toDelete);
+    }
+
+    /**
+     * Adds a listing as being owned by the person.
+     *
+     * @param toAdd A valid listing.
+     */
     public void addListing(Listing toAdd) {
+        requireNonNull(toAdd);
+
         this.listings.add(toAdd);
     }
 
+    /**
+     * Removes a listing as being owned by the person.
+     *
+     * @param toDelete A valid listing.
+     */
     public void removeListing(Listing toDelete) {
+        requireNonNull(toDelete);
+
         this.listings.remove(toDelete);
     }
+
+    //// Utility methods
 
     /**
      * Checks if two persons have the same unique identifiers.
@@ -108,11 +142,11 @@ public class Person {
     }
 
     /**
-     * Checks if two persons have the same identity and data fields and associations.
+     * Checks if two persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      *
      * @param other Object to be compared with.
-     * @return true if both persons have the same identity and data fields and associations. false otherwise.
+     * @return true if both persons have the same identity and data fields, false otherwise.
      */
     @Override
     public boolean equals(Object other) {

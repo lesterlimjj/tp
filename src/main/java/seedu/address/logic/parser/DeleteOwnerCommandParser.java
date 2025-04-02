@@ -10,23 +10,27 @@ import seedu.address.logic.commands.DeleteOwnerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code DeleteOwnerCommandParser} object.
+ * Parses input arguments and creates a new {@code DeleteOwnerCommand} object.
  */
 public class DeleteOwnerCommandParser implements Parser<DeleteOwnerCommand> {
+
+    private static final String WHITESPACE_REGEX = "\\s+";
+    private static final int EXPECTED_PREAMBLE_PARTS = 2;
+    private static final int FIRST_INDEX = 0;
+    private static final int SECOND_INDEX = 1;
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteOwnerCommand
      * and returns a DeleteOwnerCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public DeleteOwnerCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
         checkCommandFormat(argMultimap, args);
         List<Index> multipleIndices = ParserUtil.parseMultipleIndices(args);
-        return new DeleteOwnerCommand(multipleIndices.get(0), multipleIndices.get(1));
-
+        return new DeleteOwnerCommand(multipleIndices.get(FIRST_INDEX), multipleIndices.get(SECOND_INDEX));
     }
 
     private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
@@ -37,10 +41,9 @@ public class DeleteOwnerCommandParser implements Parser<DeleteOwnerCommand> {
                     DeleteOwnerCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty() || preamble.split("\\s+").length != 2) {
+        if (preamble.isEmpty() || preamble.split(WHITESPACE_REGEX).length != EXPECTED_PREAMBLE_PARTS) {
             throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
                     DeleteOwnerCommand.MESSAGE_USAGE));
         }
     }
-
 }
