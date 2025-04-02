@@ -90,7 +90,7 @@ public class DeletePersonCommandTest {
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         DeletePersonCommand deletePersonCommand = new DeletePersonCommand(targetIndex);
-        String expected = DeletePersonCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        String expected = DeletePersonCommand.class.getCanonicalName() + "{targetPersonIndex=" + targetIndex + "}";
         assertEquals(expected, deletePersonCommand.toString());
     }
 

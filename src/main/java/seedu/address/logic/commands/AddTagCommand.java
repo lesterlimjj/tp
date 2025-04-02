@@ -36,7 +36,7 @@ public class AddTagCommand extends Command {
     /**
      * Creates an {@code AddTagCommand} to add the specified set of {@code Tags}.
      *
-     * @param tagSet Set of tags to be added to the tag registry
+     * @param tagSet The set of tags to be added to the unique tag map.
      */
     public AddTagCommand(Set<String> tagSet) {
         requireAllNonNull(tagSet);

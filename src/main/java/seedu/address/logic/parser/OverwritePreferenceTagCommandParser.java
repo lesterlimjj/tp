@@ -27,8 +27,8 @@ public class OverwritePreferenceTagCommandParser implements Parser<OverwritePref
      * Parses the given {@code String} of arguments in the context of the OverwritePreferenceTagCommand
      * and returns an OverwritePreferenceTagCommand object for execution.
      *
-     * @param args arguments to be parsed.
-     * @throws ParseException if the user input does not conform the expected format
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public OverwritePreferenceTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NEW_TAG);

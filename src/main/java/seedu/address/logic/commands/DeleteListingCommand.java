@@ -17,7 +17,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes a {@code Listing} identified using it's displayed index in the address book.
+ * Deletes a {@code Listing} from the address book.
+ * The {@code Listing} is identified using it's displayed index.
  */
 public class DeleteListingCommand extends Command {
 
@@ -30,17 +31,17 @@ public class DeleteListingCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Listing: %1$s";
 
-    private final Index targetIndex;
+    private final Index targetListingIndex;
 
     /**
      * Creates a {@code DeleteListingCommand} to delete the specified {@code Listing}.
      *
-     * @param targetIndex of the listing in the filtered listing list to delete
+     * @param targetListingIndex The index of the listing in the filtered listing list to be deleted.
      */
-    public DeleteListingCommand(Index targetIndex) {
-        requireNonNull(targetIndex);
+    public DeleteListingCommand(Index targetListingIndex) {
+        requireNonNull(targetListingIndex);
 
-        this.targetIndex = targetIndex;
+        this.targetListingIndex = targetListingIndex;
     }
 
     @Override
@@ -48,11 +49,11 @@ public class DeleteListingCommand extends Command {
         requireNonNull(model);
 
         List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
         }
 
-        Listing toDelete = lastShownList.get(targetIndex.getZeroBased());
+        Listing toDelete = lastShownList.get(targetListingIndex.getZeroBased());
 
         removeListingOwners(toDelete, model);
         removeListingFromTags(toDelete, model);
@@ -75,13 +76,13 @@ public class DeleteListingCommand extends Command {
         }
 
         DeleteListingCommand otherDeleteCommand = (DeleteListingCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        return targetListingIndex.equals(otherDeleteCommand.targetListingIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("targetListingIndex", targetListingIndex)
                 .toString();
     }
 

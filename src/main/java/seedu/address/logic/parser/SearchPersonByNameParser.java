@@ -11,16 +11,16 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code SearchPersonByNameParser} object.
+ * Parses input arguments and creates a new {@code SearchPersonByNameCommand} object.
  */
 public class SearchPersonByNameParser implements Parser<SearchPersonByName> {
 
     /**
-     * Parses the given {@code String} of arguments and returns a SearchPersonByName object.
+     * Parses the given {@code String} of arguments in the context of the SearchPersonByNameCommand
+     * and returns a SearchPersonByNameCommand object for execution.
      *
-     * @param args User input arguments.
-     * @return SearchPersonByName instance with extracted keywords.
-     * @throws ParseException if no keywords are provided.
+     * @param args The arguments to be parsed.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     @Override
     public SearchPersonByName parse(String args) throws ParseException {
