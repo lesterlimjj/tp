@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-  title: "User Guide"
-  pageNav: 3
+layout: default.md
+title: "User Guide"
+pageNav: 3
 ---
 
 # MatchEstate User Guide
@@ -74,15 +74,45 @@ e.g. `pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER)` can be used as `pc/654321 
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
 </box>
 
-### Viewing help : `help`
+### General Commands
 
-Shows a message explaning how to access the help page.
+#### Viewing help : `help`
 
-![help message](images/helpMessage.png)
+Opens a second window displaying all the command usages and explaining how to access the user guide.
 
 Format: `help`
+
+Result:
+![help message](images/helpMessage.png)
+
+#### Clearing all data: `clear`
+Clears all entries from the address book.
+
+Format: `clear`
+
+#### Exiting the program: `exit`
+Exits the program.
+
+Format: `exit`
+
+### Saving the data
+
+MatchEstate data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the data file
+
+MatchEstate data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<box type="warning" seamless>
+
+**Caution:**
+If your changes to the data file makes its format invalid, MatchEstate will save a copy of the invalid file and start with an empty data file at the next run.  However, it is recommended to make a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the MatchEstate to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
+</box>
 
 ### Person Management
 
@@ -323,37 +353,6 @@ Format: `deleteOwner LISTING_INDEX OWNER_INDEX`
 
 Example:
 * `deleteOwner 1 2`
-
-### General Commands
-
-#### Clearing all data: `clear`
-Clears all entries from the address book.
-
-Format: `clear`
-
-#### Exiting the program: `exit`
-Exits the program.
-
-Format: `exit`
-
-### Saving the data
-
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<box type="warning" seamless>
-
-**Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
