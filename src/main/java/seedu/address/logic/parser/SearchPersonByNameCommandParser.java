@@ -1,20 +1,20 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_MISSING_KEYWORD;
-import static seedu.address.logic.commands.SearchPersonByName.VALID_NAME_PATTERN;
+import static seedu.address.logic.commands.SearchPersonByNameCommand.VALID_NAME_PATTERN;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.SearchPersonByName;
+import seedu.address.logic.commands.SearchPersonByNameCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new {@code SearchPersonByNameCommand} object.
  */
-public class SearchPersonByNameParser implements Parser<SearchPersonByName> {
+public class SearchPersonByNameCommandParser implements Parser<SearchPersonByNameCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SearchPersonByNameCommand
@@ -24,12 +24,12 @@ public class SearchPersonByNameParser implements Parser<SearchPersonByName> {
      * @throws ParseException if the user input does not conform to the expected format.
      */
     @Override
-    public SearchPersonByName parse(String args) throws ParseException {
+    public SearchPersonByNameCommand parse(String args) throws ParseException {
         checkCommandFormat(args);
         List<String> keywords = Arrays.stream(args.trim().split("\\s+"))
                 .collect(Collectors.toList());
 
-        return new SearchPersonByName(keywords);
+        return new SearchPersonByNameCommand(keywords);
     }
 
     private static void checkCommandFormat(String args) throws ParseException {
@@ -38,17 +38,18 @@ public class SearchPersonByNameParser implements Parser<SearchPersonByName> {
 
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_MISSING_KEYWORD,
-                    SearchPersonByName.MESSAGE_USAGE));
+                    SearchPersonByNameCommand.MESSAGE_USAGE));
         }
 
         if (keywords.isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_MISSING_KEYWORD, SearchPersonByName.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_MISSING_KEYWORD,
+                    SearchPersonByNameCommand.MESSAGE_USAGE));
         }
 
         for (String keyword : keywords) {
             if (!VALID_NAME_PATTERN.matcher(keyword).matches()) {
                 throw new ParseException(String.format(Messages.MESSAGE_INVALID_KEYWORD, keyword,
-                        SearchPersonByName.MESSAGE_USAGE));
+                        SearchPersonByNameCommand.MESSAGE_USAGE));
             }
         }
 

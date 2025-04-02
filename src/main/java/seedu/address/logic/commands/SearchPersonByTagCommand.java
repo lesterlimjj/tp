@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -33,7 +34,7 @@ public class SearchPersonByTagCommand extends Command {
     private final Set<String> tagsToSearch;
 
     /**
-     * Constructs a {@code SearchListingByTagCommand} to list the {@code Person}(s) with {@code PropertyPreference}(s)
+     * Constructs a {@code SearchPersonByTagCommand} to list the {@code Person}(s) with {@code PropertyPreference}(s)
      * that contains all the specified {@code Tag}(s).
      *
      * @param tagsToSearch The tags to search by.
@@ -86,5 +87,12 @@ public class SearchPersonByTagCommand extends Command {
         return other == this
                 || (other instanceof SearchPersonByTagCommand
                 && tagsToSearch.equals(((SearchPersonByTagCommand) other).tagsToSearch));
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("tagsToSearch", tagsToSearch)
+                .toString();
     }
 }
