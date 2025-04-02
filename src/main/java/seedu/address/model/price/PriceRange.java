@@ -16,6 +16,14 @@ import java.util.Objects;
  */
 public class PriceRange {
 
+    private static final String ANY_PRICE_STRING = "Any Price";
+    private static final String UP_TO_STRING = "Up to ";
+    private static final String FROM_STRING = "From ";
+    private static final String TO_STRING = " to ";
+    private static final int LESS_THAN = -1;
+    private static final int EQUAL_TO = 0;
+    private static final int GREATER_THAN = 1;
+
     public final Price lowerBoundPrice;
     public final Price upperBoundPrice;
 
@@ -53,7 +61,7 @@ public class PriceRange {
      */
     public PriceRange(Price lowerBoundPrice, Price upperBoundPrice) {
         requireAllNonNull(lowerBoundPrice, upperBoundPrice);
-        checkArgument(lowerBoundPrice.compare(upperBoundPrice) <= 0);
+        checkArgument(lowerBoundPrice.compare(upperBoundPrice) <= EQUAL_TO);
         this.lowerBoundPrice = lowerBoundPrice;
         this.upperBoundPrice = upperBoundPrice;
     }
@@ -74,16 +82,17 @@ public class PriceRange {
 
         // If range is only upper bounded
         if (this.lowerBoundPrice == null) {
-            return otherPrice.compare(this.upperBoundPrice) <= 0;
+            return otherPrice.compare(this.upperBoundPrice) <= EQUAL_TO;
         }
 
         // If range is only lower bounded
         if (this.upperBoundPrice == null) {
-            return otherPrice.compare(this.lowerBoundPrice) >= 0;
+            return otherPrice.compare(this.lowerBoundPrice) >= EQUAL_TO;
         }
 
         // If range is bounded on both sides
-        return otherPrice.compare(this.lowerBoundPrice) >= 0 && otherPrice.compare(this.upperBoundPrice) <= 0;
+        return otherPrice.compare(this.lowerBoundPrice) >= EQUAL_TO
+            && otherPrice.compare(this.upperBoundPrice) <= EQUAL_TO;
     }
 
     /**
@@ -114,13 +123,13 @@ public class PriceRange {
     @Override
     public String toString() {
         if (lowerBoundPrice == null && upperBoundPrice == null) {
-            return "Any Price";
+            return ANY_PRICE_STRING;
         } else if (lowerBoundPrice == null) {
-            return "Up to " + upperBoundPrice;
+            return UP_TO_STRING + upperBoundPrice;
         } else if (upperBoundPrice == null) {
-            return "From " + lowerBoundPrice;
+            return FROM_STRING + lowerBoundPrice;
         } else {
-            return lowerBoundPrice + " to " + upperBoundPrice;
+            return lowerBoundPrice + TO_STRING + upperBoundPrice;
         }
     }
 
