@@ -1488,12 +1488,14 @@ Similar to <u>UC27</u> except for a listing.
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Listing**: Entry of a property that is currently on the market. Contains property address information. Used interchangeably with Property.
+* **Listing**: Entry of a property that is currently on the market. Contains property
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Owner**: A person associated with a listing to indicate they are selling the property. A listing can have multiple owners.
+* **PriceRange**: A model class representing a lower and upper bound for a listing’s price.
 * **Property**: The physical real estate itself. Used interchangeably with Listing.
-* **Property Preference**: The preference of people based on price range and tags.
-* **Tag Registry**: A Singleton used to store Tags to be put on properties and property preferences.
+* **Property Preference**: The type of property that people are looking to buy, based on price range and tags.
+* **Tag**: A category or label that can be associated with Listings or Preferences to describe attributes like "near MRT", "pet-friendly", etc.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
