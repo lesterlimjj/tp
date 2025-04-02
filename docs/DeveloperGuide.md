@@ -4,7 +4,7 @@ title: "Developer Guide"
 pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# MatchEstate Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -50,7 +50,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `deletePerson 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -127,7 +127,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml" width="700" />
 
 **Note:** The attributes of `Person`, `Tag`, `PriceRange` that have been promoted to a class are abstracted into separate class diagrams for ease of reading.
 
@@ -141,75 +141,64 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>
-
 `Person`
 
-<puml src="diagrams/PersonAttributesClassDiagram.puml" width="450" />
+<puml src="diagrams/PersonAttributesClassDiagram.puml" width="350" />
 
 * Stores person-related data as `Person` objects contained in a `UniquePersonList` object.
 * Each `Person` may have multiple`PropertyPreference` and `Listing` associations.
 * Each `Person` is identified their phone number.
 
-</box>
 
-<box type="info" seamless>
 
 `PropertyPreference`
 
 * Each `PropertyPreference` may have a `PriceRange`, and multiple `Tag` associations.
-**Note:** A `PropertyPreference` can only be tied to 1 `Person` to group criterias for a property that are looking for under a representative person responsible for the purchase.
-
-</box>
 
 <box type="info" seamless>
 
+**Note:** A `PropertyPreference` can only be tied to 1 `Person` to group criterias for a property that they are looking for, under a representative person responsible for the purchase.
+
+</box>
+
 `Listing`
 
-<puml src="diagrams/ListingAttributesClassDiagram.puml" width="450" />
+<puml src="diagrams/ListingAttributesClassDiagram.puml" width="350" />
 
 * Stores listing-related data as `Listing` objects contained in a `UniqueListingList` object.
 * Each `Listing` may have a `PriceRange`, and multiple `Tag`  and `Owner` associations.
 * Each `Listing` should have either a `Unit Number` or a `House Number` but not both.
 * Each `Listing` is identified by a combination of the `Postal Code` and either the `Unit Number` or the `House Number` depending on which one is present.
+
+<box type="info" seamless>
+
 **Note:** A `Listing` can have multiple `Person` to reflect co-ownership scenarios. Additionally in certain cases joint approval of a listing is required for a purchase.
 
 </box>
 
-<box type="info" seamless>
-
 `PriceRange`
 
-<puml src="diagrams/PriceRangeAttributesClassDiagram.puml" width="450" />
+<puml src="diagrams/PriceRangeAttributesClassDiagram.puml" width="350" />
 
 * Each `PriceRange` may have a lower bound price and a upper bound price.
 * If neither bound is specified, the `PriceRange` is unbounded.
-
-</box>
-
-<box type="info" seamless>
 
 `Tag`
 * Stores tag-related data as `Tag` objects contained in a `TagRegistry` object.
 * Each `Tag` may have multiple `Listing`  and `PropertyPreference` associations.
 * Each `Tag` is identified by a string tag name.
-**Note:** An arguably better representation of Tag is to split the tag that stores the association from the tag name, promoting the tag name into a class.
-
-<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
-
-</box>
 
 <box type="info" seamless>
+
+**Note:** An possible alternative representation of Tag is to split the tag that stores the association from the tag name, promoting the tag name into a class.
+
+<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="350" />
+
+</box>
 
 `SearchContext` and `SearchType`
 * SearchContext represents the current active filters for Tags, PriceRange, and PropertyPreference.
 * SearchType enumeration represents the types (Person/ Listing) of searches that can be performed.
-
-<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
-
-</box>
-
-<box type="info" seamless>
 
 **Bidirectional navigability:**
 
@@ -233,11 +222,6 @@ The `Model` component,
 - Property preferences requires references to tags to display on the UI.
 - Tags uses references to the property preferences to ensure that they have an accurate instance usage label. Alternatively a counter could also be used, however a direct reference would better ensure correctness.
 - Tags uses references to their property preferences to ensure cascading deletion of a tag also removes the tag from the property preferences that uses it. Searching through all preferences, would be inefficient.
-
-<puml src="diagrams/BetterTagAttributesClassDiagram.puml" width="450" />
-
-</box>
-
 
 ### Storage component
 
@@ -362,25 +346,22 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+### \[Proposed\] Edit tag command
 
-### \[Proposed\] Edit Tag feature
-
-The Edit Tag feature allows users to edit the name of an existing tag. This feature is useful when users want to change the name of a tag that they have already created. The following sequence diagram shows how the Edit Tag feature works:
+The edit tag command allows users to edit the name of an existing tag. This command is useful when users want to change the name of a tag that they have already created. The following sequence diagram shows how the edit tag command works:
 
 <puml src="diagrams/EditTagSequenceDiagram.puml" alt="EditTagSequenceDiagram" />
 
 The associated Listings and PropertyPreferences will be updated to reflect the new tag name.
 
-### \[Proposed\] Edit Listing feature
+### \[Proposed\] Edit listing command
 
-The Edit Listing feature allows users to edit the details of an existing listing. This feature is useful when users want to update information such as postal code, unit/house number, price range, or property name of a listing. The following sequence diagram shows how the Edit Listing feature works:
+The edit listing command allows users to edit the details of an existing listing. This command is useful when users want to update information such as postal code, unit/house number, price range, or property name of a listing. The following sequence diagram shows how the edit listing command works:
 
 <puml src="diagrams/EditListingSequenceDiagram.puml" alt="EditListingSequenceDiagram" />
 
-The edit operation will update the listing's details while maintaining its existing tags and availability status. The system ensures that no duplicate listings can be created by checking the postal code and unit/house number combination.
+The edit operation will update the listing's details while maintaining its existing tags, owners and availability status. The system can ensure that no duplicate listings can be created through this command by checking the postal code and unit/house number combination.
 
-### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
 
