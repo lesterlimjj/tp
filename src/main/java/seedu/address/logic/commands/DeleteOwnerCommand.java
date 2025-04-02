@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class DeleteOwnerCommand extends Command {
      * @param targetOwnerIndex Index of the owner in the listing to delete.
      */
     public DeleteOwnerCommand(Index targetListingIndex, Index targetOwnerIndex) {
+        requireAllNonNull(targetListingIndex, targetOwnerIndex);
+
         this.targetListingIndex = targetListingIndex;
         this.targetOwnerIndex = targetOwnerIndex;
     }

@@ -41,6 +41,8 @@ public class MatchListingCommand extends Command {
      * @param targetIndex of the listing in the filtered listing list to delete
      */
     public MatchListingCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+
         this.targetIndex = targetIndex;
     }
 
