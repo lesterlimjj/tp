@@ -108,7 +108,7 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 |-----------|--------------------------------------------------------------------|-------|
 **Add Person** | Adds a person to matchEstate.                                     |`addPerson n/NAME p/PHONE e/EMAIL`
 **List Persons** | Shows a list of all persons in matchEstate                   |`listPerson`
-**Edit Person** | Edits an existing person in matchEstate                      |`editPerson PERSON_INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+**Edit Person** | Edits an existing person in matchEstate                      |`editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 **Search Person by Name** | Finds persons whose names match the given keyword(s)              |`searchPersonName KEYWORD [MORE_KEYWORDS]`
 **Search Person by Tags** | Finds persons with property preferences containing all specified tag(s) |`searchPersonTag t/TAG...`
 **Delete Person**  | Deletes the specified person from the matchEstate                |`deletePerson PERSON_INDEX`
@@ -218,7 +218,7 @@ Format: `listPerson`
 #### Editing a person: `editPerson`
 Edits an existing person in the address book.
 
-Format: `editPerson PERSON_INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+Format: `editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 
 * Edits the person at the specified `PERSON_INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer.
 * At least one of the optional fields must be provided.
