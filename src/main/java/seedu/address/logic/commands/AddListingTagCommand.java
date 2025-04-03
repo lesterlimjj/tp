@@ -62,16 +62,11 @@ public class AddListingTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (!model.hasTags(tagSet)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
-        }
-
-        if (model.hasNewTags(newTagSet)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
-        }
-        model.addTags(newTagSet);
         Listing listingToAddTags = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
+
+        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE, MESSAGE_INVALID_TAGS, MESSAGE_DUPLICATE_TAGS);
+
+        model.addTags(newTagSet);
         Set<String> tagNames = new HashSet<>(tagSet);
         Set<Tag> tags = new HashSet<>();
         tagNames.addAll(newTagSet);

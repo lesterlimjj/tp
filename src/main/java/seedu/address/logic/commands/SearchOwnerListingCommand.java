@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
@@ -55,9 +54,6 @@ public class SearchOwnerListingCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
-        System.out.println(lastShownList);
 
         Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
