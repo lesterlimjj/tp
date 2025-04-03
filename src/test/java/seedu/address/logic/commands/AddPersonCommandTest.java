@@ -184,11 +184,6 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Person> getSortedFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -224,11 +219,6 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public ObservableList<Listing> getFilteredListingList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Listing> getSortedFilteredListingList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -245,11 +235,6 @@ public class AddPersonCommandTest {
 
         @Override
         public ObservableMap<String, Tag> getTagMap() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Tag> getFilteredTagList() {
             throw new AssertionError("This method should not be called.");
         }
 

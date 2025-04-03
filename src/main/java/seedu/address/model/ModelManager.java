@@ -68,6 +68,7 @@ public class ModelManager implements Model {
         ObservableList<Tag> tagObservableList = createObservableTagList();
         this.filteredTags = new FilteredList<>(tagObservableList);
         this.sortedFilteredTags = new SortedList<>(this.filteredTags);
+        sortedFilteredTags.setComparator(COMPARATOR_SHOW_ALL_TAGS);
 
         resetAllFilters();
     }
@@ -257,30 +258,18 @@ public class ModelManager implements Model {
 
     //=========== Filtered List Accessors =====================================================
 
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
 
     @Override
     public ObservableList<Person> getSortedFilteredPersonList() {
         return sortedFilteredPersons;
     }
 
-    @Override
-    public ObservableList<Listing> getFilteredListingList() {
-        return filteredListings;
-    }
 
     @Override
     public ObservableList<Listing> getSortedFilteredListingList() {
         return sortedFilteredListings;
     }
 
-    @Override
-    public ObservableList<Tag> getFilteredTagList() {
-        return filteredTags;
-    }
 
     @Override
     public ObservableList<Tag> getSortedFilteredTagList() {
