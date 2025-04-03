@@ -1505,7 +1505,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample persons. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample persons, tags, listings and property preferences. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -1518,45 +1518,44 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a listing with valid parameters
 
-   1. Prerequisites: a
+   1. Prerequisites: There is no existing listings that has the combination of postal code and house number/unit number as any of the listings being added. Also, the tag `existingTag` exists and the tag `nonExistentTag` does not exist in the system.
 
-   1. Test case: `addListing pc/123456 h/123 lbp/300000 ubp/600000 n/Sunny Villa`<br>
+   1. Test case: `addListing pc/123456 h/100 lbp/300000 ubp/600000 n/Sunny Villa`<br>
       Expected: Listing is added with postal code, house number, price range and name. Success message shown.
 
-   1. Test case: `addListing pc/123456 h/123 n/Sunny Villa`<br>
+   1. Test case: `addListing pc/123456 h/101 n/Sunny Villa`<br>
       Expected: Listing is added with postal code, house number and name. Success message shown.
 
-   1. Test case: `addListing pc/123456 u/10-12 lbp/300000 ubp/600000 n/Sunny Villa`<br>
+   1. Test case: `addListing pc/123456 u/10-10 lbp/300000 ubp/600000 n/Sunny Villa`<br>
       Expected: Listing is added with postal code, unit number, price range and name. Success message shown.
 
-   1. Test case: `addListing pc/123456 u/10-12 n/Sunny Villa`<br>
+   1. Test case: `addListing pc/123456 u/10-11 n/Sunny Villa`<br>
       Expected: Listing is added with postal code, unit number and name with no price limits. Success message shown.
 
-   1. Test case: `addListing pc/123456 u/10-12 ubp/600000 n/Sunny Villa`<br>
+   1. Test case: `addListing pc/123456 u/10-13 ubp/600000 n/Sunny Villa`<br>
       Expected: Listing is added with postal code, unit number, price range (with no lower limit) and name. Success message shown.
 
-   1. Test case: `addListing pc/123456 u/10-12 lbp/600000 n/Sunny Villa`<br>
+   1. Test case: `addListing pc/123456 u/10-14 lbp/600000 n/Sunny Villa`<br>
       Expected: Listing is added with postal code, unit number, price range (with no upper limit) and name. Success message shown.
 
-   1. Test case: `addListing pc/123456 u/10-12 lbp/300000 ubp/6000000 n/Sunny Villa t/existingTag`<br>
+   1. Test case: `addListing pc/123456 u/10-15 lbp/300000 ubp/6000000 n/Sunny Villa t/existingTag`<br>
       Expected: Listing is added with postal code, unit number, price range, name and tag. Success message shown.
 
-   1. Test case: `addListing pc/123456 u/10-12 lbp/300000 ubp/600000 n/Sunny Villa nt/newTag`<br>
+   1. Test case: `addListing pc/123456 u/10-16 lbp/300000 ubp/600000 n/Sunny Villa nt/newTag`<br>
       Expected: Listing is added with postal code, unit number, price range, name and new tag. Success message shown.
 
 1. Adding a listing with invalid parameters
 
-   1. Test case: `addListing`<br>
-      Expected: Error message shown mentioninng that either house number or unit number must be provided, but not both.
+   1. Prerequisites: The tag `existingTag` exists and the tag `nonExistentTag` does not exist in the system. Also, a listing with postal code: 123456 and house number: 100 exists in the system.
 
    1. Test case: `addListing pc/123456`<br>
-      Expected: Error message shown mentioninng that either house number or unit number must be provided, but not both.
+      Expected: Error message shown mentioning that either house number or unit number must be provided, but not both.
 
    1. Test case: `addListing u/01-01`<br>
       Expected: Error message shown about how a postal code must be provided. 
 
    1. Test case: `addListing pc/123456 u/01-01 h/123 n/Sunny Villa`<br>
-      Expected: Error message shown mentioninng that either house number or unit number must be provided, but not both.
+      Expected: Error message shown mentioning that either house number or unit number must be provided, but not both.
 
    1. Test case: `addListing pc/123456 u/01-01 lbp/600000 ubp/300000`<br>
       Expected: Error message shown about invalid price range (lower bound > upper bound).
@@ -1567,8 +1566,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `addListing pc/123456 u/01-01 lbp/300000 ubp/600000 nt/existingTag`<br>
       Expected: Error message shown about duplicate tags.
 
-   1. Test case: `addListing pc/xxxxxx h/yy lbp/300000 ubp/600000 n/Sunny Villa` (where another listing with pc = xxxxxx, h=yy
-   exists in the system already)<br>
+   1. Test case: `addListing pc/123456 h/100 lbp/300000 ubp/600000 n/Sunny Villa`<br>
       Expected: Error message shown about duplicate listings.
 
 ### Deleting a listing
@@ -1583,25 +1581,19 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a listing with invalid commands
 
-   1. Test case: `deleteListing`<br>
-      Expected: No listing is deleted. Error message shown about missing arguments.
-
    1. Test case: `deleteListing 0`<br>
       Expected: No listing is deleted. Error message shown about index not being a non-zero integer.
 
    1. Test case: `deleteListing x` (where x is larger than the list size)<br>
       Expected: No listing is deleted. Error message shown about invalid listing index.
 
-   1. Test case: `deleteListing abc`<br>
-      Expected: No listing is deleted. Error message shown about invalid listing index.
-
 ### Adding a preference
 
 1. Adding a preference with valid parameters
 
-   1. Prerequisites: At least one person exists in the list
+   1. Prerequisites: At least one person exists in the list. The tag `existingTag` exists and the tag `nonExistentTag` does not exist.
 
-   1. Test case: `addPreference 1 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`<br>
+   1. Test case: `addPreference 1 lbp/300000 ubp/600000 t/existingTag nt/nonExistentTag`<br>
       Expected: Preference is added to the first person with specified price range and tags. Success message shown.
 
    1. Test case: `addPreference 1 lbp/300000 ubp/600000`<br>
@@ -1620,6 +1612,8 @@ testers are expected to do more *exploratory* testing.
       Expected: Preference is added to the first person with new tag. Success message shown.
 
 1. Adding a preference with invalid parameters
+
+   1. Prerequisites: At least one person exists in the list. The tag `existingTag` exists and the tag `nonExistentTag` does not exist in the system.
 
    1. Test case: `addPreference`<br>
       Expected: Error message shown about missing arguments.
@@ -1643,7 +1637,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a preference with valid parameters
 
-   1. Prerequisites: At least one person exists in the list and has at least one preference
+   1. Prerequisites: At least 2 persons exist in the list, each with at least 3 preferences.
 
    1. Test case: `deletePreference 1 1`<br>
       Expected: First preference of the first person is deleted. Success message shown.
@@ -1653,22 +1647,13 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a preference with invalid parameters
 
-   1. Prerequisites: 
-
-   1. Test case: `deletePreference`<br>
-      Expected: Error message shown about missing arguments.
+   1. Prerequisites: At least 1 person exists in the list.
 
    1. Test case: `deletePreference 1`<br>
       Expected: Error message shown about expecting 2 indices to be provided.
 
-   1. Test case: `deletePreference 1 0`<br>
-      Expected: Error message shown about index not being a non-zero integer.
-
    1. Test case: `deletePreference 0 1`<br>
       Expected: Error message shown about index not being a non-zero integer.
-
-   1. Test case: `deletePreference 1 999`<br>
-      Expected: Error message shown about invalid preference index.
 
    1. Test case: `deletePreference 999 1`<br>
       Expected: Error message shown about invalid person index.
@@ -1677,30 +1662,24 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a tag with valid parameters
 
-   1. Prerequisites: The tag being added does not exist in the system.
+   1. Prerequisites: The tag `nonExistentTag1`, `nonExistentTag2` and `nonExistentTag3` do not exist in the system.
 
-   1. Test case: `addTag nt/family-friendly`<br>
-      Expected: New tag "family-friendly" is added. Success message shown.
+   1. Test case: `addTag nt/nonExistentTag1`<br>
+      Expected: New tag "nonExistentTag1" is added. Success message shown.
 
-   1. Test case: `addTag nt/family-friendly nt/pet-friendly`<br>
-      Expected: Both tags "family-friendly" and "pet-friendly" are added. Success message shown.
+   1. Test case: `addTag nt/nonExistentTag2 nt/nonExistentTag3`<br>
+      Expected: Both tags "nonExistentTag2" and "nonExistentTag3" are added. Success message shown.
 
 1. Adding a tag with invalid parameters
 
-   1. Test case: `addTag`<br>
-      Expected: Error message shown about missing tag arguments.
-
-   1. Test case: `addTag nt/`<br>
-      Expected: Error message shown about tag name requirements such as length and character limiations.
-
    1. Test case: `addTag nt/a`<br>
-      Expected: Error message shown about tag name requirements such as length and character limiations.
+      Expected: Error message shown about tag name requirements such as length and character limitations.
 
    1. Test case: `addTag nt/this-tag-name-is-way-too-long-to-be-valid`<br>
-      Expected: Error message shown about tag name requirements such as length and character limiations.
+      Expected: Error message shown about tag name requirements such as length and character limitations.
 
    1. Test case: `addTag nt/invalid!tag`<br>
-      Expected: Error message shown about tag name requirements such as length and character limiations.
+      Expected: Error message shown about tag name requirements such as length and character limitations.
 
    1. Test case: `addTag nt/existingTag` (where "existingTag" already exists)<br>
       Expected: Error message shown about duplicate tags.
@@ -1709,24 +1688,21 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a tag with valid parameters
 
-   1. Prerequisites: The tag being deleted exists in the system.
+   1. Prerequisites: The tag `existingTag1`, `existingTag2` and `existingTag3` exist in the system.
 
-   1. Test case: `deleteTag t/family-friendly`<br>
-      Expected: Tag "family-friendly" is deleted from the system. Success message shown.
+   1. Test case: `deleteTag t/existingTag1`<br>
+      Expected: Tag "existingTag1" is deleted from the system. The listings and property preferences that used "existingTag1" previously are updated accordingly. Success message shown.
 
-   1. Test case: `deleteTag t/family-friendly t/pet-friendly`<br>
-      Expected: Both tags "family-friendly" and "pet-friendly" are deleted from the system. Success message shown.
+   1. Test case: `deleteTag t/existingTag2 t/existingTag3`<br>
+      Expected: Both tags "existingTag2" and "existingTag3" are deleted from the system. The listings and property preferences that used "existingTag2" and "existingTag3" previously are updated accordingly. Success message shown.
 
 1. Deleting a tag with invalid parameters
 
-   1. Test case: `deleteTag`<br>
-      Expected: Error message shown about missing tag arguments.
-
    1. Test case: `deleteTag t/`<br>
-      Expected: Error message shown about tag name requirements such as length and character limiations.
+      Expected: Error message shown about tag name requirements such as length and character limitations.
 
    1. Test case: `deleteTag t/this-tag-name-is-way-too-long-to-be-valid`<br>
-      Expected: Error message shown about tag name requirements such as length and character limiations.
+      Expected: Error message shown about tag name requirements such as length and character limitations.
 
    1. Test case: `deleteTag t/nonExistentTag`<br>
       Expected: Error message shown about invalid tag.
@@ -1744,15 +1720,8 @@ testers are expected to do more *exploratory* testing.
 
 1. Matching a listing with invalid parameters
 
-   1. Test case: `matchListing`<br>
-      Expected: Error message shown about missing arguments.
-
    1. Test case: `matchListing 0`<br>
-      Expected: Error message shown about index not being a non-zero integer.
-
-   1. Test case: `matchListing abc`<br>
       Expected: Error message shown about index not being a non-zero integer.
 
    1. Test case: `matchListing x` (where x is larger than the list size)<br>
       Expected: Error message shown about invalid listing index.
-
