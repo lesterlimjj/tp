@@ -1482,7 +1482,10 @@ Similar to <u>UC27</u> except for a listing.
 * **Property**: The physical real estate itself. Used interchangeably with Listing.
 * **Property Preference**: The type of property that people are looking to buy, based on price range and tags.
 * **Tag**: A category or label that can be associated with Listings or Preferences to describe attributes like "near MRT", "pet-friendly", etc.
+* **Available Listing**: A listing that is currently on the market and open to being matched with buyers. It can appear in match and search results.
+* **Unavailable Listing**: A listing that is temporarily off the market (e.g. under offer or sold) and excluded from match and search results.
 
+Let me know if you'd like to also ad
 
 --------------------------------------------------------------------------------------------------------------------
 
