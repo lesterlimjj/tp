@@ -6,7 +6,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the match estate system.
  */
 public class ClearCommand extends Command {
 
@@ -15,7 +15,7 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears the data of the whole application.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Match estate has been cleared!";
 
 
     @Override
