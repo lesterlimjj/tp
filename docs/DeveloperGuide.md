@@ -13,7 +13,13 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+This project is based on the AddressBook-Level3 project by SE-EDU initiative.
+
+Generative AI tools such as chatgpt and GitHub Copilot were selectively used to support the development process, specifically for:
+* Drafting and refining JUnit test cases
+* Enhancing JavaDoc clarity
+
+The main implementation and logic were independently developed and verified by the project team.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -1472,6 +1478,7 @@ Similar to <u>UC27</u> except for a listing.
 8.  The application should respond to all user commands within 2 seconds under typical conditions.
 9.  All data changes should be automatically saved to prevent data loss in the event of an application crash or closure.
 10.  The application should fail gracefully in most cases. However, as the application is intended for a single offline user, malicious manipulations of the data file is not an anticipated behaviour. Therefore, handling corrupted data files is a ‘good to have’ and not in scope.
+
 
 ### Glossary
 
