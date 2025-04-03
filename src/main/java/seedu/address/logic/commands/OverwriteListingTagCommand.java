@@ -6,10 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -37,7 +37,7 @@ public class OverwriteListingTagCommand extends Command {
             + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "4-bedrooms " + PREFIX_TAG
             + "2-toilets " + PREFIX_NEW_TAG + "seaside view " + PREFIX_NEW_TAG + "beach";
 
-    public static final String MESSAGE_SUCCESS = "Tag in property%s overwritten with: %s";
+    public static final String MESSAGE_SUCCESS = "Tag in listing%s overwritten with: %s";
     public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.\n%s";
     public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.\n%s";
 
@@ -64,33 +64,10 @@ public class OverwriteListingTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Listing listing = getListingFromIndex(model);
-        validateTags(model);
+        Listing listing = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
+        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE, MESSAGE_INVALID_TAGS, MESSAGE_DUPLICATE_TAGS);
         updateListingTags(model, listing);
         return generateCommandResult(listing);
-    }
-
-    /**
-     * Retrieves the listing from the filtered listing list.
-     */
-    private Listing getListingFromIndex(Model model) throws CommandException {
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        return lastShownList.get(targetListingIndex.getZeroBased());
-    }
-
-    /**
-     * Validates that all existing tags exist and new tags don't exist.
-     */
-    private void validateTags(Model model) throws CommandException {
-        if (!model.hasTags(tagSet)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
-        }
-        if (model.hasNewTags(newTagSet)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
-        }
     }
 
     /**
@@ -126,33 +103,33 @@ public class OverwriteListingTagCommand extends Command {
     /**
      * Removes all existing tags from the listing.
      */
-    private void removeExistingTags(Model model, Listing property) {
-        Set<Tag> existingTags = new HashSet<>(property.getTags());
+    private void removeExistingTags(Model model, Listing listing) {
+        Set<Tag> existingTags = new HashSet<>(listing.getTags());
         for (Tag tag : existingTags) {
-            tag.removeListing(property);
+            tag.removeListing(listing);
             model.setTag(tag, tag);
-            property.removeTag(tag);
+            listing.removeTag(tag);
         }
     }
 
     /**
      * Adds new tags to the listing.
      */
-    private void addNewTags(Model model, Listing property, Set<Tag> newTags) {
+    private void addNewTags(Model model, Listing listing, Set<Tag> newTags) {
         for (Tag tag : newTags) {
-            tag.addListing(property);
+            tag.addListing(listing);
             model.setTag(tag, tag);
-            property.addTag(tag);
+            listing.addTag(tag);
         }
     }
 
     /**
      * Generates the command result with formatted listing details.
      */
-    private CommandResult generateCommandResult(Listing property) {
-        String propertyDetails = Messages.formatPropertyDetails(property);
-        Set<Tag> newTags = property.getTags();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, propertyDetails, Messages.formatTagsOnly(newTags)));
+    private CommandResult generateCommandResult(Listing listing) {
+        String listingDetails = Messages.format(listing);
+        Set<Tag> newTags = listing.getTags();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, listingDetails, Messages.formatTagsOnly(newTags)));
     }
 
     @Override
