@@ -138,7 +138,7 @@ The `Model` component,
 * stores the currently 'selected' `PropertyPreference` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<PropertyPreference>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores the currently 'selected' `Listing` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Listing>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores the currently 'selected' `Tag` objects (e.g., results of a search query) as a separate _filtered_ set which is exposed to outsiders as an unmodifiable `ObservableList<Tag>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 `Person`
@@ -517,14 +517,6 @@ Similar to <u>UC01</u> except for listings instead.
 
     Use case ends.
 
-**Extensions**
-
-* 1a. The list is empty.
-
-  * 1a1. MatchEstate displays a message for an empty list.
-
-    Use case resumes at 3.
-
 #### Use case: UC03 - List tag
 
 Similar to <u>UC01</u> except for tags instead.
@@ -536,14 +528,6 @@ Similar to <u>UC01</u> except for tags instead.
 3.  MatchEstate displays a success message.
 
     Use case ends.
-
-**Extensions**
-
-* 1a. The list is empty.
-
-  * 1a1. MatchEstate displays a message for an empty list.
-
-    Use case resumes at 3.
 
 #### Use case: UC04 - Add a person
 
@@ -938,7 +922,7 @@ Similar to <u>UC08</u> but removes instead of adds. Note that tags are appropria
 
 1.  User requests to <u>list persons(UC01)</u>.
 2.  User requests to delete a property preference from a person.
-3.  MatchEstate updates the usage number of tags used by the person’s property preferences.
+3.  MatchEstate updates the usage number of tags used by the person's property preferences.
 4.  MatchEstate removes the property preference from the person.
 5.  MatchEstate displays a success message.
 
@@ -1001,9 +985,9 @@ Similar to <u>UC08</u> but removes instead of adds. Note that tags are appropria
 
 1.  User requests to <u>list persons(UC01)</u>.
 2.  User requests to delete a specific person by index.
-3.  MatchEstate updates the usage number of tags used by the person’s property preferences.
-4.  MatchEstate deletes the person’s property preferences.
-5.  MatchEstate deletes ownership of listing for all of the person’s listing.
+3.  MatchEstate updates the usage number of tags used by the person's property preferences.
+4.  MatchEstate deletes the person's property preferences.
+5.  MatchEstate deletes ownership of listing for all of the person's listing.
 6.  MatchEstate deletes the person.
 7.  MatchEstate displays a success message.
 
@@ -1471,14 +1455,14 @@ Similar to <u>UC27</u> except for a listing.
 7.  The user interface should be intuitive enough that non-tech savvy users can use it.
 8.  The application should respond to all user commands within 2 seconds under typical conditions.
 9.  All data changes should be automatically saved to prevent data loss in the event of an application crash or closure.
-10.  The application should fail gracefully in most cases. However, as the application is intended for a single offline user, malicious manipulations of the data file is not an anticipated behaviour. Therefore, handling corrupted data files is a ‘good to have’ and not in scope.
+10.  The application should fail gracefully in most cases. However, as the application is intended for a single offline user, malicious manipulations of the data file is not an anticipated behaviour. Therefore, handling corrupted data files is a 'good to have' and not in scope.
 
 ### Glossary
 
 * **Listing**: Entry of a property that is currently on the market. Contains property
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
 * **Owner**: A person associated with a listing to indicate they are selling the property. A listing can have multiple owners.
-* **PriceRange**: A model class representing a lower and upper bound for a listing’s price.
+* **PriceRange**: A model class representing a lower and upper bound for a listing's price.
 * **Property**: The physical real estate itself. Used interchangeably with Listing.
 * **Property Preference**: The type of property that people are looking to buy, based on price range and tags.
 * **Tag**: A category or label that can be associated with Listings or Preferences to describe attributes like "near MRT", "pet-friendly", etc.
@@ -1503,7 +1487,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample persons. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -1512,29 +1496,245 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Adding a listing
 
-### Deleting a person
+1. Adding a listing with valid parameters
 
-1. Deleting a person while all persons are being shown
+   1. Prerequisites: a
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Test case: `addListing pc/123456 h/123 lbp/300000 ubp/600000 n/Sunny Villa`<br>
+      Expected: Listing is added with postal code, house number, price range and name. Success message shown.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `addListing pc/123456 h/123 n/Sunny Villa`<br>
+      Expected: Listing is added with postal code, house number and name. Success message shown.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   1. Test case: `addListing pc/123456 u/10-12 lbp/300000 ubp/600000 n/Sunny Villa`<br>
+      Expected: Listing is added with postal code, unit number, price range and name. Success message shown.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+   1. Test case: `addListing pc/123456 u/10-12 n/Sunny Villa`<br>
+      Expected: Listing is added with postal code, unit number and name with no price limits. Success message shown.
 
-1. _{ more test cases …​ }_
+   1. Test case: `addListing pc/123456 u/10-12 ubp/600000 n/Sunny Villa`<br>
+      Expected: Listing is added with postal code, unit number, price range (with no lower limit) and name. Success message shown.
 
-### Saving data
+   1. Test case: `addListing pc/123456 u/10-12 lbp/600000 n/Sunny Villa`<br>
+      Expected: Listing is added with postal code, unit number, price range (with no upper limit) and name. Success message shown.
 
-1. Dealing with missing/corrupted data files
+   1. Test case: `addListing pc/123456 u/10-12 lbp/300000 ubp/6000000 n/Sunny Villa t/existingTag`<br>
+      Expected: Listing is added with postal code, unit number, price range, name and tag. Success message shown.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Test case: `addListing pc/123456 u/10-12 lbp/300000 ubp/600000 n/Sunny Villa nt/newTag`<br>
+      Expected: Listing is added with postal code, unit number, price range, name and new tag. Success message shown.
 
-1. _{ more test cases …​ }_
+1. Adding a listing with invalid parameters
+
+   1. Test case: `addListing`<br>
+      Expected: Error message shown mentioninng that either house number or unit number must be provided, but not both.
+
+   1. Test case: `addListing pc/123456`<br>
+      Expected: Error message shown mentioninng that either house number or unit number must be provided, but not both.
+
+   1. Test case: `addListing u/01-01`<br>
+      Expected: Error message shown about how a postal code must be provided. 
+
+   1. Test case: `addListing pc/123456 u/01-01 h/123 n/Sunny Villa`<br>
+      Expected: Error message shown mentioninng that either house number or unit number must be provided, but not both.
+
+   1. Test case: `addListing pc/123456 u/01-01 lbp/600000 ubp/300000`<br>
+      Expected: Error message shown about invalid price range (lower bound > upper bound).
+
+   1. Test case: `addListing pc/123456 u/01-01 lbp/300000 ubp/600000 t/nonExistentTag`<br>
+      Expected: Error message shown about invalid tags.
+
+   1. Test case: `addListing pc/123456 u/01-01 lbp/300000 ubp/600000 nt/existingTag`<br>
+      Expected: Error message shown about duplicate tags.
+
+   1. Test case: `addListing pc/xxxxxx h/yy lbp/300000 ubp/600000 n/Sunny Villa` (where another listing with pc = xxxxxx, h=yy
+   exists in the system already)<br>
+      Expected: Error message shown about duplicate listings.
+
+### Deleting a listing
+
+1. Deleting a listing with valid parameter
+
+   1. Prerequisites: At least one listing must exist.
+
+   1. Test case: `deleteListing 1`<br>
+      Expected: First listing is deleted from the list. Details of the deleted listing shown in the status message. 
+      All associated owners and tags are updated accordingly.
+
+1. Deleting a listing with invalid commands
+
+   1. Test case: `deleteListing`<br>
+      Expected: No listing is deleted. Error message shown about missing arguments.
+
+   1. Test case: `deleteListing 0`<br>
+      Expected: No listing is deleted. Error message shown about index not being a non-zero integer.
+
+   1. Test case: `deleteListing x` (where x is larger than the list size)<br>
+      Expected: No listing is deleted. Error message shown about invalid listing index.
+
+   1. Test case: `deleteListing abc`<br>
+      Expected: No listing is deleted. Error message shown about invalid listing index.
+
+### Adding a preference
+
+1. Adding a preference with valid parameters
+
+   1. Prerequisites: At least one person exists in the list
+
+   1. Test case: `addPreference 1 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`<br>
+      Expected: Preference is added to the first person with specified price range and tags. Success message shown.
+
+   1. Test case: `addPreference 1 lbp/300000 ubp/600000`<br>
+      Expected: Preference is added to the first person with specified price range but no tags. Success message shown.
+
+   1. Test case: `addPreference 1 lbp/300000`<br>
+      Expected: Preference is added to the first person with only lower bound price. Success message shown.
+
+   1. Test case: `addPreference 1 ubp/600000`<br>
+      Expected: Preference is added to the first person with only upper bound price. Success message shown.
+
+   1. Test case: `addPreference 1 t/existingTag`<br>
+      Expected: Preference is added to the first person with tag. Success message shown.
+
+   1. Test case: `addPreference 1 nt/nonExistentTag`<br>
+      Expected: Preference is added to the first person with new tag. Success message shown.
+
+1. Adding a preference with invalid parameters
+
+   1. Test case: `addPreference`<br>
+      Expected: Error message shown about missing arguments.
+
+   1. Test case: `addPreference 1 lbp/600000 ubp/300000`<br>
+      Expected: Error message shown about invalid price range (lower bound > upper bound).
+
+   1. Test case: `addPreference 1 lbp/300000 ubp/600000 t/nonExistentTag`<br>
+      Expected: Error message shown about invalid tags.
+
+   1. Test case: `addPreference 1 lbp/300000 ubp/600000 nt/existingTag`<br>
+      Expected: Error message shown about duplicate tags.
+
+   1. Test case: `addPreference 0 lbp/300000 ubp/600000`<br>
+      Expected: Error message shown about index not being a non-zero integer.
+
+   1. Test case: `addPreference x lbp/300000 ubp/600000`(where x is larger than the list size)<br>
+      Expected: Error message shown about invalid person index.
+
+### Deleting a preference
+
+1. Deleting a preference with valid parameters
+
+   1. Prerequisites: At least one person exists in the list and has at least one preference
+
+   1. Test case: `deletePreference 1 1`<br>
+      Expected: First preference of the first person is deleted. Success message shown.
+
+   1. Test case: `deletePreference 2 3`<br>
+      Expected: Third preference of the second person is deleted. Success message shown.
+
+1. Deleting a preference with invalid parameters
+
+   1. Prerequisites: 
+
+   1. Test case: `deletePreference`<br>
+      Expected: Error message shown about missing arguments.
+
+   1. Test case: `deletePreference 1`<br>
+      Expected: Error message shown about expecting 2 indices to be provided.
+
+   1. Test case: `deletePreference 1 0`<br>
+      Expected: Error message shown about index not being a non-zero integer.
+
+   1. Test case: `deletePreference 0 1`<br>
+      Expected: Error message shown about index not being a non-zero integer.
+
+   1. Test case: `deletePreference 1 999`<br>
+      Expected: Error message shown about invalid preference index.
+
+   1. Test case: `deletePreference 999 1`<br>
+      Expected: Error message shown about invalid person index.
+
+### Adding a tag
+
+1. Adding a tag with valid parameters
+
+   1. Prerequisites: The tag being added does not exist in the system.
+
+   1. Test case: `addTag nt/family-friendly`<br>
+      Expected: New tag "family-friendly" is added. Success message shown.
+
+   1. Test case: `addTag nt/family-friendly nt/pet-friendly`<br>
+      Expected: Both tags "family-friendly" and "pet-friendly" are added. Success message shown.
+
+1. Adding a tag with invalid parameters
+
+   1. Test case: `addTag`<br>
+      Expected: Error message shown about missing tag arguments.
+
+   1. Test case: `addTag nt/`<br>
+      Expected: Error message shown about tag name requirements such as length and character limiations.
+
+   1. Test case: `addTag nt/a`<br>
+      Expected: Error message shown about tag name requirements such as length and character limiations.
+
+   1. Test case: `addTag nt/this-tag-name-is-way-too-long-to-be-valid`<br>
+      Expected: Error message shown about tag name requirements such as length and character limiations.
+
+   1. Test case: `addTag nt/invalid!tag`<br>
+      Expected: Error message shown about tag name requirements such as length and character limiations.
+
+   1. Test case: `addTag nt/existingTag` (where "existingTag" already exists)<br>
+      Expected: Error message shown about duplicate tags.
+
+### Deleting a tag
+
+1. Deleting a tag with valid parameters
+
+   1. Prerequisites: The tag being deleted exists in the system.
+
+   1. Test case: `deleteTag t/family-friendly`<br>
+      Expected: Tag "family-friendly" is deleted from the system. Success message shown.
+
+   1. Test case: `deleteTag t/family-friendly t/pet-friendly`<br>
+      Expected: Both tags "family-friendly" and "pet-friendly" are deleted from the system. Success message shown.
+
+1. Deleting a tag with invalid parameters
+
+   1. Test case: `deleteTag`<br>
+      Expected: Error message shown about missing tag arguments.
+
+   1. Test case: `deleteTag t/`<br>
+      Expected: Error message shown about tag name requirements such as length and character limiations.
+
+   1. Test case: `deleteTag t/this-tag-name-is-way-too-long-to-be-valid`<br>
+      Expected: Error message shown about tag name requirements such as length and character limiations.
+
+   1. Test case: `deleteTag t/nonExistentTag`<br>
+      Expected: Error message shown about invalid tag.
+
+### Matching a listing
+
+1. Matching a listing with valid parameters
+
+   1. Prerequisites: At least one listing exists in the list and there are persons with property preferences.
+
+   1. Test case: `matchListing 1`<br>
+      Expected: The system finds and displays all persons whose property preferences match the first listing. 
+      Persons are sorted by the number of matching criteria (tags and price range). 
+      Persons who own the listing are excluded from the results. Success message shown.
+
+1. Matching a listing with invalid parameters
+
+   1. Test case: `matchListing`<br>
+      Expected: Error message shown about missing arguments.
+
+   1. Test case: `matchListing 0`<br>
+      Expected: Error message shown about index not being a non-zero integer.
+
+   1. Test case: `matchListing abc`<br>
+      Expected: Error message shown about index not being a non-zero integer.
+
+   1. Test case: `matchListing x` (where x is larger than the list size)<br>
+      Expected: Error message shown about invalid listing index.
+
