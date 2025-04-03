@@ -2,9 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -39,12 +38,7 @@ public class MarkAvailableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-
-        Listing toMarkAvailable = lastShownList.get(targetListingIndex.getZeroBased());
+        Listing toMarkAvailable = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
         toMarkAvailable.markAvailable();
         model.setListing(toMarkAvailable, toMarkAvailable);
 
