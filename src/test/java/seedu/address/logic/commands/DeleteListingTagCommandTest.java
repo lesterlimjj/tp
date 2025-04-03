@@ -94,12 +94,12 @@ public class DeleteListingTagCommandTest {
 
         // Sort tags to make output deterministic
         List<String> sortedTags = tagsToRemove.stream().sorted().collect(Collectors.toList());
-        String expectedMessage = String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
+        String expectedMessage = String.format(Messages.MESSAGE_DELETE_LISTING_TAG_SUCCESS,
                 sampleListing.getPostalCode(), sortedTags);
         assertTrue(result.getFeedbackToUser().contains(sampleListing.getPostalCode().toString()));
         assertEquals(
                 expectedMessage,
-                String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
+                String.format(Messages.MESSAGE_DELETE_LISTING_TAG_SUCCESS,
                         sampleListing.getPostalCode(), tagsToRemove)
         );
     }
