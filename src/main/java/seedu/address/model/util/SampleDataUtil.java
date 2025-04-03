@@ -37,15 +37,16 @@ public class SampleDataUtil {
 
     public static List<Person> getSamplePersons(AddressBook addressBook) {
         List<Person> persons = new ArrayList<>();
+        Tag hdbTag = addressBook.getTagMap().get("HDB");
 
         Person alexYeoh = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new ArrayList<>(), new ArrayList<>());
-        Tag hdbTag = addressBook.getTagMap().get("HDB");
 
         PropertyPreference alexYeohPreference = new PropertyPreference(
                 new PriceRange(new Price("100000"), new Price("200000")),
                 Set.of(hdbTag),
                 alexYeoh);
+
         alexYeoh.addPropertyPreference(alexYeohPreference);
         hdbTag.addPropertyPreference(alexYeohPreference);
         persons.add(alexYeoh);
@@ -79,12 +80,10 @@ public class SampleDataUtil {
     public static List<Listing> getSampleListings(AddressBook addressBook) throws IllegalValueException {
         List<Listing> listings = new ArrayList<>();
 
-        // Get tags from addressBook
         Tag condoTag = addressBook.getTagMap().get("CONDO");
         Tag hdbTag = addressBook.getTagMap().get("HDB");
         Tag bungalowTag = addressBook.getTagMap().get("BUNGALOW");
 
-        // Create tag sets
         HashSet<Tag> condoTagSet = new HashSet<>();
         condoTagSet.add(condoTag);
 
@@ -96,7 +95,6 @@ public class SampleDataUtil {
 
         List<Person> owners = addressBook.getPersonList();
 
-        // Create and add listings
         Listing sunnyResidences = Listing.of(
                 new PostalCode("123456"),
                 new UnitNumber("10-15"),
@@ -162,12 +160,10 @@ public class SampleDataUtil {
         condoTag.addListing(condoUnit);
         listings.add(condoUnit);
 
-        // Update addressBook with modified tags
         addressBook.setTag(condoTag, condoTag);
         addressBook.setTag(hdbTag, hdbTag);
         addressBook.setTag(bungalowTag, bungalowTag);
 
-        // Update owners with their listings
         for (Person owner : owners) {
             for (Listing listing : listings) {
                 if (listing.getOwners().contains(owner)) {
