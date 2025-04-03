@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,9 +26,11 @@ public class DeleteListingCommand extends Command {
     public static final String COMMAND_WORD = "deleteListing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the listing identified by the index number used in the displayed listing list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the specified listing from matchEstate."
+            + "\nParameters: "
+            + "LISTING_INDEX (must be a positive integer)"
+            + "\nExample: "
+            + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Listing: %1$s";
 
@@ -48,12 +51,7 @@ public class DeleteListingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-
-        Listing toDelete = lastShownList.get(targetListingIndex.getZeroBased());
+        Listing toDelete = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
 
         removeListingOwners(toDelete, model);
         removeListingFromTags(toDelete, model);

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -32,10 +33,12 @@ public class MatchPreferenceCommand extends Command {
     public static final String COMMAND_WORD = "matchPreference";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Find listings that match a person's property preference identified by index number used "
-            + "in the displayed person and preference list.\n"
-            + "Parameters: PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 2";
+            + ": Finds listings matching a person's preference."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) "
+            + "PREFERENCE_INDEX (must be a positive integer)"
+            + "\nExample: "
+            + COMMAND_WORD + " 1 2";
 
     public static final String MESSAGE_MATCH_PERSON_SUCCESS = "Matched Listings for %1$s's Preference - "
             + "Price Range: %2$s, Tags: %3$s";
@@ -59,15 +62,9 @@ public class MatchPreferenceCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
-
         model.getSearchContext().setActivePriceRange(null);
         model.getSearchContext().setActiveSearchTags(new HashSet<>());
-
-        if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
+        Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
         List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences()
                 .stream()

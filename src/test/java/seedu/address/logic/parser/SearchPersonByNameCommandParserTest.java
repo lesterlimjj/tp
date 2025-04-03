@@ -36,8 +36,9 @@ public class SearchPersonByNameCommandParserTest {
 
     @Test
     public void parse_invalidArg_throwsParseException() throws ParseException {
-        String expectedMessage =
-                String.format("ERROR: Invalid keyword '-Adam'. \n%s", SearchPersonByNameCommand.MESSAGE_USAGE);
+        String expectedMessage = "ERROR: Invalid keyword '-Adam'.\n"
+                + "Keywords must contain only letters, spaces, hyphens, full stops, or apostrophes.\n"
+                + "Every keyword can only start with a letter.";
 
         assertParseFailure(parser, "-Adam", expectedMessage);
     }

@@ -48,8 +48,7 @@ public class SearchPersonByNameCommandParser implements Parser<SearchPersonByNam
 
         for (String keyword : keywords) {
             if (!VALID_NAME_PATTERN.matcher(keyword).matches()) {
-                throw new ParseException(String.format(Messages.MESSAGE_INVALID_KEYWORD, keyword,
-                        SearchPersonByNameCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(Messages.MESSAGE_INVALID_KEYWORD, keyword));
             }
         }
 

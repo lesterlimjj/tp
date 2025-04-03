@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE;
+import static seedu.address.logic.Messages.MESSAGE_LISTING_TAG_REQUIRED_FOR_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -35,7 +35,7 @@ public class DeleteListingTagCommandParserTest {
     @Test
     public void parse_missingIndex_failure() {
         String userInput = PREFIX_TAG + "pet-friendly";
-        String expectedMessage = String.format(MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE,
+        String expectedMessage = String.format(MESSAGE_LISTING_TAG_REQUIRED_FOR_DELETE,
                 DeleteListingTagCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, userInput, expectedMessage);
@@ -44,7 +44,7 @@ public class DeleteListingTagCommandParserTest {
     @Test
     public void parse_missingTags_failure() {
         String userInput = "3"; // No tags provided
-        String expectedMessage = String.format(MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE,
+        String expectedMessage = String.format(MESSAGE_LISTING_TAG_REQUIRED_FOR_DELETE,
                 DeleteListingTagCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, userInput, expectedMessage);

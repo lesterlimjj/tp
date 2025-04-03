@@ -21,11 +21,11 @@ public class SearchPersonByNameCommand extends Command {
     public static final String COMMAND_WORD = "searchPersonName";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all persons whose names match the given keyword(s). "
-            + "Keywords must contain only letters, spaces, hyphens, full stops, or apostrophes.\n"
-            + "Every keyword can only start with a letter.\n"
-            + "Parameters: " + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " Alex Yeoh";
+            + ": Finds all persons whose names match the given keyword(s)."
+            + "\nParameters: "
+            + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]..."
+            + "\nExample: "
+            + COMMAND_WORD + " Alex Yeoh";
 
     public static final String VALID_NAME_REGEX = "^[A-Za-z][A-Za-z' .-]{0,49}$";
     public static final Pattern VALID_NAME_PATTERN = Pattern.compile(VALID_NAME_REGEX);

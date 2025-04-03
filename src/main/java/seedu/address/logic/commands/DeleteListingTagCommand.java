@@ -6,10 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,11 +25,15 @@ public class DeleteListingTagCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteListingTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes tags from a property identified "
-            + "by the index number used in the displayed property list.\n"
-            + "Parameters: PROPERTY_INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "pet-friendly " + PREFIX_TAG + "pool";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes tags from a listing."
+            + "\nParameters: "
+            + "LISTING_INDEX (must be a positive integer) "
+            + "[" + PREFIX_TAG + "TAG]..."
+            + "\nExample: "
+            + COMMAND_WORD + " 3 "
+            + PREFIX_TAG + "pet-friendly "
+            + PREFIX_TAG + "pool";
 
     private final Index targetListingIndex;
     private final Set<String> tagsToDelete;
@@ -52,13 +56,7 @@ public class DeleteListingTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
-
-        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-
-        Listing listingToEdit = lastShownList.get(targetListingIndex.getZeroBased());
+        Listing listingToEdit = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
 
         Set<Tag> deletedTags = new HashSet<>();
 
@@ -71,7 +69,7 @@ public class DeleteListingTagCommand extends Command {
             }
             Tag tagToRemove = model.getTag(tagName);
             if (!listingToEdit.getTags().contains(tag)) {
-                throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_PROPERTY, tagName,
+                throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_LISTING, tagName,
                         MESSAGE_USAGE));
             }
             deletedTags.add(tagToRemove);
@@ -87,7 +85,7 @@ public class DeleteListingTagCommand extends Command {
 
         model.resetAllLists();
 
-        return new CommandResult(String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
+        return new CommandResult(String.format(Messages.MESSAGE_DELETE_LISTING_TAG_SUCCESS,
                 listingToEdit.getPostalCode(), Messages.format(deletedTags)));
     }
 
