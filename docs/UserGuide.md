@@ -169,6 +169,13 @@ Clears all entries from the address book.
 
 Format: `clear`
 
+Result:
+* Before
+<br>![clearBefore](images/CS2103UG/clearBefore.png)
+
+* After
+<br>![clearAfter](images/CS2103UG/clearAfter.png)
+
 #### Exiting the program: `exit`
 Exits the program.
 
