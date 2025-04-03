@@ -30,7 +30,8 @@ public class AddPreferenceTagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds tags to an existing preference."
             + "\nParameters: "
-            + "PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer) "
+            + "PERSON_INDEX (must be a positive integer) "
+            + "PREFERENCE_INDEX (must be a positive integer) "
             + "[" + PREFIX_TAG + "TAG]{1}... "
             + "[" + PREFIX_NEW_TAG + "NEW_TAG]{1}..."
             + "\nExample: "

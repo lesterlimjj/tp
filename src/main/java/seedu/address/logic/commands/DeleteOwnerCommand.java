@@ -25,7 +25,8 @@ public class DeleteOwnerCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes an owner from a listing."
             + "\nParameters: "
-            + "LISTING_INDEX (must be a positive integer) OWNER_INDEX (must be a positive integer)"
+            + "LISTING_INDEX (must be a positive integer) "
+            + "OWNER_INDEX (must be a positive integer)"
             + "\nExample: "
             + COMMAND_WORD + " 1 2";
 
