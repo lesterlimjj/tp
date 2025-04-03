@@ -6,10 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -56,13 +56,7 @@ public class DeleteListingTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
-
-        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-
-        Listing listingToEdit = lastShownList.get(targetListingIndex.getZeroBased());
+        Listing listingToEdit = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
 
         Set<Tag> deletedTags = new HashSet<>();
 

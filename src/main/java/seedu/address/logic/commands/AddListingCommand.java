@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -77,13 +78,7 @@ public class AddListingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasTags(tagSet)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
-        }
-
-        if (model.hasNewTags(newTagSet)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
-        }
+        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE, MESSAGE_INVALID_TAGS, MESSAGE_DUPLICATE_TAGS);
 
         if (model.hasListing(toAdd)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_LISTING, MESSAGE_USAGE));
