@@ -6,10 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -62,22 +62,11 @@ public class AddListingTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Listing listingToAddTags = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
 
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
+        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE, MESSAGE_INVALID_TAGS, MESSAGE_DUPLICATE_TAGS);
 
-        if (!model.hasTags(tagSet)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
-        }
-
-        if (model.hasNewTags(newTagSet)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
-        }
         model.addTags(newTagSet);
-
-        Listing listingToAddTags = lastShownList.get(targetListingIndex.getZeroBased());
         Set<String> tagNames = new HashSet<>(tagSet);
         Set<Tag> tags = new HashSet<>();
         tagNames.addAll(newTagSet);

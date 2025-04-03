@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -59,15 +60,9 @@ public class MatchPreferenceCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
-
         model.getSearchContext().setActivePriceRange(null);
         model.getSearchContext().setActiveSearchTags(new HashSet<>());
-
-        if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
+        Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
         List<PropertyPreference> targetPreferenceList = targetPerson.getPropertyPreferences()
                 .stream()
