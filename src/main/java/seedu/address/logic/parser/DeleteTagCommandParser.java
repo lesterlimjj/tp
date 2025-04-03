@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_DELETE_TAG_PREAMBLE_FOUND;
 import static seedu.address.logic.Messages.MESSAGE_TAG_REQUIRED_FOR_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
+import seedu.address.logic.commands.DeletePreferenceTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -24,15 +26,20 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
     public DeleteTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         argMultimap.verifyNoDuplicateTagValues(DeleteTagCommand.MESSAGE_USAGE);
-        checkCommandFormat(argMultimap);
+        checkCommandFormat(argMultimap, args);
 
         Set<String> deleteTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         return new DeleteTagCommand(deleteTagList);
     }
 
-    private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
+    private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
         boolean hasTags = !(argMultimap.getAllValues(PREFIX_TAG).isEmpty());
+
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
+                    DeleteTagCommand.MESSAGE_USAGE));
+        }
 
         if (!hasTags) {
             throw new ParseException(String.format(MESSAGE_TAG_REQUIRED_FOR_DELETE,

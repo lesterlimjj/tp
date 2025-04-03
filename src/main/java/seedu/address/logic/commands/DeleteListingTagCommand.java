@@ -65,7 +65,7 @@ public class DeleteListingTagCommand extends Command {
             }
             Tag tagToRemove = model.getTag(tagName);
             if (!listingToEdit.getTags().contains(tag)) {
-                throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_PROPERTY, tagName,
+                throw new CommandException(String.format(Messages.MESSAGE_TAG_NOT_FOUND_IN_LISTING, tagName,
                         MESSAGE_USAGE));
             }
             deletedTags.add(tagToRemove);
@@ -81,7 +81,7 @@ public class DeleteListingTagCommand extends Command {
 
         model.resetAllLists();
 
-        return new CommandResult(String.format(Messages.MESSAGE_DELETE_PROPERTY_TAG_SUCCESS,
+        return new CommandResult(String.format(Messages.MESSAGE_DELETE_LISTING_TAG_SUCCESS,
                 listingToEdit.getPostalCode(), Messages.format(deletedTags)));
     }
 

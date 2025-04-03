@@ -16,7 +16,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new {@code AddListingTagCommand} object.
  */
 public class AddListingTagCommandParser implements Parser<AddListingTagCommand> {
-
+    private static final String WHITESPACE_REGEX = "\\s+";
+    private static final int EXPECTED_PREAMBLE_PARTS = 1;
     /**
      * Parses the given {@code String} of arguments in the context of the AddListingTagCommand
      * and returns an AddListingTagCommand object for execution.
@@ -56,7 +57,7 @@ public class AddListingTagCommandParser implements Parser<AddListingTagCommand> 
                     AddListingTagCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty() || preamble.split("\\s+").length != 1) {
+        if (preamble.isEmpty() || preamble.split(WHITESPACE_REGEX).length != EXPECTED_PREAMBLE_PARTS) {
             throw new ParseException(String.format(MESSAGE_ONE_INDEX_EXPECTED,
                     AddListingTagCommand.MESSAGE_USAGE));
         }

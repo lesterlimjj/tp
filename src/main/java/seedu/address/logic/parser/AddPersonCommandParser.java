@@ -46,14 +46,6 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
         return new AddPersonCommand(person);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
     private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
         boolean hasName = argMultimap.getValue(PREFIX_NAME).isPresent();
         boolean hasPhone = argMultimap.getValue(PREFIX_PHONE).isPresent();

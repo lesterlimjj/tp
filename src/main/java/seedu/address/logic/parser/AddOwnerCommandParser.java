@@ -13,6 +13,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new {@code AddOwnerCommand} object.
  */
 public class AddOwnerCommandParser implements Parser<AddOwnerCommand> {
+    private static final String WHITESPACE_REGEX = "\\s+";
+    private static final int EXPECTED_PREAMBLE_PARTS = 2;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddOwnerCommand
@@ -43,7 +45,7 @@ public class AddOwnerCommandParser implements Parser<AddOwnerCommand> {
                     AddOwnerCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty() || preamble.split("\\s+").length != 2) {
+        if (preamble.isEmpty() || preamble.split(WHITESPACE_REGEX).length != EXPECTED_PREAMBLE_PARTS) {
             throw new ParseException(String.format(MESSAGE_EXPECTED_TWO_INDICES,
                     AddOwnerCommand.MESSAGE_USAGE));
         }

@@ -20,6 +20,9 @@ import seedu.address.model.price.PriceRange;
  * Parses input arguments and creates a new {@code AddPreferenceCommand} object.
  */
 public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> {
+    private static final String WHITESPACE_REGEX = "\\s+";
+    private static final int EXPECTED_PREAMBLE_PARTS = 1;
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddPreferenceCommand
      * and returns an AddPreferenceCommand object for execution.
@@ -70,7 +73,7 @@ public class AddPreferenceCommandParser implements Parser<AddPreferenceCommand> 
                     AddPreferenceCommand.MESSAGE_USAGE));
         }
 
-        if (preamble.isEmpty() || preamble.split("\\s+").length != 1) {
+        if (preamble.isEmpty() || preamble.split(WHITESPACE_REGEX).length != EXPECTED_PREAMBLE_PARTS) {
             throw new ParseException(String.format(MESSAGE_ONE_INDEX_EXPECTED,
                     AddPreferenceCommand.MESSAGE_USAGE));
         }

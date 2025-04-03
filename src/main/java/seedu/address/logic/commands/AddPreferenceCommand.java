@@ -44,8 +44,8 @@ public class AddPreferenceCommand extends Command {
             + PREFIX_NEW_TAG + "spacious";
 
     public static final String MESSAGE_SUCCESS = "New property preference added to %1$s";
-    public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.%1$s\n";
-    public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.%1$s\n";
+    public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.\n%1$s";
+    public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.\n%1$s";
 
     private final Index targetPersonIndex;
     private final PriceRange priceRange;
