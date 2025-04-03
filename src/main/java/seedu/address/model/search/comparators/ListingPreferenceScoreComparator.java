@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
-import java.util.HashMap;
 
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.PropertyPreference;
@@ -17,7 +16,6 @@ public class ListingPreferenceScoreComparator implements Comparator<Listing> {
     private static final int INITIAL_SCORE = 0;
     private static final int PRICE_MATCH_SCORE = 1;
     private static final int TAG_MATCH_SCORE = 1;
-    private static final int NO_MATCH_SCORE = 0;
 
     private static PropertyPreference preferenceToScore;
 
@@ -29,37 +27,32 @@ public class ListingPreferenceScoreComparator implements Comparator<Listing> {
     public ListingPreferenceScoreComparator(PropertyPreference preferenceToScore) {
         requireNonNull(preferenceToScore);
 
-        this.preferenceToScore = preferenceToScore;
+        ListingPreferenceScoreComparator.preferenceToScore = preferenceToScore;
     }
 
     @Override
-    public int compare(Listing o1, Listing o2) {
-        requireAllNonNull(o1, o2);
-        HashMap<Listing, Integer> listingScores = new HashMap<>();
+    public int compare(Listing listing1, Listing listing2) {
+        requireAllNonNull(listing1, listing2);
 
-        listingScores.put(o1, INITIAL_SCORE);
-        listingScores.put(o2, INITIAL_SCORE);
+        int listing1Score = getMatchScore(listing1);
+        int listing2Score = getMatchScore(listing2);
 
-        for (Listing listing : listingScores.keySet()) {
-            int score = INITIAL_SCORE;
+        return Integer.compare(listing2Score, listing1Score);
+    }
 
-            if (preferenceToScore.getPriceRange().doPriceRangeOverlap(listing.getPriceRange())) {
-                score += PRICE_MATCH_SCORE;
-            }
+    private int getMatchScore(Listing listing) {
+        int score = INITIAL_SCORE;
 
-            for (Tag tag : preferenceToScore.getTags()) {
-                if (listing.getTags().contains(tag)) {
-                    score += TAG_MATCH_SCORE;
-                }
-            }
-
-            if (score == NO_MATCH_SCORE) {
-                continue;
-            }
-
-            listingScores.put(listing, score);
+        if (preferenceToScore.getPriceRange().doPriceRangeOverlap(listing.getPriceRange())) {
+            score += PRICE_MATCH_SCORE;
         }
 
-        return Integer.compare(listingScores.get(o2), listingScores.get(o1));
+        for (Tag tag : preferenceToScore.getTags()) {
+            if (listing.getTags().contains(tag)) {
+                score += TAG_MATCH_SCORE;
+            }
+        }
+
+        return score;
     }
 }
