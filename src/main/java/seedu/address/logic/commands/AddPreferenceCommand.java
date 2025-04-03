@@ -8,10 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,14 +28,16 @@ import seedu.address.model.tag.Tag;
 public class AddPreferenceCommand extends Command {
     public static final String COMMAND_WORD = "addPreference";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new property preference with "
-            + "specified tags to a person."
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_LOWER_BOUND_PRICE + "LOWER BOUND PRICE "
-            + PREFIX_UPPER_BOUND_PRICE + "UPPER BOUND PRICE "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a property preference to a person."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) "
+            + "[" + PREFIX_LOWER_BOUND_PRICE + "LOWER BOUND PRICE] "
+            + "[" + PREFIX_UPPER_BOUND_PRICE + "UPPER BOUND PRICE] "
             + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 2 "
+            + "[" + PREFIX_NEW_TAG + "NEW_TAG]..."
+            + "\nExample: "
+            + COMMAND_WORD + " 2 "
             + PREFIX_LOWER_BOUND_PRICE + "300000 "
             + PREFIX_UPPER_BOUND_PRICE + "600000 "
             + PREFIX_TAG + "quiet "
@@ -74,20 +76,8 @@ public class AddPreferenceCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
-        if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-
-        if (!model.hasTags(tagSet)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
-        }
-
-        if (model.hasNewTags(newTagSet)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
-        }
-
-        Person personToAddPreference = lastShownList.get(targetPersonIndex.getZeroBased());
+        Person personToAddPreference = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
+        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE, MESSAGE_INVALID_TAGS, MESSAGE_DUPLICATE_TAGS);
         PropertyPreference preference = new PropertyPreference(priceRange, new HashSet<>(), personToAddPreference);
 
         model.addTags(newTagSet);

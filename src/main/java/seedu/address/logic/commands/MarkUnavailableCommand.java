@@ -2,9 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,9 +16,12 @@ import seedu.address.model.listing.Listing;
  */
 public class MarkUnavailableCommand extends Command {
     public static final String COMMAND_WORD = "markUnavailable";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the listing as unavailable. "
-            + "Parameters: INDEX (must be a positive integer) "
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Marks listing as unavailable."
+            + "\nParameters: "
+            + "LISTING_INDEX (must be a positive integer) "
+            + "\nExample: "
+            + COMMAND_WORD + " 1";
     public static final String MESSAGE_MARK_UNAVAILABLE_SUCCESS = "Marked Listing as unavailable: %1$s";
 
     private final Index targetListingIndex;
@@ -39,12 +41,7 @@ public class MarkUnavailableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-
-        Listing toMarkUnavailable = lastShownList.get(targetListingIndex.getZeroBased());
+        Listing toMarkUnavailable = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
         toMarkUnavailable.markUnavailable();
         model.setListing(toMarkUnavailable, toMarkUnavailable);
 

@@ -108,10 +108,10 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 |-----------|--------------------------------------------------------------------|-------|
 **Add Person** | Adds a person to matchEstate.                                     |`addPerson n/NAME p/PHONE e/EMAIL`
 **List Persons** | Shows a list of all persons in matchEstate                   |`listPerson`
-**Edit Person** | Edits an existing person in matchEstate                      |`editPerson INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+**Edit Person** | Edits an existing person in matchEstate                      |`editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 **Search Person by Name** | Finds persons whose names match the given keyword(s)              |`searchPersonName KEYWORD [MORE_KEYWORDS]`
 **Search Person by Tags** | Finds persons with property preferences containing all specified tag(s) |`searchPersonTag t/TAG...`
-**Delete Person**  | Deletes the specified person from the matchEstate                |`deletePerson INDEX`
+**Delete Person**  | Deletes the specified person from the matchEstate                |`deletePerson PERSON_INDEX`
 
 ### Listing Management
 
@@ -121,9 +121,9 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 **List Listings** | Shows a list of all property listings          |`listListing`
 **Search Listings by Tags** | Finds listings with all specified tags         |`searchListingTag t/TAG...`
 **Search Owner’s Listings**  | Finds listings owned by a specific person      |`searchOwnerListing PERSON_INDEX`
-**Mark Available**| Marks Listing as available                     |`markAvailable INDEX`
-**Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable INDEX`
-**Delete Listing** | Deletes the specified listing from matchEstate |`deletePerson INDEX`
+**Mark Available**| Marks Listing as available                     |`markAvailable LISTING_INDEX`
+**Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable LISTING_INDEX`
+**Delete Listing** | Deletes the specified listing from matchEstate |`deletePerson LISTING_INDEX`
 
 ### Tag Management
 
@@ -146,7 +146,7 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 ### Listing Tag Management
 | Command   | Description                     | Usage |
 |-----------|---------------------------------|-------|
-**Add Listing Tags**  | Adds tags to a listing         |`addListingTag INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
+**Add Listing Tags**  | Adds tags to a listing         |`addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Overwrite Listing Tags**  | Replaces all tags in a listing |`overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Delete Listing Tags** | Deletes tags from a listing    |`deleteListingTag LISTING_INDEX t/TAG...`
 
@@ -218,9 +218,9 @@ Format: `listPerson`
 #### Editing a person: `editPerson`
 Edits an existing person in the address book.
 
-Format: `editPerson INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+Format: `editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer.
+* Edits the person at the specified `PERSON_INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
@@ -250,9 +250,9 @@ Example:
 #### Deleting a person: `deletePerson`
 Deletes the specified person from the address book.
 
-Format: `deletePerson INDEX`
+Format: `deletePerson PERSON_INDEX`
 
-* Deletes the person at the specified `INDEX`.
+* Deletes the person at the specified `PERSON_INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index must be a positive integer.
 
@@ -295,7 +295,7 @@ Example:
 - `markAvailable`: Marks listing as available
 - `markUnavailable`: Marks listing as unavailable
 
-Format: `markAvailable INDEX` or `markUnavailable INDEX`
+Format: `markAvailable LISTING_INDEX` or `markUnavailable LISTING_INDEX`
 
 Listings marked as unavailable will not be matched to any person.
 
@@ -306,7 +306,7 @@ Example:
 #### Deleting a listing: `deleteListing`
 Deletes the specified listing from the address book.
 
-Format: `deleteListing INDEX`
+Format: `deleteListing LISTING_INDEX`
 
 Example:
 * `deleteListing 1`
@@ -339,7 +339,7 @@ Example:
 #### Adding a preference: `addPreference`
 Adds a property preference to a person.
 
-Format: `addPreference INDEX lbp/LOWER_BOUND_PRICE ubp/UPPER_BOUND_PRICE [t/TAG]... [nt/NEW_TAG]...`
+Format: `addPreference PERSON_INDEX lbp/LOWER_BOUND_PRICE ubp/UPPER_BOUND_PRICE [t/TAG]... [nt/NEW_TAG]...`
 
 Example:
 * `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
@@ -381,7 +381,7 @@ Example:
 #### Adding tags to listing: `addListingTag`
 Adds tags to a property listing.
 
-Format: `addListingTag INDEX [t/TAG]... [nt/NEW_TAG]...`
+Format: `addListingTag LISTING_INDEX [t/TAG]... [nt/NEW_TAG]...`
 
 Example:
 * `addListingTag 2 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
@@ -417,7 +417,7 @@ Listings that are marked as unavailable or owned by the person will not be shown
 #### Matching listings to persons: `matchListing`
 Finds persons whose preferences match a listing.
 
-Format: `matchListing INDEX`
+Format: `matchListing LISTING_INDEX`
 
 Example:
 * `matchListing 1`

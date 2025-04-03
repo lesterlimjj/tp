@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,10 +24,11 @@ public class SearchOwnerListingCommand extends Command {
     public static final String COMMAND_WORD = "searchOwnerListing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all properties owned by a person identified by the index number "
-            + "used in the displayed person list.\n"
-            + "Parameters: PERSON_INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Finds listings owned by a specific person."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer)"
+            + "\nExample: "
+            + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SEARCH_SELLER_PROPERTY_SUCCESS = "Searched Properties of Person: %1$s";
 
@@ -55,13 +56,7 @@ public class SearchOwnerListingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
-        System.out.println(lastShownList);
-
-        if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
+        Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
         searchSellerProperty(model, targetPerson);
 
