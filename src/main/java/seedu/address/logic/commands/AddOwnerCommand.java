@@ -3,9 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
-
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -47,18 +46,9 @@ public class AddOwnerCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Person personToAddListing = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
-        List<Person> lastShownPersonList = model.getSortedFilteredPersonList();
-        if (targetPersonIndex.getZeroBased() >= lastShownPersonList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Person personToAddListing = lastShownPersonList.get(targetPersonIndex.getZeroBased());
-
-        List<Listing> lastShownListingList = model.getSortedFilteredListingList();
-        if (targetListingIndex.getZeroBased() >= lastShownListingList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Listing listing = lastShownListingList.get(targetListingIndex.getZeroBased());
+        Listing listing = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
 
         if (listing.getOwners().contains(personToAddListing)) {
             throw new CommandException(String.format(MESSAGE_OWNER_ALREADY_IN_LISTING, MESSAGE_USAGE));

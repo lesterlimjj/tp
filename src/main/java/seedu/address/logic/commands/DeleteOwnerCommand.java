@@ -3,9 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
-
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -51,17 +50,8 @@ public class DeleteOwnerCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Listing> lastShownList = model.getSortedFilteredListingList();
-        if (targetListingIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_LISTING_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Listing targetListing = lastShownList.get(targetListingIndex.getZeroBased());
-
-        List<Person> targetOwnerList = targetListing.getOwners();
-        if (targetOwnerIndex.getZeroBased() >= targetOwnerList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_OWNER_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Person ownerToDelete = targetOwnerList.get(targetOwnerIndex.getZeroBased());
+        Listing targetListing = CommandUtil.getValidatedListing(model, targetListingIndex, MESSAGE_USAGE);
+        Person ownerToDelete = CommandUtil.getValidatedOwner(targetListing, targetOwnerIndex, MESSAGE_USAGE);
 
         targetListing.removeOwner(ownerToDelete);
         ownerToDelete.removeListing(targetListing);
