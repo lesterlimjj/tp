@@ -13,7 +13,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-This project is based on the AddressBook-Level3 project by SE-EDU initiative.
+This project is **based on the AddressBook-Level3 project** created by the [SE-EDU initiative](https://se-education.org).
 
 Generative AI tools such as chatgpt and GitHub Copilot were selectively used to support the development process, specifically for:
 * Drafting and refining JUnit test cases
