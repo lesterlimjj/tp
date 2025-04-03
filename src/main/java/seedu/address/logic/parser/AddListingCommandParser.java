@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_ADD_LISTING_PREAMBLE_FOUND;
+import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED;
 import static seedu.address.logic.Messages.MESSAGE_LOWER_GREATER_THAN_UPPER_FOR_PRICE;
 import static seedu.address.logic.Messages.MESSAGE_POSTAL_CODE_REQUIRED;
@@ -46,7 +47,7 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
                         PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE, PREFIX_PROPERTY_NAME, PREFIX_TAG,
                         PREFIX_NEW_TAG);
 
-        checkCommandFormat(argMultimap);
+        checkCommandFormat(argMultimap, args);
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_POSTAL_CODE, PREFIX_UNIT_NUMBER, PREFIX_HOUSE_NUMBER,
                 PREFIX_LOWER_BOUND_PRICE, PREFIX_UPPER_BOUND_PRICE, PREFIX_PROPERTY_NAME);
         PostalCode postalCode = ParserUtil.parsePostalCode(argMultimap.getValue(PREFIX_POSTAL_CODE).get());
@@ -91,11 +92,16 @@ public class AddListingCommandParser implements Parser<AddListingCommand> {
         }
     }
 
-    private static void checkCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
+    private static void checkCommandFormat(ArgumentMultimap argMultimap, String args) throws ParseException {
         boolean hasUnitNumber = argMultimap.getValue(PREFIX_UNIT_NUMBER).isPresent();
         boolean hasHouseNumber = argMultimap.getValue(PREFIX_HOUSE_NUMBER).isPresent();
         boolean hasExclusiveHouseOrUnitNumber = hasUnitNumber ^ hasHouseNumber;
         boolean hasPostalCode = argMultimap.getValue(PREFIX_POSTAL_CODE).isPresent();
+
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_ARGUMENTS_EMPTY,
+                    AddListingCommand.MESSAGE_USAGE));
+        }
 
         if (!hasExclusiveHouseOrUnitNumber) {
             throw new ParseException(String.format(MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED,

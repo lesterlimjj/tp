@@ -78,7 +78,7 @@ public class SearchListingByTagCommandTest {
         SearchListingByTagCommand command = new SearchListingByTagCommand(tagsToSearch);
 
         CommandResult result = command.execute(model);
-        assertEquals("1 properties matching the tags!", result.getFeedbackToUser());
+        assertEquals("1 listings matching the tags!", result.getFeedbackToUser());
     }
 
     @Test
@@ -99,7 +99,7 @@ public class SearchListingByTagCommandTest {
         SearchListingByTagCommand command = new SearchListingByTagCommand(tagsToSearch);
 
         CommandResult result = command.execute(model);
-        assertEquals(Messages.MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH, result.getFeedbackToUser());
+        assertEquals(Messages.MESSAGE_SEARCH_LISTING_TAGS_NO_MATCH, result.getFeedbackToUser());
     }
 
     @Test

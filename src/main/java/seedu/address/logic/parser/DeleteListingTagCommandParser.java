@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_ARGUMENTS_EMPTY;
+import static seedu.address.logic.Messages.MESSAGE_LISTING_TAG_REQUIRED_FOR_DELETE;
 import static seedu.address.logic.Messages.MESSAGE_ONE_INDEX_EXPECTED;
-import static seedu.address.logic.Messages.MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -47,7 +47,7 @@ public class DeleteListingTagCommandParser implements Parser<DeleteListingTagCom
         }
 
         if (!hasTags) {
-            throw new ParseException(String.format(MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE,
+            throw new ParseException(String.format(MESSAGE_LISTING_TAG_REQUIRED_FOR_DELETE,
                     DeleteListingTagCommand.MESSAGE_USAGE));
         }
 

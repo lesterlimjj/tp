@@ -82,9 +82,9 @@ public class SearchListingByTagCommand extends Command {
         List<Listing> filteredListings = model.getSortedFilteredListingList();
 
         if (filteredListings.isEmpty()) {
-            return new CommandResult(Messages.MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH);
+            return new CommandResult(Messages.MESSAGE_SEARCH_LISTING_TAGS_NO_MATCH);
         } else {
-            return new CommandResult(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAGS_SUCCESS,
+            return new CommandResult(String.format(Messages.MESSAGE_SEARCH_LISTING_TAGS_SUCCESS,
                     filteredListings.size()));
         }
     }
