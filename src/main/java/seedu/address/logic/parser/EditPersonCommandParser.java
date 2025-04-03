@@ -32,14 +32,9 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL);
 
-        Index index;
-
         checkCommandFormat(argMultimap, args);
-
-        index = ParserUtil.parseIndex(argMultimap.getPreamble());
-
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL);
-
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {

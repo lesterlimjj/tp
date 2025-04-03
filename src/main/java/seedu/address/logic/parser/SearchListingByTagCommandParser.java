@@ -13,7 +13,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new {@code SearchListingByTagCommand} object.
  */
 public class SearchListingByTagCommandParser implements Parser<SearchListingByTagCommand> {
-
     /**
      * Parses the given {@code String} of arguments in the context of the SearchListingByTagCommand
      * and returns a SearchListingByTagCommand object for execution.
@@ -46,7 +45,7 @@ public class SearchListingByTagCommandParser implements Parser<SearchListingByTa
         }
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAG_PREAMBLE_FOUND,
+            throw new ParseException(String.format(Messages.MESSAGE_SEARCH_LISTING_TAG_PREAMBLE_FOUND,
                     SearchListingByTagCommand.MESSAGE_USAGE));
         }
     }
