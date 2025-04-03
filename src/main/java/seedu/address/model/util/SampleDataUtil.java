@@ -40,11 +40,14 @@ public class SampleDataUtil {
 
         Person alexYeoh = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new ArrayList<>(), new ArrayList<>());
+        Tag hdbTag = addressBook.getTagMap().get("HDB");
+
         PropertyPreference alexYeohPreference = new PropertyPreference(
                 new PriceRange(new Price("100000"), new Price("200000")),
-                Set.of(addressBook.getTagMap().get("HDB")),
+                Set.of(hdbTag),
                 alexYeoh);
         alexYeoh.addPropertyPreference(alexYeohPreference);
+        hdbTag.addPropertyPreference(alexYeohPreference);
         persons.add(alexYeoh);
 
         Person berniceYu = new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
