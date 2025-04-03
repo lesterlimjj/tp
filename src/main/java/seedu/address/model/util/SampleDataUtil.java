@@ -106,7 +106,6 @@ public class SampleDataUtil {
                 new PostalCode("238877"),
                 new HouseNumber("42B"),
                 new PriceRange(new Price("100000"), new Price("200000")),
-                null,
                 hdbTagSet,
                 new ArrayList<>(),
                 true
@@ -142,7 +141,6 @@ public class SampleDataUtil {
                 new PostalCode("987654"),
                 new UnitNumber("05-22"),
                 new PriceRange(new Price("400000"), new Price("800000")),
-                null,
                 condoTagSet,
                 List.of(owners.get(2), owners.get(3)),
                 true
