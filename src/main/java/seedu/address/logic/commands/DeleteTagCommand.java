@@ -25,10 +25,11 @@ public class DeleteTagCommand extends Command {
     public static final String COMMAND_WORD = "deleteTag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the tag identified by the tag name used in the displayed tag list.\n"
-            + "Parameters: "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "Example: " + COMMAND_WORD + " "
+            + ": Deletes the specified tags from the system."
+            + "\nParameters: "
+            + PREFIX_TAG + "TAG... "
+            + "\nExample: "
+            + COMMAND_WORD + " "
             + PREFIX_TAG + "quiet "
             + PREFIX_TAG + "pet-friendly ";
 

@@ -28,17 +28,15 @@ public class OverwritePreferenceTagCommand extends Command {
 
     public static final String COMMAND_WORD = "overwritePreferenceTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Replaces all tags in an existing property preference "
-            + "identified by the index number used in the displayed preference list of\n"
-            + "a specific person, identified by index number used in the displayed person list.\n"
-            + "Parameters: PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 3 2 " + PREFIX_TAG + "2-bedrooms\n"
-            + "Example: " + COMMAND_WORD + " 3 2 " + PREFIX_NEW_TAG + "2-toilets\n"
-            + "Example: " + COMMAND_WORD + " 3 1 " + PREFIX_NEW_TAG + "pet-friendly "
-            + PREFIX_NEW_TAG + "integrated cooling\n"
-            + "Example: " + COMMAND_WORD + " 3 3 " + PREFIX_TAG + "4-bedrooms " + PREFIX_TAG
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Replaces all tags in an existing preference."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) "
+            + "PREFERENCE_INDEX (must be a positive integer) "
+            + "[" + PREFIX_TAG + "TAG]{1}... "
+            + "[" + PREFIX_NEW_TAG + "NEW_TAG]{1}..."
+            + "\nExample: "
+            + COMMAND_WORD + " 3 3 " + PREFIX_TAG + "4-bedrooms " + PREFIX_TAG
             + "2-toilets " + PREFIX_NEW_TAG + "seaside view " + PREFIX_NEW_TAG + "beach";
 
     public static final String MESSAGE_SUCCESS = "Tag in preference overwritten with: %s";
