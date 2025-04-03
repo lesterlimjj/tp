@@ -17,7 +17,7 @@ public class UnitNumber {
                     + "4. The optional subunit must be a single capital letter, excluding 'I' and 'O'.\n"
                     + "5. A house number cannot be specified with a unit number.";
 
-    public static final String VALIDATION_REGEX = "^(B|R)?[1-9][0-9]-[1-9][0-9]{1,4}([A-HJ-NP-Z])?$";
+    public static final String VALIDATION_REGEX = "^(B|R)?[0-9][0-9]-[1-9][0-9]{1,4}([A-HJ-NP-Z])?$";
 
     public final String unitNumber;
 
