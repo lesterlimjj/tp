@@ -51,7 +51,9 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_KEYWORD =
-            "ERROR: Invalid keyword '%s'. \n%s";
+            "ERROR: Invalid keyword '%s'.\n"
+            + "Keywords must contain only letters, spaces, hyphens, full stops, or apostrophes.\n"
+            + "Every keyword can only start with a letter.";
     public static final String MESSAGE_MISSING_KEYWORD =
             "ERROR: Missing parameters. You must provide at least one keyword.\n%s";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%d persons found matching the keywords.";
