@@ -22,7 +22,7 @@ public class Messages {
     public static final String MESSAGE_DELETE_TAG_PREAMBLE_FOUND = "Delete tag should not have preamble. \n%1$s";
     public static final String MESSAGE_SEARCH_PERSON_TAG_PREAMBLE_FOUND = "Search person should not have preamble. "
             + "\n%1$s";
-    public static final String MESSAGE_SEARCH_PROPERTY_TAG_PREAMBLE_FOUND = "Search property should not have preamble. "
+    public static final String MESSAGE_SEARCH_LISTING_TAG_PREAMBLE_FOUND = "Search listing should not have preamble. "
             + "\n%1$s";
     public static final String MESSAGE_HOUSE_OR_UNIT_NUMBER_REQUIRED =
             "Either house number or unit number must be provided, but not both.\n%1$s";
@@ -31,34 +31,22 @@ public class Messages {
     public static final String MESSAGE_PHONE_REQUIRED = "Phone must be provided.\n%1$s";
     public static final String MESSAGE_EMAIL_REQUIRED = "Email must be provided.\n%1$s";
     public static final String MESSAGE_TAG_OR_NEW_TAG_REQUIRED = "Provide at least a new tag or existing tag. \n%1$s";
-    public static final String MESSAGE_PREFERENCE_TAG_REQUIRED_FOR_DELETE = "At least one preference Tag must be "
-            + "provided for deletion.\n%1$s";
-    public static final String MESSAGE_PROPERTY_TAG_REQUIRED_FOR_DELETE = "At least one property Tag must be "
+    public static final String MESSAGE_NEW_TAG_REQUIRED = "Provide at least a new tag. \n%1$s";
+    public static final String MESSAGE_LISTING_TAG_REQUIRED_FOR_DELETE = "At least one listing Tag must be "
             + "provided for deletion.\n%1$s";
     public static final String MESSAGE_TAG_REQUIRED_FOR_DELETE = "At least one Tag must be "
             + "provided for deletion.\n%1$s";
     public static final String MESSAGE_POSTAL_CODE_REQUIRED = "Postal code must be provided. \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid. \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_OR_PREFERENCE_DISPLAYED_INDEX = "The person or preference index "
-            + "provided is invalid. \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_OR_LISTING_DISPLAYED_INDEX = "The person or listing index "
-            + "provided is invalid. \n%1$s";
-    public static final String MESSAGE_INVALID_OWNER_OR_LISTING_DISPLAYED_INDEX = "The owner or listing index "
-            + "provided is invalid. \n%1$s";
     public static final String MESSAGE_INVALID_LISTING_DISPLAYED_INDEX = "The listing index provided is invalid. "
             + "\n%1$s";
     public static final String MESSAGE_INVALID_OWNER_DISPLAYED_INDEX = "The owner index provided is invalid. \n%1$s";
-    public static final String MESSAGE_DELETE_PROPERTY_TAG_SUCCESS = "Tag(s) in property %s deleted: %s";
-    public static final String MESSAGE_TAG_NOT_FOUND_IN_PROPERTY = "Tag(s) not found in property: %s\n%s";
+    public static final String MESSAGE_DELETE_LISTING_TAG_SUCCESS = "Tag(s) in listing %s deleted: %s";
+    public static final String MESSAGE_TAG_NOT_FOUND_IN_LISTING = "Tag(s) not found in listing: %s\n%s";
     public static final String MESSAGE_TAG_NOT_FOUND_IN_PREFERENCE = "Tag(s) not found in property preference: %s\n%s";
     public static final String MESSAGE_INVALID_PREFERENCE_DISPLAYED_INDEX = "The property preference index provided "
             + "is invalid.\n%1$s";
     public static final String MESSAGE_ADD_TAG_PREAMBLE_FOUND = "Add tag should not have preamble. \n%1$s";
-    public static final String MESSAGE_TAG_OR_NEW_TAG_PREFIX_EMPTY_VALUE = "At least one given tag or new tag prefix "
-            + "is empty.\n%1$s";
-    public static final String MESSAGE_NEW_TAG_PREFIX_EMPTY_VALUE = "At least one new tag prefix "
-            + "is empty.\n%1$s";
-    public static final String MESSAGE_INDEX_REQUIRED = "Please provide 1 index for this command";
     public static final String MESSAGE_ARGUMENTS_EMPTY = "Arguments should not be empty. \n%1$s";
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
@@ -67,20 +55,15 @@ public class Messages {
     public static final String MESSAGE_MISSING_KEYWORD =
             "ERROR: Missing parameters. You must provide at least one keyword.\n%s";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%d persons found matching the keywords.";
-    public static final String MESSAGE_SEARCH_PERSON_TAG_NOT_FOUND = "Tag '%s' does not exist.";
     public static final String MESSAGE_SEARCH_PERSON_TAG_MISSING_PARAMS =
             "At least one tag [t/TAG] must be specified for search.\n%s";
     public static final String MESSAGE_SEARCH_PERSON_TAGS_SUCCESS = "%d persons matching the tags.";
     public static final String MESSAGE_SEARCH_PERSON_TAGS_NO_MATCH = "No persons matching the tags.";
-    public static final String MESSAGE_SEARCH_PERSON_TAG_PREFIX_EMPTY =
-            "Tag prefix specified but no tag value given. Please specify a tag after t/.\n%S";
-    public static final String MESSAGE_SEARCH_PROPERTY_TAGS_SUCCESS = "%d properties matching the tags!";
-    public static final String MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH = "No properties matching the tags.";
+    public static final String MESSAGE_SEARCH_LISTING_TAGS_SUCCESS = "%d listings matching the tags!";
+    public static final String MESSAGE_SEARCH_LISTING_TAGS_NO_MATCH = "No listings matching the tags.";
     public static final String MESSAGE_TAG_DOES_NOT_EXIST = "Tag '%s' does not exist in the system.\n%s";
     public static final String MESSAGE_SEARCH_PROPERTY_TAG_MISSING_PARAMS =
             "At least one [t/TAG] needs to be specified for search.\n%s";
-    public static final String MESSAGE_SEARCH_PROPERTY_TAG_PREFIX_EMPTY =
-            "Tag prefix specified but no tag value given. Please specify a tag after t/.\n%s";
 
     public static final String MESSAGE_ONE_INDEX_EXPECTED = "This command expects only 1 index to be provided. \n%s";
 
@@ -100,21 +83,6 @@ public class Messages {
                 Stream.of(duplicatePrefixes).map(Prefix::toString).collect(Collectors.toSet());
 
         return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
-    }
-
-    /**
-     * Formats basic property address details (postal code + unit/house number) for display.
-     */
-    public static String formatPropertyDetails(Listing property) {
-        StringBuilder details = new StringBuilder();
-        details.append(" ").append(property.getPostalCode().toString());
-
-        if (property.getUnitNumber() != null) {
-            details.append(" ").append(property.getUnitNumber().toString());
-        } else if (property.getHouseNumber() != null) {
-            details.append(" ").append(property.getHouseNumber().toString());
-        }
-        return details.toString();
     }
 
     /**
