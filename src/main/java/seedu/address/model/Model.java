@@ -14,6 +14,7 @@ import seedu.address.model.person.PropertyPreference;
 import seedu.address.model.price.PriceRange;
 import seedu.address.model.search.SearchContext;
 import seedu.address.model.search.SearchType;
+import seedu.address.model.search.comparators.DefaultListingComparator;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,7 +28,7 @@ public interface Model {
     Comparator<Person> COMPARATOR_SHOW_ALL_PERSONS = Comparator.comparing(p -> p.getName().fullName);
 
     Predicate<Listing> PREDICATE_SHOW_ALL_LISTINGS = unused -> true;
-    Comparator<Listing> COMPARATOR_SHOW_ALL_LISTINGS = Comparator.comparing(l -> l.getPostalCode().postalCode);
+    Comparator<Listing> COMPARATOR_SHOW_ALL_LISTINGS = new DefaultListingComparator();
 
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
     Comparator<Tag> COMPARATOR_SHOW_ALL_TAGS = Comparator.comparing(t -> t.tagName);
