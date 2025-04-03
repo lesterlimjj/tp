@@ -24,10 +24,11 @@ public class SearchOwnerListingCommand extends Command {
     public static final String COMMAND_WORD = "searchOwnerListing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all properties owned by a person identified by the index number "
-            + "used in the displayed person list.\n"
-            + "Parameters: PERSON_INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Finds listings owned by a specific person."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer)"
+            + "\nExample: "
+            + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SEARCH_SELLER_PROPERTY_SUCCESS = "Searched Properties of Person: %1$s";
 

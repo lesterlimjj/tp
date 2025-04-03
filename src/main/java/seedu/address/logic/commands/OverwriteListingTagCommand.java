@@ -25,16 +25,14 @@ public class OverwriteListingTagCommand extends Command {
 
     public static final String COMMAND_WORD = "overwriteListingTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Replaces all tags in an existing listing "
-            + "identified by the index number used in the displayed listing list.\n"
-            + "Parameters: LISTING_INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "2-bedrooms\n"
-            + "Example: " + COMMAND_WORD + " 3 " + PREFIX_NEW_TAG + "2-toilets\n"
-            + "Example: " + COMMAND_WORD + " 3 " + PREFIX_NEW_TAG + "pet-friendly "
-            + PREFIX_NEW_TAG + "integrated cooling\n"
-            + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "4-bedrooms " + PREFIX_TAG
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Replaces all tags in a listing."
+            + "\nParameters: "
+            + "LISTING_INDEX (must be a positive integer) "
+            + "[" + PREFIX_TAG + "TAG]{1}... "
+            + "[" + PREFIX_NEW_TAG + "NEW_TAG]{1}..."
+            + "\nExample: "
+            + COMMAND_WORD + " 3 " + PREFIX_TAG + "4-bedrooms " + PREFIX_TAG
             + "2-toilets " + PREFIX_NEW_TAG + "seaside view " + PREFIX_NEW_TAG + "beach";
 
     public static final String MESSAGE_SUCCESS = "Tag in property%s overwritten with: %s";

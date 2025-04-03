@@ -31,10 +31,11 @@ public class MatchListingCommand extends Command {
     public static final String COMMAND_WORD = "matchListing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Matches the listing identified by the index number used in the displayed listing list"
-            + " to a Persons' property preferences.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Finds persons whose preferences match a listing."
+            + "\nParameters: "
+            + "LISTING_INDEX (must be a positive integer)"
+            + "\nExample: "
+            + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_MATCH_LISTING_SUCCESS = "Matched Listing: %1$s";
 

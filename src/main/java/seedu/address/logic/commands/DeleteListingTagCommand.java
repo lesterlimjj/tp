@@ -25,11 +25,15 @@ public class DeleteListingTagCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteListingTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes tags from a property identified "
-            + "by the index number used in the displayed property list.\n"
-            + "Parameters: PROPERTY_INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "pet-friendly " + PREFIX_TAG + "pool";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes tags from a listing."
+            + "\nParameters: "
+            + "LISTING_INDEX (must be a positive integer) "
+            + "[" + PREFIX_TAG + "TAG]..."
+            + "\nExample: "
+            + COMMAND_WORD + " 3 "
+            + PREFIX_TAG + "pet-friendly "
+            + PREFIX_TAG + "pool";
 
     private final Index targetListingIndex;
     private final Set<String> tagsToDelete;

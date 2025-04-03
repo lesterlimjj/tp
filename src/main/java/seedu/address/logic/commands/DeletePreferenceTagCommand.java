@@ -26,12 +26,13 @@ public class DeletePreferenceTagCommand extends Command {
 
     public static final String COMMAND_WORD = "deletePreferenceTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes tags from a preference identified "
-            + "by the index number used in the displayed preference list of\n"
-            + " a specific person, identified by index number used in the displayed person list.\n"
-            + "Parameters: PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 3 1 " + PREFIX_TAG + "pet-friendly " + PREFIX_TAG + "pool";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes tags from a person's preference."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) "
+            + "PREFERENCE_INDEX (must be a positive integer) "
+            + PREFIX_TAG + "TAG..."
+            + "\nExample: " + COMMAND_WORD + " 3 1 " + PREFIX_TAG + "pet-friendly " + PREFIX_TAG + "pool";
 
     public static final String MESSAGE_DELETE_PREFERENCE_TAG_SUCCESS = "Tag(s) in property preference %s deleted: %s";
 

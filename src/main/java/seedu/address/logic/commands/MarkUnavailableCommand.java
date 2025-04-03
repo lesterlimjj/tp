@@ -17,9 +17,12 @@ import seedu.address.model.listing.Listing;
  */
 public class MarkUnavailableCommand extends Command {
     public static final String COMMAND_WORD = "markUnavailable";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the listing as unavailable. "
-            + "Parameters: INDEX (must be a positive integer) "
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Marks listing as unavailable."
+            + "\nParameters: "
+            + "LISTING_INDEX (must be a positive integer) "
+            + "\nExample: "
+            + COMMAND_WORD + " 1";
     public static final String MESSAGE_MARK_UNAVAILABLE_SUCCESS = "Marked Listing as unavailable: %1$s";
 
     private final Index targetListingIndex;

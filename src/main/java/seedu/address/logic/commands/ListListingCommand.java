@@ -17,8 +17,10 @@ public class ListListingCommand extends Command {
 
     public static final String COMMAND_WORD = "listListing";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all Listings\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Shows a list of all property listings."
+            + "\nExample: "
+            + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed all listings";
 

@@ -25,9 +25,11 @@ public class DeleteListingCommand extends Command {
     public static final String COMMAND_WORD = "deleteListing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the listing identified by the index number used in the displayed listing list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the specified listing from matchEstate."
+            + "\nParameters: "
+            + "LISTING_INDEX (must be a positive integer)"
+            + "\nExample: "
+            + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Listing: %1$s";
 

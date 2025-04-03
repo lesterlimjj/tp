@@ -27,13 +27,14 @@ public class AddPreferenceTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addPreferenceTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to a preference identified "
-            + "by the index number used in the displayed preference list of\n"
-            + " a specific person, identified by index number used in the displayed person list.\n"
-            + "Parameters: PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 2 1 "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds tags to an existing preference."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer) "
+            + "[" + PREFIX_TAG + "TAG]{1}... "
+            + "[" + PREFIX_NEW_TAG + "NEW_TAG]{1}..."
+            + "\nExample: "
+            + COMMAND_WORD + " 2 1 "
             + PREFIX_TAG + "quiet "
             + PREFIX_TAG + "pet-friendly "
             + PREFIX_NEW_TAG + "family-friendly "
