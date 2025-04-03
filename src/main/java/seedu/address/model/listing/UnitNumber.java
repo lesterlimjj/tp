@@ -12,12 +12,12 @@ public class UnitNumber {
             "Unit numbers must follow the given format and constraints: "
                     + "<optional B/R prefix><floor_number>-<apartment_number><optional_subunit>, where:\n"
                     + "1. The optional prefix must be either 'B' (Basement) or 'R' (Roof), or it can be omitted.\n"
-                    + "2. The floor number must be a 2-digit number and cannot start with 0 for 1st digit.\n"
-                    + "3. The apartment number must be between 2 to 5 digits and cannot start with 0 for 1st digit.\n"
+                    + "2. The floor number must be a 2-digit number. \n"
+                    + "3. The apartment number must be between 2 to 5 digits. \n"
                     + "4. The optional subunit must be a single capital letter, excluding 'I' and 'O'.\n"
                     + "5. A house number cannot be specified with a unit number.";
 
-    public static final String VALIDATION_REGEX = "^(B|R)?[0-9][0-9]-[1-9][0-9]{1,4}([A-HJ-NP-Z])?$";
+    public static final String VALIDATION_REGEX = "^(B|R)?[0-9][0-9]-[0-9][0-9]{1,4}([A-HJ-NP-Z])?$";
 
     public final String unitNumber;
 
