@@ -1485,8 +1485,6 @@ Similar to <u>UC27</u> except for a listing.
 * **Available Listing**: A listing that is currently on the market and open to being matched with buyers. It can appear in match and search results.
 * **Unavailable Listing**: A listing that is temporarily off the market (e.g. under offer or sold) and excluded from match and search results.
 
-Let me know if you'd like to also ad
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
