@@ -94,14 +94,14 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 
 #### Person Management
 
-| Command   | Description                                                        | Usage |
-|-----------|--------------------------------------------------------------------|-------|
-**Add Person** | Adds a person to matchEstate.                                     |`addPerson n/NAME p/PHONE e/EMAIL`
+| Command   | Description                                                       | Usage |
+|-----------|-------------------------------------------------------------------|-------|
+**Add Person** | Adds a person to matchEstate.                                    |`addPerson n/NAME p/PHONE e/EMAIL`
 **List Persons** | Shows a list of all persons in matchEstate                   |`listPerson`
-**Edit Person** | Edits an existing person in matchEstate                      |`editPerson INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
-**Search Person by Name** | Finds persons whose names match the given keyword(s)              |`searchPersonName KEYWORD [MORE_KEYWORDS]`
+**Edit Person** | Edits an existing person in matchEstate                      |`editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
+**Search Person by Name** | Finds persons whose names match the given keyword(s)             |`searchPersonName KEYWORD [MORE_KEYWORDS]`
 **Search Person by Tags** | Finds persons with property preferences containing all specified tag(s) |`searchPersonTag t/TAG...`
-**Delete Person**  | Deletes the specified person from the matchEstate                |`deletePerson INDEX`
+**Delete Person**  | Deletes the specified person from matchEstate                |`deletePerson PERSON_INDEX`
 
 ### Listing Management
 
@@ -111,9 +111,9 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 **List Listings** | Shows a list of all property listings          |`listListing`
 **Search Listings by Tags** | Finds listings with all specified tags         |`searchListingTag t/TAG...`
 **Search Owner’s Listings**  | Finds listings owned by a specific person      |`searchOwnerListing PERSON_INDEX`
-**Mark Available**| Marks Listing as available                     |`markAvailable INDEX`
-**Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable INDEX`
-**Delete Listing** | Deletes the specified listing from matchEstate |`deletePerson INDEX`
+**Mark Available**| Marks Listing as available                     |`markAvailable LISTING_INDEX`
+**Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable LISTING_INDEX`
+**Delete Listing** | Deletes the specified listing from matchEstate |`deletePerson LISTING_INDEX`
 
 ### Tag Management
 
@@ -136,7 +136,7 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 ### Listing Tag Management
 | Command   | Description                     | Usage |
 |-----------|---------------------------------|-------|
-**Add Listing Tags**  | Adds tags to a listing         |`addListingTag INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
+**Add Listing Tags**  | Adds tags to a listing         |`addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Overwrite Listing Tags**  | Replaces all tags in a listing |`overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Delete Listing Tags** | Deletes tags from a listing    |`deleteListingTag LISTING_INDEX t/TAG...`
 
@@ -198,7 +198,7 @@ Adds a person to matchEstate .
 Format: `addPerson n/NAME p/PHONE e/EMAIL`
 
 Input restriction:
-* At least one of the optional fields must be provided.
+* `NAME` must start with a letter. 
 * `NAME` must only contain 2-50 characters that allow spaces, hyphens, full stops, or apostrophes.
 * `PHONE` must be numeric and at least 3-15 digits.
 * `EMAIL` must be in a valid format like `name@domain` or `name@domain.com`.
@@ -233,13 +233,15 @@ Format: `editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 Input restriction:
 * `PERSON_INDEX` should not be empty.
 * `PERSON_INDEX` must be a positive integer.
+* Edits the person at the specified `PERSON_INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer.
 * At least one of the optional fields must be provided.
+* `NAME` must start with a letter.
 * `NAME` must only contain letters, spaces, hyphens, full stops, or apostrophes.
-* `PHONE` must be numeric and at least 3 digits.
+* `PHONE` must be numeric and at least 3-15 digits.
 * `EMAIL` must be in a valid format like `name@example` or `name@example.com`.
 
 Examples:
-* `editPerson 2 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 2nd person.
+* `editPerson 2 p/91234567 e/johndoe@example.com` edits the phone number and email address of the 2nd person.
 
 Result:
 * Before
@@ -249,18 +251,18 @@ Result:
 <br>![editPersonAfter](images/CS2103UG/editPersonAfter.png)
 
 #### Searching persons by name: `searchPersonName`
-Finds persons whose names match the given keyword(s).
+Finds persons whose names match any of the given keyword(s).
 
 Format: `searchPersonName KEYWORD [MORE_KEYWORDS]`
 
 Input restriction:
 * The search is case-insensitive.
-* `KEYWORD` should not be empty.
-* `KEYWORD` must contain only letters, spaces, hyphens, full stops, or apostrophes.
-* Every `KEYWORD` can only start with a letter.
+* `KEYWORD` and `MORE_KEYWORDS` should not be empty.
+* `KEYWORD` and `MORE_KEYWORDS` must contain only letters, spaces, hyphens, full stops, or apostrophes.
+* Every `KEYWORD` and `MORE_KEYWORDS` can only start with a letter.
 
 Examples:
-* `searchPersonName John Doe` returns persons with names matching "John Doe"
+* `searchPersonName John Doe` returns persons with names matching "John" or "Doe"
 
 Result:
 * Before
@@ -276,8 +278,7 @@ Format: `searchPersonTag t/TAG...`
 
 Input restriction:
 * The search is case-insensitive.
-* `TAG` should not be empty.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `searchPersonTag t/gym t/pet-friendly` returns all persons who have both `gym` and `pet-friendly` tags.
@@ -290,12 +291,11 @@ Result:
 <br>![searchPersonTagAfter](images/CS2103UG/searchPersonTagAfter.png)
 
 #### Deleting a person: `deletePerson`
-Deletes the specified person from matchEstate.
+Deletes the specified person from matchEstate, along with their property preferences and ownerships of listing.
 
 Format: `deletePerson PERSON_INDEX`
 
 Input restriction:
-* Deletes the person at the specified `INDEX`.
 * `PERSON_INDEX` should not be empty.
 * `PERSON_INDEX` must be a positive integer.
 
@@ -319,11 +319,13 @@ Format: `addListing pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER)
 
 Input restriction:
 * `POSTAL_CODE` must be exactly 6 digits, where each digit must be between 0 and 9.
-* `UNIT_NUMBER` must be in the format of <optional B/R prefix><floor_number>-<apartment_number><optional_subunit> where the optional B/R represents basement or roof, the floor_number is 2 digits, the apartment number must be 2 to 5 digits, and subunit must be a capital letter. This subunit letter cannot be I or O. A house number must not be specified with a unit number. Floor number and apartment number cannot start with 0.
+* `UNIT_NUMBER` must be in the format of <optional B/R prefix><floor_number>-<apartment_number><optional_subunit> where the optional B/R represents basement or roof, the floor_number is 2 digits, the apartment number must be 2 to 5 digits, and subunit must be a capital letter.
+* This subunit letter cannot be I or O. 
+* A house number must not be specified with a unit number.
 * `HOUSE_NUMBER` must be at most 3 characters long, consisting of only letters and numbers. The last character cannot be 'I' or 'O'.
-* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places and at least 1 digit is present. If no value is given, the lower bound price will be unbounded.
+* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given, the lower bound price will be unbounded.
 * `PROPERTY_NAME` must be between 2 and 100 characters long and can only contain letters, numbers, apostrophes, periods, hyphens, and spaces.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `addListing pc/654321 h/12 lbp/300000 ubp/600000 n/Sunny Villa t/quiet t/pet-friendly nt/family-friendly nt/spacious`
@@ -354,8 +356,7 @@ Format: `searchListingTag t/TAG...`
 
 Input restriction:
 * The search is case-insensitive.
-* `TAG` should not be empty.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `searchListingTag t/pet-friendly t/pool`
@@ -387,12 +388,10 @@ Result:
 * After
 <br>![searchOwnerListingAfter](images/CS2103UG/searchOwnerListingAfter.png)
 
-#### Marking listing availability:
+#### Marking listing availability: `markAvailable`
 - `markAvailable`: Marks listing as available
-- `markUnavailable`: Marks listing as unavailable
-- Listings marked as unavailable will not be matched to any person.
 
-Format: `markAvailable LISTING_INDEX` or `markUnavailable LISTING_INDEX`
+Format: `markAvailable LISTING_INDEX`
 
 Input restriction:
 * `LISTING_INDEX` should not be empty.
@@ -400,6 +399,25 @@ Input restriction:
 
 Example:
 * `markAvailable 1`
+
+Result:
+* Before
+  <br>![markBefore](images/CS2103UG/markBefore.png)
+
+* After
+  <br>![markAvailableAfter](images/CS2103UG/markAvailableAfter.png)
+
+#### Marking listing unavailability: `markUnavailable`
+- `markUnavailable`: Marks listing as unavailable
+- Listings marked as unavailable will not be matched to any person.
+
+Format: `markUnavailable LISTING_INDEX`
+
+Input restriction:
+* `LISTING_INDEX` should not be empty.
+* `LISTING_INDEX` must be a positive integer.
+
+Example:
 * `markUnavailable 2`
 
 Result:
@@ -407,12 +425,12 @@ Result:
 <br>![markBefore](images/CS2103UG/markBefore.png)
 
 * After
-<br>![markAvailableAfter](images/CS2103UG/markAvailableAfter.png)
 <br>![markUnavailableAfter](images/CS2103UG/markUnavailableAfter.png)
 
 #### Deleting a listing: `deleteListing`
 Deletes the specified listing from matchEstate.
 
+Format: `deleteListing LISTING_INDEX`
 Format: `deleteListing LISTING_INDEX`
 
 Input restriction:
@@ -437,8 +455,7 @@ Adds new tags to the system.
 Format: `addTag nt/NEW_TAG...`
 
 Input restriction:
-* `TAG` should not be empty.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `addTag nt/elderly-friendly nt/vintage`
@@ -468,8 +485,7 @@ Deletes the specified tags from the system.
 Format: `deleteTag t/TAG...`
 
 Input restriction:
-* `TAG` should not be empty.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `deleteTag t/quiet t/pet-friendly`
@@ -491,8 +507,9 @@ Format: `addPreference PERSON_INDEX [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRI
 Input restriction:
 * `PERSON_INDEX ` should not be empty.
 * `PERSON_INDEX ` must be a positive integer.
-* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places and at least 1 digit is present. If no value is given, the lower bound price will be unbounded.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given, the lower bound price will be unbounded.
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `addPreference PERSON_INDEX lbp/LOWER_BOUND_PRICE ubp/UPPER_BOUND_PRICE [t/TAG]... [nt/NEW_TAG]...`
 
 Example:
 * `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
@@ -512,7 +529,7 @@ Format: `addPreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TA
 Input restriction:
 * `PERSON_INDEX` and `PREFERENCE_INDEX` should not be empty.
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `addPreferenceTag 1 1 t/quiet t/pet-friendly t/cool`
@@ -532,7 +549,7 @@ Format: `overwritePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/
 Input restriction:
 * `PERSON_INDEX` and `PREFERENCE_INDEX` should not be empty.
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `overwritePreferenceTag 2 1 nt/2-bedrooms nt/seaside-view`
@@ -571,7 +588,7 @@ Format: `deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX t/TAG...`
 Input restriction:
 * `PERSON_INDEX` and `PREFERENCE_INDEX` should not be empty.
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `deletePreferenceTag 3 1 t/quiet t/cool`
@@ -593,7 +610,7 @@ Format: `addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 Input restriction:
 * `LISTING_INDEX` should not be empty.
 * `LISTING_INDEX` must be a positive integer.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `addListingTag 2 t/quiet t/pet-friendly nt/spacious`
@@ -613,7 +630,7 @@ Format: `overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 Input restriction:
 * `LISTING_INDEX` should not be empty.
 * `LISTING_INDEX` must be a positive integer.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `overwriteListingTag 2 nt/4-bedrooms nt/2-toilets nt/seaside-view`
@@ -633,7 +650,7 @@ Format: `deleteListingTag LISTING_INDEX t/TAG...`
 Input restriction:
 * `LISTING_INDEX ` should not be empty.
 * `LISTING_INDEX ` must be a positive integer.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist (unless for deleting).
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
 * `deleteListingTag 2 t/pet-friendly t/pool`
@@ -664,6 +681,7 @@ Result:
 <br>![matchPreferenceBefore](images/CS2103UG/matchPreferenceBefore.png)
 
 * After
+<br> Finds listings matching a person's preference.
 <br>![matchPreferenceAfter](images/CS2103UG/matchPreferenceAfter.png)
 
 #### Matching listings to persons: `matchListing`
@@ -683,6 +701,7 @@ Result:
 <br>![matchListingBefore](images/CS2103UG/matchListingBefore.png)
 
 * After
+<br>Find persons whose preferences match a listing.
 <br>![matchListingAfter](images/CS2103UG/matchListingAfter.png)
 
 ### Listings’ Owner Management
@@ -724,37 +743,6 @@ Result:
 
 * After
 <br>![deleteOwnerAfter](images/CS2103UG/deleteOwnerAfter.png)
-
-### General Commands
-
-#### Clearing all data: `clear`
-Clears all entries from matchEstate.
-
-Format: `clear`
-
-#### Exiting the program: `exit`
-Exits the program.
-
-Format: `exit`
-
-### Saving the data
-
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<box type="warning" seamless>
-
-**Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 

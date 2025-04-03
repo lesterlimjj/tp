@@ -36,30 +36,25 @@ public class PersonMatchesPropertyPredicate implements Predicate<Person> {
 
         List<PropertyPreference> propertyPreferences = person.getPropertyPreferences();
 
-        // If person has no preferences, reject everything.
         if (propertyPreferences.isEmpty()) {
             return false;
         }
 
-        // If person owns the listing, reject.
         if (listingToMatch.getOwners().contains(person)) {
             return false;
         }
 
         Set<Tag> tagsToMatch = listingToMatch.getTags();
         for (PropertyPreference pref : propertyPreferences) {
-            // If any tag matches, return true.
             if (!Collections.disjoint(pref.getTags(), tagsToMatch)) {
                 return true;
             }
 
-            // If price range matches, return true.
             if (listingToMatch.getPriceRange().doPriceRangeOverlap(pref.getPriceRange())) {
                 return true;
             }
         }
 
-        // If no preferences match, return false.
         return false;
     }
 

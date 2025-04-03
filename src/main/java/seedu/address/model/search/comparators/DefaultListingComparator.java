@@ -29,7 +29,7 @@ public class DefaultListingComparator implements Comparator<Listing> {
             return postalCodeCompare;
         }
 
-        // Then compare by unit number (with nulls first)
+        // Compare by unit number (with nulls first)
         String unitNumber1 = listing1.getUnitNumber() != null
                 ? listing1.getUnitNumber().unitNumber
                 : NULL_UNIT_NUMBER_PLACEHOLDER;
@@ -43,7 +43,7 @@ public class DefaultListingComparator implements Comparator<Listing> {
             return unitNumberCompare;
         }
 
-        // Finally compare by house number
+        // Compare by house number
         return listing1.getHouseNumber().houseNumber
                 .compareTo(listing2.getHouseNumber().houseNumber);
     }
