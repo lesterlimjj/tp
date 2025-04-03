@@ -227,7 +227,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" width="700" />
 
 The `Storage` component,
 * stores match estate data and user preferences locally on disk in JSON format, and reads them back into the model when needed.
@@ -1475,6 +1475,12 @@ Similar to <u>UC27</u> except for a listing.
 
 ### Glossary
 
+* **CLI**: Command Line Interface, is a text-based user interface where users type commands.
+* **FXML**:A markup language used to define the layout of JavaFX UI components.
+* **GUI**: Graphical User Interface, is a graphical-based user interface where users can interact with the application.
+* **Jackson**: A Java library used to serialize/deserialize model classes to/from JSON in the Storage component.
+* **Java**: A general-purpose, object-oriented programming language used to develop the MatchEstate application.
+* **JSON**: JavaScript Object Notation, is a lightweight data-interchange format used to store and transfer data.
 * **Listing**: Entry of a property that is currently on the market. Contains property
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
 * **Owner**: A person associated with a listing to indicate they are selling the property. A listing can have multiple owners.
