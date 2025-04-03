@@ -15,6 +15,7 @@ import seedu.address.model.price.PriceRange;
 import seedu.address.model.search.SearchContext;
 import seedu.address.model.search.SearchType;
 import seedu.address.model.search.comparators.DefaultListingComparator;
+import seedu.address.model.search.comparators.DefaultPersonComparator;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +26,7 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Comparator<Person> COMPARATOR_SHOW_ALL_PERSONS = Comparator.comparing(p -> p.getName().fullName);
+    Comparator<Person> COMPARATOR_SHOW_ALL_PERSONS = new DefaultPersonComparator();
 
     Predicate<Listing> PREDICATE_SHOW_ALL_LISTINGS = unused -> true;
     Comparator<Listing> COMPARATOR_SHOW_ALL_LISTINGS = new DefaultListingComparator();
