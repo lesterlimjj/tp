@@ -35,18 +35,15 @@ public class ListingMatchesPreferencePredicate implements Predicate<Listing> {
 
         Set<Tag> tagsToMatch = preferenceToMatch.getTags();
 
-        // If unavailable or listing is owned by the person in the preference, reject.
         if (!listing.getAvailability() || listing.getOwners().contains(preferenceToMatch.getPerson())) {
             return false;
         }
 
-        // If price range overlaps, accept.
         boolean priceRangeOverlaps = preferenceToMatch.getPriceRange().doPriceRangeOverlap(listing.getPriceRange());
         if (priceRangeOverlaps) {
             return true;
         }
 
-        // If any tags match and price range doesn't overlap, accept. Rejects otherwise.
         Set<Tag> listingTags = listing.getTags();
         return !Collections.disjoint(listingTags, tagsToMatch);
     }
