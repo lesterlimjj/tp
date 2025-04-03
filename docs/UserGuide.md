@@ -651,6 +651,7 @@ Result:
 
 #### Matching person's preference to listings: `matchPreference`
 Finds listings matching a person's preference.
+The tags and compatible prices of the listing will be highlighted.
 Listings that the person owns or that are marked as unavailable will not be shown.
 A match is determined by whether a listing has overlapping tags or price range with the specified property preference.
 Results are sorted in descending order based on the number of matching tags and price compatibility.
