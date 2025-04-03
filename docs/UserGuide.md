@@ -228,7 +228,7 @@ Result:
 #### Editing a person: `editPerson`
 Edits an existing person in the matchEstate.
 
-Format: `editPerson PERSON_INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+Format: `editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 
 Input restriction:
 * `PERSON_INDEX` should not be empty.
@@ -608,7 +608,7 @@ Result:
 #### Overwriting Listing Tags: `overwriteListingTag`
 Replaces all tags in a listing.
 
-Format: `overwriteListingTag LISTING_INDEX [t/TAG]... [nt/NEW_TAG]...`
+Format: `overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
 * `LISTING_INDEX` should not be empty.
