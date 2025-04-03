@@ -33,10 +33,12 @@ public class MatchPreferenceCommand extends Command {
     public static final String COMMAND_WORD = "matchPreference";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Find listings that match a person's property preference identified by index number used "
-            + "in the displayed person and preference list.\n"
-            + "Parameters: PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 2";
+            + ": Finds listings matching a person's preference."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) "
+            + "PREFERENCE_INDEX (must be a positive integer)"
+            + "\nExample: "
+            + COMMAND_WORD + " 1 2";
 
     public static final String MESSAGE_MATCH_PERSON_SUCCESS = "Matched Listings for %1$s's Preference - "
             + "Price Range: %2$s, Tags: %3$s";

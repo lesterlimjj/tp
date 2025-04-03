@@ -27,10 +27,11 @@ public class DeletePreferenceCommand extends Command {
     public static final String COMMAND_WORD = "deletePreference";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes an property preference identified by index number used in the displayed preference list of"
-            + " a specific person, identified by index number used in the displayed person list.\n"
-            + "Parameters: PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 2";
+            + ": Deletes a person's property preference."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer)"
+            + "\nExample: "
+            + COMMAND_WORD + " 1 2";
 
     public static final String MESSAGE_DELETE_PREFERENCE_SUCCESS = "Deleted Preference: %1$s";
 

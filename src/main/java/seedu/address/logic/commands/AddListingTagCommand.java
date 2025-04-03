@@ -24,11 +24,14 @@ import seedu.address.model.tag.Tag;
 public class AddListingTagCommand extends Command {
     public static final String COMMAND_WORD = "addListingTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to listing "
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 2 "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds tags to a listing."
+            + "\nParameters: "
+            + "LISTING_INDEX (must be a positive integer) "
+            + "[" + PREFIX_TAG + "TAG]{1}... "
+            + "[" + PREFIX_NEW_TAG + "NEW_TAG]{1}..."
+            + "\nExample: "
+            + COMMAND_WORD + " 2 "
             + PREFIX_TAG + "quiet "
             + PREFIX_TAG + "pet-friendly "
             + PREFIX_NEW_TAG + "family-friendly "

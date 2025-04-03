@@ -26,10 +26,12 @@ import seedu.address.model.tag.Tag;
 public class SearchPersonByTagCommand extends Command {
     public static final String COMMAND_WORD = "searchPersonTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons with property preferences "
-            + "containing all specified tags.\n"
-            + "Parameters: " + PREFIX_TAG + "TAG [" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " t/gym t/pet-friendly";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds persons with property preferences containing all specified tag(s)."
+            + "\nParameters: "
+            + PREFIX_TAG + "TAG..."
+            + "\nExample: "
+            + COMMAND_WORD + " t/gym t/pet-friendly";
 
     private final Set<String> tagsToSearch;
 

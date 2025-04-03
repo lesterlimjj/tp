@@ -28,14 +28,16 @@ import seedu.address.model.tag.Tag;
 public class AddPreferenceCommand extends Command {
     public static final String COMMAND_WORD = "addPreference";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new property preference with "
-            + "specified tags to a person."
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_LOWER_BOUND_PRICE + "LOWER BOUND PRICE "
-            + PREFIX_UPPER_BOUND_PRICE + "UPPER BOUND PRICE "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a property preference to a person."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) "
+            + "[" + PREFIX_LOWER_BOUND_PRICE + "LOWER BOUND PRICE] "
+            + "[" + PREFIX_UPPER_BOUND_PRICE + "UPPER BOUND PRICE] "
             + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 2 "
+            + "[" + PREFIX_NEW_TAG + "NEW_TAG]..."
+            + "\nExample: "
+            + COMMAND_WORD + " 2 "
             + PREFIX_LOWER_BOUND_PRICE + "300000 "
             + PREFIX_UPPER_BOUND_PRICE + "600000 "
             + PREFIX_TAG + "quiet "
