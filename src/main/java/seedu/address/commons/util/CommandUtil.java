@@ -10,17 +10,18 @@ import seedu.address.model.Model;
 import seedu.address.model.listing.Listing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PropertyPreference;
+
 /**
  * Utility class for common command operations.
  */
 public class CommandUtil {
     /**
      * Gets and validates the target person from the model using the given index.
-     * @param model The model to get the person from
-     * @param targetPersonIndex The index of the person to get
-     * @param messageUsage The usage message to show if the index is invalid
-     * @return The validated person
-     * @throws CommandException if the person index is invalid
+     * @param model The model to get the person from.
+     * @param targetPersonIndex The index of the person to get.
+     * @param messageUsage The usage message to show if the index is invalid.
+     * @return The validated person.
+     * @throws CommandException if the person index is invalid.
      */
     public static Person getValidatedPerson(Model model, Index targetPersonIndex, String messageUsage)
             throws CommandException {
@@ -33,13 +34,13 @@ public class CommandUtil {
 
     /**
      * Gets and validates the target preference from the person using the given index.
-     * @param model The model containing the search context
-     * @param targetPerson The person to get the preference from
-     * @param targetPreferenceIndex The index of the preference to get
-     * @param messageUsage The usage message to show if the index is invalid
-     * @param shouldFilterBySearchContext Whether to filter preferences by search context
-     * @return The validated preference
-     * @throws CommandException if the preference index is invalid
+     * @param model The model containing the search context.
+     * @param targetPerson The person to get the preference from.
+     * @param targetPreferenceIndex The index of the preference to get.
+     * @param messageUsage The usage message to show if the index is invalid.
+     * @param shouldFilterBySearchContext Whether to filter preferences by search context.
+     * @return The validated preference.
+     * @throws CommandException if the preference index is invalid.
      */
     public static PropertyPreference getValidatedPreference(Model model, Person targetPerson,
             Index targetPreferenceIndex, String messageUsage, boolean shouldFilterBySearchContext)
@@ -59,13 +60,13 @@ public class CommandUtil {
 
     /**
      * Validates that all existing tags exist and new tags don't exist.
-     * @param model The model to validate tags against
-     * @param tagSet The set of existing tags to validate
-     * @param newTagSet The set of new tags to validate
-     * @param messageUsage The usage message to show if validation fails
-     * @param invalidTagsMessage The message to show if existing tags are invalid
-     * @param duplicateTagsMessage The message to show if new tags already exist
-     * @throws CommandException if validation fails
+     * @param model The model to validate tags against.
+     * @param tagSet The set of existing tags to validate.
+     * @param newTagSet The set of new tags to validate.
+     * @param messageUsage The usage message to show if validation fails.
+     * @param invalidTagsMessage The message to show if existing tags are invalid.
+     * @param duplicateTagsMessage The message to show if new tags already exist.
+     * @throws CommandException if validation fails.
      */
     public static void validateTags(Model model, Set<String> tagSet, Set<String> newTagSet,
             String messageUsage, String invalidTagsMessage, String duplicateTagsMessage)
@@ -80,11 +81,11 @@ public class CommandUtil {
 
     /**
      * Gets and validates the target listing from the model using the given index.
-     * @param model The model to get the listing from
-     * @param targetListingIndex The index of the listing to get
-     * @param messageUsage The usage message to show if the index is invalid
-     * @return The validated listing
-     * @throws CommandException if the listing index is invalid
+     * @param model The model to get the listing from.
+     * @param targetListingIndex The index of the listing to get.
+     * @param messageUsage The usage message to show if the index is invalid.
+     * @return The validated listing.
+     * @throws CommandException if the listing index is invalid.
      */
     public static Listing getValidatedListing(Model model, Index targetListingIndex, String messageUsage)
             throws CommandException {
@@ -97,11 +98,11 @@ public class CommandUtil {
 
     /**
      * Gets and validates the target owner from the listing using the given index.
-     * @param listing The listing to get the owner from
-     * @param targetOwnerIndex The index of the owner to get
-     * @param messageUsage The usage message to show if the index is invalid
-     * @return The validated owner
-     * @throws CommandException if the owner index is invalid
+     * @param listing The listing to get the owner from.
+     * @param targetOwnerIndex The index of the owner to get.
+     * @param messageUsage The usage message to show if the index is invalid.
+     * @return The validated owner.
+     * @throws CommandException if the owner index is invalid.
      */
     public static Person getValidatedOwner(Listing listing, Index targetOwnerIndex, String messageUsage)
             throws CommandException {
