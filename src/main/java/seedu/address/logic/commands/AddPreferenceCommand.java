@@ -28,14 +28,16 @@ import seedu.address.model.tag.Tag;
 public class AddPreferenceCommand extends Command {
     public static final String COMMAND_WORD = "addPreference";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new property preference with "
-            + "specified tags to a person."
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_LOWER_BOUND_PRICE + "LOWER BOUND PRICE "
-            + PREFIX_UPPER_BOUND_PRICE + "UPPER BOUND PRICE "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a property preference to a person."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) "
+            + "[" + PREFIX_LOWER_BOUND_PRICE + "LOWER BOUND PRICE] "
+            + "[" + PREFIX_UPPER_BOUND_PRICE + "UPPER BOUND PRICE] "
             + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 2 "
+            + "[" + PREFIX_NEW_TAG + "NEW_TAG]..."
+            + "\nExample: "
+            + COMMAND_WORD + " 2 "
             + PREFIX_LOWER_BOUND_PRICE + "300000 "
             + PREFIX_UPPER_BOUND_PRICE + "600000 "
             + PREFIX_TAG + "quiet "
@@ -44,8 +46,8 @@ public class AddPreferenceCommand extends Command {
             + PREFIX_NEW_TAG + "spacious";
 
     public static final String MESSAGE_SUCCESS = "New property preference added to %1$s";
-    public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.%1$s\n";
-    public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.%1$s\n";
+    public static final String MESSAGE_DUPLICATE_TAGS = "At least one of the new tags given already exist.\n%1$s";
+    public static final String MESSAGE_INVALID_TAGS = "At least one of the tags given does not exist.\n%1$s";
 
     private final Index targetPersonIndex;
     private final PriceRange priceRange;

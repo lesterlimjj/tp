@@ -20,10 +20,12 @@ import seedu.address.model.tag.Tag;
 public class AddTagCommand extends Command {
     public static final String COMMAND_WORD = "addTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new tag to the system."
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds new tags to the system."
             + "\nParameters: "
-            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NEW_TAG + "NEW_TAG..."
+            + "\nExample: "
+            + COMMAND_WORD + " "
             + PREFIX_NEW_TAG + "family-friendly "
             + PREFIX_NEW_TAG + "spacious";
 
