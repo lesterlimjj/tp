@@ -8,6 +8,8 @@
 
 MatchEstate is a desktop app for real estate agents to efficiently manage and track buyers and sellers. It is optimized for fast keyboard-based input, allowing real estate professionals to handle transactions quickly. If you can type fast, MatchEstate can get your management tasks done faster than traditional GUI apps.
 
+![matchEstate](images/CS2103UG/matchEstate.png)
+
 <!-- * Table of Contents -->
 <page-nav-print />
 
@@ -24,7 +26,7 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar matchestate.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](images/CS2103UG/sampleData.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -103,7 +105,7 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 **Search Person by Tags** | Finds persons with property preferences containing all specified tag(s) |`searchPersonTag t/TAG...`
 **Delete Person**  | Deletes the specified person from matchEstate                |`deletePerson PERSON_INDEX`
 
-### Listing Management
+#### Listing Management
 
 | Command   | Description                                     | Usage |
 |-----------|-------------------------------------------------|-------|
@@ -115,7 +117,7 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 **Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable LISTING_INDEX`
 **Delete Listing** | Deletes the specified listing from matchEstate |`deletePerson LISTING_INDEX`
 
-### Tag Management
+#### Tag Management
 
 | Command   | Description                                   | Usage |
 |-----------|-----------------------------------------------|-------|
@@ -123,7 +125,7 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 **List Tags**  | Shows a list of all tags          |`listTag`
 **Delete Tags** | Deletes the specified tags from the system       |`deleteTag t/TAG...`
 
-### Preference Management
+#### Preference Management
 
 | Command   | Description                                   | Usage |
 |-----------|-----------------------------------------------|-------|
@@ -133,20 +135,20 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 **Delete Preference**  | Deletes a person's property preference        |`deletePreference PERSON_INDEX PREFERENCE_INDEX`
 **Delete Preference Tags** | Deletes tags from a person's preference       |`deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX t/TAG...`
 
-### Listing Tag Management
+#### Listing Tag Management
 | Command   | Description                     | Usage |
 |-----------|---------------------------------|-------|
 **Add Listing Tags**  | Adds tags to a listing         |`addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Overwrite Listing Tags**  | Replaces all tags in a listing |`overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Delete Listing Tags** | Deletes tags from a listing    |`deleteListingTag LISTING_INDEX t/TAG...`
 
-### Matching System
+#### Matching System
 | Command   | Description                     | Usage |
 |-----------|---------------------------------|-------|
 **Match Person's Preference to Listings**  | Finds listings matching a person's preference        |`matchPreference PERSON_INDEX PREFERENCE_INDEX`
 **Match Listing to Persons**   | Finds persons whose preferences match a listing |`matchListing LISTING_INDEX`
 
-### Listing Owner Management
+#### Listing Owner Management
 | Command   | Description                          | Usage |
 |-----------|--------------------------------------|-------|
 **Add Owner**  | Adds a person as owner to a listing |`addOwner PERSON_INDEX LISTING_INDEX`
@@ -207,7 +209,7 @@ Format: `addPerson n/NAME p/PHONE e/EMAIL`
 Input restriction:
 * `NAME` must start with a letter. 
 * `NAME` must only contain 2-50 characters that allow spaces, hyphens, full stops, or apostrophes.
-* `PHONE` must be numeric and at least 3-15 digits.
+* `PHONE` must be numeric and between 1 to 15 digits.
 * `EMAIL` must be in a valid format like `name@domain` or `name@domain.com`.
 
 Examples:
