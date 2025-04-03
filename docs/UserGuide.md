@@ -231,7 +231,6 @@ Edits an existing person in the matchEstate.
 Format: `editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 
 Input restriction:
-* `PERSON_INDEX` should not be empty.
 * `PERSON_INDEX` must be a positive integer.
 * Edits the person at the specified `PERSON_INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer.
 * At least one of the optional fields must be provided.
@@ -257,7 +256,6 @@ Format: `searchPersonName KEYWORD [MORE_KEYWORDS]`
 
 Input restriction:
 * The search is case-insensitive.
-* `KEYWORD` and `MORE_KEYWORDS` should not be empty.
 * `KEYWORD` and `MORE_KEYWORDS` must contain only letters, spaces, hyphens, full stops, or apostrophes.
 * Every `KEYWORD` and `MORE_KEYWORDS` can only start with a letter.
 
@@ -296,7 +294,6 @@ Deletes the specified person from matchEstate, along with their property prefere
 Format: `deletePerson PERSON_INDEX`
 
 Input restriction:
-* `PERSON_INDEX` should not be empty.
 * `PERSON_INDEX` must be a positive integer.
 
 Examples:
@@ -375,7 +372,6 @@ Format: `searchOwnerListing PERSON_INDEX`
 
 Input restriction:
 * The search is case-insensitive.
-* `PERSON_INDEX` should not be empty.
 * `PERSON_INDEX` must be a positive integer.
 
 Example:
@@ -394,7 +390,6 @@ Result:
 Format: `markAvailable LISTING_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` should not be empty.
 * `LISTING_INDEX` must be a positive integer.
 
 Example:
@@ -414,7 +409,6 @@ Result:
 Format: `markUnavailable LISTING_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` should not be empty.
 * `LISTING_INDEX` must be a positive integer.
 
 Example:
@@ -434,7 +428,6 @@ Format: `deleteListing LISTING_INDEX`
 Format: `deleteListing LISTING_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` should not be empty.
 * `LISTING_INDEX` must be a positive integer.
 
 Example:
@@ -505,7 +498,6 @@ Adds a property preference to a person.
 Format: `addPreference PERSON_INDEX [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [t/TAG]... [nt/NEW_TAG]...`
 
 Input restriction:
-* `PERSON_INDEX ` should not be empty.
 * `PERSON_INDEX ` must be a positive integer.
 * `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given, the lower bound price will be unbounded.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
@@ -527,7 +519,6 @@ Adds tags to an existing preference.
 Format: `addPreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` should not be empty.
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
@@ -547,7 +538,6 @@ Replaces all tags in an existing preference.
 Format: `overwritePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` should not be empty.
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
@@ -567,7 +557,6 @@ Deletes a person's property preference.
 Format: `deletePreference PERSON_INDEX PREFERENCE_INDEX`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` should not be empty.
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
 
 Example:
@@ -586,7 +575,6 @@ Deletes tags from a person's preference.
 Format: `deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX t/TAG...`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` should not be empty.
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
@@ -608,7 +596,6 @@ Adds tags to a property listing.
 Format: `addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
-* `LISTING_INDEX` should not be empty.
 * `LISTING_INDEX` must be a positive integer.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
@@ -628,7 +615,6 @@ Replaces all tags in a listing.
 Format: `overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
-* `LISTING_INDEX` should not be empty.
 * `LISTING_INDEX` must be a positive integer.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
@@ -648,7 +634,6 @@ Deletes tags from a listing.
 Format: `deleteListingTag LISTING_INDEX t/TAG...`
 
 Input restriction:
-* `LISTING_INDEX ` should not be empty.
 * `LISTING_INDEX ` must be a positive integer.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
@@ -666,11 +651,13 @@ Result:
 
 #### Matching person's preference to listings: `matchPreference`
 Finds listings matching a person's preference.
+Listings that the person owns or that are marked as unavailable will not be shown.
+A match is determined by whether a listing has overlapping tags or price range with the specified property preference.
+Results are sorted in descending order based on the number of matching tags and price compatibility.
 
 Format: `matchPreference PERSON_INDEX PREFERENCE_INDEX`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` should not be empty.
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
 
 Example:
@@ -686,11 +673,14 @@ Result:
 
 #### Matching listings to persons: `matchListing`
 Finds persons whose preferences match a listing.
+The tags and compatible prices of the person's preferences will be highlighted.
+Persons who owns the listing will not be shown.
+A match is determined by whether a person's property preference shares tags or has an overlapping price range with the listing.
+Results are sorted in descending order based on the preference with the most matching tags and price compatibility.
 
 Format: `matchListing LISTING_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` should not be empty.
 * `LISTING_INDEX` must be a positive integer.
 
 Example:
@@ -712,7 +702,6 @@ Adds a person as owner to a listing.
 Format: `addOwner PERSON_INDEX LISTING_INDEX`
 
 Input restriction:
-* `PERSON_INDEX` and `LISTING_INDEX` should not be empty.
 * `PERSON_INDEX` and `LISTING_INDEX` must be a positive integer.
 
 Example:
@@ -731,7 +720,6 @@ Removes an owner from a listing.
 Format: `deleteOwner LISTING_INDEX OWNER_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` and `OWNER_INDEX` should not be empty.
 * `LISTING_INDEX` and `OWNER_INDEX` must be a positive integer.
 
 Example:
