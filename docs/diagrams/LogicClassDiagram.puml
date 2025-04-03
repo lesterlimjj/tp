@@ -32,7 +32,7 @@ LogicManager -right->"1" ParserClasses
 ParserClasses ..> XYZCommand : create
 
 XYZCommand -up-|> Command
-LogicManager .left.> Command : cal
+LogicManager .left.> Command : call
 
 LogicManager --> Model
 LogicManager --> Storage

@@ -1483,7 +1483,7 @@ Similar to <u>UC27</u> except for a listing.
 ### Glossary
 
 * **CLI**: Command Line Interface, is a text-based user interface where users type commands.
-* **FXML**:A markup language used to define the layout of JavaFX UI components.
+* **FXML**: A markup language used to define the layout of JavaFX UI components.
 * **GUI**: Graphical User Interface, is a graphical-based user interface where users can interact with the application.
 * **Jackson**: A Java library used to serialize/deserialize model classes to/from JSON in the Storage component.
 * **Java**: A general-purpose, object-oriented programming language used to develop the MatchEstate application.
