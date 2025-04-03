@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.listing.HouseNumber;
@@ -27,13 +26,13 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static void addSampleTags(AddressBook addressBook) {
+    private static void addSampleTags(AddressBook addressBook) {
         addressBook.addTag("hdb");
         addressBook.addTag("condo");
         addressBook.addTag("bungalow");
     }
 
-    public static void addSamplePersons(AddressBook addressBook) {
+    private static void addSamplePersons(AddressBook addressBook) {
         Tag hdbTag = addressBook.getTagMap().get("HDB");
 
         Person alexYeoh = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -73,7 +72,7 @@ public class SampleDataUtil {
 
     }
 
-    public static void addSampleListings(AddressBook addressBook) {
+    private static void addSampleListings(AddressBook addressBook) {
         Tag condoTag = addressBook.getTagMap().get("CONDO");
         Tag hdbTag = addressBook.getTagMap().get("HDB");
         Tag bungalowTag = addressBook.getTagMap().get("BUNGALOW");
