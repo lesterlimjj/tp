@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,10 +27,11 @@ public class DeletePreferenceCommand extends Command {
     public static final String COMMAND_WORD = "deletePreference";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes an property preference identified by index number used in the displayed preference list of"
-            + " a specific person, identified by index number used in the displayed person list.\n"
-            + "Parameters: PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 2";
+            + ": Deletes a person's property preference."
+            + "\nParameters: "
+            + "PERSON_INDEX (must be a positive integer) PREFERENCE_INDEX (must be a positive integer)"
+            + "\nExample: "
+            + COMMAND_WORD + " 1 2";
 
     public static final String MESSAGE_DELETE_PREFERENCE_SUCCESS = "Deleted Preference: %1$s";
 
@@ -53,12 +55,7 @@ public class DeletePreferenceCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getSortedFilteredPersonList();
-
-        if (targetPersonIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, MESSAGE_USAGE));
-        }
-        Person targetPerson = lastShownList.get(targetPersonIndex.getZeroBased());
+        Person targetPerson = CommandUtil.getValidatedPerson(model, targetPersonIndex, MESSAGE_USAGE);
 
         // Filter preferences according to active filter tags
         List<PropertyPreference> filteredPreferences = targetPerson.getPropertyPreferences().stream()

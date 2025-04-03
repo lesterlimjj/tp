@@ -25,9 +25,13 @@ import seedu.address.model.tag.Tag;
 public class SearchListingByTagCommand extends Command {
     public static final String COMMAND_WORD = "searchListingTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all properties with all specified tags.\n"
-            + "Parameters: " + PREFIX_TAG + "TAG [" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " t/pet-friendly t/pool";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds listings with all specified tags."
+            + "\nParameters: "
+            + PREFIX_TAG
+            + "TAG..."
+            + "\nExample: "
+            + COMMAND_WORD + " t/pet-friendly t/pool";
     private static final Logger logger = LogsCenter.getLogger(SearchListingByTagCommand.class);
 
     private final Set<String> tagsToSearch;
@@ -78,9 +82,9 @@ public class SearchListingByTagCommand extends Command {
         List<Listing> filteredListings = model.getSortedFilteredListingList();
 
         if (filteredListings.isEmpty()) {
-            return new CommandResult(Messages.MESSAGE_SEARCH_PROPERTY_TAGS_NO_MATCH);
+            return new CommandResult(Messages.MESSAGE_SEARCH_LISTING_TAGS_NO_MATCH);
         } else {
-            return new CommandResult(String.format(Messages.MESSAGE_SEARCH_PROPERTY_TAGS_SUCCESS,
+            return new CommandResult(String.format(Messages.MESSAGE_SEARCH_LISTING_TAGS_SUCCESS,
                     filteredListings.size()));
         }
     }

@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER_BOUND_PRICE;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,17 +28,19 @@ import seedu.address.model.tag.Tag;
 public class AddListingCommand extends Command {
     public static final String COMMAND_WORD = "addListing";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a listing to the address book. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a listing to matchEstate."
+            + "\nParameters: "
             + PREFIX_POSTAL_CODE + "POSTAL_CODE "
-            + "[" + PREFIX_UNIT_NUMBER + "UNIT_NUMBER] "
-            + "[" + PREFIX_HOUSE_NUMBER + "HOUSE_NUMBER] "
+            + "(" + PREFIX_UNIT_NUMBER + "UNIT_NUMBER)"
+            + "(" + PREFIX_HOUSE_NUMBER + "HOUSE_NUMBER) "
             + "[" + PREFIX_LOWER_BOUND_PRICE + "LOWER_BOUND_PRICE] "
             + "[" + PREFIX_UPPER_BOUND_PRICE + "UPPER_BOUND_PRICE] "
             + "[" + PREFIX_PROPERTY_NAME + "PROPERTY_NAME] "
             + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NEW_TAG + "NEW_TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "[" + PREFIX_NEW_TAG + "NEW_TAG]..."
+            + "\nExample: "
+            + COMMAND_WORD + " "
             + PREFIX_POSTAL_CODE + "654321 "
             + PREFIX_HOUSE_NUMBER + "12 "
             + PREFIX_LOWER_BOUND_PRICE + "300000 "
@@ -75,13 +78,7 @@ public class AddListingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasTags(tagSet)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_TAGS, MESSAGE_USAGE));
-        }
-
-        if (model.hasNewTags(newTagSet)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS, MESSAGE_USAGE));
-        }
+        CommandUtil.validateTags(model, tagSet, newTagSet, MESSAGE_USAGE, MESSAGE_INVALID_TAGS, MESSAGE_DUPLICATE_TAGS);
 
         if (model.hasListing(toAdd)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_LISTING, MESSAGE_USAGE));

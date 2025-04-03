@@ -10,9 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers can have up to 15 digits, and it should not start with 0. It can also have an optional + "
+            "Phone numbers can have up to 15 digits. It can also have an optional + "
                     + "before 1st digit.";
-    public static final String VALIDATION_REGEX = "^\\+?[1-9][0-9]{0,14}$";
+    public static final String VALIDATION_REGEX = "^\\+?[0-9][0-9]{0,14}$";
     public final String value;
 
     /**
