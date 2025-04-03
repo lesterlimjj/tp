@@ -29,15 +29,21 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+    * `listPerson` : Lists all persons.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+    * `listListing` : Lists all listings.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `addPerson n/John Doe p/98765432 e/john@example.com` : Adds a person named `John Doe`.
 
-   * `clear` : Deletes all contacts.
+    * `addTag nt/pool nt/near MRT` : Adds the tags `pool` and `near MRT`.
 
-   * `exit` : Exits the app.
+    * `deletePerson 3` : Deletes the 3rd person shown in the current persons list.
+
+    * `deleteListing 1` : Deletes the 1st listing shown in the current listings list.
+
+    * `clear` : Deletes all contacts.
+
+    * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -56,10 +62,16 @@ MatchEstate is a **desktop app for real estate agents to efficiently manage and 
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items in brackets are mutually exclusive.<br>
-e.g. `pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER)` can be used as `pc/654321 u/12-111` or as `pc/654321 h/12` but not both.
+  e.g. `pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER)` can be used as `pc/654321 u/12-111` or as `pc/654321 h/12` but not both.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times but at least one time.<br>
+  e.g. `t/TAG…​` can be used as `t/friend`, `t/friend t/family` etc.
+
+* Items in square brackets with `…`​ after them can be used multiple times including zero times.<br>
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+
+* Items in square brackets with a {num} after them, groups 2 or more prefixes in the command which requires at least 1 prefix from the group to be present.<br>
+  e.g. `[t/TAG]{1}... [nt/NEW_TAG]{1}...` can be used as `nt/friend`, `t/family`, `t/family nt/friend` but not ` `.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -68,15 +80,115 @@ e.g. `pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER)` can be used as `pc/654321 
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
 </box>
 
-### Viewing help : `help`
+### Command Summary
 
-Shows a message explaning how to access the help page.
+#### General Commands
+| Command   | Description                                             | Usage |
+|-----------|---------------------------------------------------------|-------|
+**Help** | Displays all command usage on a second window |`help`
+**Clear** | Clears all entries from the matchEstate                 |`clear`
+**Exit** | Exits the program                                       |`exit`
 
-![help message](images/helpMessage.png)
+#### Person Management
+
+| Command   | Description                                                        | Usage |
+|-----------|--------------------------------------------------------------------|-------|
+**Add Person** | Adds a person to matchEstate.                                     |`addPerson n/NAME p/PHONE e/EMAIL`
+**List Persons** | Shows a list of all persons in matchEstate                   |`listPerson`
+**Edit Person** | Edits an existing person in matchEstate                      |`editPerson INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+**Search Person by Name** | Finds persons whose names match the given keyword(s)              |`searchPersonName KEYWORD [MORE_KEYWORDS]`
+**Search Person by Tags** | Finds persons with property preferences containing all specified tag(s) |`searchPersonTag t/TAG...`
+**Delete Person**  | Deletes the specified person from the matchEstate                |`deletePerson INDEX`
+
+### Listing Management
+
+| Command   | Description                                     | Usage |
+|-----------|-------------------------------------------------|-------|
+**Add Listing** | Adds a listing to matchEstate.             |`addListing pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER) [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [n/PROPERTY_NAME] [t/TAG]... [nt/NEW_TAG]...`
+**List Listings** | Shows a list of all property listings          |`listListing`
+**Search Listings by Tags** | Finds listings with all specified tags         |`searchListingTag t/TAG...`
+**Search Owner’s Listings**  | Finds listings owned by a specific person      |`searchOwnerListing PERSON_INDEX`
+**Mark Available**| Marks Listing as available                     |`markAvailable INDEX`
+**Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable INDEX`
+**Delete Listing** | Deletes the specified listing from matchEstate |`deletePerson INDEX`
+
+### Tag Management
+
+| Command   | Description                                   | Usage |
+|-----------|-----------------------------------------------|-------|
+**Add Tags** | Adds new tags to the system            |`addTag nt/NEW_TAG...`
+**List Tags**  | Shows a list of all tags          |`listTag`
+**Delete Tags** | Deletes the specified tags from the system       |`deleteTag t/TAG...`
+
+### Preference Management
+
+| Command   | Description                                   | Usage |
+|-----------|-----------------------------------------------|-------|
+**Add Preference**  | Adds a property preference to a person          |`addPreference PERSON_INDEX [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [t/TAG]... [nt/NEW_TAG]...`
+**Add Preference Tags**  | Adds tags to an existing preference          |`addPreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
+**Overwrite Preference Tags** | Replaces all tags in an existing preference     |`overwritePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
+**Delete Preference**  | Deletes a person's property preference        |`deletePreference PERSON_INDEX PREFERENCE_INDEX`
+**Delete Preference Tags** | Deletes tags from a person's preference       |`deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX t/TAG...`
+
+### Listing Tag Management
+| Command   | Description                     | Usage |
+|-----------|---------------------------------|-------|
+**Add Listing Tags**  | Adds tags to a listing         |`addListingTag INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
+**Overwrite Listing Tags**  | Replaces all tags in a listing |`overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
+**Delete Listing Tags** | Deletes tags from a listing    |`deleteListingTag LISTING_INDEX t/TAG...`
+
+### Matching System
+| Command   | Description                     | Usage |
+|-----------|---------------------------------|-------|
+**Match Person's Preference to Listings**  | Finds listings matching a person's preference        |`matchPreference PERSON_INDEX PREFERENCE_INDEX`
+**Match Listing to Persons**   | Finds persons whose preferences match a listing |`matchListing LISTING_INDEX`
+
+### Listing Owner Management
+| Command   | Description                          | Usage |
+|-----------|--------------------------------------|-------|
+**Add Owner**  | Adds a person as owner to a listing |`addOwner PERSON_INDEX LISTING_INDEX`
+**Delete Owner**   | Removes an owner from a listing     |`deleteOwner LISTING_INDEX OWNER_INDEX`
+
+
+### General Commands
+
+#### Viewing help : `help`
+
+Opens a second window displaying all the command usages and explaining how to access the user guide.
 
 Format: `help`
+
+Result:
+![help message](images/helpMessage.png)
+
+#### Clearing all data: `clear`
+Clears all entries from the address book.
+
+Format: `clear`
+
+#### Exiting the program: `exit`
+Exits the program.
+
+Format: `exit`
+
+### Saving the data
+
+MatchEstate data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the data file
+
+MatchEstate data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<box type="warning" seamless>
+
+**Caution:**
+If your changes to the data file makes its format invalid, MatchEstate will save a copy of the invalid file and start with an empty data file at the next run.  However, it is recommended to make a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the MatchEstate to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
+</box>
 
 ### Person Management
 
@@ -659,76 +771,3 @@ _Details coming soon ..._
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
-
-## Command Summary
-
-### Person Management
-
-Action | Format, Examples
----|---
-**Add Person** | `addPerson n/NAME p/PHONE e/EMAIL`<br>e.g., `addPerson n/John Doe p/98765432 e/johnd@example.com`
-**List Persons** | `listPerson`
-**Edit Person** | `editPerson INDEX [n/NAME] [p/PHONE] [e/EMAIL]`<br>e.g., `editPerson 1 p/91234567 e/johndoe@example.com`
-**Search Person by Name** | `searchPersonName KEYWORD [MORE_KEYWORDS]`<br>e.g., `searchPersonName Alex Yeoh`
-**Search Person by Tags** | `searchPersonTag t/TAG [t/TAG]...`<br>e.g., `searchPersonTag t/gym t/pet-friendly`
-**Delete Person** | `deletePerson INDEX`<br>e.g., `deletePerson 2`
-
-### Listing Management
-
-Action | Format, Examples
----|---
-**Add Listing** | `addListing pc/POSTAL_CODE [u/UNIT_NUMBER] [h/HOUSE_NUMBER] [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [n/PROPERTY_NAME] [t/TAG]... [nt/NEW_TAG]...`<br>e.g., `addListing pc/654321 h/12 lbp/300000 ubp/600000 n/Sunny Villa t/quiet t/pet-friendly`
-**List Listings** | `listListing`
-**Search Listings by Tags** | `searchListingTag t/TAG [t/TAG]...`<br>e.g., `searchListingTag t/pet-friendly t/pool`
-**Search Owner Listings** | `searchOwnerListing PERSON_INDEX`<br>e.g., `searchOwnerListing 1`
-**Mark Available** | `markAvailable INDEX`<br>e.g., `markAvailable 1`
-**Mark Unavailable** | `markUnavailable INDEX`<br>e.g., `markUnavailable 2`
-**Delete Listing** | `deleteListing INDEX`<br>e.g., `deleteListing 1`
-
-### Tag Management
-
-Action | Format, Examples
----|---
-**Add Tags** | `addTag [nt/NEW_TAG]...`<br>e.g., `addTag nt/family-friendly nt/spacious`
-**List Tags** | `listTag`
-**Delete Tags** | `deleteTag [t/TAG]...`<br>e.g., `deleteTag t/quiet t/pet-friendly`
-
-### Preference Management
-
-Action | Format, Examples
----|---
-**Add Preference** | `addPreference INDEX lbp/LOWER_BOUND_PRICE ubp/UPPER_BOUND_PRICE [t/TAG]... [nt/NEW_TAG]...`<br>e.g., `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly`
-**Add Preference Tags** | `addPreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]... [nt/NEW_TAG]...`<br>e.g., `addPreferenceTag 2 1 t/gym nt/pool`
-**Overwrite Preference Tags** | `overwritePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]... [nt/NEW_TAG]...`<br>e.g., `overwritePreferenceTag 3 2 t/2-bedrooms nt/seaside-view`
-**Delete Preference** | `deletePreference PERSON_INDEX PREFERENCE_INDEX`<br>e.g., `deletePreference 1 2`
-**Delete Preference Tags** | `deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]...`<br>e.g., `deletePreferenceTag 3 1 t/pet-friendly`
-
-### Property Tag Management
-
-Action | Format, Examples
----|---
-**Add Listing Tags** | `addListingTag INDEX [t/TAG]... [nt/NEW_TAG]...`<br>e.g., `addListingTag 2 t/quiet t/pet-friendly`
-**Overwrite Listing Tags** | `overwriteListingTag LISTING_INDEX [t/TAG]... [nt/NEW_TAG]...`<br>e.g., `overwriteListingTag 3 t/4-bedrooms t/2-toilets`
-**Delete Listing Tags** | `deleteListingTag PROPERTY_INDEX [t/TAG]...`<br>e.g., `deleteListingTag 3 t/pet-friendly`
-
-### Matching System
-
-Action | Format, Examples
----|---
-**Match Person's Preference to Listings** | `matchPreference PERSON_INDEX PREFERENCE_INDEX`<br>e.g., `matchPreference 1 2`
-**Match Listing to Persons** | `matchListing INDEX`<br>e.g., `matchListing 1`
-
-### Owner Management
-
-Action | Format, Examples
----|---
-**Add Owner** | `addOwner PERSON_INDEX LISTING_INDEX`<br>e.g., `addOwner 2 1`
-**Delete Owner** | `deleteOwner LISTING_INDEX OWNER_INDEX`<br>e.g., `deleteOwner 1 2`
-
-### General Commands
-
-Action | Format, Examples
----|---
-**Help** | `help`
-**Clear** | `clear`
-**Exit** | `exit`
