@@ -402,7 +402,7 @@ Example:
 
 Result:
 * Before
-  <br>![markBefore](images/CS2103UG/markBefore.png)
+  <br>![markAvailableBefore](images/CS2103UG/markAvailableBefore.png)
 
 * After
   <br>![markAvailableAfter](images/CS2103UG/markAvailableAfter.png)
