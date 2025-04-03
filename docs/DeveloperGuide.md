@@ -138,7 +138,7 @@ The `Model` component,
 * stores the currently 'selected' `PropertyPreference` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<PropertyPreference>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores the currently 'selected' `Listing` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Listing>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores the currently 'selected' `Tag` objects (e.g., results of a search query) as a separate _filtered_ set which is exposed to outsiders as an unmodifiable `ObservableList<Tag>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 `Person`
@@ -517,6 +517,14 @@ Similar to <u>UC01</u> except for listings instead.
 
     Use case ends.
 
+**Extensions**
+
+* 1a. The list is empty.
+
+  * 1a1. MatchEstate displays a message for an empty list.
+
+    Use case resumes at 3.
+
 #### Use case: UC03 - List tag
 
 Similar to <u>UC01</u> except for tags instead.
@@ -528,6 +536,14 @@ Similar to <u>UC01</u> except for tags instead.
 3.  MatchEstate displays a success message.
 
     Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
+
+  * 1a1. MatchEstate displays a message for an empty list.
+
+    Use case resumes at 3.
 
 #### Use case: UC04 - Add a person
 
@@ -922,7 +938,7 @@ Similar to <u>UC08</u> but removes instead of adds. Note that tags are appropria
 
 1.  User requests to <u>list persons(UC01)</u>.
 2.  User requests to delete a property preference from a person.
-3.  MatchEstate updates the usage number of tags used by the person's property preferences.
+3.  MatchEstate updates the usage number of tags used by the person’s property preferences.
 4.  MatchEstate removes the property preference from the person.
 5.  MatchEstate displays a success message.
 
@@ -985,9 +1001,9 @@ Similar to <u>UC08</u> but removes instead of adds. Note that tags are appropria
 
 1.  User requests to <u>list persons(UC01)</u>.
 2.  User requests to delete a specific person by index.
-3.  MatchEstate updates the usage number of tags used by the person's property preferences.
-4.  MatchEstate deletes the person's property preferences.
-5.  MatchEstate deletes ownership of listing for all of the person's listing.
+3.  MatchEstate updates the usage number of tags used by the person’s property preferences.
+4.  MatchEstate deletes the person’s property preferences.
+5.  MatchEstate deletes ownership of listing for all of the person’s listing.
 6.  MatchEstate deletes the person.
 7.  MatchEstate displays a success message.
 
@@ -1455,14 +1471,14 @@ Similar to <u>UC27</u> except for a listing.
 7.  The user interface should be intuitive enough that non-tech savvy users can use it.
 8.  The application should respond to all user commands within 2 seconds under typical conditions.
 9.  All data changes should be automatically saved to prevent data loss in the event of an application crash or closure.
-10.  The application should fail gracefully in most cases. However, as the application is intended for a single offline user, malicious manipulations of the data file is not an anticipated behaviour. Therefore, handling corrupted data files is a 'good to have' and not in scope.
+10.  The application should fail gracefully in most cases. However, as the application is intended for a single offline user, malicious manipulations of the data file is not an anticipated behaviour. Therefore, handling corrupted data files is a ‘good to have’ and not in scope.
 
 ### Glossary
 
 * **Listing**: Entry of a property that is currently on the market. Contains property
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
 * **Owner**: A person associated with a listing to indicate they are selling the property. A listing can have multiple owners.
-* **PriceRange**: A model class representing a lower and upper bound for a listing's price.
+* **PriceRange**: A model class representing a lower and upper bound for a listing’s price.
 * **Property**: The physical real estate itself. Used interchangeably with Listing.
 * **Property Preference**: The type of property that people are looking to buy, based on price range and tags.
 * **Tag**: A category or label that can be associated with Listings or Preferences to describe attributes like "near MRT", "pet-friendly", etc.
