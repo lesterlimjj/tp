@@ -13,7 +13,7 @@ public class HouseNumber {
             "House number must be at most 3 characters long, "
                     + "consisting of only letters and numbers. The last character cannot be 'I' or 'O'.";
 
-    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9]{1,2}[a-zA-HJ-KL-NP-Z0-9]$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9]{1,2}([a-zA-HJ-KL-NP-Z0-9])?$";
 
     public final String houseNumber;
 
