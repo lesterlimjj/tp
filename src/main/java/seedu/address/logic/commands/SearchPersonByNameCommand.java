@@ -11,6 +11,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.search.predicates.NameContainsKeywordsPredicate;
 
 /**
  * Represents a command to that lists all {@code Person}(s) whose names match any of the given keyword(s).
@@ -46,8 +47,7 @@ public class SearchPersonByNameCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        Predicate<Person> personPredicate = person -> keywords.stream()
-                .anyMatch(keyword -> person.getName().fullName.toLowerCase().contains(keyword.toLowerCase()));
+        Predicate<Person> personPredicate = new NameContainsKeywordsPredicate(keywords);
 
         model.resetAllLists();
         model.updateFilteredPersonList(personPredicate);

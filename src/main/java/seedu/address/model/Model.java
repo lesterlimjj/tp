@@ -117,19 +117,9 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
-     */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
      * Returns an unmodifiable view of the sorted filtered person list
      */
     ObservableList<Person> getSortedFilteredPersonList();
-
-    /**
-     * Returns an unmodifiable view of the filtered listing list
-     */
-    ObservableList<Listing> getFilteredListingList();
 
     /**
      * Returns an unmodifiable view of the sorted filtered listing list
@@ -140,11 +130,6 @@ public interface Model {
      * Returns an unmodifiable view of the tag map
      */
     ObservableMap<String, Tag> getTagMap();
-
-    /**
-     * Returns an unmodifiable view of the filtered tag list
-     */
-    ObservableList<Tag> getFilteredTagList();
 
     /**
      * Returns an unmodifiable view of the sorted filtered tag list

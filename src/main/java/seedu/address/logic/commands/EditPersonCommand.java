@@ -76,7 +76,7 @@ public class EditPersonCommand extends Command {
         }
 
         updatePersonInListings(personToEdit, editedPerson, model);
-        updatePersonInPreferences(editedPerson, model);
+        updatePersonInPreferences(editedPerson);
         model.setPerson(personToEdit, editedPerson);
         model.resetAllLists();
 
@@ -107,7 +107,7 @@ public class EditPersonCommand extends Command {
         }
     }
 
-    private void updatePersonInPreferences(Person editedPerson, Model model) {
+    private void updatePersonInPreferences(Person editedPerson) {
         List<PropertyPreference> preferences = new ArrayList<>(editedPerson.getPropertyPreferences());
         for (PropertyPreference preference : preferences) {
             preference.setPerson(editedPerson);

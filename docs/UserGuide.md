@@ -6,7 +6,9 @@
 
 # MatchEstate User Guide
 
-MatchEstate is a desktop app for real estate agents to efficiently manage and track buyers and sellers. It is optimized for fast keyboard-based input, allowing real estate professionals to handle transactions quickly. If you can type fast, MatchEstate can get your management tasks done faster than traditional GUI apps.
+MatchEstate allows tracking of buyers and sellers easily as well as their preferences and offerings respectively. It enables fast matching of buyers and sellers. It is tailored for those who prefer CLIs.
+
+![matchEstate](images/CS2103UG/matchEstate.png)
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -24,7 +26,7 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar matchestate.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](images/CS2103UG/sampleData.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -103,7 +105,7 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 **Search Person by Tags** | Finds persons with property preferences containing all specified tag(s) |`searchPersonTag t/TAG...`
 **Delete Person**  | Deletes the specified person from matchEstate                |`deletePerson PERSON_INDEX`
 
-### Listing Management
+#### Listing Management
 
 | Command   | Description                                     | Usage |
 |-----------|-------------------------------------------------|-------|
@@ -115,7 +117,7 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 **Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable LISTING_INDEX`
 **Delete Listing** | Deletes the specified listing from matchEstate |`deletePerson LISTING_INDEX`
 
-### Tag Management
+#### Tag Management
 
 | Command   | Description                                   | Usage |
 |-----------|-----------------------------------------------|-------|
@@ -123,7 +125,7 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 **List Tags**  | Shows a list of all tags          |`listTag`
 **Delete Tags** | Deletes the specified tags from the system       |`deleteTag t/TAG...`
 
-### Preference Management
+#### Preference Management
 
 | Command   | Description                                   | Usage |
 |-----------|-----------------------------------------------|-------|
@@ -133,20 +135,20 @@ MatchEstate is a desktop app for real estate agents to efficiently manage and tr
 **Delete Preference**  | Deletes a person's property preference        |`deletePreference PERSON_INDEX PREFERENCE_INDEX`
 **Delete Preference Tags** | Deletes tags from a person's preference       |`deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX t/TAG...`
 
-### Listing Tag Management
+#### Listing Tag Management
 | Command   | Description                     | Usage |
 |-----------|---------------------------------|-------|
 **Add Listing Tags**  | Adds tags to a listing         |`addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Overwrite Listing Tags**  | Replaces all tags in a listing |`overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Delete Listing Tags** | Deletes tags from a listing    |`deleteListingTag LISTING_INDEX t/TAG...`
 
-### Matching System
+#### Matching System
 | Command   | Description                     | Usage |
 |-----------|---------------------------------|-------|
 **Match Person's Preference to Listings**  | Finds listings matching a person's preference        |`matchPreference PERSON_INDEX PREFERENCE_INDEX`
 **Match Listing to Persons**   | Finds persons whose preferences match a listing |`matchListing LISTING_INDEX`
 
-### Listing Owner Management
+#### Listing Owner Management
 | Command   | Description                          | Usage |
 |-----------|--------------------------------------|-------|
 **Add Owner**  | Adds a person as owner to a listing |`addOwner PERSON_INDEX LISTING_INDEX`
@@ -187,7 +189,7 @@ MatchEstate data is saved in the hard disk automatically after any command that 
 
 ### Editing the data file
 
-MatchEstate data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+MatchEstate data is saved automatically as a JSON file `[JAR file location]/data/matchestate.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -207,7 +209,7 @@ Format: `addPerson n/NAME p/PHONE e/EMAIL`
 Input restriction:
 * `NAME` must start with a letter. 
 * `NAME` must only contain 2-50 characters that allow spaces, hyphens, full stops, or apostrophes.
-* `PHONE` must be numeric and at least 3-15 digits.
+* `PHONE` must be between 1 to 15 digits. The digits can be prefixed with a `+` sign.
 * `EMAIL` must be in a valid format like `name@domain` or `name@domain.com`.
 
 Examples:
@@ -238,9 +240,7 @@ Edits an existing person in the matchEstate.
 Format: `editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 
 Input restriction:
-* `PERSON_INDEX` must be a positive integer.
-* Edits the person at the specified `PERSON_INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer.
-* At least one of the optional fields must be provided.
+* `PERSON_INDEX` must be a positive integer within the bounds of the person list.
 * `NAME` must start with a letter.
 * `NAME` must only contain letters, spaces, hyphens, full stops, or apostrophes.
 * `PHONE` must be numeric and at least 3-15 digits.
@@ -257,7 +257,7 @@ Result:
 <br>![editPersonAfter](images/CS2103UG/editPersonAfter.png)
 
 #### Searching persons by name: `searchPersonName`
-Finds persons whose names match any of the given keyword(s).
+Finds persons whose names match any of the given keyword(s). 
 
 Format: `searchPersonName KEYWORD [MORE_KEYWORDS]`
 
@@ -301,7 +301,7 @@ Deletes the specified person from matchEstate, along with their property prefere
 Format: `deletePerson PERSON_INDEX`
 
 Input restriction:
-* `PERSON_INDEX` must be a positive integer.
+* `PERSON_INDEX` must be a positive integer within the bounds of the person list.
 
 Examples:
 * `deletePerson 2` deletes the 2nd person in matchEstate.
@@ -324,10 +324,10 @@ Format: `addListing pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER)
 Input restriction:
 * `POSTAL_CODE` must be exactly 6 digits, where each digit must be between 0 and 9.
 * `UNIT_NUMBER` must be in the format of <optional B/R prefix><floor_number>-<apartment_number><optional_subunit> where the optional B/R represents basement or roof, the floor_number is 2 digits, the apartment number must be 2 to 5 digits, and subunit must be a capital letter.
-* This subunit letter cannot be I or O. 
-* A house number must not be specified with a unit number.
+* This subunit letter cannot be I or O.
 * `HOUSE_NUMBER` must be at most 3 characters long, consisting of only letters and numbers. The last character cannot be 'I' or 'O'.
-* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given, the lower bound price will be unbounded.
+* A house number must not be specified with a unit number.
+* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given for a price, the price will be unbounded.
 * `PROPERTY_NAME` must be between 2 and 100 characters long and can only contain letters, numbers, apostrophes, periods, hyphens, and spaces.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
@@ -379,7 +379,7 @@ Format: `searchOwnerListing PERSON_INDEX`
 
 Input restriction:
 * The search is case-insensitive.
-* `PERSON_INDEX` must be a positive integer.
+* `PERSON_INDEX` must be a positive integer within the bounds of person list.
 
 Example:
 * `searchOwnerListing 2`
@@ -397,7 +397,7 @@ Result:
 Format: `markAvailable LISTING_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` must be a positive integer.
+* `LISTING_INDEX` must be a positive integer within the bounds of listing list.
 
 Example:
 * `markAvailable 1`
@@ -416,7 +416,7 @@ Result:
 Format: `markUnavailable LISTING_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` must be a positive integer.
+* `LISTING_INDEX` must be a positive integer within the bounds of listing list.
 
 Example:
 * `markUnavailable 2`
@@ -435,7 +435,7 @@ Format: `deleteListing LISTING_INDEX`
 Format: `deleteListing LISTING_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` must be a positive integer.
+* `LISTING_INDEX` must be a positive integer within the bounds of listing list.
 
 Example:
 * `deleteListing 1`
@@ -505,8 +505,8 @@ Adds a property preference to a person.
 Format: `addPreference PERSON_INDEX [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [t/TAG]... [nt/NEW_TAG]...`
 
 Input restriction:
-* `PERSON_INDEX ` must be a positive integer.
-* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given, the lower bound price will be unbounded.
+* `PERSON_INDEX ` must be a positive integer within the bounds of person list.
+* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given for a price, the price will be unbounded.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 Format: `addPreference PERSON_INDEX lbp/LOWER_BOUND_PRICE ubp/UPPER_BOUND_PRICE [t/TAG]... [nt/NEW_TAG]...`
 
@@ -526,7 +526,7 @@ Adds tags to an existing preference.
 Format: `addPreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
+* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
@@ -545,7 +545,7 @@ Replaces all tags in an existing preference.
 Format: `overwritePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
+* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
@@ -564,7 +564,7 @@ Deletes a person's property preference.
 Format: `deletePreference PERSON_INDEX PREFERENCE_INDEX`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
+* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
 
 Example:
 * `deletePreference 2 1`
@@ -582,7 +582,7 @@ Deletes tags from a person's preference.
 Format: `deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX t/TAG...`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
+* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
@@ -603,7 +603,7 @@ Adds tags to a property listing.
 Format: `addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
-* `LISTING_INDEX` must be a positive integer.
+* `LISTING_INDEX` must be a positive integer within the bounds of the listings list.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
@@ -622,7 +622,7 @@ Replaces all tags in a listing.
 Format: `overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
-* `LISTING_INDEX` must be a positive integer.
+* `LISTING_INDEX` must be a positive integer within the bounds of the listings list.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
@@ -641,7 +641,7 @@ Deletes tags from a listing.
 Format: `deleteListingTag LISTING_INDEX t/TAG...`
 
 Input restriction:
-* `LISTING_INDEX ` must be a positive integer.
+* `LISTING_INDEX ` must be a positive integer within the bounds of the listings list.
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 
 Example:
@@ -666,7 +666,7 @@ Results are sorted in descending order based on the number of matching tags and 
 Format: `matchPreference PERSON_INDEX PREFERENCE_INDEX`
 
 Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer.
+* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer must be a positive integer within the bounds of the person list and that person's preference list respectively.
 
 Example:
 * `matchPreference 2 1`
@@ -689,7 +689,7 @@ Results are sorted in descending order based on the preference with the most mat
 Format: `matchListing LISTING_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` must be a positive integer.
+* `LISTING_INDEX` must be a positive integer within the bounds of the listing list.
 
 Example:
 * `matchListing 1`
@@ -710,7 +710,7 @@ Adds a person as owner to a listing.
 Format: `addOwner PERSON_INDEX LISTING_INDEX`
 
 Input restriction:
-* `PERSON_INDEX` and `LISTING_INDEX` must be a positive integer.
+* `PERSON_INDEX` and `LISTING_INDEX` must be a positive integer within the bounds of the person list and listing’s owner list respectively.
 
 Example:
 * `addOwner 2 1`
@@ -728,7 +728,7 @@ Removes an owner from a listing.
 Format: `deleteOwner LISTING_INDEX OWNER_INDEX`
 
 Input restriction:
-* `LISTING_INDEX` and `OWNER_INDEX` must be a positive integer.
+* `LISTING_INDEX` and `OWNER_INDEX` must be a positive integer within the bounds of the listing list and the listing’s owner list respectively.
 
 Example:
 * `deleteOwner 1 1`
@@ -745,13 +745,12 @@ Result:
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous matchEstate home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
