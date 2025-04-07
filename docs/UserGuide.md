@@ -248,7 +248,7 @@ Note on uniquely identifying Person:
 
 Examples:
 * `addPerson n/Betty Smith p/+6598274892 e/bettysmith@abc`
-* `addPerson n/Bob Parker p/934 e/bobparker@example.com`
+* `addPerson n/Bob Parker p/934 e/bobparker@bom-com`
 * `addPerson n/John Doe p/98765432 e/johnd@example.com`
 
 Result for `addPerson n/John Doe p/98765432 e/johnd@example.com`:
@@ -627,6 +627,7 @@ Input restriction:
 
 Example:
 * `overwritePreferenceTag 3 2 t/2-bedrooms`
+* `overwritePreferenceTag 3 2 nt/seaside-view`
 * `overwritePreferenceTag 2 1 nt/2-bedrooms nt/seaside-view`
 
 Result for `overwritePreferenceTag 2 1 nt/2-bedrooms nt/seaside-view`:
