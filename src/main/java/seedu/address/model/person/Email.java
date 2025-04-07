@@ -22,7 +22,7 @@ public class Email {
             + "separated by periods or hyphens.\n"
             + "The domain name must:\n"
             + "    - end with a domain label at least 2 characters long\n"
-            + "    - have each domain label start and end with alphanumeric characters\n";
+            + "    - each domain label must contain alphanumeric characters\n";
 
     // alphanumeric and special characters
     private static final String ALPHANUMERIC_NO_UNDERSCORE = "[^\\W_]+"; // alphanumeric characters except underscore
