@@ -322,8 +322,7 @@ Input restriction:
 * `KEYWORD` and `MORE_KEYWORDS` must contain only letters, hyphens, full stops, or apostrophes.
 * Every `KEYWORD` and `MORE_KEYWORDS` can only start with a letter.
 
-> ⚠️ **Note:** Each new search command will override the results of the previous search.  
-For example, if you perform a `searchListingTag` followed by another `searchOwnerListing`, only the results from the second `searchOwnerListing` will be applied to all data. The filters do not stack.
+> ⚠️ **Note:** Any command will override the results of the filter. However, the commands will act on the currently displayed index.
 
 Examples:
 * `searchPersonName John` returns persons with names matching "John".
@@ -347,8 +346,7 @@ Input restriction:
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. 
 * The tag cannot be blank and must already exist.
 
-> ⚠️ **Note:** Each new search command will override the results of the previous search.  
-For example, if you perform a `searchListingTag` followed by another `searchOwnerListing`, only the results from the second `searchOwnerListing` will be applied to all data. The filters do not stack.
+> ⚠️ **Note:** Any command will override the results of the filter. However, the commands will act on the currently displayed index.
 
 Example:
 * `searchPersonTag t/gym` returns all persons who have at least one property preference containing the `gym` tag
@@ -403,6 +401,7 @@ Example:
 * `addListing pc/654321 u/10-12`
 * `addListing pc/654321 h/12 lbp/300000 ubp/600000 n/Sunny Villa t/quiet t/pet-friendly nt/family-friendly nt/spacious`
 * `addListing pc/654321 u/10-12 lbp/30000 nt/spacious`
+* `addListing pc/777321 u/R10-12345C lbp/300000 ubp/600000 n/Quiet Vale nt/quiet`
 
 Result for `addListing pc/654321 h/12 lbp/300000 ubp/600000 n/Sunny Villa t/quiet t/pet-friendly nt/family-friendly nt/spacious`:
 * Before
@@ -433,8 +432,7 @@ Input restriction:
 * `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. 
 * The tag cannot be blank and must already exist.
 
-> ⚠️ **Note:** Each new search command will override the results of the previous search.  
-For example, if you perform a `searchListingTag` followed by another `searchOwnerListing`, only the results from the second `searchOwnerListing` will be applied to all data. The filters do not stack.
+> ⚠️ **Note:** Any command will override the results of the filter. However, the commands will act on the currently displayed index.
 
 Example:
 * `searchListingTag t/pet-friendly` 
@@ -456,8 +454,7 @@ Input restriction:
 * The search is case-insensitive.
 * `PERSON_INDEX` must be a positive integer within the bounds of person list.
 
-> ⚠️ **Note:** Each new search command will override the results of the previous search.  
-For example, if you perform a `searchListingTag` followed by another `searchOwnerListing`, only the results from the second `searchOwnerListing` will be applied to all data. The filters do not stack.
+> ⚠️ **Note:** Any command will override the results of the filter. However, the commands will act on the currently displayed index.
 
 Example:
 * `searchOwnerListing 2`
@@ -509,7 +506,6 @@ Result for `markUnavailable 2`:
 #### Deleting a listing: `deleteListing`
 Deletes the specified listing from MatchEstate.
 
-Format: `deleteListing LISTING_INDEX`
 Format: `deleteListing LISTING_INDEX`
 
 Input restriction:
@@ -628,11 +624,11 @@ Input restriction:
 * `NEW_TAG` tag cannot be blank and must not already exist.
 
 Example:
-* `overwritePreferenceTag 3 2 t/2-bedrooms`
+* `overwritePreferenceTag 3 2 t/2bed-rooms`
 * `overwritePreferenceTag 3 2 nt/seaside-view`
-* `overwritePreferenceTag 2 1 nt/2-bedrooms nt/seaside-view`
+* `overwritePreferenceTag 2 1 nt/2bed-rooms nt/seaside-view`
 
-Result for `overwritePreferenceTag 2 1 nt/2-bedrooms nt/seaside-view`:
+Result for `overwritePreferenceTag 2 1 nt/2bed-rooms nt/seaside-view`:
 * Before
 <br>![overwritePreferenceTagBefore](images/CS2103UG/overwritePreferenceTagBefore.png)
 
@@ -760,6 +756,8 @@ Format: `matchPreference PERSON_INDEX PREFERENCE_INDEX`
 Input restriction:
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer must be a positive integer within the bounds of the person list and that person's preference list respectively.
 
+> ⚠️ **Note:** Any command will override the results of the filter. However, the commands will act on the currently displayed index.
+
 Example:
 * `matchPreference 2 1`
 
@@ -784,6 +782,8 @@ Format: `matchListing LISTING_INDEX`
 
 Input restriction:
 * `LISTING_INDEX` must be a positive integer within the bounds of the listing list.
+
+> ⚠️ **Note:** Any command will override the results of the filter. However, the commands will act on the currently displayed index.
 
 Example:
 * `matchListing 1`
