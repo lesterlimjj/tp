@@ -759,6 +759,8 @@ Persons who owns the listing will not be shown.
 A match is determined by whether a person's property preference shares tags or has an overlapping price range with the listing.
 Results are sorted in descending order based on the preference with the most matching tags and price compatibility.
 
+Note: matchListing works for unavailable listings such that the users can still look for buyers while the listing is on hold
+
 Format: `matchListing LISTING_INDEX`
 
 Input restriction:

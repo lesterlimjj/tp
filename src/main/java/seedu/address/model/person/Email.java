@@ -49,11 +49,14 @@ public class Email {
      */
     public static boolean isValidEmail(String test) {
         String[] parts = test.split("@");
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
         String[] domainParts = parts[1].split("[.-]");
         if (domainParts[domainParts.length - 1].length() < 2) {
             return false;
         }
-        return test.matches(VALIDATION_REGEX);
+        return true;
     }
 
     @Override
