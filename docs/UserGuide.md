@@ -6,9 +6,7 @@
 
 # MatchEstate User Guide
 
-MatchEstate allows tracking of buyers and sellers easily as well as their preferences and offerings respectively. It enables fast matching of buyers and sellers. It is tailored for those who prefer CLIs.
-
-![matchEstate](images/CS2103UG/matchEstate.png)
+MatchEstate is a **desktop app for real estate agents to efficiently manage and track buyers and sellers. It is optimized for fast keyboard-based input, allowing real estate professionals to handle transactions quickly. If you can type fast, MatchEstate can get your management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -26,7 +24,7 @@ MatchEstate allows tracking of buyers and sellers easily as well as their prefer
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar matchestate.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/CS2103UG/sampleData.png)
+   ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -38,6 +36,8 @@ MatchEstate allows tracking of buyers and sellers easily as well as their prefer
     * `addPerson n/John Doe p/98765432 e/john@example.com` : Adds a person named `John Doe`.
 
     * `addTag nt/pool nt/near MRT` : Adds the tags `pool` and `near MRT`.
+
+    * `addListing pc/654321 u/10-12 lbp/1000000 ubp/2000000 n/Sunny Villa nt/big` : Adds a listing with postal code `654321`, unit number `10-12`, price range `$1000000 - $2000000`, name `Sunny Villa` and tag `big` .
 
     * `deletePerson 3` : Deletes the 3rd person shown in the current persons list.
 
@@ -55,31 +55,41 @@ MatchEstate allows tracking of buyers and sellers easily as well as their prefer
 
 <box type="info" seamless>
 
+
 **Notes about the command format:**<br>
+
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
+
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+
 
 * Items in brackets are mutually exclusive.<br>
   e.g. `pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER)` can be used as `pc/654321 u/12-111` or as `pc/654321 h/12` but not both.
 
+
 * Items with `…`​ after them can be used multiple times but at least one time.<br>
   e.g. `t/TAG…​` can be used as `t/friend`, `t/friend t/family` etc.
+
 
 * Items in square brackets with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
+
 * Items in square brackets with a {num} after them, groups 2 or more prefixes in the command which requires at least 1 prefix from the group to be present.<br>
   e.g. `[t/TAG]{1}... [nt/NEW_TAG]{1}...` can be used as `nt/friend`, `t/family`, `t/family nt/friend` but not ` `.
+
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
+
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
@@ -96,16 +106,16 @@ MatchEstate allows tracking of buyers and sellers easily as well as their prefer
 
 #### Person Management
 
-| Command   | Description                                                       | Usage |
-|-----------|-------------------------------------------------------------------|-------|
-**Add Person** | Adds a person to matchEstate.                                    |`addPerson n/NAME p/PHONE e/EMAIL`
+| Command   | Description                                                        | Usage |
+|-----------|--------------------------------------------------------------------|-------|
+**Add Person** | Adds a person to matchEstate.                                     |`addPerson n/NAME p/PHONE e/EMAIL`
 **List Persons** | Shows a list of all persons in matchEstate                   |`listPerson`
 **Edit Person** | Edits an existing person in matchEstate                      |`editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
-**Search Person by Name** | Finds persons whose names match the given keyword(s)             |`searchPersonName KEYWORD [MORE_KEYWORDS]`
+**Search Person by Name** | Finds persons whose names match the given keyword(s)              |`searchPersonName KEYWORD [MORE_KEYWORDS]`
 **Search Person by Tags** | Finds persons with property preferences containing all specified tag(s) |`searchPersonTag t/TAG...`
-**Delete Person**  | Deletes the specified person from matchEstate                |`deletePerson PERSON_INDEX`
+**Delete Person**  | Deletes the specified person from the matchEstate                |`deletePerson PERSON_INDEX`
 
-#### Listing Management
+### Listing Management
 
 | Command   | Description                                     | Usage |
 |-----------|-------------------------------------------------|-------|
@@ -117,7 +127,7 @@ MatchEstate allows tracking of buyers and sellers easily as well as their prefer
 **Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable LISTING_INDEX`
 **Delete Listing** | Deletes the specified listing from matchEstate |`deletePerson LISTING_INDEX`
 
-#### Tag Management
+### Tag Management
 
 | Command   | Description                                   | Usage |
 |-----------|-----------------------------------------------|-------|
@@ -125,7 +135,7 @@ MatchEstate allows tracking of buyers and sellers easily as well as their prefer
 **List Tags**  | Shows a list of all tags          |`listTag`
 **Delete Tags** | Deletes the specified tags from the system       |`deleteTag t/TAG...`
 
-#### Preference Management
+### Preference Management
 
 | Command   | Description                                   | Usage |
 |-----------|-----------------------------------------------|-------|
@@ -135,20 +145,20 @@ MatchEstate allows tracking of buyers and sellers easily as well as their prefer
 **Delete Preference**  | Deletes a person's property preference        |`deletePreference PERSON_INDEX PREFERENCE_INDEX`
 **Delete Preference Tags** | Deletes tags from a person's preference       |`deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX t/TAG...`
 
-#### Listing Tag Management
+### Listing Tag Management
 | Command   | Description                     | Usage |
 |-----------|---------------------------------|-------|
 **Add Listing Tags**  | Adds tags to a listing         |`addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Overwrite Listing Tags**  | Replaces all tags in a listing |`overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 **Delete Listing Tags** | Deletes tags from a listing    |`deleteListingTag LISTING_INDEX t/TAG...`
 
-#### Matching System
+### Matching System
 | Command   | Description                     | Usage |
 |-----------|---------------------------------|-------|
 **Match Person's Preference to Listings**  | Finds listings matching a person's preference        |`matchPreference PERSON_INDEX PREFERENCE_INDEX`
 **Match Listing to Persons**   | Finds persons whose preferences match a listing |`matchListing LISTING_INDEX`
 
-#### Listing Owner Management
+### Listing Owner Management
 | Command   | Description                          | Usage |
 |-----------|--------------------------------------|-------|
 **Add Owner**  | Adds a person as owner to a listing |`addOwner PERSON_INDEX LISTING_INDEX`
@@ -171,13 +181,6 @@ Clears all entries from the address book.
 
 Format: `clear`
 
-Result:
-* Before
-<br>![clearBefore](images/CS2103UG/clearBefore.png)
-
-* After
-<br>![clearAfter](images/CS2103UG/clearAfter.png)
-
 #### Exiting the program: `exit`
 Exits the program.
 
@@ -189,7 +192,7 @@ MatchEstate data is saved in the hard disk automatically after any command that 
 
 ### Editing the data file
 
-MatchEstate data is saved automatically as a JSON file `[JAR file location]/data/matchestate.json`. Advanced users are welcome to update data directly by editing that data file.
+MatchEstate data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -202,555 +205,279 @@ Furthermore, certain edits can cause the MatchEstate to behave in unexpected way
 ### Person Management
 
 #### Adding a person: `addPerson`
-Adds a person to matchEstate .
+Adds a person to the address book.
 
 Format: `addPerson n/NAME p/PHONE e/EMAIL`
 
-Input restriction:
-* `NAME` must start with a letter. 
-* `NAME` must only contain 2-50 characters that allow spaces, hyphens, full stops, or apostrophes.
-* `PHONE` must be between 1 to 15 digits. The digits can be prefixed with a `+` sign.
-* `EMAIL` must be in a valid format like `name@domain` or `name@domain.com`.
-
 Examples:
 * `addPerson n/John Doe p/98765432 e/johnd@example.com`
-
-Result:
-* Before
-<br>![addPersonBefore](images/CS2103UG/addPersonBefore.png)
-
-* After
-<br>![addPersonAfter](images/CS2103UG/addPersonAfter.png)
+* `addPerson n/Betty Smith p/+6598274892 e/bettysmith@abc`
+* `addPerson n/Bob Parker p/934 e/bobparker@example.com`
 
 #### Listing all persons: `listPerson`
-Shows a list of all persons in the matchEstate .
+Shows a list of all persons in the address book.
 
 Format: `listPerson`
 
-Result:
-* Before
-<br>![listPersonBefore](images/CS2103UG/listPersonBefore.png)
-
-* After
-<br>![listPersonAfter](images/CS2103UG/listPersonAfter.png)
-
 #### Editing a person: `editPerson`
-Edits an existing person in the matchEstate.
+Edits an existing person in the address book.
 
 Format: `editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 
-Input restriction:
-* `PERSON_INDEX` must be a positive integer within the bounds of the person list.
-* `NAME` must start with a letter.
-* `NAME` must only contain letters, spaces, hyphens, full stops, or apostrophes.
-* `PHONE` must be numeric and at least 3-15 digits.
-* `EMAIL` must be in a valid format like `name@example` or `name@example.com`.
+* Edits the person at the specified `PERSON_INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
 
 Examples:
-* `editPerson 2 p/91234567 e/johndoe@example.com` edits the phone number and email address of the 2nd person.
-
-Result:
-* Before
-<br>![editPersonBefore](images/CS2103UG/editPersonBefore.png)
-
-* After
-<br>![editPersonAfter](images/CS2103UG/editPersonAfter.png)
+* `editPerson 1 n/Betty Smith` Edits the name of the 1st person.
+* `editPerson 2 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 2nd person.
+* `editPerson 3 n/Bob Parker p/+6581008383 e/bobparker@example.com` Edits the name, phone number and email address of the 3rd person.
 
 #### Searching persons by name: `searchPersonName`
-Finds persons whose names match any of the given keyword(s). 
+Finds persons whose names match the given keyword(s).
 
 Format: `searchPersonName KEYWORD [MORE_KEYWORDS]`
 
-Input restriction:
 * The search is case-insensitive.
-* `KEYWORD` and `MORE_KEYWORDS` must contain only letters, spaces, hyphens, full stops, or apostrophes.
-* Every `KEYWORD` and `MORE_KEYWORDS` can only start with a letter.
+* Keywords must contain only letters, spaces, hyphens, full stops, or apostrophes.
+* Every keyword can only start with a letter.
 
 Examples:
-* `searchPersonName John Doe` returns persons with names matching "John" or "Doe"
+* `searchPersonName John` returns persons with names matching "John".
+* `searchPersonName John Doe` returns persons with names matching "John" or "Doe".
+* `searchPersonName John Doe Bob` returns persons with names matching "John", "Doe" or "Bob".
 
-Result:
-* Before
-<br>![searchPersonNameBefore](images/CS2103UG/searchPersonNameBefore.png)
+#### Searching persons by preferences: `searchPersonTag`
+Finds persons with at least one property preference containing all specified tags.
 
-* After
-<br>![searchPersonNameAfter](images/CS2103UG/searchPersonNameAfter.png)
-
-#### Searching persons by tags: `searchPersonTag`
-Finds persons with property preferences containing all specified tags.
-
-Format: `searchPersonTag t/TAG...`
-
-Input restriction:
-* The search is case-insensitive.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `searchPersonTag t/TAG [t/TAG]...`
 
 Example:
-* `searchPersonTag t/gym t/pet-friendly` returns all persons who have both `gym` and `pet-friendly` tags.
-
-Result:
-* Before
-<br>![searchPersonTagBefore](images/CS2103UG/searchPersonTagBefore.png)
-
-* After
-<br>![searchPersonTagAfter](images/CS2103UG/searchPersonTagAfter.png)
+* `searchPersonTag t/gym` returns all persons who have at least one property preference containing the `gym` tag
+* `searchPersonTag t/gym t/pet-friendly` returns all persons who have at least one property preference containing both `gym` and `pet-friendly` tags.
 
 #### Deleting a person: `deletePerson`
-Deletes the specified person from matchEstate, along with their property preferences and ownerships of listing.
+Deletes the specified person from the address book.
 
 Format: `deletePerson PERSON_INDEX`
 
-Input restriction:
-* `PERSON_INDEX` must be a positive integer within the bounds of the person list.
+* Deletes the person at the specified `PERSON_INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index must be a positive integer.
 
 Examples:
-* `deletePerson 2` deletes the 2nd person in matchEstate.
-
-Result:
-* Before
-<br>![deletePersonBefore](images/CS2103UG/deletePersonBefore.png)
-
-* After
-<br>![deletePersonAfter](images/CS2103UG/deletePersonAfter.png)
+* `deletePerson 2` deletes the 2nd person in the address book.
 
 ### Listing Management
 
 #### Adding a listing: `addListing`
-Adds a property listing to matchEstate.
+Adds a property listing to the address book.
 
 Format: `addListing pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER)
-[lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [n/PROPERTY_NAME] [t/TAG]... [nt/NEW_TAG]...`
-
-Input restriction:
-* `POSTAL_CODE` must be exactly 6 digits, where each digit must be between 0 and 9.
-* `UNIT_NUMBER` must be in the format of <optional B/R prefix><floor_number>-<apartment_number><optional_subunit> where the optional B/R represents basement or roof, the floor_number is 2 digits, the apartment number must be 2 to 5 digits, and subunit must be a capital letter.
-* This subunit letter cannot be I or O.
-* `HOUSE_NUMBER` must be at most 3 characters long, consisting of only letters and numbers. The last character cannot be 'I' or 'O'.
-* A house number must not be specified with a unit number.
-* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given for a price, the price will be unbounded.
-* `PROPERTY_NAME` must be between 2 and 100 characters long and can only contain letters, numbers, apostrophes, periods, hyphens, and spaces.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+ [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [n/PROPERTY_NAME] [t/TAG]... [nt/NEW_TAG]...`
 
 Example:
+* `addListing pc/654321 u/10-12`
 * `addListing pc/654321 h/12 lbp/300000 ubp/600000 n/Sunny Villa t/quiet t/pet-friendly nt/family-friendly nt/spacious`
-
-Result:
-* Before
-<br>![addListingBefore](images/CS2103UG/addListingBefore.png)
-
-* After
-<br>![addListingAfter](images/CS2103UG/addListingAfter.png)
+* `addListing pc/654321 u/10-12 lbp/30000 nt/spacious`
 
 #### Listing all properties: `listListing`
 Shows a list of all property listings.
 
 Format: `listListing`
 
-Result:
-* Before
-<br>![listListingBefore](images/CS2103UG/listListingBefore.png)
-
-* After
-<br>![listListingAfter](images/CS2103UG/listListingAfter.png)
-
-#### Searching listings by tags: `searchListingTag`
+#### Searching properties by tags: `searchListingTag`
 Finds properties with all specified tags.
 
-Format: `searchListingTag t/TAG...`
-
-Input restriction:
-* The search is case-insensitive.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `searchListingTag t/TAG [t/TAG]...`
 
 Example:
+* `searchListingTag t/pet-friendly` 
 * `searchListingTag t/pet-friendly t/pool`
 
-Result:
-* Before
-<br>![searchListingTagBefore](images/CS2103UG/searchListingTagBefore.png)
-
-* After
-<br>![searchListingTagAfter](images/CS2103UG/searchListingTagAfter.png)
-
-#### Searching owner’s listings: `searchOwnerListing`
+#### Searching owner properties: `searchOwnerListing`
 Finds properties owned by a specific person.
 
 Format: `searchOwnerListing PERSON_INDEX`
 
-Input restriction:
-* The search is case-insensitive.
-* `PERSON_INDEX` must be a positive integer within the bounds of person list.
-
 Example:
-* `searchOwnerListing 2`
+* `searchOwnerListing 1`
 
-Result:
-* Before
-<br>![searchOwnerListingBefore](images/CS2103UG/searchOwnerListingBefore.png)
-
-* After
-<br>![searchOwnerListingAfter](images/CS2103UG/searchOwnerListingAfter.png)
-
-#### Marking listing availability: `markAvailable`
+#### Marking listing availability:
 - `markAvailable`: Marks listing as available
+- `markUnavailable`: Marks listing as unavailable
 
-Format: `markAvailable LISTING_INDEX`
+Format: `markAvailable LISTING_INDEX` or `markUnavailable LISTING_INDEX`
 
-Input restriction:
-* `LISTING_INDEX` must be a positive integer within the bounds of listing list.
+Listings marked as unavailable will not be matched to any person.
 
 Example:
 * `markAvailable 1`
-
-Result:
-* Before
-  <br>![markAvailableBefore](images/CS2103UG/markAvailableBefore.png)
-
-* After
-  <br>![markAvailableAfter](images/CS2103UG/markAvailableAfter.png)
-
-#### Marking listing unavailability: `markUnavailable`
-- `markUnavailable`: Marks listing as unavailable
-- Listings marked as unavailable will not be matched to any person.
-
-Format: `markUnavailable LISTING_INDEX`
-
-Input restriction:
-* `LISTING_INDEX` must be a positive integer within the bounds of listing list.
-
-Example:
 * `markUnavailable 2`
 
-Result:
-* Before
-<br>![markBefore](images/CS2103UG/markBefore.png)
-
-* After
-<br>![markUnavailableAfter](images/CS2103UG/markUnavailableAfter.png)
-
 #### Deleting a listing: `deleteListing`
-Deletes the specified listing from matchEstate.
+Deletes the specified listing from the address book.
 
 Format: `deleteListing LISTING_INDEX`
-Format: `deleteListing LISTING_INDEX`
-
-Input restriction:
-* `LISTING_INDEX` must be a positive integer within the bounds of listing list.
 
 Example:
 * `deleteListing 1`
-
-Result:
-* Before
-<br>![deleteListingBefore](images/CS2103UG/deleteListingBefore.png)
-
-* After
-<br>![deleteListingAfter](images/CS2103UG/deleteListingAfter.png)
 
 ### Tag Management
 
 #### Adding tags: `addTag`
 Adds new tags to the system.
 
-Format: `addTag nt/NEW_TAG...`
-
-Input restriction:
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `addTag [nt/NEW_TAG]...`
 
 Example:
-* `addTag nt/elderly-friendly nt/vintage`
-
-Result:
-* Before
-<br>![addTagBefore](images/CS2103UG/addTagBefore.png)
-
-* After
-<br>![addTagAfter](images/CS2103UG/addTagAfter.png)
+* `addTag nt/family-friendly`
+* `addTag nt/family-friendly nt/spacious`
 
 #### Listing all tags: `listTag`
 Shows a list of all available tags.
 
 Format: `listTag`
 
-Result:
-* Before
-<br>![listTagBefore](images/CS2103UG/listTagBefore.png)
-
-* After
-<br>![listTagAfter](images/CS2103UG/listTagAfter.png)
-
 #### Deleting tags: `deleteTag`
 Deletes the specified tags from the system.
 
-Format: `deleteTag t/TAG...`
-
-Input restriction:
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `deleteTag [t/TAG]...`
 
 Example:
+* `deleteTag t/quiet`
 * `deleteTag t/quiet t/pet-friendly`
-
-Result:
-* Before
-<br>![deleteTagBefore](images/CS2103UG/deleteTagBefore.png)
-
-* After
-<br>![deleteTagAfter](images/CS2103UG/deleteTagAfter.png)
 
 ### Preference Management
 
 #### Adding a preference: `addPreference`
 Adds a property preference to a person.
 
-Format: `addPreference PERSON_INDEX [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [t/TAG]... [nt/NEW_TAG]...`
-
-Input restriction:
-* `PERSON_INDEX ` must be a positive integer within the bounds of person list.
-* `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given for a price, the price will be unbounded.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
 Format: `addPreference PERSON_INDEX lbp/LOWER_BOUND_PRICE ubp/UPPER_BOUND_PRICE [t/TAG]... [nt/NEW_TAG]...`
 
 Example:
+* `addPreference 1`
 * `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
-
-Result:
-* Before
-<br>![addPreferenceBefore](images/CS2103UG/addPreferenceBefore.png)
-
-* After
-<br>![addPreferenceAfter](images/CS2103UG/addPreferenceAfter.png)
+* `addPreference 1 ubp/600000`
 
 #### Adding tags to a preference: `addPreferenceTag`
 Adds tags to an existing preference.
 
-Format: `addPreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
-
-Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `addPreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]... [nt/NEW_TAG]...`
 
 Example:
-* `addPreferenceTag 1 1 t/quiet t/pet-friendly t/cool`
-
-Result:
-* Before
-<br>![addPreferenceTagBefore](images/CS2103UG/addPreferenceTagBefore.png)
-
-* After
-<br>![addPreferenceTagAfter](images/CS2103UG/addPreferenceTagAfter.png)
+* `addPreferenceTag 2 1 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
+* `addPreferenceTag 2 1 t/quiet`
+* `addPreferenceTag 2 1 nt/family-friendly`
 
 #### Overwriting preference tags: `overwritePreferenceTag`
 Replaces all tags in an existing preference.
 
-Format: `overwritePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
-
-Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `overwritePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]... [nt/NEW_TAG]...`
 
 Example:
-* `overwritePreferenceTag 2 1 nt/2-bedrooms nt/seaside-view`
-
-Result:
-* Before
-<br>![overwritePreferenceTagBefore](images/CS2103UG/overwritePreferenceTagBefore.png)
-
-* After
-<br>![overwritePreferenceTagAfter](images/CS2103UG/overwritePreferenceTagAfter.png)
+* `overwritePreferenceTag 3 2 t/2-bedrooms`
+* `overwritePreferenceTag 3 2 t/2-bedrooms nt/seaside-view`
 
 #### Deleting a preference: `deletePreference`
 Deletes a person's property preference.
 
 Format: `deletePreference PERSON_INDEX PREFERENCE_INDEX`
 
-Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
-
 Example:
-* `deletePreference 2 1`
-
-Result:
-* Before
-<br>![deletePreferenceBefore](images/CS2103UG/deletePreferenceBefore.png)
-
-* After
-<br>![deletePreferenceAfter](images/CS2103UG/deletePreferenceAfter.png)
+* `deletePreference 1 2`
 
 #### Deleting preference tags: `deletePreferenceTag`
 Deletes tags from a person's preference.
 
-Format: `deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX t/TAG...`
-
-Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]...`
 
 Example:
-* `deletePreferenceTag 3 1 t/quiet t/cool`
+* `deletePreferenceTag 3 1 t/pet-friendly`
+* `deletePreferenceTag 3 1 t/pet-friendly t/pool`
 
-Result:
-* Before
-<br>![deletePreferenceTagBefore](images/CS2103UG/deletePreferenceTagBefore.png)
-
-* After
-<br>![deletePreferenceTagAfter](images/CS2103UG/deletePreferenceTagAfter.png)
-
-### Listings’ Tag Management
+### Property Tag Management
 
 #### Adding tags to listing: `addListingTag`
 Adds tags to a property listing.
 
-Format: `addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
-
-Input restriction:
-* `LISTING_INDEX` must be a positive integer within the bounds of the listings list.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `addListingTag LISTING_INDEX [t/TAG]... [nt/NEW_TAG]...`
 
 Example:
-* `addListingTag 2 t/quiet t/pet-friendly nt/spacious`
+* `addListingTag 2 t/quiet`
+* `addListingTag 2 t/quiet nt/family-friendly`
+* `addListingTag 2 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
 
-Result:
-* Before
-<br>![addListingTagBefore](images/CS2103UG/addListingTagBefore.png)
+#### Overwriting property tags: `overwriteListingTag`
+Replaces all tags in a property listing.
 
-* After
-<br>![addListingTagAfter](images/CS2103UG/addListingTagAfter.png)
-
-#### Overwriting Listing Tags: `overwriteListingTag`
-Replaces all tags in a listing.
-
-Format: `overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
-
-Input restriction:
-* `LISTING_INDEX` must be a positive integer within the bounds of the listings list.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `overwriteListingTag LISTING_INDEX [t/TAG]... [nt/NEW_TAG]...`
 
 Example:
-* `overwriteListingTag 2 nt/4-bedrooms nt/2-toilets nt/seaside-view`
+* `overwriteListingTag 3 t/4-bedrooms`
+* `overwriteListingTag 3 nt/seaside-view`
+* `overwriteListingTag 3 t/4-bedrooms t/2-toilets nt/seaside-view`
 
-Result:
-* Before
-<br>![overwriteListingTagBefore](images/CS2103UG/overwriteListingTagBefore.png)
+#### Deleting property tags: `deleteListingTag`
+Deletes tags from a property.
 
-* After
-<br>![overwriteListingTagAfter](images/CS2103UG/overwriteListingTagAfter.png)
-
-#### Delete Listing Tags: `deleteListingTag`
-Deletes tags from a listing.
-
-Format: `deleteListingTag LISTING_INDEX t/TAG...`
-
-Input restriction:
-* `LISTING_INDEX ` must be a positive integer within the bounds of the listings list.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+Format: `deleteListingTag PROPERTY_INDEX [t/TAG]...`
 
 Example:
-* `deleteListingTag 2 t/pet-friendly t/pool`
-
-Result:
-* Before
-<br>![deleteListingTagBefore](images/CS2103UG/deleteListingTagBefore.png)
-
-* After
-<br>![deleteListingTag](images/CS2103UG/deleteListingTagAfter.png)
+* `deleteListingTag 3 t/pet-friendly`
+* `deleteListingTag 3 t/pet-friendly t/pool`
 
 ### Matching System
 
 #### Matching person's preference to listings: `matchPreference`
 Finds listings matching a person's preference.
-The tags and compatible prices of the listing will be highlighted.
-Listings that the person owns or that are marked as unavailable will not be shown.
-A match is determined by whether a listing has overlapping tags or price range with the specified property preference.
-Results are sorted in descending order based on the number of matching tags and price compatibility.
 
 Format: `matchPreference PERSON_INDEX PREFERENCE_INDEX`
 
-Input restriction:
-* `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer must be a positive integer within the bounds of the person list and that person's preference list respectively.
-
 Example:
-* `matchPreference 2 1`
+* `matchPreference 1 2`
 
-Result:
-* Before
-<br>![matchPreferenceBefore](images/CS2103UG/matchPreferenceBefore.png)
-
-* After
-<br> Finds listings matching a person's preference.
-<br>![matchPreferenceAfter](images/CS2103UG/matchPreferenceAfter.png)
+Listings that are marked as unavailable or owned by the person will not be shown.
 
 #### Matching listings to persons: `matchListing`
 Finds persons whose preferences match a listing.
-The tags and compatible prices of the person's preferences will be highlighted.
-Persons who owns the listing will not be shown.
-A match is determined by whether a person's property preference shares tags or has an overlapping price range with the listing.
-Results are sorted in descending order based on the preference with the most matching tags and price compatibility.
 
 Format: `matchListing LISTING_INDEX`
-
-Input restriction:
-* `LISTING_INDEX` must be a positive integer within the bounds of the listing list.
 
 Example:
 * `matchListing 1`
 
-Result:
-* Before
-<br>![matchListingBefore](images/CS2103UG/matchListingBefore.png)
-
-* After
-<br>Find persons whose preferences match a listing.
-<br>![matchListingAfter](images/CS2103UG/matchListingAfter.png)
-
-### Listings’ Owner Management
+### Owner Management
 
 #### Assigning an owner to a listing: `addOwner`
-Adds a person as owner to a listing.
+Assigns a person as owner to a listing.
 
 Format: `addOwner PERSON_INDEX LISTING_INDEX`
 
-Input restriction:
-* `PERSON_INDEX` and `LISTING_INDEX` must be a positive integer within the bounds of the person list and listing’s owner list respectively.
-
 Example:
 * `addOwner 2 1`
-
-Result:
-* Before
-<br>![addOwnerBefore](images/CS2103UG/addOwnerBefore.png)
-
-* After
-<br>![addOwnerAfter](images/CS2103UG/addOwnerAfter.png)
 
 #### Deleting an owner: `deleteOwner`
 Removes an owner from a listing.
 
 Format: `deleteOwner LISTING_INDEX OWNER_INDEX`
 
-Input restriction:
-* `LISTING_INDEX` and `OWNER_INDEX` must be a positive integer within the bounds of the listing list and the listing’s owner list respectively.
-
 Example:
-* `deleteOwner 1 1`
+* `deleteOwner 1 2`
 
-Result:
-* Before
-<br>![deleteOwnerBefore](images/CS2103UG/deleteOwnerBefore.png)
-
-* After
-<br>![deleteOwnerAfter](images/CS2103UG/deleteOwnerAfter.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous matchEstate home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
