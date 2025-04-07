@@ -368,12 +368,20 @@ The edit listing command allows users to edit the details of an existing listing
 
 The edit operation will update the listing's details while maintaining its existing tags, owners and availability status. The system can ensure that no duplicate listings can be created through this command by checking the postal code and unit/house number combination.
 
+### \[Proposed\] Edit Preference command
+The edit preference command allows users to edit the details of an existing preference. This command is useful when users want to update information such as price range or tags of a preference. The following sequence diagram shows how the merge tag command works:
+
+<puml src="diagrams/EditPreferenceSequenceDiagram.puml" alt="EditPreferenceSequenceDiagram" />
+
+The associated Person and tags will be updated to reflect the new preference details.
+
 ### \[Proposed\] Merge tag command
 The merge tag command allows users to merge an existing tag into another existing tag. This command is useful when users want to merge two similarly named tags. One consideration is to subsume this proposal into the proposed edit tag command, however this results in the possibility of users accidentally merging two distinct tags, when they intended to rename if a tag does not exist. The following sequence diagram shows how the merge tag command works:
 
 <puml src="diagrams/MergeTagSequenceDiagram.puml" alt="MergeTagSequenceDiagram" />
 
 The associated Listings and PropertyPreferences from the tag that was merged from will also be merged into the other existing tag.
+
 
 ## Enhancements still in consideration:
 These are features still in consideration about whether to be implemented.
