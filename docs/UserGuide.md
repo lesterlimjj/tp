@@ -4,11 +4,11 @@
   pageNav: 3
 ---
 
-# matchEstate User Guide
+# MatchEstate User Guide
 
-**matchEstate** is a desktop application tailored for **real estate agents** to efficiently manage their clients — whether they are buyers, sellers, or both. matchEstate enables fast matching of buyers to suitable listings and vice versa. While it features a graphical interface, the app is optimized for users who prefer fast keyboard-based interactions using a Command Line Interface (CLI).
+**MatchEstate** is a desktop application tailored for **real estate agents** to efficiently manage their clients — whether they are buyers, sellers, or both. MatchEstate enables fast matching of buyers to suitable listings and vice versa. While it features a graphical interface, the app is optimized for users who prefer fast keyboard-based interactions using a Command Line Interface (CLI).
 
-matchEstate classifies contacts into two main roles:
+MatchEstate classifies contacts into two main roles:
 
 **Buyers** are clients looking to purchase a property. They typically have a set of criteria such as budget, location, property type (e.g., HDB, Condo), or features like “near MRT” or “near schools”.
 - These are captured in property preferences — each containing a price range and a list of tags representing specific requirements.
@@ -20,7 +20,7 @@ matchEstate classifies contacts into two main roles:
 - To associate a listing with a seller, agents can simply add the listing to a person, establishing ownership.
 
 #### Automatic Classification:
-matchEstate automatically classifies people based on their data:
+MatchEstate automatically classifies people based on their data:
 - A person is a buyer if they have at least one property preference.
 - A person is a seller if they have at least one listing.
 
@@ -108,31 +108,31 @@ matchEstate automatically classifies people based on their data:
 | Command   | Description                                             | Usage |
 |-----------|---------------------------------------------------------|-------|
 **Help** | Displays all command usage on a second window |`help`
-**Clear** | Clears all entries from the matchEstate                 |`clear`
+**Clear** | Clears all entries from the MatchEstate                 |`clear`
 **Exit** | Exits the program                                       |`exit`
 
 #### Person Management
 
 | Command   | Description                                                       | Usage |
 |-----------|-------------------------------------------------------------------|-------|
-**Add Person** | Adds a person to matchEstate.                                    |`addPerson n/NAME p/PHONE e/EMAIL`
-**List Persons** | Shows a list of all persons in matchEstate                   |`listPerson`
-**Edit Person** | Edits an existing person in matchEstate                      |`editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
+**Add Person** | Adds a person to MatchEstate.                                    |`addPerson n/NAME p/PHONE e/EMAIL`
+**List Persons** | Shows a list of all persons in MatchEstate                   |`listPerson`
+**Edit Person** | Edits an existing person in MatchEstate                      |`editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 **Search Person by Name** | Finds persons whose names match the given keyword(s)             |`searchPersonName KEYWORD [MORE_KEYWORDS]`
 **Search Person by Tags** | Finds persons with property preferences containing all specified tag(s) |`searchPersonTag t/TAG...`
-**Delete Person**  | Deletes the specified person from matchEstate                |`deletePerson PERSON_INDEX`
+**Delete Person**  | Deletes the specified person from MatchEstate                |`deletePerson PERSON_INDEX`
 
 #### Listing Management
 
 | Command   | Description                                     | Usage |
 |-----------|-------------------------------------------------|-------|
-**Add Listing** | Adds a listing to matchEstate.             |`addListing pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER) [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [n/PROPERTY_NAME] [t/TAG]... [nt/NEW_TAG]...`
+**Add Listing** | Adds a listing to MatchEstate.             |`addListing pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER) [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [n/PROPERTY_NAME] [t/TAG]... [nt/NEW_TAG]...`
 **List Listings** | Shows a list of all property listings          |`listListing`
 **Search Listings by Tags** | Finds listings with all specified tags         |`searchListingTag t/TAG...`
 **Search Owner’s Listings**  | Finds listings owned by a specific person      |`searchOwnerListing PERSON_INDEX`
 **Mark Available**| Marks Listing as available                     |`markAvailable LISTING_INDEX`
 **Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable LISTING_INDEX`
-**Delete Listing** | Deletes the specified listing from matchEstate |`deleteListing LISTING_INDEX`
+**Delete Listing** | Deletes the specified listing from MatchEstate |`deleteListing LISTING_INDEX`
 
 #### Tag Management
 
@@ -218,7 +218,7 @@ Furthermore, certain edits can cause the MatchEstate to behave in unexpected way
 ### Person Management
 
 #### Adding a person: `addPerson`
-Adds a person to matchEstate .
+Adds a person to MatchEstate .
 
 Format: `addPerson n/NAME p/PHONE e/EMAIL`
 
@@ -240,11 +240,9 @@ Note on uniquely identifying Person:
 
 - `Phone` is used to uniquely identify a person, since phone numbers are a commonly used as a direct and personal means of contact. 
 
-- In contrast, `Email` is primarily used to send any legal documents regarding the transaction and thus may often use a shared organizational email. 
-As such, duplicate phone numbers are disallowed to prevent ambiguity, while duplicate emails are permitted.
+- In contrast, `Email` is primarily used to send any legal documents regarding the transaction and thus may often use a shared organizational email. As such, duplicate phone numbers are disallowed to prevent ambiguity, while duplicate emails are permitted.
 
-- `Name` represents the client's name for a real estate agent to address by, and does not need to be a full legal name. 
-Additionally since multiple people may share the same name, duplicates are allowed.
+- `Name` represents the client's name for a real estate agent to address by, and does not need to be a full legal name. Additionally since multiple people may share the same name, duplicates are allowed.
 
 </box>
 
@@ -259,7 +257,7 @@ Result:
 <br>![addPersonAfter](images/CS2103UG/addPersonAfter.png)
 
 #### Listing all persons: `listPerson`
-Shows a list of all persons in the matchEstate .
+Shows a list of all persons in the MatchEstate .
 
 Format: `listPerson`
 
@@ -271,7 +269,7 @@ Result:
 <br>![listPersonAfter](images/CS2103UG/listPersonAfter.png)
 
 #### Editing a person: `editPerson`
-Edits an existing person in the matchEstate.
+Edits an existing person in the MatchEstate.
 
 Format: `editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 
@@ -294,11 +292,9 @@ Note on uniquely identifying Person:
 
 - `Phone` is used to uniquely identify a person, since phone numbers are a commonly used as a direct and personal means of contact.
 
-- In contrast, `Email` is primarily used to send any legal documents regarding the transaction and thus may often use a shared organizational email.
-  As such, duplicate phone numbers are disallowed to prevent ambiguity, while duplicate emails are permitted.
+- In contrast, `Email` is primarily used to send any legal documents regarding the transaction and thus may often use a shared organizational email. As such, duplicate phone numbers are disallowed to prevent ambiguity, while duplicate emails are permitted.
 
-- `Name` represents the client's name for a real estate agent to address by, and does not need to be a full legal name.
-  Additionally since multiple people may share the same name, duplicates are allowed.
+- `Name` represents the client's name for a real estate agent to address by, and does not need to be a full legal name. Additionally since multiple people may share the same name, duplicates are allowed.
 
 </box>
 
@@ -359,7 +355,7 @@ Result:
 <br>![searchPersonTagAfter](images/CS2103UG/searchPersonTagAfter.png)
 
 #### Deleting a person: `deletePerson`
-Deletes the specified person from matchEstate, along with their property preferences and ownerships of listing.
+Deletes the specified person from MatchEstate, along with their property preferences and ownerships of listing.
 
 Format: `deletePerson PERSON_INDEX`
 
@@ -367,7 +363,7 @@ Input restriction:
 * `PERSON_INDEX` must be a positive integer within the bounds of the person list.
 
 Examples:
-* `deletePerson 2` deletes the 2nd person in matchEstate.
+* `deletePerson 2` deletes the 2nd person in MatchEstate.
 
 Result:
 * Before
@@ -379,7 +375,7 @@ Result:
 ### Listing Management
 
 #### Adding a listing: `addListing`
-Adds a property listing to matchEstate.
+Adds a property listing to MatchEstate.
 
 Format: `addListing pc/POSTAL_CODE (u/UNIT_NUMBER)(h/HOUSE_NUMBER)
 [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRICE] [n/PROPERTY_NAME] [t/TAG]... [nt/NEW_TAG]...`
@@ -501,7 +497,7 @@ Result:
 <br>![markUnavailableAfter](images/CS2103UG/markUnavailableAfter.png)
 
 #### Deleting a listing: `deleteListing`
-Deletes the specified listing from matchEstate.
+Deletes the specified listing from MatchEstate.
 
 Format: `deleteListing LISTING_INDEX`
 Format: `deleteListing LISTING_INDEX`
@@ -820,7 +816,7 @@ Result:
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous matchEstate home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MatchEstate home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
