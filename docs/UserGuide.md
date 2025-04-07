@@ -251,7 +251,7 @@ Examples:
 * `addPerson n/Bob Parker p/934 e/bobparker@example.com`
 * `addPerson n/John Doe p/98765432 e/johnd@example.com`
 
-Result:
+Result for `addPerson n/John Doe p/98765432 e/johnd@example.com`:
 * Before
 <br>![addPersonBefore](images/CS2103UG/addPersonBefore.png)
 
@@ -302,10 +302,10 @@ Note on uniquely identifying Person:
 
 Examples:
 * `editPerson 1 n/Betty Smith` Edits the name of the 1st person.
-* `editPerson 2 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 2nd person.
+* `editPerson 2 p/91234567 e/johndoe@example.com` edits the phone number and email address of the 2nd person.
 * `editPerson 3 n/Bob Parker p/+6581008383 e/bobparker@example.com` Edits the name, phone number and email address of the 3rd person.
 
-Result:
+Result for `editPerson 2 p/91234567 e/johndoe@example.com`:
 * Before
 <br>![editPersonBefore](images/CS2103UG/editPersonBefore.png)
 
@@ -330,7 +330,7 @@ Examples:
 * `searchPersonName John Doe` returns persons with names matching "John" or "Doe".
 * `searchPersonName John Doe Bob` returns persons with names matching "John", "Doe" or "Bob".
 
-Result:
+Result for `searchPersonName John Doe`:
 * Before
 <br>![searchPersonNameBefore](images/CS2103UG/searchPersonNameBefore.png)
 
@@ -354,7 +354,7 @@ Example:
 * `searchPersonTag t/gym` returns all persons who have at least one property preference containing the `gym` tag
 * `searchPersonTag t/gym t/pet-friendly` returns all persons who have at least one property preference containing both `gym` and `pet-friendly` tags.
 
-Result:
+Result for `searchPersonTag t/gym t/pet-friendly`:
 * Before
 <br>![searchPersonTagBefore](images/CS2103UG/searchPersonTagBefore.png)
 
@@ -404,7 +404,7 @@ Example:
 * `addListing pc/654321 h/12 lbp/300000 ubp/600000 n/Sunny Villa t/quiet t/pet-friendly nt/family-friendly nt/spacious`
 * `addListing pc/654321 u/10-12 lbp/30000 nt/spacious`
 
-Result:
+Result for `addListing pc/654321 h/12 lbp/300000 ubp/600000 n/Sunny Villa t/quiet t/pet-friendly nt/family-friendly nt/spacious`:
 * Before
 <br>![addListingBefore](images/CS2103UG/addListingBefore.png)
 
@@ -440,7 +440,7 @@ Example:
 * `searchListingTag t/pet-friendly` 
 * `searchListingTag t/pet-friendly t/pool` returns all listings **that contain ALL the specified tags (`pet-friendly` and `pool`)**.
 
-Result:
+Result for `searchListingTag t/pet-friendly t/pool`:
 * Before
 <br>![searchListingTagBefore](images/CS2103UG/searchListingTagBefore.png)
 
@@ -538,9 +538,9 @@ Input restriction:
 
 Example:
 * `addTag nt/family-friendly`
-* `addTag nt/family-friendly nt/spacious`
+* `addTag nt/elderly-friendly nt/vintage`
 
-Result:
+Result for `addTag nt/elderly-friendly nt/vintage`:
 * Before
 <br>![addTagBefore](images/CS2103UG/addTagBefore.png)
 
@@ -560,7 +560,7 @@ Example:
 * `deleteTag t/quiet`
 * `deleteTag t/quiet t/pet-friendly`
 
-Result:
+Result for `deleteTag t/quiet t/pet-friendly`:
 * Before
 <br>![deleteTagBefore](images/CS2103UG/deleteTagBefore.png)
 
@@ -586,7 +586,7 @@ Example:
 * `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
 * `addPreference 1 ubp/600000`
 
-Result:
+Result for * `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`:
 * Before
 <br>![addPreferenceBefore](images/CS2103UG/addPreferenceBefore.png)
 
@@ -627,9 +627,9 @@ Input restriction:
 
 Example:
 * `overwritePreferenceTag 3 2 t/2-bedrooms`
-* `overwritePreferenceTag 3 2 t/2-bedrooms nt/seaside-view`
+* `overwritePreferenceTag 2 1 nt/2-bedrooms nt/seaside-view`
 
-Result:
+Result for `overwritePreferenceTag 2 1 nt/2-bedrooms nt/seaside-view`:
 * Before
 <br>![overwritePreferenceTagBefore](images/CS2103UG/overwritePreferenceTagBefore.png)
 
@@ -666,9 +666,9 @@ Input restriction:
 
 Example:
 * `deletePreferenceTag 3 1 t/pet-friendly`
-* `deletePreferenceTag 3 1 t/pet-friendly t/pool`
+* `deletePreferenceTag 3 1 t/quiet t/cool`
 
-Result:
+Result for `deletePreferenceTag 3 1 t/quiet t/cool`:
 * Before
 <br>![deletePreferenceTagBefore](images/CS2103UG/deletePreferenceTagBefore.png)
 
@@ -690,10 +690,9 @@ Input restriction:
 
 Example:
 * `addListingTag 2 t/quiet`
-* `addListingTag 2 t/quiet nt/family-friendly`
-* `addListingTag 2 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
+* `addListingTag 2 t/quiet t/pet-friendly nt/spacious`
 
-Result:
+Result for `addListingTag 2 t/quiet t/pet-friendly nt/spacious`:
 * Before
 <br>![addListingTagBefore](images/CS2103UG/addListingTagBefore.png)
 
@@ -714,9 +713,9 @@ Input restriction:
 Example:
 * `overwriteListingTag 3 t/4-bedrooms`
 * `overwriteListingTag 3 nt/seaside-view`
-* `overwriteListingTag 3 t/4-bedrooms t/2-toilets nt/seaside-view`
+* `overwriteListingTag 2 nt/4-bedrooms nt/2-toilets nt/seaside-view`
 
-Result:
+Result for `overwriteListingTag 2 nt/4-bedrooms nt/2-toilets nt/seaside-view`:
 * Before
 <br>![overwriteListingTagBefore](images/CS2103UG/overwriteListingTagBefore.png)
 
@@ -735,9 +734,9 @@ Input restriction:
 
 Example:
 * `deleteListingTag 3 t/pet-friendly`
-* `deleteListingTag 3 t/pet-friendly t/pool`
+* `deleteListingTag 2 t/pet-friendly t/pool`
 
-Result:
+Result for `deleteListingTag 2 t/pet-friendly t/pool`:
 * Before
 <br>![deleteListingTagBefore](images/CS2103UG/deleteListingTagBefore.png)
 
