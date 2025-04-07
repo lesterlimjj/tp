@@ -6,7 +6,13 @@
 
 # MatchEstate User Guide
 
-MatchEstate allows tracking of buyers and sellers easily as well as their preferences and offerings respectively. It enables fast matching of buyers and sellers. It is tailored for those who prefer CLIs.
+**MatchEstate** is a desktop application tailored for **real estate agents** to efficiently manage buyers, sellers, their preferences, and property listings. It enables fast matching of buyers to suitable properties and vice versa. While it features a graphical interface, the app is optimized for users who prefer fast keyboard-based interactions using a Command Line Interface (CLI).
+
+There are two main types of user roles in the system:
+- **Buyers**: Represented by persons who have added property preferences (e.g., price range, tags).
+- **Sellers**: Represented by persons who are assigned as owners of property listings.
+
+> 💡 A person can be both a buyer and a seller in the system.
 
 ![matchEstate](images/CS2103UG/matchEstate.png)
 
@@ -115,14 +121,13 @@ MatchEstate allows tracking of buyers and sellers easily as well as their prefer
 **Search Owner’s Listings**  | Finds listings owned by a specific person      |`searchOwnerListing PERSON_INDEX`
 **Mark Available**| Marks Listing as available                     |`markAvailable LISTING_INDEX`
 **Mark Unavailable** | Marks listing as unavailable                   |`markUnavailable LISTING_INDEX`
-**Delete Listing** | Deletes the specified listing from matchEstate |`deletePerson LISTING_INDEX`
+**Delete Listing** | Deletes the specified listing from matchEstate |`deleteListing LISTING_INDEX`
 
 #### Tag Management
 
 | Command   | Description                                   | Usage |
 |-----------|-----------------------------------------------|-------|
 **Add Tags** | Adds new tags to the system            |`addTag nt/NEW_TAG...`
-**List Tags**  | Shows a list of all tags          |`listTag`
 **Delete Tags** | Deletes the specified tags from the system       |`deleteTag t/TAG...`
 
 #### Preference Management
@@ -208,8 +213,8 @@ Format: `addPerson n/NAME p/PHONE e/EMAIL`
 
 Input restriction:
 * `NAME` must start with a letter. 
-* `NAME` must only contain 2-50 characters that allow spaces, hyphens, full stops, or apostrophes.
-* `PHONE` must be between 1 to 15 digits. The digits can be prefixed with a `+` sign.
+* `NAME` must only contain 2-60 characters that allow spaces, hyphens, full stops, or apostrophes.
+* `PHONE` must be between 3-15 digits. The digits can be prefixed with a `+` sign.
 * `EMAIL` must be in a valid format like `name@domain` or `name@domain.com`.
 
 Examples:
@@ -242,8 +247,8 @@ Format: `editPerson PERSON_INDEX [n/NAME]{1} [p/PHONE]{1} [e/EMAIL]{1}`
 Input restriction:
 * `PERSON_INDEX` must be a positive integer within the bounds of the person list.
 * `NAME` must start with a letter.
-* `NAME` must only contain letters, spaces, hyphens, full stops, or apostrophes.
-* `PHONE` must be numeric and at least 3-15 digits.
+* `NAME` must only contain 2-60 characters that allow spaces, hyphens, full stops, or apostrophes.
+* `PHONE` must be between 3-15 digits. The digits can be prefixed with a `+` sign.
 * `EMAIL` must be in a valid format like `name@example` or `name@example.com`.
 
 Examples:
@@ -263,8 +268,11 @@ Format: `searchPersonName KEYWORD [MORE_KEYWORDS]`
 
 Input restriction:
 * The search is case-insensitive.
-* `KEYWORD` and `MORE_KEYWORDS` must contain only letters, spaces, hyphens, full stops, or apostrophes.
+* `KEYWORD` and `MORE_KEYWORDS` must contain only letters, hyphens, full stops, or apostrophes.
 * Every `KEYWORD` and `MORE_KEYWORDS` can only start with a letter.
+
+> ⚠️ **Note:** Each new search command will override the results of the previous search.  
+For example, if you perform a `searchListingTag` followed by another `searchOwnerListing`, only the results from the second `searchOwnerListing` will be applied to all data. The filters do not stack.
 
 Examples:
 * `searchPersonName John Doe` returns persons with names matching "John" or "Doe"
@@ -283,10 +291,14 @@ Format: `searchPersonTag t/TAG...`
 
 Input restriction:
 * The search is case-insensitive.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. 
+* The tag cannot be blank and must already exist.
+
+> ⚠️ **Note:** Each new search command will override the results of the previous search.  
+For example, if you perform a `searchListingTag` followed by another `searchOwnerListing`, only the results from the second `searchOwnerListing` will be applied to all data. The filters do not stack.
 
 Example:
-* `searchPersonTag t/gym t/pet-friendly` returns all persons who have both `gym` and `pet-friendly` tags.
+* `searchPersonTag t/gym t/pet-friendly` returns all persons **who have at least one property preference that contains ALL the specified tags (`gym` and `pet-friendly`)**.
 
 Result:
 * Before
@@ -329,7 +341,9 @@ Input restriction:
 * A house number must not be specified with a unit number.
 * `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given for a price, the price will be unbounded.
 * `PROPERTY_NAME` must be between 2 and 100 characters long and can only contain letters, numbers, apostrophes, periods, hyphens, and spaces.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` and `NEW_TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands.
+* `TAG` tag cannot be blank and must already exist.
+* `NEW_TAG` tag cannot be blank and must not already exist.
 
 Example:
 * `addListing pc/654321 h/12 lbp/300000 ubp/600000 n/Sunny Villa t/quiet t/pet-friendly nt/family-friendly nt/spacious`
@@ -360,10 +374,14 @@ Format: `searchListingTag t/TAG...`
 
 Input restriction:
 * The search is case-insensitive.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. 
+* The tag cannot be blank and must already exist.
+
+> ⚠️ **Note:** Each new search command will override the results of the previous search.  
+For example, if you perform a `searchListingTag` followed by another `searchOwnerListing`, only the results from the second `searchOwnerListing` will be applied to all data. The filters do not stack.
 
 Example:
-* `searchListingTag t/pet-friendly t/pool`
+* `searchListingTag t/pet-friendly t/pool` returns all listings **that contain ALL the specified tags (`pet-friendly` and `pool`)**.
 
 Result:
 * Before
@@ -380,6 +398,9 @@ Format: `searchOwnerListing PERSON_INDEX`
 Input restriction:
 * The search is case-insensitive.
 * `PERSON_INDEX` must be a positive integer within the bounds of person list.
+
+> ⚠️ **Note:** Each new search command will override the results of the previous search.  
+For example, if you perform a `searchListingTag` followed by another `searchOwnerListing`, only the results from the second `searchOwnerListing` will be applied to all data. The filters do not stack.
 
 Example:
 * `searchOwnerListing 2`
@@ -455,7 +476,8 @@ Adds new tags to the system.
 Format: `addTag nt/NEW_TAG...`
 
 Input restriction:
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `NEW_TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands.
+* `NEW_TAG` tag cannot be blank and must not already exist.
 
 Example:
 * `addTag nt/elderly-friendly nt/vintage`
@@ -467,25 +489,14 @@ Result:
 * After
 <br>![addTagAfter](images/CS2103UG/addTagAfter.png)
 
-#### Listing all tags: `listTag`
-Shows a list of all available tags.
-
-Format: `listTag`
-
-Result:
-* Before
-<br>![listTagBefore](images/CS2103UG/listTagBefore.png)
-
-* After
-<br>![listTagAfter](images/CS2103UG/listTagAfter.png)
-
 #### Deleting tags: `deleteTag`
 Deletes the specified tags from the system.
 
 Format: `deleteTag t/TAG...`
 
 Input restriction:
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. 
+* The tag cannot be blank and must already exist.
 
 Example:
 * `deleteTag t/quiet t/pet-friendly`
@@ -507,8 +518,9 @@ Format: `addPreference PERSON_INDEX [lbp/LOWER_BOUND_PRICE] [ubp/UPPER_BOUND_PRI
 Input restriction:
 * `PERSON_INDEX ` must be a positive integer within the bounds of person list.
 * `LOWER_BOUND_PRICE` and `UPPER_BOUND_PRICE` must be a non-negative number with up to 2 decimal places. If no value is given for a price, the price will be unbounded.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
-Format: `addPreference PERSON_INDEX lbp/LOWER_BOUND_PRICE ubp/UPPER_BOUND_PRICE [t/TAG]... [nt/NEW_TAG]...`
+* `TAG` and `NEW_TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands.
+* `TAG` tag cannot be blank and must already exist.
+* `NEW_TAG` tag cannot be blank and must not already exist.
 
 Example:
 * `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
@@ -527,7 +539,9 @@ Format: `addPreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/NEW_TA
 
 Input restriction:
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` and `NEW_TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands.
+* `TAG` tag cannot be blank and must already exist.
+* `NEW_TAG` tag cannot be blank and must not already exist.
 
 Example:
 * `addPreferenceTag 1 1 t/quiet t/pet-friendly t/cool`
@@ -546,7 +560,9 @@ Format: `overwritePreferenceTag PERSON_INDEX PREFERENCE_INDEX [t/TAG]{1}... [nt/
 
 Input restriction:
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` and `NEW_TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands.
+* `TAG` tag cannot be blank and must already exist.
+* `NEW_TAG` tag cannot be blank and must not already exist.
 
 Example:
 * `overwritePreferenceTag 2 1 nt/2-bedrooms nt/seaside-view`
@@ -583,7 +599,8 @@ Format: `deletePreferenceTag PERSON_INDEX PREFERENCE_INDEX t/TAG...`
 
 Input restriction:
 * `PERSON_INDEX` and `PREFERENCE_INDEX` must be a positive integer within the bounds of the person list and that person's preference list respectively.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. 
+* The tag cannot be blank and must already exist.
 
 Example:
 * `deletePreferenceTag 3 1 t/quiet t/cool`
@@ -604,7 +621,9 @@ Format: `addListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
 * `LISTING_INDEX` must be a positive integer within the bounds of the listings list.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` and `NEW_TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands.
+* `TAG` tag cannot be blank and must already exist.
+* `NEW_TAG` tag cannot be blank and must not already exist.
 
 Example:
 * `addListingTag 2 t/quiet t/pet-friendly nt/spacious`
@@ -623,7 +642,9 @@ Format: `overwriteListingTag LISTING_INDEX [t/TAG]{1}... [nt/NEW_TAG]{1}...`
 
 Input restriction:
 * `LISTING_INDEX` must be a positive integer within the bounds of the listings list.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` and `NEW_TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands.
+* `TAG` tag cannot be blank and must already exist.
+* `NEW_TAG` tag cannot be blank and must not already exist.
 
 Example:
 * `overwriteListingTag 2 nt/4-bedrooms nt/2-toilets nt/seaside-view`
@@ -642,7 +663,8 @@ Format: `deleteListingTag LISTING_INDEX t/TAG...`
 
 Input restriction:
 * `LISTING_INDEX ` must be a positive integer within the bounds of the listings list.
-* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. The tag cannot be blank and must not already exist.
+* `TAG` must be between 2 and 30 characters long and can only contain letters, numbers, apostrophes, spaces, periods, hyphens, underscores, plus, and ampersands. 
+* The tag cannot be blank and must already exist.
 
 Example:
 * `deleteListingTag 2 t/pet-friendly t/pool`
