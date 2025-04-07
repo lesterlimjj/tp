@@ -92,16 +92,6 @@ public class UniqueListingList implements Iterable<Listing> {
     }
 
     /**
-     * Replaces the contents of this list with {@code replacement}.
-     *
-     * @param replacement The replacement UniqueListingList which already ensures no duplicates.
-     */
-    public void setListings(UniqueListingList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
-    /**
      * Replaces the contents of this list with {@code listings}.
      * {@code listings} must not contain duplicate listings.
      *

@@ -13,7 +13,13 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+This project is **based on the AddressBook-Level3 project** created by the [SE-EDU initiative](https://se-education.org).
+
+Generative AI tools such as chatgpt and GitHub Copilot were selectively used to support the development process, specifically for:
+* Drafting and refining JUnit test cases
+* Enhancing JavaDoc clarity
+
+The main implementation and logic were independently developed and verified by the project team.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -227,7 +233,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" width="700" />
 
 The `Storage` component,
 * stores match estate data and user preferences locally on disk in JSON format, and reads them back into the model when needed.
@@ -497,14 +503,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Extensions**
-
-* 1a. The list is empty.
-
-  * 1a1. MatchEstate displays a message for an empty list.
-
-    Use case resumes at 3.
-
 #### Use case: UC02 - List listings
 
 Similar to <u>UC01</u> except for listings instead.
@@ -517,14 +515,6 @@ Similar to <u>UC01</u> except for listings instead.
 
     Use case ends.
 
-**Extensions**
-
-* 1a. The list is empty.
-
-  * 1a1. MatchEstate displays a message for an empty list.
-
-    Use case resumes at 3.
-
 #### Use case: UC03 - List tag
 
 Similar to <u>UC01</u> except for tags instead.
@@ -536,14 +526,6 @@ Similar to <u>UC01</u> except for tags instead.
 3.  MatchEstate displays a success message.
 
     Use case ends.
-
-**Extensions**
-
-* 1a. The list is empty.
-
-  * 1a1. MatchEstate displays a message for an empty list.
-
-    Use case resumes at 3.
 
 #### Use case: UC04 - Add a person
 
@@ -1473,8 +1455,15 @@ Similar to <u>UC27</u> except for a listing.
 9.  All data changes should be automatically saved to prevent data loss in the event of an application crash or closure.
 10.  The application should fail gracefully in most cases. However, as the application is intended for a single offline user, malicious manipulations of the data file is not an anticipated behaviour. Therefore, handling corrupted data files is a ‘good to have’ and not in scope.
 
+
 ### Glossary
 
+* **CLI**: Command Line Interface, is a text-based user interface where users type commands.
+* **FXML**: A markup language used to define the layout of JavaFX UI components.
+* **GUI**: Graphical User Interface, is a graphical-based user interface where users can interact with the application.
+* **Jackson**: A Java library used to serialize/deserialize model classes to/from JSON in the Storage component.
+* **Java**: A general-purpose, object-oriented programming language used to develop the MatchEstate application.
+* **JSON**: JavaScript Object Notation, is a lightweight data-interchange format used to store and transfer data.
 * **Listing**: Entry of a property that is currently on the market. Contains property
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
 * **Owner**: A person associated with a listing to indicate they are selling the property. A listing can have multiple owners.
