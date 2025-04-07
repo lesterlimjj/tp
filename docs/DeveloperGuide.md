@@ -428,8 +428,8 @@ These are features still in consideration about whether to be implemented.
   * Pros: Allows users from searching by space separated keywords.
   * Cons: Prevents users from specifying multiple keywords.
 
-* **Alternative 2:** New command format of `searchPersonName n/Name…`
-  * Pros: Allows users to specify multiple space separated keywords at once. Prefix tag might be more appropriate for such a command.
+* **Alternative 2:** New command format of `searchPersonName n/Name…`, for example `searchPersonName n/Alex Yeoh n/John Doe`
+  * Pros: Allows users to specify multiple space separated names at once. Prefix tag might be more appropriate for such a command.
   * Cons: Requires significant changes from AB3 legacy code.
 
 ### \[Consideration\] Applying multiple search/match filters concurrently
