@@ -430,7 +430,7 @@ These are features still in consideration about whether to be implemented.
 
 * **Alternative 2:** New command format of `searchPersonName n/Name…`, for example `searchPersonName n/Alex Yeoh n/John Doe`
   * Pros: Allows users to specify multiple space separated names at once. Prefix tag of `n/` might be more appropriate for such a command.
-  * Cons: Requires significant changes from AB3 legacy code.
+  * Cons: Requires significant changes from AB3 legacy code. Not a priority.
 
 ### \[Consideration\] Applying multiple search/match filters concurrently
 
@@ -446,6 +446,25 @@ These are features still in consideration about whether to be implemented.
   * Pros: Allows users more control over filtering
   * Cons: Hard to implement. Creates complex predicates. Requires listing all to apply a new search on all items.
 
+### \[Consideration\] Filtering tags in tags list
+
+#### Design considerations:
+
+**Issue:** Users may add many tags and scrolling through said list to find a specific tag may be tedious.
+
+* **Current implementation:** No filter.
+  * Pros: Users are always shown all the tags available.
+  * Cons: Prevents users from filtering the tags.
+
+* **Alternative 1:** SearchTagName command.
+  * Pros: Allows users to look for a specific tag to easily determine if it exists or to reference the number of usage.
+  * Cons: Not a priority.
+
+<box type="info" seamless>
+
+**Note:** A list tag command is already created which should be useful in listing all tags after a searchTagName command, however it is currently disconnected from use by the user.
+
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 
