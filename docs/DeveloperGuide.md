@@ -1470,7 +1470,7 @@ Similar to <u>UC27</u> except for a listing.
 
 * 3a. The listing index is invalid.
 
-  * 2a1. MatchEstate shows an error message.
+  * 3a1. MatchEstate shows an error message.
 
   Use case ends.
 
