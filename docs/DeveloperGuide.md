@@ -369,11 +369,11 @@ The edit listing command allows users to edit the details of an existing listing
 The edit operation will update the listing's details while maintaining its existing tags, owners and availability status. The system can ensure that no duplicate listings can be created through this command by checking the postal code and unit/house number combination.
 
 ### \[Proposed\] Edit Preference command
-The edit preference command allows users to edit the details of an existing preference. This command is useful when users want to update information such as price range or tags of a preference. The following sequence diagram shows how the merge tag command works:
+The edit preference command allows users to edit the details of an existing preference. This command is useful when users want to update information such as the price range of a preference. The following sequence diagram shows how the edit preference command works:
 
 <puml src="diagrams/EditPreferenceSequenceDiagram.puml" alt="EditPreferenceSequenceDiagram" />
 
-The associated Person and tags will be updated to reflect the new preference details.
+The associated Person and Tags will be updated to reflect the new preference details.
 
 Note that getters would need to be added to Price Range for this command to work.
 
