@@ -586,7 +586,7 @@ Example:
 * `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`
 * `addPreference 1 ubp/600000`
 
-Result for * `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`:
+Result for `addPreference 2 lbp/300000 ubp/600000 t/quiet t/pet-friendly nt/family-friendly nt/spacious`:
 * Before
 <br>![addPreferenceBefore](images/CS2103UG/addPreferenceBefore.png)
 
