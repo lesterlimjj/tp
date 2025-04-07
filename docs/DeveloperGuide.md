@@ -588,13 +588,12 @@ Similar to <u>UC01</u> except for listings instead.
 
 #### Use case: UC03 - List tag
 
-Similar to <u>UC01</u> except for tags instead.
+Similar to <u>UC01</u> except for tags and is always displayed as there is no filter and hence, no user request step is required.
 
 **MSS**
 
-1.  User requests to list tags.
-2.  MatchEstate shows a list of tags.
-3.  MatchEstate displays a success message.
+1.  MatchEstate shows a list of tags.
+2.  MatchEstate displays a success message.
 
     Use case ends.
 
@@ -705,7 +704,7 @@ Similar to <u>UC04</u> except for tags instead.
 
 1.  User requests to <u>list persons(UC01)</u>.
 2.  User requests to <u>list listings(UC02)</u>.
-3.  User requests add a specified person to a specified listing.
+3.  User requests to add a specified person to a specified listing.
 4.  MatchEstate adds the person to the listing.
 5.  MatchEstate displays a success message.
 
@@ -725,6 +724,13 @@ Similar to <u>UC04</u> except for tags instead.
 
   Use case ends.
 
+* 3c. The listing is already owned by the person.
+
+  * 3c1. MatchEstate shows an error message.
+  
+  Use case ends.
+
+
 #### Use case: UC08 - Add property preference to person
 
 Similar to <u>UC05</u> except listing persons and adding property preference to the specified person. Note that preferences can be duplicates, so there are no extensions for it already existing.
@@ -737,7 +743,7 @@ Similar to <u>UC05</u> except listing persons and adding property preference to 
 4.  MatchEstate adds a new property preference to the person.
 5.  MatchEstate creates new tags.
 6.  MatchEstate adds the tags to the property preference.
-7.  MatchEstate updates the usage number of the tags
+7.  MatchEstate updates the usage number of the tags.
 8.  MatchEstate displays a success message.
 
     Use case ends.
@@ -1038,25 +1044,25 @@ Similar to <u>UC08</u> but removes instead of adds. Note that tags are appropria
 
 * 2b. The listing does not have tags.
 
-  Use case resumes at 5.
+  Use case resumes at 4.
 
 * 2c. The listing does not have tags and has no owner.
 
-  Use case resumes at 6.
+  Use case resumes at 5.
 
-* 2b. The listing does not have tags and has no owner.
+* 3a. The listing has no owner.
 
-  Use case resumes at 6.
+  Use case resumes at 5.
 
 #### Use case: UC16 - Delete person
 
 **MSS**
 
 1.  User requests to <u>list persons(UC01)</u>.
-2.  User requests to delete a specific person by index.
+2.  User requests to delete a person.
 3.  MatchEstate updates the usage number of tags used by the person’s property preferences.
 4.  MatchEstate deletes the person’s property preferences.
-5.  MatchEstate deletes ownership of listing for all of the person’s listing.
+5.  MatchEstate deletes ownership of listing for all of the person’s listings.
 6.  MatchEstate deletes the person.
 7.  MatchEstate displays a success message.
 
@@ -1260,8 +1266,8 @@ Similar to <u>UC21</u> except for listings instead.
 2.  User requests to <u>list tags(UC03)</u>.
 3.  User requests to overwrite the tags of a listing with new and existing tags.
 4.  MatchEstate creates new tags.
-5.  MatchEstate removes all tags from the listings.
-6. MatchEstate adds the tags specified to the listings.
+5.  MatchEstate removes all tags from the listing.
+6.  MatchEstate adds the tags specified to the listing.
 7.  MatchEstate updates the usage number of the tags
 8.  MatchEstate displays a success message.
 
@@ -1301,7 +1307,7 @@ Similar to <u>UC21</u> except for listings instead.
 
   Use case resumes at 6.
 
-* 4a. Property preference has no tags.
+* 4a. The listing has no tags.
 
   Use case resumes at 6.
 
@@ -1416,11 +1422,6 @@ Similar to <u>UC24</u> except for property preferences.
 
   Use case ends.
 
-* 4a. No listing has the specified owner.
-
-  * 4a1. MatchEstate displays a message indicating no results.
-
-  Use case ends.
 
 #### Use case: UC27 - Match for preference
 
@@ -1437,23 +1438,18 @@ Similar to <u>UC24</u> except for property preferences.
 
 **Extensions**
 
-* 2a. The person index is invalid.
+* 3a. The person index is invalid.
 
-  * 2a1. MatchEstate shows an error message.
-
-  Use case ends.
-
-* 2b. The property preference index is invalid.
-
-  * 2b1. MatchEstate shows an error message.
+  * 3a1. MatchEstate shows an error message.
 
   Use case ends.
 
-* 4a. No listings match the specified property preference.
+* 3b. The property preference index is invalid.
 
-  * 4a1. MatchEstate displays a message indicating no results.
+  * 3b1. MatchEstate shows an error message.
 
   Use case ends.
+
 
 #### Use case: UC28 - Match for listing
 
@@ -1464,7 +1460,7 @@ Similar to <u>UC27</u> except for a listing.
 1.  User requests to list <u>list persons(UC01)</u>.
 2.  User requests to list <u>list listings(UC02)</u>.
 3.  User specifies a listing to find a matching property preference across all persons.
-4.  MatchEstate filters the list of property preferences, displaying persons who do not own the listing, based on if any tags and price range of any of their preferences matches the listing.
+4.  MatchEstate filters the list of property preferences, displaying persons who do not own the listing, based on if any tags and price range of their preferences matches the listing.
 5.  MatchEstate sorts the filtered persons by the highest number of matching criteria in their preferences.
 6.  MatchEstate displays a success message.
 
@@ -1472,17 +1468,12 @@ Similar to <u>UC27</u> except for a listing.
 
 **Extensions**
 
-* 2a. The listing index is invalid.
+* 3a. The listing index is invalid.
 
   * 2a1. MatchEstate shows an error message.
 
   Use case ends.
 
-* 4a. No persons have a property preference that matches the specified listing.
-
-  * 4a1. MatchEstate displays a message indicating no results.
-
-  Use case ends.
 
 #### Use case: UC29 - Clear data
 
