@@ -375,6 +375,9 @@ The edit preference command allows users to edit the details of an existing pref
 
 The associated Person and tags will be updated to reflect the new preference details.
 
+Note that getters would need to be added to Price Range for this command to work.
+
+
 ### \[Proposed\] Merge tag command
 The merge tag command allows users to merge an existing tag into another existing tag. This command is useful when users want to merge two similarly named tags. One consideration is to subsume this proposal into the proposed edit tag command, however this results in the possibility of users accidentally merging two distinct tags, when they intended to rename if a tag does not exist. The following sequence diagram shows how the merge tag command works:
 
