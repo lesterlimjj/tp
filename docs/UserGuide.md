@@ -179,7 +179,7 @@ Opens a second window displaying all the command usages and explaining how to ac
 
 Format: `help`
 
-Result:
+Result for `help`:
 ![help message](images/helpMessage.png)
 
 #### Clearing all data: `clear`
@@ -187,7 +187,7 @@ Clears all entries from the address book.
 
 Format: `clear`
 
-Result:
+Result for `clear`:
 * Before
 <br>![clearBefore](images/CS2103UG/clearBefore.png)
 
@@ -263,7 +263,7 @@ Shows a list of all persons in the MatchEstate .
 
 Format: `listPerson`
 
-Result:
+Result for `listPerson`:
 * Before
 <br>![listPersonBefore](images/CS2103UG/listPersonBefore.png)
 
@@ -372,7 +372,7 @@ Input restriction:
 Examples:
 * `deletePerson 2` deletes the 2nd person in MatchEstate.
 
-Result:
+Result for `deletePerson 2`:
 * Before
 <br>![deletePersonBefore](images/CS2103UG/deletePersonBefore.png)
 
@@ -416,7 +416,7 @@ Shows a list of all property listings.
 
 Format: `listListing`
 
-Result:
+Result for `listListing`:
 * Before
 <br>![listListingBefore](images/CS2103UG/listListingBefore.png)
 
@@ -462,7 +462,7 @@ For example, if you perform a `searchListingTag` followed by another `searchOwne
 Example:
 * `searchOwnerListing 2`
 
-Result:
+Result for `searchOwnerListing 2`:
 * Before
 <br>![searchOwnerListingBefore](images/CS2103UG/searchOwnerListingBefore.png)
 
@@ -480,7 +480,7 @@ Input restriction:
 Example:
 * `markAvailable 1`
 
-Result:
+Result for `markAvailable 1`:
 * Before
   <br>![markAvailableBefore](images/CS2103UG/markAvailableBefore.png)
 
@@ -499,7 +499,7 @@ Input restriction:
 Example:
 * `markUnavailable 2`
 
-Result:
+Result for `markUnavailable 2`:
 * Before
 <br>![markBefore](images/CS2103UG/markBefore.png)
 
@@ -518,7 +518,7 @@ Input restriction:
 Example:
 * `deleteListing 1`
 
-Result:
+Result for `deleteListing 1`:
 * Before
 <br>![deleteListingBefore](images/CS2103UG/deleteListingBefore.png)
 
@@ -605,9 +605,11 @@ Input restriction:
 * `NEW_TAG` tag cannot be blank and must not already exist.
 
 Example:
+* `addPreferenceTag 1 1 t/quiet`
+* `addPreferenceTag 1 1 nt/cool`
 * `addPreferenceTag 1 1 t/quiet t/pet-friendly t/cool`
 
-Result:
+Result for `addPreferenceTag 1 1 t/quiet t/pet-friendly t/cool`:
 * Before
 <br>![addPreferenceTagBefore](images/CS2103UG/addPreferenceTagBefore.png)
 
@@ -648,7 +650,7 @@ Input restriction:
 Example:
 * `deletePreference 2 1`
 
-Result:
+Result for `deletePreference 2 1`:
 * Before
 <br>![deletePreferenceBefore](images/CS2103UG/deletePreferenceBefore.png)
 
@@ -761,7 +763,7 @@ Input restriction:
 Example:
 * `matchPreference 2 1`
 
-Result:
+Result for `matchPreference 2 1`:
 * Before
 <br>![matchPreferenceBefore](images/CS2103UG/matchPreferenceBefore.png)
 
@@ -786,7 +788,7 @@ Input restriction:
 Example:
 * `matchListing 1`
 
-Result:
+Result for `matchListing 1`:
 * Before
 <br>![matchListingBefore](images/CS2103UG/matchListingBefore.png)
 
@@ -807,7 +809,7 @@ Input restriction:
 Example:
 * `addOwner 2 1`
 
-Result:
+Result for `addOwner 2 1`:
 * Before
 <br>![addOwnerBefore](images/CS2103UG/addOwnerBefore.png)
 
@@ -825,7 +827,7 @@ Input restriction:
 Example:
 * `deleteOwner 1 1`
 
-Result:
+Result for `deleteOwner 1 1`:
 * Before
 <br>![deleteOwnerBefore](images/CS2103UG/deleteOwnerBefore.png)
 
