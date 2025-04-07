@@ -1,6 +1,5 @@
 package seedu.address.model.search;
 
-import static java.util.Collections.unmodifiableSet;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -123,10 +122,6 @@ public class SearchContext {
         this.searchType = searchType;
     }
 
-    public Set<Tag> getActiveTags() {
-        return unmodifiableSet(activeTags);
-    }
-
     /**
      * @throws NullPointerException if tags is null or contains null elements
      */
@@ -136,16 +131,8 @@ public class SearchContext {
         this.activeTags.addAll(tags);
     }
 
-    public PriceRange getActivePriceRange() {
-        return activePriceRange;
-    }
-
     public void setActivePriceRange(PriceRange range) {
         this.activePriceRange = range; // intentionally allowing null
-    }
-
-    public Predicate<PropertyPreference> getPropertyPreferencePredicate() {
-        return propertyPreferencePredicate;
     }
 
     /**
@@ -155,14 +142,5 @@ public class SearchContext {
         this.propertyPreferencePredicate = requireNonNull(predicate);
     }
 
-    /* Helper Methods */
 
-    /**
-     * Creates a default search context with no active filters.
-     */
-    public static SearchContext createDefault() {
-        SearchContext context = new SearchContext();
-        context.clear();
-        return context;
-    }
 }

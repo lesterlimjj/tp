@@ -70,7 +70,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'addressbook.jar'
+    archiveFileName = 'matchestate.jar'
 }
 
 defaultTasks 'clean', 'test'

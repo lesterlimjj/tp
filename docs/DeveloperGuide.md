@@ -503,14 +503,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Extensions**
-
-* 1a. The list is empty.
-
-  * 1a1. MatchEstate displays a message for an empty list.
-
-    Use case resumes at 3.
-
 #### Use case: UC02 - List listings
 
 Similar to <u>UC01</u> except for listings instead.
@@ -523,14 +515,6 @@ Similar to <u>UC01</u> except for listings instead.
 
     Use case ends.
 
-**Extensions**
-
-* 1a. The list is empty.
-
-  * 1a1. MatchEstate displays a message for an empty list.
-
-    Use case resumes at 3.
-
 #### Use case: UC03 - List tag
 
 Similar to <u>UC01</u> except for tags instead.
@@ -542,14 +526,6 @@ Similar to <u>UC01</u> except for tags instead.
 3.  MatchEstate displays a success message.
 
     Use case ends.
-
-**Extensions**
-
-* 1a. The list is empty.
-
-  * 1a1. MatchEstate displays a message for an empty list.
-
-    Use case resumes at 3.
 
 #### Use case: UC04 - Add a person
 
